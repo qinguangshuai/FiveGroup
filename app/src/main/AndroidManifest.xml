@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bw.movie">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -44,6 +47,8 @@
         <activity android:name=".my.myoption.activity.MyOpitionActivity" />
         <activity android:name=".my.mylatest.activity.MyLatestVersionActivity" />
         <activity android:name=".my.myinfo.activity.UpdataInfoActivity"/>
+        <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity"/>
+        <activity android:name=".my.ticket.activity.Ticket_nformationActivity"></activity>
         <activity
             android:name=".ShowActivity"
             tools:ignore="WrongManifestParent" />
@@ -52,6 +57,15 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6ad11ccb906ec62b5b106ae673d9d41c" />
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            >
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

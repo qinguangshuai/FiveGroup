@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
+import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.WXUser;
 import com.bw.movie.wxapi.presenter.WXPresenter;
@@ -33,10 +34,11 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     //    private LoginPresenter mLoginPresenter;
     private static final String TAG = "WXEntryActivity";
 
-    public static String code;
     private static final int REQUESTMSG = 0;
     private String message;
     private WXPresenter mWxPresenter;
+    private WXUser mWxUser1;
+    private String mCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         WeiXinUtil.success(WXEntryActivity.this).handleIntent(getIntent(), this);
 //        mLoginPresenter = new LoginPresenter(this);
         mWxPresenter = new WXPresenter(this);
-        mWxPresenter.postWX(code);
+
     }
 
     @Override
@@ -60,17 +62,18 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     public void onResp(final BaseResp baseResp) {
         switch (baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                runOnUiThread(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         //得到code
-                        code = ((SendAuth.Resp) baseResp).code;
+                        mCode = ((SendAuth.Resp) baseResp).code;
 //                        LogUtil.d("==1111111" + code);
-
-                        Log.d(TAG,"==1111111     "+ code);
-
+                        Log.d(TAG,"==1111111     "+ mCode);
+                        mWxPresenter.postWX(mCode);
                     }
                 });
+
+
 
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
@@ -89,7 +92,8 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
+                    Toast.makeText(WXEntryActivity.this,mWxUser1.getMessage(),Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(WXEntryActivity.this,ShowActivity.class));
                     break;
                 case 2:
 
@@ -100,9 +104,8 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
     @Override
     public void onDataSuccess(WXUser wxUser) {
-        String message = wxUser.getMessage();
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(WXEntryActivity.this,ShowActivity.class));
+        mWxUser1 = wxUser;
+        handler.sendEmptyMessage(1);
     }
 
     @Override
