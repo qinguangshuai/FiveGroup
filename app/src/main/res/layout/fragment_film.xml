@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+
+    <!-- 影片  页面 -->
+
+
+
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/RecyclerView_filefragment"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+
+
+
+   </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+
+
+</RelativeLayout>

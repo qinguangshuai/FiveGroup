@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:paddingLeft="@dimen/dp_10"
+        android:id="@+id/update_oldpwd"
+        android:hint="请输入老密码"
+        android:background="@drawable/shape"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:textColor="#333"
+        android:layout_marginTop="@dimen/dp_100"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:paddingLeft="@dimen/dp_10"
+        android:id="@+id/update_newPwd"
+        android:hint="请输入新密码"
+        android:background="@drawable/shape"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:textColor="#333"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:paddingLeft="@dimen/dp_10"
+        android:id="@+id/update_recoverpwd"
+        android:hint="重复新密码"
+        android:background="@drawable/shape"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:textColor="#333"
+        android:layout_marginTop="@dimen/dp_30"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_option_button"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_200"
+        android:text="修改密码返回"
+        android:id="@+id/updatePwdback"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/miMaBack"
+        android:src="@drawable/idea_activity_back"
+        />
+</LinearLayout>

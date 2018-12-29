@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_10"
+    >
+
+
+    <!--轮播图 搜索框 定位栏 按钮 布局 + 边框   -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_186"
+            android:background="@mipmap/xxhdpi_filebacnground">
+
+            <CheckBox
+                android:id="@+id/Positioning_item_carouse"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_margin="@dimen/sp_12"
+                android:button="@mipmap/com_icon_loc_white_default_hdpi"
+                android:padding="@dimen/dp_5"
+                android:text="北京"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.bw.movie.custom.SearchView
+                android:id="@+id/search_item_carouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:paddingTop="@dimen/dp_20">
+
+            </com.bw.movie.custom.SearchView>
+
+        </LinearLayout>
+
+        <recycler.coverflow.RecyclerCoverFlow
+            android:id="@+id/RecyclerCoverFlow_item_carouse"
+            android:layout_width="@dimen/dp_312"
+            android:layout_height="@dimen/dp_223"
+            android:layout_gravity="center"
+            android:layout_marginTop="-145dp">
+
+        </recycler.coverflow.RecyclerCoverFlow>
+
+
+        <com.bw.movie.custom.ScrollView
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:id="@+id/customScrollView_item_carouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_20">
+
+        </com.bw.movie.custom.ScrollView>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

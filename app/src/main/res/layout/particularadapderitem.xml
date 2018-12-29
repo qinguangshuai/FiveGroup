@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <recycler.coverflow.RecyclerCoverFlow
+        android:id="@+id/RecyclerCoverFlow_adapder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_223"
+        android:layout_gravity="center"
+
+        
+        />
+    <com.bw.movie.custom.ScrollView
+        android:id="@+id/customScrollView_fragmentfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@id/RecyclerCoverFlow_adapder"
+        android:layout_marginTop="@dimen/dp_20">
+    </com.bw.movie.custom.ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/FindMovieScheduleListrecy"
+        android:layout_width="match_parent"
+        android:layout_below="@id/customScrollView_fragmentfile"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_marginRight="-280dp"
+    android:id="@+id/cumtomlinear"
+    android:layout_gravity="right"
+    android:background="@drawable/shapesearch"
+    android:layout_width="@dimen/dp_300"
+    android:layout_height="@dimen/dp_24">
+
+
+    <!--自定义 搜索框  长度 有所调整 -->
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_1"
+            android:id="@+id/cumtomsearch"
+            android:padding="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@mipmap/com_icon_search_default_hdpi"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20" />
+
+
+        <EditText
+            android:id="@+id/cumtomedittext"
+            android:textColor="#f2f2f2"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:hint="铁血战士"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:textSize="12sp"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/cumtomresult"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:text="搜索"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+</LinearLayout>

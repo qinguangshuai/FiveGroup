@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="@drawable/shapescroll"
+    android:layout_height="wrap_content">
+
+    <!--自定义 滚动条 点击可以 有动画 -->
+
+    <CheckBox
+        android:button="@null"
+        android:id="@+id/customscrollbar"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="3dp"
+        android:background="@drawable/shapescrollbar" />
+
+
+
+
+</LinearLayout>

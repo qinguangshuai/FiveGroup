@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_10"
+    android:background="@drawable/part_adapder_shape_8"
+    android:orientation="vertical">
+    <TextView
+        android:text="ssssssssssss"
+        android:id="@+id/video_holl"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/dp_16"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="212121"
+            android:textSize="@dimen/dp_20"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-------"/>
+        <TextView
+            android:id="@+id/overtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_16"
+            android:text="1223"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_18"
+            android:text="￥:"/>
+        <TextView
+            android:id="@+id/movieprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_30"
+            android:textColor="#f1089f"
+            android:text="11111"/>
+       <ImageView
+           android:id="@+id/nextimage"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:padding="@dimen/dp_10"
+           android:src="@mipmap/com_icon_next_default_xhdpi"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

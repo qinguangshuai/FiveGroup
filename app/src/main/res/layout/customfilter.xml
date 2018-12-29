@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--正在 热映 自定义控件  具有过滤效果-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/v_customv"
+            android:background="#83de175d"
+            android:layout_width="@dimen/dp_3"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tv_customtv2"
+            android:textSize="@dimen/sp_17"
+            android:text="正在热映"
+            android:layout_marginRight="@dimen/dp_3"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:background="@drawable/shapescrollbar"
+        android:layout_width="@dimen/dp_33"
+        android:layout_height="@dimen/dp_3" />
+
+
+</LinearLayout>

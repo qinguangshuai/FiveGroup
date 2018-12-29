@@ -25,4 +25,43 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    //banner依赖
+    implementation 'com.youth.banner:banner:1.4.9'
+    //fresco依赖
+    implementation 'com.facebook.fresco:fresco:0.14.1'
+    //fresco的gif依赖
+    implementation 'com.facebook.fresco:animated-gif:0.14.1'
+    //butterknife依赖
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.hjm:BottomTabBar:1.1.2'
+    //log日志依赖
+    implementation 'com.orhanobut:logger:2.2.0'
+    //Retrofit2的依赖
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    //Rxjava依赖
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //BottomTabBar依赖
+    implementation 'com.hjm:BottomTabBar:1.1.2'
+    //eventbus依赖
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    //ijkplayer依赖
+    implementation 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.5'
+    //recyclerview依赖
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //轮播
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    //微信依赖
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    //轮播
+    implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
 }
