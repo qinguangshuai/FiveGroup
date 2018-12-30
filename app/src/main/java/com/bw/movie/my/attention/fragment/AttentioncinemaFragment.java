@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
@@ -27,7 +28,7 @@ import butterknife.Unbinder;
  * 秦广帅
  * 查询用户关注的影院信息
  */
-public class AttentioncinemaFragment extends BaseFragment implements com.bw.movie.base.IBaseView<AttCinemaUser> {
+public class AttentioncinemaFragment extends BaseFragment implements IBaseView<AttCinemaUser> {
 
     @BindView(R.id.attenrecycle1)
     RecyclerView attenrecycle1;
@@ -38,24 +39,14 @@ public class AttentioncinemaFragment extends BaseFragment implements com.bw.movi
     private List<AttCinemaUser.ResultBean> mList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
-        mAttCinemaPresenter = new AttCinemaPresenter(this);
-        mAttCinemaPresenter.getCinema(1);
-        return view;
-    }
-
-    @Override
     public void initView() {
+        unbinder = ButterKnife.bind(this,rootView);
 
     }
 
     @Override
     public void initListener() {
-
+        mAttCinemaPresenter.getCinema(1);
     }
 
     @Override
@@ -70,7 +61,8 @@ public class AttentioncinemaFragment extends BaseFragment implements com.bw.movi
 
     @Override
     public BasePresenter initPresenter() {
-        return null;
+        mAttCinemaPresenter = new AttCinemaPresenter(this);
+        return mAttCinemaPresenter;
     }
 
     @Override

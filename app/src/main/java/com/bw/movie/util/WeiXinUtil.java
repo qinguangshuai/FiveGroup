@@ -17,6 +17,7 @@ public class WeiXinUtil {
     public static IWXAPI success(Context context){
         if (context!=null) {
             //AppConst.WEIXIN.APP_ID是指你应用在微信开放平台上的AppID，记得替换。
+
             IWXAPI api = WXAPIFactory.createWXAPI(context, APP_ID, true);
             //注册到微信
             api.registerApp(APP_ID);
