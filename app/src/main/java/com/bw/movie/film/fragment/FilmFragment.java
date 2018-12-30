@@ -1,6 +1,7 @@
 package com.bw.movie.film.fragment;
 
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +17,12 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.custom.ScrollView;
 import com.bw.movie.custom.SearchView;
+import com.bw.movie.film.activity.DetailsActivity;
 import com.bw.movie.film.bean.CarouselBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.event.JumpEvent;
 import com.bw.movie.film.event.PopularEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CarousemView;
@@ -59,10 +62,10 @@ public class FilmFragment extends BaseFragment {
     //吐司工具类
     private ToastUtil toast = new ToastUtil();
 
-
     Unbinder unbinder;
     @BindView(R.id.RecyclerView_filefragment)
     RecyclerView mRecyclerViewFilefragment;
+    private Intent intent;
 
     //初始化控件
     @Override
@@ -74,6 +77,8 @@ public class FilmFragment extends BaseFragment {
         getPopularBeanObservable(1, 10, false);
         getHotPlayBeanObservable(1, 10, false);
         getPlayingBeanObservable(1, 10, false);
+        //intent 传值 准备
+        intent = new Intent(getActivity(), DetailsActivity.class);
     }
 
     //点击事件
@@ -108,6 +113,7 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
                 mRootAdapter.setCarouselBean(carouselBean);
+
             }
 
             @Override
@@ -152,10 +158,18 @@ public class FilmFragment extends BaseFragment {
     }
 
 
+    //跳转
+    @Subscribe
+    public void Jump(JumpEvent jumpEvent) {
+        int a = jumpEvent.getA();
+        intent.putExtra("index", a);
+        getActivity().startActivity(intent);
+    }
+
+
     //请求回调 热门电影数据  第三个布尔值的参数 决定 是否执行 add 方法
     public void getPopularBeanObservable(int page, int count, final boolean isLoad) {
         new FilmProsenter(new PopularmView<PopularBean>() {
-
             @Override
             public void onDataSuccess(PopularBean popularBean) {
                 if (isLoad) {
@@ -217,7 +231,6 @@ public class FilmFragment extends BaseFragment {
     //请求正在上映 || 即将上映  回调数据
     public void getPlayingBeanObservable(int page, int count, final boolean isLoad) {
         new FilmProsenter(new PlayingView<PlayingBean>() {
-
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
                 List<PlayingBean.ResultBean> result = playingBean.getResult();
@@ -394,21 +407,43 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewHolder instanceof CarouseHolder) {
             CarouseHolder carouseHolder = (CarouseHolder) viewHolder;
             carouseHolder.setData(mCarouselBean);
+
         }
         //list1 热门
         else if (viewHolder instanceof PopularHodler) {
             PopularHodler popularHodler = (PopularHodler) viewHolder;
             popularHodler.setData(result);
+            //设置跳转事件
+            popularHodler.mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new JumpEvent(0));
+                }
+            });
         }
         //list2 热映
         else if (viewHolder instanceof HotPlayHodler) {
             HotPlayHodler hotPlayHodler = (HotPlayHodler) viewHolder;
             hotPlayHodler.setData(hotresult);
+            //设置跳转事件
+            hotPlayHodler.mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new JumpEvent(1));
+                }
+            });
         }
         //list3 上映ing
         else if (viewHolder instanceof PlayingHodler) {
             PlayingHodler playingHodler = (PlayingHodler) viewHolder;
             playingHodler.setData(playresult);
+            //设置跳转事件
+            playingHodler.mTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new JumpEvent(2));
+                }
+            });
         }
     }
 
@@ -469,6 +504,8 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mScrollView.onChecked();
                 }
             });
+
+
         }
     }
 
@@ -529,6 +566,7 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+
 
         }
     }
@@ -591,6 +629,8 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+
+
         }
     }
 
@@ -652,6 +692,8 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+
+
         }
     }
 }//----------|根布局adapter结束|----------
@@ -688,6 +730,15 @@ class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerCoverFlow.ViewHolder viewHolder, int i) {
         Hodler holder = (Hodler) viewHolder;
+
+        //设置跳转
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new JumpEvent(0));
+            }
+        });
+
         //查找图片控件
         SimpleDraweeView img = holder.itemView.findViewById(R.id.entrypicture_item_carouse_item);
         //查找文字控件
@@ -704,6 +755,7 @@ class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow.ViewHo
             img.setImageURI(Uri.parse(imageUrl));
             //取出文字并赋值
             tv.setText(resultBean.getName());
+
         } else {
             toast.Toast("请求数据有误");
         }

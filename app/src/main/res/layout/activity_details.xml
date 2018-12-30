@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@null"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".film.activity.DetailsActivity">
@@ -10,16 +11,14 @@
     <!-- 影片详情 -->
 
     <LinearLayout
+        android:background="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
         <CheckBox
-            android:background="@drawable/selectbutton"
-            android:id="@+id/Positioning_item_carouse"
-            android:layout_width="@dimen/dp_50"
+            android:layout_margin="@dimen/dp_6"
+            android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_24"
-            android:layout_margin="@dimen/sp_12"
             android:button="@mipmap/dingwei"
             android:padding="@dimen/dp_5"
             android:text="北京"
@@ -30,6 +29,8 @@
     </LinearLayout>
 
     <RadioGroup
+        android:layout_margin="@dimen/dp_6"
+        android:background="@null"
         android:id="@+id/rg_datails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

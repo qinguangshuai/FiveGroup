@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.SeatSelectionActivity.activity.SeatSelectionActivity;
 import com.bw.movie.cinema.findmovieschedulelist.adapder.FindMovieScheduleListAdapder;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
@@ -62,10 +64,10 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
         particularsViewHolder.recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                int i1 = position % result.size();
+                final int i1 = position % result.size();
                 new FindMovieScheduleListProsenter(new FindMovieScheduleListView<FindMovieScheduleListBean>() {
                     @Override
-                    public void onDataSuccess(FindMovieScheduleListBean findMovieScheduleListBean) {
+                    public void onDataSuccess(final FindMovieScheduleListBean findMovieScheduleListBean) {
 
                         findMovieScheduleListAdapder.setResultBeans(findMovieScheduleListBean.getResult());
                         //列表数据  适配器
@@ -77,8 +79,10 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
                         findMovieScheduleListAdapder.setIsSeatSelection(new FindMovieScheduleListAdapder.IsSeatSelection() {
                             @Override
                             public void getSeatSelection(View view, int posiiton) {
-                              //  Intent intent = new Intent(mContext,SeatSelectionActivity.class);
-                             //   mContext.startActivity(intent);
+                               Intent intent = new Intent(mContext,SeatSelectionActivity.class);
+                               intent.putExtra(Constant.PARTID,findMovieScheduleListBean.getResult().get(i1).getPrice()+"");
+                                intent.putExtra(Constant.PARTNAME,findMovieScheduleListBean.getResult().get(i1).getScreeningHall());
+                               mContext.startActivity(intent);
                             }
                         });
 
