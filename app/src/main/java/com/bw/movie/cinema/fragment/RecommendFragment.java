@@ -1,19 +1,26 @@
 package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.bw.movie.Constant;
-import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
 import com.bw.movie.cinema.bean.NeightbourBean;
+import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -35,6 +42,16 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
         unbinder = ButterKnife.bind(this, rootView);
         NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
         neightbourPresenter.getNeightbour(1, 10);
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+    @Subscribe
+    public void getFollowId(FollowEvent followEvent) {
+        if (followEvent.getId() == Constant.FOLLOWID) {
+            NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
+            neightbourPresenter.getNeightbour(1, 10);
+        }
     }
 
     @Override
@@ -68,6 +85,7 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

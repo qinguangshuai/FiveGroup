@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
    >
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/attenrecycle2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <RadioGroup
         android:id="@+id/attFilmRg"
         android:layout_width="match_parent"
@@ -34,23 +38,13 @@
             android:background="@drawable/attenrutton1"
             android:textColor="@drawable/cinema_text_color"
             android:text="2"/>
-        <RadioButton
-            android:id="@+id/attFilmRb3"
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:button="@null"
-            android:gravity="center"
-            android:checked="false"
-            android:background="@drawable/attenrutton1"
-            android:textColor="@drawable/cinema_text_color"
-            android:text="3"/>
     </RadioGroup>
-    <FrameLayout
-        android:id="@+id/attfilmfragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/attFilmPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <ImageView
+        android:id="@+id/attenimage1"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginBottom="@dimen/dp_17"
+        android:background="@drawable/idea_activity_back"/>
 </RelativeLayout>

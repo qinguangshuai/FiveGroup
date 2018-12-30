@@ -49,7 +49,7 @@ public class AttCinemaAdapter extends RecyclerView.Adapter<AttCinemaAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList==null?0:mList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
