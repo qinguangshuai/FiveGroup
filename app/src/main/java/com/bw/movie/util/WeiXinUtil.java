@@ -5,6 +5,11 @@ import android.content.Context;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+/**
+ * 微信界面
+ * date:2018/12/27
+ * author:秦广帅(Lenovo)
+ * */
 //微信工具类
 public class WeiXinUtil {
     // APP_ID 替换为你的应用从官方网站申请到的合法appID
