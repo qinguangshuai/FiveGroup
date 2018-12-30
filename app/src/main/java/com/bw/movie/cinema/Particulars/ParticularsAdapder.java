@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.SeatSelectionActivity.activity.SeatSelectionActivity;
 import com.bw.movie.cinema.findmovieschedulelist.adapder.FindMovieScheduleListAdapder;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
@@ -77,8 +78,8 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
                         findMovieScheduleListAdapder.setIsSeatSelection(new FindMovieScheduleListAdapder.IsSeatSelection() {
                             @Override
                             public void getSeatSelection(View view, int posiiton) {
-                              //  Intent intent = new Intent(mContext,SeatSelectionActivity.class);
-                             //   mContext.startActivity(intent);
+                               Intent intent = new Intent(mContext,SeatSelectionActivity.class);
+                               mContext.startActivity(intent);
                             }
                         });
 

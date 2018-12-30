@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".cinema.SeatSelectionActivity.activity.SeatSelectionActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_202"
+        android:src="@mipmap/rectangle16" />
+
+    <LinearLayout
+        android:id="@+id/seatlayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_250"
+        android:background="@mipmap/xxhdpi_filebacnground"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/seatlayout"
+        android:orientation="vertical">
+
+        <com.bw.movie.custom.SeatTable
+            android:id="@+id/seatView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/seatView"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:background="@drawable/seat_back"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:gravity="bottom"
+                android:text="合计:  ￥" />
+
+            <TextView
+                android:id="@+id/cinemaprice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:text="111"
+                android:textColor="#e2099a"
+                android:textSize="@dimen/dp_30" />
+
+            <ImageView
+                android:id="@+id/sure"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_50"
+                android:src="@mipmap/group2" />
+
+            <ImageView
+                android:id="@+id/seyno"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:src="@mipmap/group3" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
