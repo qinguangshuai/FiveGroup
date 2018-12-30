@@ -15,6 +15,9 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+
 
     <application
         android:name=".MyApp"
@@ -44,6 +47,8 @@
         <activity android:name=".my.myoption.activity.MyOpitionActivity" />
         <activity android:name=".my.mylatest.activity.MyLatestVersionActivity" />
         <activity android:name=".my.myinfo.activity.UpdataInfoActivity"/>
+        <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity"></activity>
+        <activity android:name=".my.ticket.activity.Ticket_nformationActivity"></activity>
         <activity
             android:name=".ShowActivity"
             tools:ignore="WrongManifestParent" />
