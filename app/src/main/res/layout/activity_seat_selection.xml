@@ -48,6 +48,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:gravity="bottom"
+                android:textSize="@dimen/dp_14"
                 android:text="合计:  ￥" />
 
             <TextView
