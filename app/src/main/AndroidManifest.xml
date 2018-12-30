@@ -51,9 +51,7 @@
         <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity"/>
 
 
-        <activity android:name=".my.myinfo.activity.UpdataInfoActivity"/>
-        <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity"/>
-        <activity android:name=".my.ticket.activity.Ticket_nformationActivity"></activity>
+
         <activity
             android:name=".ShowActivity"
             tools:ignore="WrongManifestParent" />
