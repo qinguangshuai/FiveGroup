@@ -51,7 +51,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
             NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
             neightbourPresenter.getNeightbour(1, 10);
         }
-    }
+    } 
 
     @Override
     public void initListener() {
