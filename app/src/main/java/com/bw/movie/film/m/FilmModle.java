@@ -2,6 +2,7 @@ package com.bw.movie.film.m;
 
 import android.util.Log;
 
+import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.service.FilmService;
 import com.bw.movie.film.bean.CarouselBean;
 import com.bw.movie.film.bean.HotPlayBean;
@@ -119,7 +120,7 @@ public class FilmModle {
     }
 
 
-    //正在热映 请求数据回调
+    //正在上映  请求数据回调
     public void getPlayingBeanObservable(int page, int count, final PlayingCallBack playingCallBack){
         OkHttpUtil
                 .get()
@@ -149,6 +150,41 @@ public class FilmModle {
                     }
                 });
     }
+
+
+
+    //Id 展示电影详情
+    public void getDetailBeanObservable(int id , final DetailCallBack detailCallBack){
+        OkHttpUtil
+        .get()
+        .createa(FilmService.class)
+        .getDetailBeanObservable(id)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Observer<DetailBean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(DetailBean detailBean) {
+                detailCallBack.success(detailBean);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                detailCallBack.error(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+    }
+
 
 
 }

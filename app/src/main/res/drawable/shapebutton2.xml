@@ -5,6 +5,7 @@
 
     <solid android:color="#fff" />
 
+    <stroke android:color="#c0c0c0" android:width="1dp" />
     <!--按钮切换背景  白色-->
 
 </shape>

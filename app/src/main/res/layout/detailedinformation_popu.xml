@@ -115,6 +115,7 @@
                 android:layout_margin="@dimen/dp_10"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/metrotou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="地铁:"/>
@@ -123,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="123"/>
+                     />
             </LinearLayout>
 
         </LinearLayout>
@@ -138,6 +139,7 @@
                 android:layout_margin="@dimen/dp_10"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/bustou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="公交车:"/>
@@ -145,7 +147,7 @@
                     android:id="@+id/bus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123"/>
+                     />
             </LinearLayout>
 
         </LinearLayout>
@@ -159,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/tolltou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp_5"
@@ -167,7 +170,7 @@
                     android:id="@+id/toll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123"/>
+                    />
             </LinearLayout>
 
         </LinearLayout>

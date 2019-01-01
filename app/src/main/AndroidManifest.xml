@@ -23,6 +23,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -51,11 +53,9 @@
         <activity android:name=".my.myoption.activity.MyOpitionActivity" />
         <activity android:name=".my.mylatest.activity.MyLatestVersionActivity" />
         <activity android:name=".my.myinfo.activity.UpdataInfoActivity" />
-        <activity android:name=".my.ticket.activity.Ticket_nformationActivity"></activity>
-        <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity"/>
-
-
-
+        <activity android:name=".film.activity.DetailsActivity" />
+        <activity android:name=".my.ticket.activity.Ticket_nformationActivity" />
+        <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity" />
         <activity
             android:name=".ShowActivity"
             tools:ignore="WrongManifestParent" />
@@ -65,16 +65,16 @@
             android:name="com.amap.api.v2.apikey"
             android:value="6ad11ccb906ec62b5b106ae673d9d41c" />
 
-        <activity android:name=".cinema.SeatSelectionActivity.activity.SeatSelectionActivity"></activity>
-        <activity android:name=".wxapi.WXEntryActivity"
+        <activity android:name=".cinema.SeatSelectionActivity.activity.SeatSelectionActivity" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".film.activity.SynopsisActivity"></activity>
     </application>
 
 </manifest>

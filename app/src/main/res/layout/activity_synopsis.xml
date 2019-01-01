@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@mipmap/bigbackground"
+    android:layout_height="match_parent"
+    tools:context=".film.activity.SynopsisActivity">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:scaleType="fitXY"
+        android:alpha="0.2"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:id="@+id/background_synopsis"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_28"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_28"
+            android:background="@null">
+
+            <CheckBox
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_24"
+                android:button="@mipmap/com_icon_movie_default_xxhdpi"
+                android:paddingLeft="5dp"
+                android:text="电影详情"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:background="@drawable/selectcollection"
+                android:button="@null" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_synopsis"
+            android:layout_marginTop="@dimen/dp_20"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_24"
+            android:textStyle="bold"
+            android:text="铁血战士"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.dak.weakview.layout.WeakCardOverlapLayout
+            android:padding="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:id="@+id/card_synopsis"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/dp_270"
+            android:layout_height="@dimen/dp_360">
+
+        </com.dak.weakview.layout.WeakCardOverlapLayout>
+
+
+
+        <RadioGroup
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:padding="@dimen/dp_5"
+                android:layout_margin="@dimen/dp_5"
+                android:gravity="center"
+                android:background="@drawable/shaperb"
+                android:button="@null"
+                android:textColor="#fff"
+                android:text="详情"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35" />
+
+            <RadioButton
+                android:padding="@dimen/dp_5"
+                android:layout_margin="@dimen/dp_5"
+                android:gravity="center"
+                android:background="@drawable/shaperb"
+                android:button="@null"
+                android:textColor="#fff"
+                android:text="预告"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35" />
+
+            <RadioButton
+                android:padding="@dimen/dp_5"
+                android:layout_margin="@dimen/dp_5"
+                android:gravity="center"
+                android:background="@drawable/shaperb"
+                android:button="@null"
+                android:textColor="#fff"
+                android:text="剧照"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35" />
+
+            <RadioButton
+                android:padding="@dimen/dp_5"
+                android:layout_margin="@dimen/dp_5"
+                android:gravity="center"
+                android:background="@drawable/shaperb"
+                android:button="@null"
+                android:textColor="#fff"
+                android:text="影评"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35" />
+
+
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
