@@ -2,6 +2,7 @@ package com.bw.movie.cinema.SeatSelectionActivity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.Constant;
 import com.bw.movie.MyApp;
@@ -17,7 +19,13 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.SeatSelectionActivity.popu.SeatPopuwindow;
+import com.bw.movie.cinema.event.SeatEvent;
 import com.bw.movie.custom.SeatTable;
+import com.bw.movie.util.LogUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,14 +42,49 @@ public class SeatSelectionActivity extends BaseActivity {
     @BindView(R.id.seyno)
     ImageView seyno;
     private String paerprice;
+    private String paername;
+    private double v2;
+    private double v21;
+
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
+
+    /*    if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }*/
+        seatTableView.setGetData(new SeatTable.getDatas() {
+            @Override
+            public void getDate(int sizes) {
+                double v = Double.parseDouble(paerprice);
+                v21 = v * sizes;
+                cinemaprice.setText(v21+"");
+            }
+        });
+
     }
+
+   /* @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getSeat(SeatEvent seatEvent) {
+
+      //  Toast.makeText(this, seatEvent.getId()+"", Toast.LENGTH_SHORT).show();
+        v21 = 0;
+        double v = Double.parseDouble(paerprice);
+        v21 = v * seatEvent.getId();
+        cinemaprice.setText(v21 + "");
+
+    }*/
+
+   /* @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }*/
 
     @Override
     public void initListener() {
+
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,29 +92,28 @@ public class SeatSelectionActivity extends BaseActivity {
                 final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
                 popupWindow.showAsDropDown(v, -280, -280);
                 RadioButton radioButton = view.findViewById(R.id.weixinfu);
-                radioButton.isChecked();
                 RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);
                 final Button button = view.findViewById(R.id.fukuan);
-               ImageView imageView= view.findViewById(R.id.returnfanhui);
+                ImageView imageView = view.findViewById(R.id.returnfanhui);
                 radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (isChecked) {
-                            button.setText("微信支付"+paerprice);
+                            button.setText("微信支付" + v21);
                         }
                     }
                 });
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       popupWindow.dismiss();
+                        popupWindow.dismiss();
                     }
                 });
                 radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked){
-                            button.setText("支付宝支付"+paerprice);
+                        if (isChecked) {
+                            button.setText("支付宝支付" + v21);
                         }
                     }
                 });
@@ -86,20 +128,20 @@ public class SeatSelectionActivity extends BaseActivity {
             }
         });
 
+
+
     }
 
     @Override
     public void initData() {
-
-
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
+        paername = intent.getStringExtra(Constant.PARTNAME);
         paerprice = intent.getStringExtra(Constant.PARTID);
-        String paername = intent.getStringExtra(Constant.PARTNAME);
 
-        cinemaprice.setText(paerprice);
+
         seatTableView = (SeatTable) findViewById(R.id.seatView);
         seatTableView.setScreenName(paername);//设置屏幕名称
-        seatTableView.setMaxSelected(3);//设置最多选中
+        seatTableView.setMaxSelected(4);//设置最多选中
 
         seatTableView.setSeatChecker(new SeatTable.SeatChecker() {
 

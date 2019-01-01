@@ -49,12 +49,13 @@ public class ShowActivity extends AppCompatActivity {
         ObjectAnimator anim = ObjectAnimator.ofFloat(lingdai, "alpha", 1f,0f );
         anim.setDuration(0);// 动画持续时间
         anim.start();
-       /* ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, -100);
+
+       ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, 200);
 
         AnimatorSet aa=new AnimatorSet();
         aa.playTogether(ra1);
         aa.setDuration(300);
-        aa.start();*/
+        aa.start();
     }
 
     private void initData() {
@@ -92,19 +93,21 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, -88);
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(image_populer, "alpha", 1f,1f );
+                   ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, 0);
                     ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(cinema_show, "scaleX",1,1.2f);
                     ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(cinema_show, "scaleY",1,1.2f);
                     AnimatorSet aa=new AnimatorSet();
-                    aa.playTogether(ra1,scaleX1,scaleY1);
+                    aa.playTogether(anim,ra1,scaleX1,scaleY1);
                     aa.setDuration(300);
                     aa.start();
                 } else {
-                    ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, 88);
+                    ObjectAnimator anim = ObjectAnimator.ofFloat(image_populer, "alpha", 0f,2f);
+                    ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, 200);
                     ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(cinema_show, "scaleX",1.2f,1f);
                     ObjectAnimator scaleY1 = ObjectAnimator.ofFloat(cinema_show, "scaleY",1.2f,1f);
                     AnimatorSet aa=new AnimatorSet();
-                    aa.playTogether(ra1,scaleX1,scaleY1);
+                    aa.playTogether(anim,ra1,scaleX1,scaleY1);
                     aa.setDuration(300);
                     aa.start();
                 }

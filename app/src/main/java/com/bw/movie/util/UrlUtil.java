@@ -8,7 +8,7 @@ package com.bw.movie.util;
 public interface UrlUtil {
     //http://172.17.8.100/movieApi/user/v1/login
     public String TOTAL = "http://172.17.8.100/movieApi/";
- //   public String TOTAL = "http://mobile.bwstudent.com/movieApi/";
+   //public String TOTAL = "http://mobile.bwstudent.com/movieApi/";
   //  public String TOTAL = "http://172.17.8.100/movieApi/";
 //    public String TOTAL = "http://mobile.bwstudent.com/movieApi/";
     //public String TOTAL = "http://mobile.bwstudent.com/movieApi/";
