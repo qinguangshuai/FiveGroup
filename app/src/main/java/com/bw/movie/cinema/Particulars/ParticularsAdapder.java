@@ -80,8 +80,8 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
                             @Override
                             public void getSeatSelection(View view, int posiiton) {
                                Intent intent = new Intent(mContext,SeatSelectionActivity.class);
-                               intent.putExtra(Constant.PARTID,findMovieScheduleListBean.getResult().get(i1).getPrice()+"");
-                                intent.putExtra(Constant.PARTNAME,findMovieScheduleListBean.getResult().get(i1).getScreeningHall());
+                               intent.putExtra(Constant.PARTID,findMovieScheduleListBean.getResult().get(i).getPrice()+"");
+                                intent.putExtra(Constant.PARTNAME,findMovieScheduleListBean.getResult().get(i).getScreeningHall());
                                mContext.startActivity(intent);
                             }
                         });
