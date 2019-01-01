@@ -2,6 +2,7 @@ package com.bw.movie.my;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.bw.movie.my.message.activity.MyMessage;
 import com.bw.movie.my.mylatest.activity.MyLatestVersionActivity;
 import com.bw.movie.my.myoption.activity.MyOpitionActivity;
 import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
+import com.bw.movie.util.SpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +54,11 @@ public class MyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        String headPic = SpUtil.getString("headPic", "");
+        Uri uri=Uri.parse(headPic);
+        mMyTouxiang.setImageURI(uri);
+        String name = SpUtil.getString("nickName", "");
+        mMyName.setText(name);
 
         return view;
     }
