@@ -1,6 +1,7 @@
 package com.bw.movie.film.service;
 
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
@@ -34,6 +35,13 @@ public interface FilmService {
     //请求 正在上映 || 即将上映 数据  内网
     @GET("movie/v1/findComingSoonMovieList")
     Observable<PlayingBean> getPlayingBeanObservable(@Query("page") int page, @Query("count") int count);
+
+
+    //通过ID 查找 电影详情页面
+    @GET("movie/v1/findMoviesDetail")
+    Observable<DetailBean> getDetailBeanObservable(@Query("movieId") int movieId);
+
+
 
 
 }
