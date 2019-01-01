@@ -42,7 +42,7 @@ android {
     defaultConfig {
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
     }
 }
@@ -94,4 +94,8 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     //高德
     implementation files('libs/AMap3DMap_6.5.0_AMapNavi_6.4.0_AMapSearch_6.5.0_AMapLocation_4.3.0_20181016.jar')
+
+    //卡片式层叠列表
+    implementation 'com.github.DakTop:android-wake-view:v1.0.3'
+
 }

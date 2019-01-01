@@ -14,6 +14,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.fragment.HotFragment;
 import com.bw.movie.film.fragment.PlayingFragment;
 import com.bw.movie.film.fragment.PopularFragment;
@@ -22,6 +23,9 @@ import com.bw.movie.film.v.PlayingView;
 import com.bw.movie.film.v.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,7 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         intent = getIntent();
         index = intent.getIntExtra("index", -1);
@@ -94,6 +99,16 @@ public class DetailsActivity extends BaseActivity {
     public BasePresenter initPresenter() {
         return null;
     }
+
+
+    //跳转事件
+    @Subscribe
+    public void jump(JumpForThreeActivityBean jumpForThreeActivityBean){
+        Intent intent = new Intent(this,SynopsisActivity.class);
+        intent.putExtra("详情id",jumpForThreeActivityBean.getId());
+        startActivity(intent);
+    }
+
 
 
     //viewpager 操作
@@ -163,8 +178,11 @@ public class DetailsActivity extends BaseActivity {
     }
 
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
 
 
