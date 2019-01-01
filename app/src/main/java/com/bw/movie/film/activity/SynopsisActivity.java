@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -44,6 +45,8 @@ public class SynopsisActivity extends BaseActivity {
     TextView mTitleSynopsis;
     @BindView(R.id.background_synopsis)
     SimpleDraweeView mBackgroundSynopsis;
+    @BindView(R.id.radiogroup_synopsis)
+    RadioGroup mRadiogroupSynopsis;
     private WeakCurrencyAdapter<String> adapter;
 
 
@@ -54,17 +57,15 @@ public class SynopsisActivity extends BaseActivity {
         int id = intent.getIntExtra("详情id", -1);
         setCardSynopsis();
         getData(id);
-
+        setRadioGroupListener();
     }
 
     @Override
     public void initListener() {
-
     }
 
     @Override
     public void initData() {
-
     }
 
     @Override
@@ -74,7 +75,6 @@ public class SynopsisActivity extends BaseActivity {
 
     @Override
     public void initVariable() {
-
     }
 
     @Override
@@ -89,7 +89,6 @@ public class SynopsisActivity extends BaseActivity {
         mCardSynopsis.setOnItemClickListener(new WeakCardOverlapLayout.OnItemClickListener() {
             @Override
             public void onWeakItemClickListener(int i, View view) {
-
             }
         });
 
@@ -100,10 +99,8 @@ public class SynopsisActivity extends BaseActivity {
                 View convertView = holder.getConvertView();
                 SimpleDraweeView img = convertView.findViewById(R.id.img_diycard);
                 img.setImageURI(uri);
-
             }
         };
-
         mCardSynopsis.setAdapter(adapter);
     }
 
@@ -123,8 +120,7 @@ public class SynopsisActivity extends BaseActivity {
                 //给tv 赋值
                 mTitleSynopsis.setText(result.getName());
                 //给背景 赋值
-                onBlurry(Uri.parse(posterList.get(0)),mBackgroundSynopsis);
-
+                onBlurry(Uri.parse(posterList.get(0)), mBackgroundSynopsis);
             }
 
             @Override
@@ -153,9 +149,8 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
-
     //高斯模糊效果
-    public void onBlurry(Uri uri ,SimpleDraweeView draweeView ){
+    public void onBlurry(Uri uri, SimpleDraweeView draweeView) {
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                 //参数1:重度
                 //参数2:半径
@@ -167,6 +162,31 @@ public class SynopsisActivity extends BaseActivity {
                 .build();
         draweeView.setController(controller);
     }
+
+
+    //设置点击事件
+    public void setRadioGroupListener() {
+        mRadiogroupSynopsis.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    //详情按钮
+                    case R.id.rb_Datail_synopsis:
+                        break;
+                    //预告按钮
+                    case R.id.rb_Trail_synopsis:
+                        break;
+                    //剧照按钮
+                    case R.id.rb_Stills_synopsis:
+                        break;
+                    //影评
+                    case R.id.rb_Review_synopsis:
+                        break;
+                }
+            }
+        });
+    }
+
 
 }
 
