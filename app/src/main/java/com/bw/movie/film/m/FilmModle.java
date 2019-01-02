@@ -2,6 +2,7 @@ package com.bw.movie.film.m;
 
 import android.util.Log;
 
+import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.service.FilmService;
 import com.bw.movie.film.bean.CarouselBean;
@@ -185,6 +186,37 @@ public class FilmModle {
 
     }
 
+
+    //显示评论
+    public void getCommentBeanObservable(int id, int page, int count, final CommentCallBack commentCallBack){
+        OkHttpUtil
+                .get()
+                .createa(FilmService.class)
+                .getCommentBeanObservable(id,page,count)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CommentBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CommentBean commentBean) {
+                        commentCallBack.success(commentBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        commentCallBack.error(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
 
 }

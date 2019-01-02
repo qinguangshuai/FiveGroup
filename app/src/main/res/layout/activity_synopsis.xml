@@ -80,8 +80,7 @@
 
 
 
-        <RadioGroup
-            android:id="@+id/radiogroup_synopsis"
+        <LinearLayout
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
             android:gravity="center"
@@ -89,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RadioButton
+            <Button
                 android:id="@+id/rb_Datail_synopsis"
                 android:padding="@dimen/dp_5"
                 android:layout_margin="@dimen/dp_5"
@@ -101,7 +100,7 @@
                 android:layout_width="@dimen/dp_59"
                 android:layout_height="@dimen/dp_35" />
 
-            <RadioButton
+            <Button
                 android:id="@+id/rb_Trail_synopsis"
                 android:padding="@dimen/dp_5"
                 android:layout_margin="@dimen/dp_5"
@@ -113,7 +112,7 @@
                 android:layout_width="@dimen/dp_59"
                 android:layout_height="@dimen/dp_35" />
 
-            <RadioButton
+            <Button
                 android:id="@+id/rb_Stills_synopsis"
                 android:padding="@dimen/dp_5"
                 android:layout_margin="@dimen/dp_5"
@@ -126,7 +125,7 @@
                 android:layout_height="@dimen/dp_35" />
 
 
-            <RadioButton
+            <Button
                 android:id="@+id/rb_Review_synopsis"
                 android:padding="@dimen/dp_5"
                 android:layout_margin="@dimen/dp_5"
@@ -140,7 +139,7 @@
 
 
 
-        </RadioGroup>
+        </LinearLayout>
 
 
     </LinearLayout>

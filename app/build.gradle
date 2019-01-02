@@ -94,8 +94,9 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     //高德
     implementation files('libs/AMap3DMap_6.5.0_AMapNavi_6.4.0_AMapSearch_6.5.0_AMapLocation_4.3.0_20181016.jar')
-
     //卡片式层叠列表
     implementation 'com.github.DakTop:android-wake-view:v1.0.3'
-
+    //播放器
+    implementation 'fm.jiecao:jiecaovideoplayer:5.5.2'
+    implementation 'com.squareup.picasso:picasso:2.3.2'
 }
