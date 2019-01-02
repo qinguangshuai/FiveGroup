@@ -1,20 +1,14 @@
-package com.bw.movie.my.updatehaed.bean;
-/*
-*  修改头像bean类
-* */
-public class UpdateHeadEntity {
+package com.bw.movie.login.bean;
 
-    private String headPath;
+/**
+ * date:2018/12/26    8:44
+ * author:Therefore(Lenovo)
+ * fileName:LoginUser
+ */
+public class XinUser {
+
     private String message;
     private String status;
-
-    public String getHeadPath() {
-        return headPath;
-    }
-
-    public void setHeadPath(String headPath) {
-        this.headPath = headPath;
-    }
 
     public String getMessage() {
         return message;

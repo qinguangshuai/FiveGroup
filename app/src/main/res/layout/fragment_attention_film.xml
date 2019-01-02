@@ -1,44 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/attenrecycle2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <RadioGroup
-        android:id="@+id/attFilmRg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_15"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/attFilmRb1"
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:button="@null"
-            android:gravity="center"
-            android:checked="true"
-            android:background="@drawable/attenrutton"
-            android:layout_marginRight="@dimen/dp_30"
-            android:textColor="@drawable/cinema_text_color"
-            android:text="1"/>
-        <RadioButton
-            android:id="@+id/attFilmRb2"
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:button="@null"
-            android:gravity="center"
-            android:layout_marginRight="@dimen/dp_30"
-            android:checked="false"
-            android:background="@drawable/attenrutton1"
-            android:textColor="@drawable/cinema_text_color"
-            android:text="2"/>
-    </RadioGroup>
     <ImageView
         android:id="@+id/attenimage1"
         android:layout_width="@dimen/dp_60"

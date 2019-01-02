@@ -23,11 +23,13 @@
             android:layout_height="@dimen/dp_30"
             android:layout_marginTop="@dimen/dp_5"
             android:textColor="#000"
+
             android:layout_gravity="center_vertical"
-            android:text="111"/>
+            android:text="北京"/>
         <com.bw.movie.custom.SearchView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:gravity="right"
+            android:layout_weight="1"
             android:layout_height="wrap_content"></com.bw.movie.custom.SearchView>
     </LinearLayout>
     <RadioGroup

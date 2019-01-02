@@ -40,6 +40,9 @@ public class UnCatchExceptionHandler implements Thread.UncaughtExceptionHandler 
 
                 Process.killProcess(Process.myPid());
             }
+
+            //退出程序
+            AppManager.getAppManager().AppExit(mContext);
         }
     }
 }

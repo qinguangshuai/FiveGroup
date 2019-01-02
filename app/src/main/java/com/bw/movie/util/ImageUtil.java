@@ -11,7 +11,9 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 
-
+/*
+*   修改头像util类
+* */
 public class ImageUtil {
     public static Intent getGalleryIntent(Intent intent)
     {
