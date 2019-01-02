@@ -12,15 +12,10 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.custom.CustomViewpager;
-import com.bw.movie.film.bean.PlayingBean;
-import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.fragment.HotFragment;
 import com.bw.movie.film.fragment.PlayingFragment;
 import com.bw.movie.film.fragment.PopularFragment;
-import com.bw.movie.film.p.FilmProsenter;
-import com.bw.movie.film.v.PlayingView;
-import com.bw.movie.film.v.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 
@@ -28,7 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
