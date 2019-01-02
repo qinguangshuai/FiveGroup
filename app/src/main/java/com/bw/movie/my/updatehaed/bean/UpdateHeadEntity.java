@@ -1,5 +1,7 @@
 package com.bw.movie.my.updatehaed.bean;
-
+/*
+*  修改头像bean类
+* */
 public class UpdateHeadEntity {
 
     private String headPath;

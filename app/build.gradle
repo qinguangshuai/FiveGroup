@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.bw.movie"
-        minSdkVersion 20
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -98,4 +98,6 @@ dependencies {
     //卡片式层叠列表
     implementation 'com.github.DakTop:android-wake-view:v1.0.3'
 
+    //动态权限依赖
+    implementation 'com.yanzhenjie:permission:2.0.0-rc4'
 }

@@ -63,7 +63,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         presenter.getMessage();
 
 
-        setContentView(R.layout.activity_my_info);
+
         ButterKnife.bind(this);
     }
 
