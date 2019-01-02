@@ -13,11 +13,14 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.film.bean.HotPlayBean;
+import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.HotPlayView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,9 +152,19 @@ class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        HotPlayBean.ResultBean resultBean = hotresult.get(i);
+        final HotPlayBean.ResultBean resultBean = hotresult.get(i);
         Holder holder = (Holder) viewHolder;
         holder.setData(resultBean);
+
+
+        //点击跳转事件
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new JumpForThreeActivityBean(resultBean.getId()));
+            }
+        });
+
     }
 
     @Override

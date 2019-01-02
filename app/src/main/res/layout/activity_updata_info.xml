@@ -46,14 +46,9 @@
                     android:layout_marginLeft="@dimen/dp_100"
                     android:id="@+id/mtouxiang"
                     fresco:roundAsCircle="true"
+                    android:layout_alignParentRight="true"
                     />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/update_touxiang"
-                    android:text="修改头像"
-                    android:layout_marginLeft="@dimen/dp_200"
-                    android:layout_alignParentRight="true"/>
+
 
                 <TextView
                     android:layout_width="match_parent"
