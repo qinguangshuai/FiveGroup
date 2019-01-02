@@ -41,7 +41,7 @@ public class WXPresenter extends BasePresenter<WXView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                      getiBaseView().onDataFailer(e.toString());
                     }
 
                     @Override

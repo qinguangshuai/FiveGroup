@@ -24,6 +24,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * date:2018/1/2    15:33
+ * author:秦广帅(Lenovo)
+ * fileName:AttCinemaAdapter
+ * 注册界面
+ */
+
 public class RegisteActivity extends BaseActivity<RegistePresenter> implements RegisteView<RegisteUser> {
 
     @BindView(R.id.et_register_name)

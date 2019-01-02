@@ -15,7 +15,7 @@
             android:layout_height="@dimen/dp_30"
             android:layout_marginTop="@dimen/dp_3"
             android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/zuobiao"/>
+            android:src="@mipmap/dingwei"/>
         <TextView
             android:id="@+id/zuoBiaoText"
             android:layout_marginLeft="@dimen/dp_3"

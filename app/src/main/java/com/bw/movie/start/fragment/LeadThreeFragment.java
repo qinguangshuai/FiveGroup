@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 import com.bw.movie.R;
 import com.bw.movie.start.StartActivity;
 
+/**
+ * date:2018/1/2    15:33
+ * author:秦广帅(Lenovo)
+ * fileName:AttCinemaAdapter
+ */
+
 public class LeadThreeFragment extends Fragment {
 
     @Override

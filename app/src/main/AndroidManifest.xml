@@ -18,17 +18,19 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
+    <!-- 【必须】 信鸽SDK所需权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/yingyuan"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -53,9 +55,9 @@
         <activity android:name=".my.myoption.activity.MyOpitionActivity" />
         <activity android:name=".my.mylatest.activity.MyLatestVersionActivity" />
         <activity android:name=".my.myinfo.activity.UpdataInfoActivity" />
-        <activity android:name=".film.activity.DetailsActivity" />
-        <activity android:name=".my.ticket.activity.Ticket_nformationActivity" />
         <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity" />
+        <activity android:name=".my.ticket.activity.Ticket_nformationActivity" />
+        <activity android:name=".film.activity.DetailsActivity" />
         <activity
             android:name=".ShowActivity"
             tools:ignore="WrongManifestParent" />
@@ -74,7 +76,7 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </activity>
-        <activity android:name=".film.activity.SynopsisActivity"></activity>
+        <activity android:name=".film.activity.SynopsisActivity" />
     </application>
 
 </manifest>

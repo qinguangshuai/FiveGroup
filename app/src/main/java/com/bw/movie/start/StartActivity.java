@@ -16,6 +16,13 @@ import com.bw.movie.start.fragment.LeadTwoFragment;
 
 import java.util.ArrayList;
 
+/**
+ * date:2018/1/2    15:33
+ * author:秦广帅(Lenovo)
+ * fileName:AttCinemaAdapter
+ * 启动页
+ */
+
 public class StartActivity extends AppCompatActivity {
 
     private static ViewPager pager;

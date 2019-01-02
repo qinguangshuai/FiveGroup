@@ -1,12 +1,10 @@
 package com.bw.movie;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -25,6 +23,13 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+/**
+ * date:2018/12/28    15:33
+ * author:Therefore(Lenovo)
+ * fileName:AttCinemaAdapter
+ * 高德地图
+ */
 
 public class MainActivity extends AppCompatActivity implements LocationSource,AMapLocationListener {
 

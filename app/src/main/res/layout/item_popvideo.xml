@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="@dimen/dp_5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/video_item_popvideo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+
+
+</LinearLayout>
