@@ -1,8 +1,10 @@
 package com.bw.movie.wxapi;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
+import com.bw.movie.util.NotifyUtil;
 import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.WXUser;
@@ -38,6 +41,9 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     private WXPresenter mWxPresenter;
     private WXUser mWxUser1;
     private String mCode;
+    private NotifyUtil currentNotify;
+    private boolean isoncl = true;
+    private int requestCode = (int) SystemClock.uptimeMillis();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +97,8 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    Toast.makeText(WXEntryActivity.this,mWxUser1.getMessage(),Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WXEntryActivity.this,ShowActivity.class));
+                    Toast.makeText(WXEntryActivity.this,mWxUser1.getMessage(),Toast.LENGTH_SHORT).show();;
+                    startActivity(new Intent(WXEntryActivity.this, ShowActivity.class));
                     break;
                 case 2:
 

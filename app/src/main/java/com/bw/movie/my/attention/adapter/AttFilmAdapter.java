@@ -44,11 +44,18 @@ public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         MyAttFilmUser.ResultBean bean = mList.get(i);
-        Uri uri = Uri.parse(bean.getImageUrl());
-        myViewHolder.simple.setImageURI(uri);
+        String imageUrl = bean.getImageUrl();
+        if (imageUrl==null){
+            int launcher = R.mipmap.ic_launcher;
+            String s = String.valueOf(launcher);
+            myViewHolder.simple.setImageURI(s);
+        }else {
+            Uri uri = Uri.parse(bean.getImageUrl());
+            myViewHolder.simple.setImageURI(uri);
+        }
+
         myViewHolder.text1.setText(bean.getName());
         myViewHolder.text2.setText(bean.getSummary());
-
         long browseTime = bean.getReleaseTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(browseTime);

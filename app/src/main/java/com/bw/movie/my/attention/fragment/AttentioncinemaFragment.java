@@ -2,6 +2,8 @@ package com.bw.movie.my.attention.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -31,22 +34,46 @@ import butterknife.Unbinder;
 public class AttentioncinemaFragment extends BaseFragment implements IBaseView<AttCinemaUser> {
 
     @BindView(R.id.attenrecycle1)
-    RecyclerView attenrecycle1;
+    XRecyclerView attenrecycle1;
     @BindView(R.id.attenimage1)
     ImageView attenimage1;
     Unbinder unbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
     private List<AttCinemaUser.ResultBean> mList;
+    int page = 1;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this,rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
     }
 
     @Override
     public void initListener() {
-        mAttCinemaPresenter.getCinema(1);
+        mAttCinemaPresenter.getCinema(page);
+        attenrecycle1.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAttCinemaPresenter.getCinema(page++);
+                        attenrecycle1.refreshComplete();
+                    }
+                },2000);
+            }
+
+            @Override
+            public void onLoadMore() {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAttCinemaPresenter.getCinema(page);
+                        attenrecycle1.loadMoreComplete();
+                    }
+                },2000);
+            }
+        });
     }
 
     @Override
@@ -86,7 +113,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         attenrecycle1.setLayoutManager(linearLayoutManager);
         mList = attCinemaUser.getResult();
-        AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(),mList);
+        AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
         attenrecycle1.setAdapter(attCinemaAdapter);
     }
 
@@ -104,4 +131,11 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     public void onHideLoading() {
 
     }
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 }

@@ -1,8 +1,11 @@
 package com.bw.movie.login;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,13 +19,20 @@ import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.login.bean.LoginUser;
+import com.bw.movie.login.bean.XinUser;
 import com.bw.movie.login.presenter.LoginPresenter;
+import com.bw.movie.login.presenter.XinPresenter;
 import com.bw.movie.login.pwd.EncryptUtil;
 import com.bw.movie.login.view.LoginView;
+import com.bw.movie.login.view.XinView;
 import com.bw.movie.registe.RegisteActivity;
+import com.bw.movie.util.ButtonUtils;
 import com.bw.movie.util.LogUtil;
+import com.bw.movie.util.NotifyUtil;
 import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushManager;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 import java.util.regex.Matcher;
@@ -68,6 +78,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private String mSessionId;
     private int mUserId;
     private Unbinder mUnbinder;
+    private NotifyUtil currentNotify;
+    private boolean isoncl = true;
+    private int requestCode = (int) SystemClock.uptimeMillis();
+
     @Override
     public void initView() {
         mUnbinder = ButterKnife.bind(this);
@@ -127,13 +141,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.loginbox:
                 break;
             case R.id.loginbtn:
+                if (isoncl) {
+                    //你要运行的方法
+                    isoncl = false; //点击一次后就改成false，这样就实现只点击一次了
+                }
+                if (!ButtonUtils.isFastDoubleClick(R.id.loginbtn)) {
+                    //写你相关操作即可
+                    ButtonUtils.isFastDoubleClick(1,2000);
+                }
                 String encrypt = EncryptUtil.encrypt(mEdit2);
                 if (TextUtils.isEmpty(mEdit1) && TextUtils.isEmpty(mEdit2)) {
                     Toast.makeText(this, "用户名或则密码不能为空", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                if (loginedit1.equals(mEdit1)){
+                if (loginedit1.equals(mEdit1)) {
                     isChinaPhoneLegal(mEdit1);
                     Toast.makeText(this, "手机号错误", Toast.LENGTH_LONG).show();
                     return;
@@ -141,6 +163,41 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                     presenter.getLogin(mEdit1, encrypt);
                 }
 
+                XGPushManager.registerPush(this, new XGIOperateCallback() {
+                    @Override
+                    public void onSuccess(Object data, int flag) {
+                        //token在设备卸载重装的时候有可能会变
+                        Log.d("TPush", "注册成功，设备token为：" + data);
+                        String da = String.valueOf(data);
+                        new XinPresenter(new XinView<XinUser>() {
+
+                            @Override
+                            public void onDataSuccess(XinUser xinUser) {
+                                String message = xinUser.getMessage();
+                                Toast.makeText(LoginActivity.this,message+"",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onDataFailer(String msg) {
+
+                            }
+
+                            @Override
+                            public void onShowLoading() {
+
+                            }
+
+                            @Override
+                            public void onHideLoading() {
+
+                            }
+                        }).getLogin(da,1);
+                    }
+                    @Override
+                    public void onFail(Object data, int errCode, String msg) {
+                        Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+                    }
+                });
                 break;
             case R.id.loginimg:
                 wxLogin();
@@ -187,13 +244,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             LogUtil.d(mUserId + "");
             getSp();
 
-            startActivity(new Intent(this, ShowActivity.class));
+            Intent intent = new Intent(this, ShowActivity.class);
+            startActivity(intent);
+            PendingIntent pIntent = PendingIntent.getActivity(this,
+                    requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            int smallIcon = R.mipmap.ic_launcher;
+            String ticker = "您有一条新通知";
+            String title = "登录";
+            String content = "用户"+mNickName+"登陆成功";
+
+            NotifyUtil notify1 = new NotifyUtil(this, 1);
+            notify1.notify_normal_singline(pIntent, smallIcon, ticker, title, content, true, true, false);
+            currentNotify = notify1;
         }
 
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    public void getSp(){
+    public void getSp() {
         SpUtil.put("sessionId", mSessionId);
         SpUtil.put("userId", mUserId);
         SpUtil.put("birthday", mBirthday);

@@ -142,7 +142,6 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="@dimen/dp_70"
             android:layout_marginRight="50dp"
             android:layout_marginBottom="180dp"
             android:background="#da7827"
