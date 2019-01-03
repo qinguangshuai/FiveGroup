@@ -74,28 +74,21 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
-
     //banner依赖
     implementation 'com.youth.banner:banner:1.4.9'
-
     //fresco依赖
     implementation 'com.facebook.fresco:fresco:0.14.1'
-
     //fresco的gif依赖
     implementation 'com.facebook.fresco:animated-gif:0.14.1'
-
     //butterknife依赖
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.hjm:BottomTabBar:1.1.2'
-
     //log日志依赖
     implementation 'com.orhanobut:logger:2.2.0'
-
     //Retrofit2的依赖
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-
     //Rxjava依赖
     implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
@@ -132,19 +125,23 @@ dependencies {
     //信鸽普通版本jar，不包含厂商通道
     implementation 'com.tencent.xinge:xinge:4.0.4-release'
 
+    implementation 'com.tencent.xinge:xinge:4.0.4-release'
     //compile'com.tencent.xinge:xinge:4.2.0-Beta'
 
     //信鸽厂商通道版本jar，包含厂商通道(此版本已经集成厂商通道，无需另外导入厂商依赖包)
     implementation 'com.tencent.xinge:xinge:4.0.4-otherpush-release'
 
+    implementation 'com.tencent.xinge:xinge:4.0.4-otherpush-release'
     //compile 'com.tencent.xinge:xinge:4.2.0-otherpush-Beta'
 
     //jg包
     implementation 'com.tencent.jg:jg:1.1'
 
+    implementation 'com.tencent.jg:jg:1.1'
     //wup包
     implementation 'com.tencent.wup:wup:1.0.0.E-release'
 
+    implementation 'com.tencent.wup:wup:1.0.0.E-release'
     //mid包，minSdkVersion 14
     implementation 'com.tencent.mid:mid:4.0.7-Release'
     implementation 'com.android.support:multidex:1.0.3'
