@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,37 +18,51 @@ import com.bw.movie.R;
  *
  */public class SearchView extends LinearLayout {
 
-     private boolean isShow = false;
+    private boolean isShow = false;
+    private EditText editText;
+    private Click click;
 
-    public SearchView(Context context) {
-        this(context,null);
+    //click set方法
+    public void setClick(Click click) {
+        this.click = click;
     }
 
-    public SearchView(Context context,  AttributeSet attrs) {
-        this(context, attrs,-1);
+    //获取输入的值
+    public String getEditText() {
+        return editText.getText().toString();
+    }
+
+
+    public SearchView(Context context) {
+        this(context, null);
+    }
+
+    public SearchView(Context context, AttributeSet attrs) {
+        this(context, attrs, -1);
     }
 
     public SearchView(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customsearchview, this);
-        final LinearLayout linearLayout =  view.findViewById(R.id.cumtomlinear);
+        final LinearLayout linearLayout = view.findViewById(R.id.cumtomlinear);
         TextView cumtomsearch = view.findViewById(R.id.cumtomsearch);
         TextView cumtomresult = view.findViewById(R.id.cumtomresult);
+        editText = view.findViewById(R.id.cumtomedittext);
 
-
+        //放大镜 点击事件
         cumtomsearch.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Resources resources = context.getResources();
                 DisplayMetrics displayMetrics = resources.getDisplayMetrics();
                 int widthPixels = displayMetrics.widthPixels;
-                if(isShow == false){
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", 0f, -(widthPixels*3/5), -(widthPixels*2/5));
+                if (isShow == false) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", 0f, -(widthPixels * 3 / 5), -(widthPixels * 2 / 5));
                     animator.setDuration(1000);
                     animator.start();
                     isShow = true;
-                }else if(isShow == true){
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", -(widthPixels*2/5), 0, 0);
+                } else if (isShow == true) {
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", -(widthPixels * 2 / 5), 0, 0);
                     animator.setDuration(1000);
                     animator.start();
                     isShow = false;
@@ -55,6 +70,16 @@ import com.bw.movie.R;
 
             }
         });
+
+
+        //点击搜索
+        cumtomresult.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click.onClickListener(v,editText.getText().toString());
+            }
+        });
+
 
 
     }
@@ -71,7 +96,9 @@ import com.bw.movie.R;
     }
 
 
-
+    public interface Click{
+        void onClickListener(View v, String s);
+    }
 
 
 

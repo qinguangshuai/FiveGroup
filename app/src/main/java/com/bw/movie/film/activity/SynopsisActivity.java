@@ -453,7 +453,7 @@ public class SynopsisActivity extends BaseActivity {
             list.add(new DetailBean.ResultBean(2));
         }
         List<String> posterList = result.getPosterList();
-        StillsAdapder stillsAdapder = new StillsAdapder(list);
+        StillsAdapder stillsAdapder  = new StillsAdapder(list);
         mRecyclerView.setAdapter(stillsAdapder);
          stillsAdapder.setPoster(posterList);
         mRecyclerView.setLayoutManager(gridLayoutManager);
