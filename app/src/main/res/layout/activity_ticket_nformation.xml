@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/dp_10"
-    android:layout_marginBottom="@dimen/dp_15"
-    android:orientation="vertical">
+    android:layout_marginBottom="@dimen/dp_15">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ticketRecycler"></android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_200"
+        android:src="@drawable/idea_activity_back"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/my_ticket"/>
+</RelativeLayout>

@@ -59,7 +59,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAttFilmPresenter.getFilm(page++);
+                        mAttFilmPresenter.getFilm(page);
                         attenrecycle2.refreshComplete();
                     }
                 },2000);
@@ -70,7 +70,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAttFilmPresenter.getFilm(page);
+                        mAttFilmPresenter.getFilm(page++);
                         attenrecycle2.loadMoreComplete();
                     }
                 },2000);

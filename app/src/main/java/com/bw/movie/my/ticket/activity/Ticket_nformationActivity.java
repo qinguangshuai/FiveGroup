@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -24,6 +25,8 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
     @BindView(R.id.ticketRecycler)
     RecyclerView mTicketRecycler;
+    @BindView(R.id.my_ticket)
+    ImageView myTicket;
     private TicketformationPresenter presenter;
 
     @Override
@@ -71,8 +74,8 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
     public void onDataSuccess(TicketFoemationEntity ticketFoemationEntity) {
         List<TicketFoemationEntity.ResultBean> result = ticketFoemationEntity.getResult();
         mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mTicketRecycler.setAdapter(new TicketInforAdapter(result,this));
-       Toast.makeText(getApplicationContext(),result.toString(),Toast.LENGTH_LONG).show();
+        mTicketRecycler.setAdapter(new TicketInforAdapter(result, this));
+        Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -99,5 +102,10 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
             case R.id.ticketRecycler:
                 break;
         }
+    }
+
+    @OnClick(R.id.my_ticket)
+    public void onViewClicked() {
+        finish();
     }
 }

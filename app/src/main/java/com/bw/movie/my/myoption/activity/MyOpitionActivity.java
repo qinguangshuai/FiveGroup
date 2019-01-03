@@ -2,12 +2,14 @@ package com.bw.movie.my.myoption.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
@@ -81,9 +83,14 @@ public class MyOpitionActivity extends BaseActivity<MyOptionPresenter> implement
             default:
                 break;
             case R.id.my_option_tj:
-                presenter = new MyOptionPresenter(this);
-                presenter.getOption(info);
-                isSuccess = true;
+                String trim = mMyOptionInfo.getText().toString().trim();
+                if (TextUtils.isEmpty(trim)){
+                    Toast.makeText(this,"请输入您要反馈意见",Toast.LENGTH_SHORT).show();
+                }else {
+                    presenter = new MyOptionPresenter(this);
+                    presenter.getOption(info);
+                    isSuccess = true;
+                }
                 break;
             case R.id.my_option_info:
                 break;
