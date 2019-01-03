@@ -443,7 +443,7 @@ public class SynopsisActivity extends BaseActivity {
 
 
     //剧照
-    public void setStills(DetailBean.ResultBean result) {
+    public void setStills(final DetailBean.ResultBean result) {
         RecyclerView mRecyclerView = mStills.findViewById(R.id.Recyclerview_pop_stills);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         List<DetailBean.ResultBean> list = new ArrayList<>();
@@ -457,6 +457,7 @@ public class SynopsisActivity extends BaseActivity {
         mRecyclerView.setAdapter(stillsAdapder);
          stillsAdapder.setPoster(posterList);
         mRecyclerView.setLayoutManager(gridLayoutManager);
+
 
     }
 

@@ -33,7 +33,6 @@ public class StillsAdapder extends BaseMultiItemQuickAdapter<DetailBean.ResultBe
                 break;
             case StillsItem.IMGSMALL:
               Glide.with(mContext).load(posterList.get(1)).into((ImageView) helper.getView(R.id.imagesmall_one));
-
               Glide.with(mContext).load(posterList.get(2)).into((ImageView) helper.getView(R.id.imagesmall_two));
 
                 break;
