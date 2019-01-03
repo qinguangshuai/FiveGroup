@@ -1,5 +1,7 @@
 package com.bw.movie.film.bean;
 
+import com.bw.movie.film.adapter.StillsItem;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,11 +10,16 @@ import java.util.List;
  *TODO:
  *      通过Id 查找电影详情的 bean 类
  */
-public class DetailBean implements Serializable {
+public class DetailBean extends StillsItem implements Serializable  {
 
     private ResultBean result;
     private String message;
     private String status;
+
+    public DetailBean(int itemType) {
+        super(itemType);
+    }
+
 
     public ResultBean getResult() {
         return result;
@@ -40,7 +47,7 @@ public class DetailBean implements Serializable {
 
 
 
-    public  class ResultBean {
+    public static class ResultBean extends StillsItem {
 
         private String director;
         private String duration;
@@ -56,6 +63,11 @@ public class DetailBean implements Serializable {
         private List<String> posterList;
         private List<ShortFilmListBean> shortFilmList;
 
+
+
+        public ResultBean(int itemType) {
+            super(itemType);
+        }
         public String getDirector() {
             return director;
         }

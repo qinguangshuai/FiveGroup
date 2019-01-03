@@ -13,6 +13,8 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /*
  *作者:ash
@@ -21,6 +23,7 @@ import com.tencent.android.tpush.XGPushManager;
  */public class MyApp extends Application {
 
      public static Context context;
+    private IWXAPI wxApi;
 
     @Override
     public void onCreate() {
@@ -49,5 +52,16 @@ import com.tencent.android.tpush.XGPushManager;
         XGPushConfig.setMiPushAppKey(getApplicationContext(), "A44FJ9N7N9EY");
         XGPushConfig.setMzPushAppId(this, "d71d384497c51");
         XGPushConfig.setMzPushAppKey(this, "A44FJ9N7N9EY");
+        initWX();
+    }
+
+    /**
+     * 初始化微信支付
+     */
+    private void initWX() {
+        if (wxApi == null) {
+            wxApi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516");
+            wxApi.registerApp("wxb3852e6a6b7d9516");
+        }
     }
 }

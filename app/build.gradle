@@ -17,11 +17,25 @@ android {
 
         multiDexEnabled true
 
+        ndk {
+            //根据需要 自行选择添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
         manifestPlaceholders = [
 
                 XG_ACCESS_ID : "2100300660",
                 XG_ACCESS_KEY: "A44FJ9N7N9EY",
         ]
+    }
+    signingConfigs {
+        release {
+            storeFile file('movie.keystore')
+            storePassword '123456'
+            keyAlias 'bw_movie'
+            keyPassword '123456'
+        }
     }
     signingConfigs {
         release {
@@ -44,6 +58,12 @@ android {
         }
     }
 
+    defaultConfig {
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
 }
 
 dependencies {
@@ -73,35 +93,54 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
     //BottomTabBar依赖
     implementation 'com.hjm:BottomTabBar:1.1.2'
+
     //eventbus依赖
     implementation 'org.greenrobot:eventbus:3.0.0'
+
     //ijkplayer依赖
     implementation 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.5'
+
     //recyclerview依赖
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
     //轮播
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+
     //微信依赖
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
+
     //轮播
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+
     //高德
     implementation files('libs/AMap3DMap_6.5.0_AMapNavi_6.4.0_AMapSearch_6.5.0_AMapLocation_4.3.0_20181016.jar')
+
     //信鸽普通版本jar，不包含厂商通道
     implementation 'com.tencent.xinge:xinge:4.0.4-release'
+
+    implementation 'com.tencent.xinge:xinge:4.0.4-release'
     //compile'com.tencent.xinge:xinge:4.2.0-Beta'
+
     //信鸽厂商通道版本jar，包含厂商通道(此版本已经集成厂商通道，无需另外导入厂商依赖包)
     implementation 'com.tencent.xinge:xinge:4.0.4-otherpush-release'
+
+    implementation 'com.tencent.xinge:xinge:4.0.4-otherpush-release'
     //compile 'com.tencent.xinge:xinge:4.2.0-otherpush-Beta'
+
     //jg包
     implementation 'com.tencent.jg:jg:1.1'
+
+    implementation 'com.tencent.jg:jg:1.1'
     //wup包
+    implementation 'com.tencent.wup:wup:1.0.0.E-release'
+
     implementation 'com.tencent.wup:wup:1.0.0.E-release'
     //mid包，minSdkVersion 14
     implementation 'com.tencent.mid:mid:4.0.7-Release'
@@ -110,10 +149,17 @@ dependencies {
 
     //卡片式层叠列表
     implementation 'com.github.DakTop:android-wake-view:v1.0.3'
+
     //播放器
     implementation 'fm.jiecao:jiecaovideoplayer:5.5.2'
     implementation 'com.squareup.picasso:picasso:2.3.2'
 
     //动态权限依赖
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
+    implementation 'com.squareup.picasso:picasso:2.3.2'
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
 }

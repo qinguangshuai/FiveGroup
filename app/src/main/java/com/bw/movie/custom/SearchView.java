@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.R;
 
@@ -28,7 +27,7 @@ import com.bw.movie.R;
         this(context, attrs,-1);
     }
 
-    public SearchView(final Context context, final AttributeSet attrs, int defStyleAttr) {
+    public SearchView(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customsearchview, this);
         final LinearLayout linearLayout =  view.findViewById(R.id.cumtomlinear);
@@ -43,12 +42,12 @@ import com.bw.movie.R;
                 DisplayMetrics displayMetrics = resources.getDisplayMetrics();
                 int widthPixels = displayMetrics.widthPixels;
                 if(isShow == false){
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", 0f, -(widthPixels*6/10), -(widthPixels*6/10));
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", 0f, -(widthPixels*3/5), -(widthPixels*2/5));
                     animator.setDuration(1000);
                     animator.start();
                     isShow = true;
                 }else if(isShow == true){
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", -(widthPixels*6/10), 0, 0);
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(linearLayout, "translationX", -(widthPixels*2/5), 0, 0);
                     animator.setDuration(1000);
                     animator.start();
                     isShow = false;

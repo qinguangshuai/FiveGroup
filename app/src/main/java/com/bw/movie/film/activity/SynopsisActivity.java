@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.adapter.StillsAdapder;
+import com.bw.movie.film.adapter.StillsItem;
 import com.bw.movie.film.adapter.WeakCurrencyAdapter;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
@@ -29,6 +32,7 @@ import com.bw.movie.film.v.CommentView;
 import com.bw.movie.film.v.DetailView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dak.weakview.adapter.viewholder.WeakCurrencyViewHold;
 import com.dak.weakview.layout.WeakCardOverlapLayout;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -38,6 +42,7 @@ import com.facebook.imagepipeline.postprocessors.IterativeBoxBlurPostProcessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.squareup.picasso.Picasso;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,7 +96,6 @@ public class SynopsisActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
         mStills = View.inflate(this, R.layout.popupwindow_stills, null);      //剧照
@@ -156,10 +160,10 @@ public class SynopsisActivity extends BaseActivity {
             @Override
             public void onDataSuccess(CommentBean commentBean) {
                 List<CommentBean.ResultBean> result = commentBean.getResult();
-                if(emptyUtil.isNull(result) == false){
+                if (emptyUtil.isNull(result) == false) {
                     list.addAll(result);
                     setmReview(list);
-                }else {
+                } else {
                     toast.Toast("没有更多了");
                 }
             }
@@ -196,6 +200,7 @@ public class SynopsisActivity extends BaseActivity {
                 private final TextView mContext;
                 private final CheckBox mGood;
                 private final CheckBox mComment;
+
                 public Holder(View view) {
                     super(view);
                     mDraweeView = view.findViewById(R.id.img_item_comment);
@@ -205,6 +210,7 @@ public class SynopsisActivity extends BaseActivity {
                     mGood = view.findViewById(R.id.good_item_comment);
                     mComment = view.findViewById(R.id.comment_item_comment);
                 }
+
                 public void setData(CommentBean.ResultBean resultBean) {
                     mDraweeView.setImageURI(Uri.parse(resultBean.getCommentHeadPic()));
                     mName.setText(resultBean.getCommentUserName());
@@ -232,6 +238,7 @@ public class SynopsisActivity extends BaseActivity {
                 Holder holder = (Holder) viewHolder;
                 holder.setData(result.get(i));
             }
+
             @Override
             public int getItemCount() {
                 return result.size();
@@ -242,6 +249,7 @@ public class SynopsisActivity extends BaseActivity {
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动
             boolean isSlidingToLast = false;
+
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 //设置什么布局管理器,就获取什么的布局管理器
@@ -289,6 +297,7 @@ public class SynopsisActivity extends BaseActivity {
                 List<String> posterList = result.getPosterList();
                 //将数据装进适配器
                 adapter.refreshData(posterList);
+
                 //给tv 赋值
                 mTitleSynopsis.setText(result.getName());
                 //给背景 赋值
@@ -335,6 +344,7 @@ public class SynopsisActivity extends BaseActivity {
     private void setmDatail(DetailBean.ResultBean result) {
         //获取图片集合
         List<String> posterList = result.getPosterList();
+
         //找到控件
         RecyclerView mRecyclerView = mDatail.findViewById(R.id.Recyclerview_pop_datail);
         TextView mPlot = mDatail.findViewById(R.id.Plot_pop_datail); //剧情
@@ -351,7 +361,6 @@ public class SynopsisActivity extends BaseActivity {
         mTyep.setText("类型:" + result.getMovieTypes());  //类型
         String starring = result.getStarring();
         final String[] split = starring.split(",");
-
         //适配器!!
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -435,43 +444,19 @@ public class SynopsisActivity extends BaseActivity {
 
     //剧照
     public void setStills(DetailBean.ResultBean result) {
-        final List<String> posterList = result.getPosterList();
         RecyclerView mRecyclerView = mStills.findViewById(R.id.Recyclerview_pop_stills);
-//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-//        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new RecyclerView.Adapter() {
-            class Holder extends RecyclerView.ViewHolder {
-                private final ImageView mImageView;
 
-                public Holder(View view) {
-                    super(view);
-                    mImageView = view.findViewById(R.id.img_item_stills);
-                }
-            }
-
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_popstills, viewGroup, false);
-                return new Holder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                Holder holder = (Holder) viewHolder;
-                Picasso.with(SynopsisActivity.this)
-                        .load(posterList.get(i))
-                        .into(holder.mImageView);
-            }
-
-            @Override
-            public int getItemCount() {
-                return posterList.size();
-            }
-        });
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        List<DetailBean.ResultBean> list = new ArrayList<>();
+        for (int i = 0; i <5 ; i++) {
+            list.add(new DetailBean.ResultBean(1));
+            list.add(new DetailBean.ResultBean(2));
+        }
+        List<String> posterList = result.getPosterList();
+        StillsAdapder stillsAdapder = new StillsAdapder(list);
+        mRecyclerView.setAdapter(stillsAdapder);
+         stillsAdapder.setPoster(posterList);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
 
@@ -496,31 +481,31 @@ public class SynopsisActivity extends BaseActivity {
     public void onViewClicked(View v) {
         WindowManager windowManager = this.getWindowManager();
         int height = windowManager.getDefaultDisplay().getHeight();
-        toast.Toast(height/2);
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
                 PopupWindow popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow.setBackgroundDrawable(new ColorDrawable());
                 popupWindow.setOutsideTouchable(true);
-                popupWindow.showAsDropDown(v, 0, -(height/2));
+
+                popupWindow.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
             case R.id.rb_Trail_synopsis:
                 PopupWindow popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow2.setBackgroundDrawable(new ColorDrawable());
                 popupWindow2.setOutsideTouchable(true);
-                popupWindow2.showAsDropDown(v, 0, -(height/2));
+                popupWindow2.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
             case R.id.rb_Stills_synopsis:
                 PopupWindow popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow3.setBackgroundDrawable(new ColorDrawable());
                 popupWindow3.setOutsideTouchable(true);
-                popupWindow3.showAsDropDown(v, 0, -(height/2));
+                popupWindow3.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
             case R.id.rb_Review_synopsis:
                 PopupWindow popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow4.setBackgroundDrawable(new ColorDrawable());
                 popupWindow4.setOutsideTouchable(true);
-                popupWindow4.showAsDropDown(v, 0, -(height/2));
+                popupWindow4.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
         }
     }

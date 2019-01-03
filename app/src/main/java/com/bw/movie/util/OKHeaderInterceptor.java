@@ -20,7 +20,6 @@ public class OKHeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
-        //builder.addHeader("Content-Type","application/x-www-form-urlencoded");
         builder.addHeader("version","version1.0");
         builder.addHeader("sessionId",MyApp.context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("sessionId",""));
         builder.addHeader("ak",MyApp.context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("ak","0110010010000"));

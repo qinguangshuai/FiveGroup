@@ -18,6 +18,7 @@ import com.bw.movie.my.mylatest.activity.MyLatestVersionActivity;
 import com.bw.movie.my.myoption.activity.MyOpitionActivity;
 import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
 import com.bw.movie.util.SpUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +34,7 @@ public class MyFragment extends Fragment {
     @BindView(R.id.my_sound)
     ImageView mMySound;
     @BindView(R.id.my_touxiang)
-    ImageView mMyTouxiang;
+    SimpleDraweeView mMyTouxiang;
     @BindView(R.id.my_name)
     TextView mMyName;
     @BindView(R.id.my_info)
