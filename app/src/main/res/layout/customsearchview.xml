@@ -5,7 +5,7 @@
     android:id="@+id/cumtomlinear"
     android:layout_gravity="right"
     android:background="@drawable/shapesearch"
-    android:layout_width="@dimen/dp_300"
+    android:layout_width="320dp"
     android:layout_height="@dimen/dp_24">
 
 

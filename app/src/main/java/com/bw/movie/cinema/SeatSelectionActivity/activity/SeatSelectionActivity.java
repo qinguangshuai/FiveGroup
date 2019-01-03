@@ -67,7 +67,7 @@ public class SeatSelectionActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 View view = View.inflate(SeatSelectionActivity.this, R.layout.seatpopuitem, null);
-                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow.showAsDropDown(v, -280, -280);
                 RadioButton radioButton = view.findViewById(R.id.weixinfu);
                 RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);
