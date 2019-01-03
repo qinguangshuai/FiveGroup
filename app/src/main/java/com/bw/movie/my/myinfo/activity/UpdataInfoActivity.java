@@ -277,6 +277,7 @@ public void xj(File file){
                 presenter = new UpDateUserInfoPresenter(this);
                 presenter.getUserInfo(nickname, sex1, email);
                 startActivity(new Intent(this, MyMessage.class));
+
                 finish();
                 break;
 

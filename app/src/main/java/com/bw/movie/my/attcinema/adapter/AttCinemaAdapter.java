@@ -41,8 +41,17 @@ public class AttCinemaAdapter extends RecyclerView.Adapter<AttCinemaAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         AttCinemaUser.ResultBean bean = mList.get(i);
-        Uri uri = Uri.parse(bean.getLogo());
-        myViewHolder.simple.setImageURI(uri);
+
+        String logo = bean.getLogo();
+        if (logo==null){
+            int launcher = R.mipmap.ic_launcher;
+            String s = String.valueOf(launcher);
+            myViewHolder.simple.setImageURI(s);
+        }else {
+            Uri uri = Uri.parse(logo);
+            myViewHolder.simple.setImageURI(uri);
+        }
+
         myViewHolder.text1.setText(bean.getName());
         myViewHolder.text2.setText(bean.getAddress());
     }

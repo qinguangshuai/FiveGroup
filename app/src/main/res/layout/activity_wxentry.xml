@@ -15,4 +15,23 @@
         android:textColor="#000"
         android:text="欢迎使用微信登录"
         android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="shareWXSceneSession"
+            android:text="分享给微信好友"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="shareWXSceneTimeline"
+            android:layout_gravity="center"
+            android:text="分享到朋友圈"/>
+    </LinearLayout>
 </RelativeLayout>

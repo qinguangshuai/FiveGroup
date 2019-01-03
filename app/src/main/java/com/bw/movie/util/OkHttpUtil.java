@@ -35,6 +35,7 @@ public class OkHttpUtil {
         builder.retryOnConnectionFailure(true);
         //添加请求头
         builder.addInterceptor(new OKHeaderInterceptor());
+        //日志拦截器
         builder.addInterceptor(new OkLogInterceptor());
         builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
         client = builder.build();

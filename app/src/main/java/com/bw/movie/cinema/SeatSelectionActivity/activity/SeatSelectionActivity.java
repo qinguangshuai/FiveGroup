@@ -50,10 +50,6 @@ public class SeatSelectionActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-
-    /*    if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }*/
         seatTableView.setGetData(new SeatTable.getDatas() {
             @Override
             public void getDate(int sizes) {
@@ -64,24 +60,6 @@ public class SeatSelectionActivity extends BaseActivity {
         });
 
     }
-
-   /* @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getSeat(SeatEvent seatEvent) {
-
-      //  Toast.makeText(this, seatEvent.getId()+"", Toast.LENGTH_SHORT).show();
-        v21 = 0;
-        double v = Double.parseDouble(paerprice);
-        v21 = v * seatEvent.getId();
-        cinemaprice.setText(v21 + "");
-
-    }*/
-
-   /* @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }*/
-
     @Override
     public void initListener() {
 

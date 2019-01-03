@@ -1,6 +1,7 @@
 package com.bw.movie.film.service;
 
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
@@ -42,6 +43,9 @@ public interface FilmService {
     Observable<DetailBean> getDetailBeanObservable(@Query("movieId") int movieId);
 
 
+    //请求评论接口
+    @GET("movie/v1/findAllMovieComment")
+    Observable<CommentBean> getCommentBeanObservable(@Query("movieId") int movieId ,@Query("page") int page ,@Query("count") int count);
 
 
 }

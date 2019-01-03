@@ -15,5 +15,6 @@ public interface  FindMovieScheduleListService {
 
 
     @GET("movie/v1/findMovieScheduleList")
-    Observable<FindMovieScheduleListBean> getFindMovieScheduleList(@Query("cinemasId") int cinemasId, @Query("movieId") int movieId);
+    Observable<FindMovieScheduleListBean> getFindMovieScheduleList(@Query("cinemasId") int cinemasId,
+                                                                   @Query("movieId") int movieId);
 }

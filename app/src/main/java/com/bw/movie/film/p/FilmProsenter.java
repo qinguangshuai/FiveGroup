@@ -3,11 +3,13 @@ package com.bw.movie.film.p;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.m.CarouseCallBack;
+import com.bw.movie.film.m.CommentCallBack;
 import com.bw.movie.film.m.DetailCallBack;
 import com.bw.movie.film.m.FilmModle;
 import com.bw.movie.film.m.HotPlayCallBack;
@@ -97,6 +99,22 @@ public class FilmProsenter extends BasePresenter {
             @Override
             public void success(DetailBean detailBean) {
                 getiBaseView().onDataSuccess(detailBean);
+            }
+
+            @Override
+            public void error(String message) {
+                getiBaseView().onDataFailer(message);
+            }
+        });
+    }
+
+
+    //评论
+    public void getCommentBeanObservable(int id , int page ,int count){
+        mFilmModle.getCommentBeanObservable(id, page, count, new CommentCallBack() {
+            @Override
+            public void success(CommentBean commentBean) {
+                getiBaseView().onDataSuccess(commentBean);
             }
 
             @Override
