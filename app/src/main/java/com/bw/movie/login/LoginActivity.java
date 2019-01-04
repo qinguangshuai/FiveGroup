@@ -213,7 +213,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     public void wxLogin() {
-        if (!WeiXinUtil.success(LoginActivity.this).isWXAppInstalled()) {
+        if (!WeiXinUtil.success(LoginActivity.this)) {
             Toast.makeText(this, "您还未安装微信客户端", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -221,7 +221,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             final SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
             req.state = "diandi_wx_login";
-            WeiXinUtil.success(LoginActivity.this).sendReq(req);
+            WeiXinUtil.reg(LoginActivity.this).sendReq(req);
         }
 
 

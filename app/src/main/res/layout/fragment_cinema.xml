@@ -27,6 +27,7 @@
             android:layout_gravity="center_vertical"
             android:text="北京"/>
         <com.bw.movie.custom.SearchView
+            android:id="@+id/serch"
             android:layout_width="wrap_content"
             android:gravity="right"
             android:layout_weight="1"

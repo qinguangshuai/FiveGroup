@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-public class StillsAdapder extends BaseMultiItemQuickAdapter<DetailBean.ResultBean, BaseViewHolder> {
+public class StillsAdapder extends BaseMultiItemQuickAdapter<StillsItem, BaseViewHolder> {
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -18,25 +18,31 @@ public class StillsAdapder extends BaseMultiItemQuickAdapter<DetailBean.ResultBe
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public StillsAdapder(List<DetailBean.ResultBean> data) {
+    public StillsAdapder(List<StillsItem> data) {
         super(data);
         addItemType(StillsItem.IMGBIG, R.layout.stillsbig);
         addItemType(StillsItem.IMGSMALL, R.layout.stillssmall);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DetailBean.ResultBean item) {
-        switch (item.getItemType()) {
-            case StillsItem.IMGBIG:
-               Glide.with(mContext).load(posterList.get(0)).into((ImageView) helper.getView(R.id.imagebig));
+    protected void convert(BaseViewHolder helper,StillsItem item) {
+        int position = helper.getPosition();
+        if (position<5){
+            switch (item.getItemType()) {
+                case StillsItem.IMGBIG:
 
-                break;
-            case StillsItem.IMGSMALL:
-              Glide.with(mContext).load(posterList.get(1)).into((ImageView) helper.getView(R.id.imagesmall_one));
-              Glide.with(mContext).load(posterList.get(2)).into((ImageView) helper.getView(R.id.imagesmall_two));
+                    Glide.with(mContext).load(posterList.get(position)).into((ImageView) helper.getView(R.id.imagebig));
+                    break;
+                case StillsItem.IMGSMALL:
+                    Glide.with(mContext).load(posterList.get(position)).into((ImageView) helper.getView(R.id.imagesmall_one));
+                    Glide.with(mContext).load(posterList.get(position)).into((ImageView) helper.getView(R.id.imagesmall_two));
 
-                break;
+                    break;
+            }
+        }else if (position>5){
+          position=0;
         }
+
     }
 
 
