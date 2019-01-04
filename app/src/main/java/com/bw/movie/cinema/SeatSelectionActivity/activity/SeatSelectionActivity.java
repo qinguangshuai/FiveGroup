@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.bw.movie.my.ticket.ticketnet.presenter.TiketPresenter;
 import com.bw.movie.my.ticket.ticketnet.view.TicketView;
 import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.MDSUtil;
+import com.bw.movie.wxapi.WXPayEntryActivity;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
 import com.bw.movie.wxapi.view.OrderSuccessView;
@@ -77,8 +79,10 @@ public class SeatSelectionActivity extends BaseActivity {
                     public void onClick(View v) {
                         getZhiFu(sizes);
                         View view = View.inflate(SeatSelectionActivity.this, R.layout.seatpopuitem, null);
+                        WindowManager windowManager = getWindowManager();
+                        int height = windowManager.getDefaultDisplay().getHeight();
                         final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        popupWindow.showAsDropDown(v, -280, -280);
+                        popupWindow.showAsDropDown(v, 0, -height/4);
                         RadioButton radioButton = view.findViewById(R.id.weixinfu);
                         RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);
                         final Button button = view.findViewById(R.id.fukuan);
@@ -114,6 +118,9 @@ public class SeatSelectionActivity extends BaseActivity {
                                     @Override
                                     public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
                                         Toast.makeText(SeatSelectionActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Intent intent =new Intent(SeatSelectionActivity.this,WXPayEntryActivity.class);
+                                        startActivity(intent);
+
                                     }
 
                                     @Override
