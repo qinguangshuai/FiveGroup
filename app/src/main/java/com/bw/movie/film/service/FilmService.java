@@ -2,6 +2,7 @@ package com.bw.movie.film.service;
 
 import com.bw.movie.film.bean.CancelFollowMovieBean;
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
@@ -57,6 +58,11 @@ public interface FilmService {
     //取消关注
     @GET("movie/v1/verify/cancelFollowMovie")
     Observable<CancelFollowMovieBean> getCancelFollowMovieBeanObservable(@Query("movieId") int movieId );
+
+
+    //根据电影Id 查询影院
+    @GET("movie/v1/findCinemasListByMovieId")
+    Observable<CinemaBean> getCinemaBeanObservable(@Query("movieId") int movieId );
 
 
 }

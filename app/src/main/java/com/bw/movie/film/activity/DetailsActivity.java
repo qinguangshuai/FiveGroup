@@ -2,8 +2,6 @@ package com.bw.movie.film.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,12 +10,13 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.custom.CustomViewpager;
+import com.bw.movie.film.adapter.MyAdapter;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.fragment.HotFragment;
 import com.bw.movie.film.fragment.PlayingFragment;
 import com.bw.movie.film.fragment.PopularFragment;
-import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -180,38 +179,3 @@ public class DetailsActivity extends BaseActivity {
 }
 
 
-/*-----------
- *🖐说明:
- *   viewpager 适配器
- */
-class MyAdapter extends FragmentPagerAdapter {
-
-    private EmptyUtil emptyUtil = new EmptyUtil();
-
-
-    private ArrayList<Fragment> list = new ArrayList<>();
-
-    public void setList(ArrayList<Fragment> list) {
-        if (this.list != null && this.list.size() > 0) {
-            this.list.clear();
-        }
-        this.list.addAll(list);
-    }
-
-    public MyAdapter(FragmentManager fm) {
-        super(fm);
-    }
-
-    @Override
-    public Fragment getItem(int i) {
-        return list.get(i);
-    }
-
-    @Override
-    public int getCount() {
-        if (emptyUtil.isNull(list) == false) {
-            return list.size();
-        }
-        return 0;
-    }
-}

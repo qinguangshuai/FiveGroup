@@ -3,6 +3,7 @@ package com.bw.movie.film.m;
 import android.util.Log;
 
 import com.bw.movie.film.bean.CancelFollowMovieBean;
+import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
@@ -274,6 +275,38 @@ public class FilmModle {
                     @Override
                     public void onError(Throwable e) {
                         cancelFollowMovieCallBack.error(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
+    //查询影院
+    public void getCinemaBeanObservable(int id, final CinemaCallBack cinemaCallBack){
+        OkHttpUtil
+                .get()
+                .createa(FilmService.class)
+                .getCinemaBeanObservable(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CinemaBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CinemaBean cinemaBean) {
+                        cinemaCallBack.success(cinemaBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        cinemaCallBack.error(e.getMessage());
                     }
 
                     @Override

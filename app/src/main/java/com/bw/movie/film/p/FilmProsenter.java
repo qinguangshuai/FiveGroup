@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.bean.CancelFollowMovieBean;
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
@@ -12,6 +13,7 @@ import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.m.CancelFollowMovieCallBack;
 import com.bw.movie.film.m.CarouseCallBack;
+import com.bw.movie.film.m.CinemaCallBack;
 import com.bw.movie.film.m.CommentCallBack;
 import com.bw.movie.film.m.DetailCallBack;
 import com.bw.movie.film.m.FilmModle;
@@ -158,6 +160,22 @@ public class FilmProsenter extends BasePresenter {
             }
         });
     }
+
+    //查询影院
+    public void getCinemaBeanObservable(int id){
+        mFilmModle.getCinemaBeanObservable(id, new CinemaCallBack() {
+            @Override
+            public void success(CinemaBean cinemaBean) {
+                getiBaseView().onDataSuccess(cinemaBean);
+            }
+
+            @Override
+            public void error(String message) {
+                getiBaseView().onDataFailer(message);
+            }
+        });
+    }
+
 
 
 }

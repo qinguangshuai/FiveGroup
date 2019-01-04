@@ -25,6 +25,9 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
+import com.bw.movie.film.adapter.PopupWindow2Adapter;
+import com.bw.movie.film.adapter.PopupWindow4Adapter;
+import com.bw.movie.film.adapter.Popupwindow1Adapter;
 import com.bw.movie.film.adapter.StillsAdapder;
 import com.bw.movie.film.adapter.WeakCurrencyAdapter;
 import com.bw.movie.film.bean.CommentBean;
@@ -34,6 +37,7 @@ import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CommentView;
 import com.bw.movie.film.v.DetailView;
 import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 import com.dak.weakview.adapter.viewholder.WeakCurrencyViewHold;
 import com.dak.weakview.layout.WeakCardOverlapLayout;
@@ -68,7 +72,6 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class SynopsisActivity extends BaseActivity {
 
-
     @BindView(R.id.card_synopsis)
     WeakCardOverlapLayout mCardSynopsis;
     @BindView(R.id.title_synopsis)
@@ -92,7 +95,6 @@ public class SynopsisActivity extends BaseActivity {
     private View mStills;
     private View mReview;
     private View mDatail;
-    private RecyclerView.Adapter adapter1;
     private int a = 1;
     private int id;
     private EmptyUtil emptyUtil;
@@ -211,94 +213,17 @@ public class SynopsisActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new RecyclerView.Adapter() {
-            class Holder extends RecyclerView.ViewHolder {
-                private final SimpleDraweeView mDraweeView;
-                private final TextView mName;
-                private final TextView mTime;
-                private final TextView mContext;
-                private final CheckBox mGood;
-                private final CheckBox mComment;
+        PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
+        popupWindow4Adapter.setResult(result);
+        mRecyclerView.setAdapter(popupWindow4Adapter);
 
-                public Holder(View view) {
-                    super(view);
-                    mDraweeView = view.findViewById(R.id.img_item_comment);
-                    mName = view.findViewById(R.id.name_item_comment);
-                    mContext = view.findViewById(R.id.context_item_comment);
-                    mTime = view.findViewById(R.id.time_item_comment);
-                    mGood = view.findViewById(R.id.good_item_comment);
-                    mComment = view.findViewById(R.id.comment_item_comment);
-                }
-
-                public void setData(CommentBean.ResultBean resultBean) {
-                    mDraweeView.setImageURI(Uri.parse(resultBean.getCommentHeadPic()));
-                    mName.setText(resultBean.getCommentUserName());
-                    long browseTime = resultBean.getCommentTime();
-                    GregorianCalendar gc = new GregorianCalendar();
-                    String s = String.valueOf(browseTime);
-                    gc.setTimeInMillis(Long.parseLong(s));
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    mTime.setText(df.format(gc.getTime()));
-                    mGood.setText(resultBean.getReplyNum() + "");
-                    mComment.setText(resultBean.getGreatNum() + "");
-                    mContext.setText(resultBean.getCommentContent() + "");
-                }
-            }
-
-            @NonNull
+        //抽取方法 上拉 加载更多
+        RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_popcomment, viewGroup, false);
-                return new Holder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                Holder holder = (Holder) viewHolder;
-                holder.setData(result.get(i));
-            }
-
-            @Override
-            public int getItemCount() {
-                return result.size();
-            }
-        });
-
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            //用来标记是否正在向最后一个滑动
-            boolean isSlidingToLast = false;
-
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                //设置什么布局管理器,就获取什么的布局管理器
-                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                // 当停止滑动时
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    //获取最后一个完全显示的ItemPosition ,角标值
-                    int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
-                    //所有条目,数量值
-                    int totalItemCount = manager.getItemCount();
-                    // 判断是否滚动到底部，并且是向右滚动
-                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                        //加载更多功能的代码
-                        a++;
-                        getCommentData(id, a, 10);
-                    }
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
-                //dx>0:向右滑动,dx<0:向左滑动
-                //dy>0:向下滑动,dy<0:向上滑动
-                if (dy > 0) {
-                    isSlidingToLast = true;
-                } else {
-                    isSlidingToLast = false;
-                }
+            public void info() {
+                //加载更多功能的代码
+                a++;
+                getCommentData(id, a, 10);
             }
         });
 
@@ -331,6 +256,7 @@ public class SynopsisActivity extends BaseActivity {
                 mBuySynopsis.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        startActivity(new Intent(SynopsisActivity.this, AffiliatedTheaterActivity.class).putExtra("id", detailBean.getResult().getId()));
                     }
                 });
                 //给背景 赋值
@@ -373,13 +299,12 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
-    //第一个pop setmDatail 中的控件
+    //第一个Popupwindow 的数据
     private void setmDatail(DetailBean.ResultBean result) {
         //获取图片集合
         List<String> posterList = result.getPosterList();
-
         //找到控件
-        ImageView back = mDatail.findViewById(R.id.back_pop_datail);
+        TextView back = mDatail.findViewById(R.id.back_pop_datail);
         //关闭方法
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -387,6 +312,7 @@ public class SynopsisActivity extends BaseActivity {
                 popupWindow.dismiss();
             }
         });
+        //查找控件
         RecyclerView mRecyclerView = mDatail.findViewById(R.id.Recyclerview_pop_datail);
         TextView mPlot = mDatail.findViewById(R.id.Plot_pop_datail); //剧情
         TextView mArea = mDatail.findViewById(R.id.area_pop_datail); //产地
@@ -406,39 +332,15 @@ public class SynopsisActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(new RecyclerView.Adapter() {
-            class Holder extends RecyclerView.ViewHolder {
-                private final TextView tv;
-
-                public Holder(View view) {
-                    super(view);
-                    tv = view.findViewById(R.id.tv_item_poprecy);
-                }
-            }
-
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_poprecy, viewGroup, false);
-                return new Holder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                Holder holder = (Holder) viewHolder;
-                holder.tv.setText(split[i]);
-            }
-
-            @Override
-            public int getItemCount() {
-                return split.length;
-            }
-        });
-
+        Popupwindow1Adapter popupwindow1Adapter = new Popupwindow1Adapter();
+        popupwindow1Adapter.setData(split);
+        mRecyclerView.setAdapter(popupwindow1Adapter);
     }
 
 
-    //mTrail  预告片
+
+
+    //第二个Popupwindow  mTrail  预告片
     public void setTrail(DetailBean.ResultBean result) {
         final List<DetailBean.ResultBean.ShortFilmListBean> shortFilmList = result.getShortFilmList();
         ImageView back = mTrail.findViewById(R.id.back_pop_trail);
@@ -453,45 +355,13 @@ public class SynopsisActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        adapter1 = new RecyclerView.Adapter() {
-
-            class Holder extends RecyclerView.ViewHolder {
-                private final JCVideoPlayerStandard mJcVideoPlayerStandard;
-
-                public Holder(View view) {
-                    super(view);
-                    mJcVideoPlayerStandard = view.findViewById(R.id.video_item_popvideo);
-                }
-            }
-
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_popvideo, viewGroup, false);
-                return new Holder(view);
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                Holder holder = (Holder) viewHolder;
-                holder.mJcVideoPlayerStandard.setUp(shortFilmList.get(i).getVideoUrl(), JCVideoPlayer.SCREEN_LAYOUT_NORMAL);
-                Picasso.with(SynopsisActivity.this)
-                        .load(shortFilmList.get(i).getImageUrl())
-                        .into(holder.mJcVideoPlayerStandard.thumbImageView);
-            }
-
-            @Override
-            public int getItemCount() {
-                return shortFilmList.size();
-            }
-
-
-        };
-        mRecyclerView.setAdapter(adapter1);
+        PopupWindow2Adapter popupWindow2Adapter = new PopupWindow2Adapter(this);
+        popupWindow2Adapter.setShortFilmList(shortFilmList);
+        mRecyclerView.setAdapter(popupWindow2Adapter);
     }
 
 
-    //剧照
+    //第三个popupwindow  剧照
     public void setStills(DetailBean.ResultBean result) {
         RecyclerView mRecyclerView = mStills.findViewById(R.id.Recyclerview_pop_stills);
         ImageView back = mStills.findViewById(R.id.back_pop_stills);
@@ -542,26 +412,25 @@ public class SynopsisActivity extends BaseActivity {
                 popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow.setBackgroundDrawable(new ColorDrawable());
                 popupWindow.setOutsideTouchable(true);
-
-                popupWindow.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
+                popupWindow.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
                 break;
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow2.setBackgroundDrawable(new ColorDrawable());
                 popupWindow2.setOutsideTouchable(true);
-                popupWindow2.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
+                popupWindow2.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
                 break;
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow3.setBackgroundDrawable(new ColorDrawable());
                 popupWindow3.setOutsideTouchable(true);
-                popupWindow3.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
+                popupWindow3.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
                 break;
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow4.setBackgroundDrawable(new ColorDrawable());
                 popupWindow4.setOutsideTouchable(true);
-                popupWindow4.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
+                popupWindow4.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
                 break;
         }
     }
