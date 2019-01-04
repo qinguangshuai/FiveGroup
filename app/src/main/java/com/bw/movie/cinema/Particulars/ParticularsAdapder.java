@@ -60,7 +60,7 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
         //轮播数据
         final PartCoverFlowAdapder partCoverFlowAdapder = new PartCoverFlowAdapder(result, mContext);
         particularsViewHolder.recyclerCoverFlow.setAdapter(partCoverFlowAdapder);
-        particularsViewHolder.recyclerCoverFlow.smoothScrollToPosition(200);
+        particularsViewHolder.recyclerCoverFlow.smoothScrollToPosition(30);
         particularsViewHolder.recyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
@@ -82,6 +82,7 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
                                Intent intent = new Intent(mContext,SeatSelectionActivity.class);
                                intent.putExtra(Constant.PARTID,findMovieScheduleListBean.getResult().get(i).getPrice()+"");
                                 intent.putExtra(Constant.PARTNAME,findMovieScheduleListBean.getResult().get(i).getScreeningHall());
+                                intent.putExtra(Constant.CINEMAID,findMovieScheduleListBean.getResult().get(i).getId());
                                mContext.startActivity(intent);
                             }
                         });

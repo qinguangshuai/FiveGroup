@@ -3,14 +3,10 @@ package com.bw.movie.film.activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,11 +20,11 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
-import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.film.adapter.PopupWindow2Adapter;
 import com.bw.movie.film.adapter.PopupWindow4Adapter;
 import com.bw.movie.film.adapter.Popupwindow1Adapter;
 import com.bw.movie.film.adapter.StillsAdapder;
+import com.bw.movie.film.adapter.StillsItem;
 import com.bw.movie.film.adapter.WeakCurrencyAdapter;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
@@ -47,20 +43,16 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.postprocessors.IterativeBoxBlurPostProcessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /*-----------
  *🖐说明:
@@ -376,10 +368,10 @@ public class SynopsisActivity extends BaseActivity {
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        List<DetailBean.ResultBean> list = new ArrayList<>();
+        List<StillsItem> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            list.add(new DetailBean.ResultBean(1));
-            list.add(new DetailBean.ResultBean(2));
+            list.add(new StillsItem(1));
+            list.add(new StillsItem(2));
         }
         List<String> posterList = result.getPosterList();
         StillsAdapder stillsAdapder = new StillsAdapder(list);

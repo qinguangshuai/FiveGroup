@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +27,11 @@ import com.bw.movie.cinema.mevaluate.adapder.MevaluateAdapder;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
+import com.bw.movie.cinema.search.event.CinameEvent;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,11 +71,44 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setAdapter(particularsAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recylerviewPart.setLayoutManager(linearLayoutManager);
-
+       /* if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }*/
 
     }
+   /* @Subscribe
+    public void getCinemaId(CinameEvent cinameEvent) {
+        int cinemaId = cinameEvent.getCinemaId();
+        Log.e("zwl",cinemaId+"");
+       *//* new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
+            @Override
+            public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
 
+                List<MovieListByCinemaIdBean.ResultBean> result = movieListByCinemaIdBean.getResult();
+                particularsAdapder.Lunbo(result);
+                particularsAdapder.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onDataFailer(String msg) {
+            }
+
+            @Override
+            public void onShowLoading() {
+            }
+
+            @Override
+            public void onHideLoading() {
+            }
+        }).getMovieByBean(cinameEvent.getCinemaId());*//*
+    }
+*/
+   /* @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().register(this);
+    }
+*/
     @Override
     public void initListener() {
         //返回键的监听

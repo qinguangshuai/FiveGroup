@@ -2,6 +2,7 @@ package com.bw.movie;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,15 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.fragment.CinemaFragment;
+
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,7 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+
         //初始化控件
         initView();
 
@@ -58,15 +65,11 @@ public class ShowActivity extends AppCompatActivity {
         aa.start();
     }
 
-    private void initData() {
-//        RotateAnimation
-     /*   if (film_show.isChecked()) {
 
-        } else if (cinema_show.isChecked()) {
-            ObjectAnimator ra = ObjectAnimator.ofFloat(cinema_show, "rotation", 0f, 360f);
-            ra.setDuration(3000);
-            ra.start();
-        }*/
+
+
+    private void initData() {
+
      film_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          @Override
          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -193,4 +196,7 @@ public class ShowActivity extends AppCompatActivity {
         lingdai = (ImageView) findViewById(R.id.lingdai);
 
     }
+
+
+
 }
