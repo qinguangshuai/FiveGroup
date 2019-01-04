@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/title_synopsis"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
             android:textColor="#fff"
             android:textSize="@dimen/sp_24"
             android:textStyle="bold"
@@ -149,6 +149,7 @@
             android:layout_height="0dp" />
 
         <Button
+            android:layout_marginBottom="@dimen/dp_5"
             android:id="@+id/buy_synopsis"
             android:textSize="@dimen/sp_19"
             android:textColor="#fff"
@@ -158,6 +159,11 @@
             android:background="@drawable/shapebuy"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60" />
+
+        <Space
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
     </LinearLayout>
 
 
