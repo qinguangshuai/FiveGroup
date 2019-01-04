@@ -1,5 +1,6 @@
 package com.bw.movie.film.fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.HotPlayView;
 import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 
 import java.util.List;
@@ -32,7 +34,8 @@ public class HotFragment extends BaseFragment {
     //适配器
     private HotAdapter hotAdapter = new HotAdapter();
 
-
+    @BindView(R.id.swipe_detailsfragment)
+    SwipeRefreshLayout mSwipeDetailsfragment;
     @BindView(R.id.RecyclerView_detailsfragment)
     RecyclerView mRecyclerViewDetailsfragment;
     Unbinder unbinder;
@@ -81,6 +84,18 @@ public class HotFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewDetailsfragment.setAdapter(hotAdapter);
         mRecyclerViewDetailsfragment.setLayoutManager(linearLayoutManager);
+        RecyclerViewScrollUtil.Refresh(mSwipeDetailsfragment, 2000, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                toast.Toast("刷新~");
+            }
+        });
+        RecyclerViewScrollUtil.Scroll(mRecyclerViewDetailsfragment, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                toast.Toast("加载.....没有更多了");
+            }
+        });
     }
 
     //set数据

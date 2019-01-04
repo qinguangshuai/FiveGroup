@@ -1,6 +1,8 @@
 package com.bw.movie.util;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,7 +13,7 @@ import android.support.v7.widget.RecyclerView;
  */
 public class RecyclerViewScrollUtil {
 
-    //一个RecyclerView 滚动的 工具类
+    //一个RecyclerView 滚动的 方法
     public static void Scroll(RecyclerView recyclerView, final boolean isV , final onEvent onEvent){
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动
@@ -56,6 +58,27 @@ public class RecyclerViewScrollUtil {
             }
         });
     }
+
+
+    //一个下拉刷新的方法
+    public static void Refresh(final SwipeRefreshLayout swipeRefreshLayout , final int time , final onEvent onEvent){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onEvent.info();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },time);
+            }
+        });
+    }
+
+
+
+
 
 
     public interface onEvent{

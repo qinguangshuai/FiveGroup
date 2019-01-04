@@ -1,7 +1,12 @@
 package com.bw.movie.film.fragment;
 
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -11,6 +16,7 @@ import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.PopularmView;
 import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 
 import butterknife.BindView;
@@ -23,6 +29,9 @@ import butterknife.Unbinder;
  *      正在热映
  */
 public class PopularFragment extends BaseFragment {
+    @BindView(R.id.swipe_detailsfragment)
+    SwipeRefreshLayout mSwipeDetailsfragment;
+    Unbinder unbinder1;
     //判空工具类
     private EmptyUtil emptyUtil = new EmptyUtil();
     //吐司工具类
@@ -51,6 +60,7 @@ public class PopularFragment extends BaseFragment {
     public void initData() {
 
     }
+
     @Override
     public int initLayoutId() {
         return R.layout.detailsfragment;
@@ -73,15 +83,27 @@ public class PopularFragment extends BaseFragment {
     }
 
     //set recyclerview 数据
-    public void setRecyclerViewData(){
+    public void setRecyclerViewData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewDetailsfragment.setAdapter(mPopularPlayAdapter);
         mRecyclerViewDetailsfragment.setLayoutManager(linearLayoutManager);
+        RecyclerViewScrollUtil.Refresh(mSwipeDetailsfragment, 2000, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                toast.Toast("刷新~");
+            }
+        });
+        RecyclerViewScrollUtil.Scroll(mRecyclerViewDetailsfragment, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                toast.Toast("加载.....没有更多了");
+            }
+        });
     }
 
     //set数据
-    public void setData(){
+    public void setData() {
         new FilmProsenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {

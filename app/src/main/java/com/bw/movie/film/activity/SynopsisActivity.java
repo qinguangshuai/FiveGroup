@@ -114,6 +114,7 @@ public class SynopsisActivity extends BaseActivity {
         setCardSynopsis();
         getData(id);
         getCommentData(id, 1, 10);
+
     }
 
     @Override
@@ -143,6 +144,18 @@ public class SynopsisActivity extends BaseActivity {
     public BasePresenter initPresenter() {
         return null;
     }
+    //判断并销毁视频 的 播放
+    public void isPlay(){
+        if(popupWindow2.isShowing()){
+
+        }else {
+            if (JCVideoPlayer.backPress()) {
+                return;
+            }
+            JCVideoPlayer.releaseAllVideos();
+        }
+    }
+
 
 
     //向第三方控件中set 数据
@@ -196,37 +209,6 @@ public class SynopsisActivity extends BaseActivity {
 
             }
         }).getCommentBeanObservable(id, page, count);
-    }
-
-
-    //第四个pop
-    public void setmReview(final List<CommentBean.ResultBean> result) {
-        RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
-        ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
-        //取消 pop
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow4.dismiss();
-            }
-        });
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
-        popupWindow4Adapter.setResult(result);
-        mRecyclerView.setAdapter(popupWindow4Adapter);
-
-        //抽取方法 上拉 加载更多
-        RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
-            @Override
-            public void info() {
-                //加载更多功能的代码
-                a++;
-                getCommentData(id, a, 10);
-            }
-        });
-
     }
 
 
@@ -352,6 +334,8 @@ public class SynopsisActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 popupWindow2.dismiss();
+                isPlay();
+
             }
         });
         RecyclerView mRecyclerView = mTrail.findViewById(R.id.Recyclerview_pop_trail);
@@ -388,6 +372,37 @@ public class SynopsisActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
+    //第四个pop
+    public void setmReview(final List<CommentBean.ResultBean> result) {
+        RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
+        ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
+        //取消 pop
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow4.dismiss();
+            }
+        });
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
+        popupWindow4Adapter.setResult(result);
+        mRecyclerView.setAdapter(popupWindow4Adapter);
+
+        //抽取方法 上拉 加载更多
+        RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                //加载更多功能的代码
+                a++;
+                getCommentData(id, a, 10);
+            }
+        });
+
+    }
+
+
 
     //暂停
     @Override
@@ -413,27 +428,27 @@ public class SynopsisActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
                 popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                popupWindow.setBackgroundDrawable(new ColorDrawable());
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
+//                popupWindow.setBackgroundDrawable(new ColorDrawable());
+//                popupWindow.setOutsideTouchable(true);
+                popupWindow.showAsDropDown(v, 0, -(height * 3 / 5) );
                 break;
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                popupWindow2.setBackgroundDrawable(new ColorDrawable());
-                popupWindow2.setOutsideTouchable(true);
-                popupWindow2.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
+//                popupWindow2.setBackgroundDrawable(new ColorDrawable());
+//                popupWindow2.setOutsideTouchable(true);
+                popupWindow2.showAsDropDown(v, 0, -(height * 3 / 5) );
                 break;
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                popupWindow3.setBackgroundDrawable(new ColorDrawable());
-                popupWindow3.setOutsideTouchable(true);
-                popupWindow3.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
+//                popupWindow3.setBackgroundDrawable(new ColorDrawable());
+//                popupWindow3.setOutsideTouchable(true);
+                popupWindow3.showAsDropDown(v, 0, -(height * 3 / 5) );
                 break;
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                popupWindow4.setBackgroundDrawable(new ColorDrawable());
-                popupWindow4.setOutsideTouchable(true);
-                popupWindow4.showAsDropDown(v, 0, -(height * 1 / 3) - 40);
+//                popupWindow4.setBackgroundDrawable(new ColorDrawable());
+//                popupWindow4.setOutsideTouchable(true);
+                popupWindow4.showAsDropDown(v, 0, -(height * 3 / 5) );
                 break;
         }
     }

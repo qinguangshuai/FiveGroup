@@ -1,5 +1,6 @@
 package com.bw.movie.film.adapter;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.film.activity.SynopsisActivity;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
@@ -56,7 +58,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
         PlayingAdapter.Hodler holder = (PlayingAdapter.Hodler) viewHolder;
         //查找图片控件
         SimpleDraweeView img = holder.itemView.findViewById(R.id.entrypicture_item_popular_item);
@@ -74,6 +76,18 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else {
             toast.Toast("请求数据有误");
         }
+
+
+        //点击事件
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(viewHolder.itemView.getContext(),SynopsisActivity.class);
+                intent.putExtra("详情id",playresult.get(i).getId());
+                viewHolder.itemView.getContext().startActivity(intent);
+            }
+        });
+
 
     }
 
