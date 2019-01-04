@@ -7,14 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.bean.CancelFollowMovieBean;
+import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
+import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
+import com.bw.movie.film.v.CancelFollowMovieView;
+import com.bw.movie.film.v.FollowView;
 import com.bw.movie.film.v.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
@@ -175,18 +182,43 @@ class PopularPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private final SimpleDraweeView mSimpleDraweeView;
         private final TextView mName;
         private final TextView mIntroduction;
+        private final CheckBox mHart;
 
         public Holder(View view) {
             super(view);
             mSimpleDraweeView = view.findViewById(R.id.SimpleDraweeView_detaitem);
             mName = view.findViewById(R.id.name_detaitem);
             mIntroduction = view.findViewById(R.id.Introduction_detaitem);
+            mHart = view.findViewById(R.id.hart_detaitem);
+
         }
 
-        public void setData(PopularBean.ResultBean resultBean) {
+        public void setData(final PopularBean.ResultBean resultBean) {
             mSimpleDraweeView.setImageURI(Uri.parse(resultBean.getImageUrl()));
             mName.setText(resultBean.getName());
             mIntroduction.setText(resultBean.getSummary());
+
+            mIntroduction.setText(resultBean.getSummary());
+            //为 爱心赋值
+            if(resultBean.getFollowMovie()==2){
+                mHart.setChecked(false);
+            }else {
+                mHart.setChecked(true);
+            }
+            //改变电影关注状态
+            mHart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        EventBus.getDefault().post(new RefreshEvent(true, resultBean.getId()));
+                    }else {
+                        EventBus.getDefault().post(new RefreshEvent(false, resultBean.getId()));
+                    }
+                }
+            });
+
+
+
         }
 
     }

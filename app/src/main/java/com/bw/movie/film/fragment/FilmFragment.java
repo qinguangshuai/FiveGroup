@@ -18,17 +18,22 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.custom.ScrollView;
 import com.bw.movie.custom.SearchView;
 import com.bw.movie.film.activity.DetailsActivity;
+import com.bw.movie.film.bean.CancelFollowMovieBean;
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.event.JumpEvent;
 import com.bw.movie.film.event.PopularEvent;
+import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
+import com.bw.movie.film.v.CancelFollowMovieView;
 import com.bw.movie.film.v.CarousemView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import com.bw.movie.film.v.FollowView;
 import com.bw.movie.film.v.HotPlayView;
 import com.bw.movie.film.v.PlayingView;
 import com.bw.movie.film.v.PopularmView;
@@ -165,6 +170,68 @@ public class FilmFragment extends BaseFragment {
         intent.putExtra("index", a);
         getActivity().startActivity(intent);
     }
+
+
+    //刷新请求
+    @Subscribe
+    public void refresh(RefreshEvent refreshEvent) {
+        if (refreshEvent.isB()) {
+            follow(refreshEvent.getI());
+        } else {
+            canceFollow(refreshEvent.getI());
+        }
+    }
+
+
+
+
+    //请求关注
+    public void follow(int a){
+        new FilmProsenter(new FollowView<FollowBean>() {
+            @Override
+            public void onDataSuccess(FollowBean followBean) {
+                toast.Toast("关注成功");
+            }
+            @Override
+            public void onDataFailer(String msg) {
+            }
+
+            @Override
+            public void onShowLoading() {
+            }
+
+            @Override
+            public void onHideLoading() {
+            }
+        }).getFollowBeanObservable(a);
+    }
+
+    //请求取消关注
+    public void canceFollow(int a){
+        new FilmProsenter(new CancelFollowMovieView<CancelFollowMovieBean>() {
+            @Override
+            public void onDataSuccess(CancelFollowMovieBean cancelFollowMovieBean) {
+                toast.Toast("取消关注");
+            }
+
+            @Override
+            public void onDataFailer(String msg) {
+
+            }
+
+            @Override
+            public void onShowLoading() {
+
+            }
+
+            @Override
+            public void onHideLoading() {
+
+            }
+        }).getCancelFollowMovieBeanObservable(a);
+    }
+
+
 
 
     //请求回调 热门电影数据  第三个布尔值的参数 决定 是否执行 add 方法
@@ -475,15 +542,15 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //todo: 轮播图 holder 类
     private class CarouseHolder extends RecyclerView.ViewHolder {
-        private final SearchView mSearchView;
         private final RecyclerCoverFlow mRecyclerCoverFlow;
         private final ScrollView mScrollView;
         private final CheckBox mPositinging;
+        private final SearchView mSearch;
         private final CarouselAdapter mCarouselAdapter;
 
         public CarouseHolder(View view) {
             super(view);
-            mSearchView = view.findViewById(R.id.search_item_carouse);
+            mSearch = view.findViewById(R.id.search_item_carouse);
             mRecyclerCoverFlow = view.findViewById(R.id.RecyclerCoverFlow_item_carouse);
             mScrollView = view.findViewById(R.id.customScrollView_item_carouse);
             mPositinging = view.findViewById(R.id.Positioning_item_carouse);
@@ -505,6 +572,14 @@ class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
+
+            //搜索
+            mSearch.setClick(new SearchView.Click() {
+                @Override
+                public void onClickListener(View v, String s) {
+                    toast.Toast(s);
+                }
+            });
 
         }
     }

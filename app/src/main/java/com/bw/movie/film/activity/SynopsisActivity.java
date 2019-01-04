@@ -3,6 +3,7 @@ package com.bw.movie.film.activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,17 +24,17 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.film.adapter.StillsAdapder;
-import com.bw.movie.film.adapter.StillsItem;
 import com.bw.movie.film.adapter.WeakCurrencyAdapter;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
+import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CommentView;
 import com.bw.movie.film.v.DetailView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dak.weakview.adapter.viewholder.WeakCurrencyViewHold;
 import com.dak.weakview.layout.WeakCardOverlapLayout;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -43,6 +45,7 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,6 +83,10 @@ public class SynopsisActivity extends BaseActivity {
     Button rbStillsSynopsis;
     @BindView(R.id.rb_Review_synopsis)
     Button rbReviewSynopsis;
+    @BindView(R.id.hart_synopsis)
+    CheckBox mHartSynopsis;
+    @BindView(R.id.buy_synopsis)
+    Button mBuySynopsis;
     private WeakCurrencyAdapter<String> adapter;
     private View mTrail;
     private View mStills;
@@ -91,6 +98,10 @@ public class SynopsisActivity extends BaseActivity {
     private EmptyUtil emptyUtil;
     private ToastUtil toast;
     private ArrayList<CommentBean.ResultBean> list = new ArrayList<>();
+    private PopupWindow popupWindow;
+    private PopupWindow popupWindow2;
+    private PopupWindow popupWindow3;
+    private PopupWindow popupWindow4;
 
 
     @Override
@@ -189,6 +200,14 @@ public class SynopsisActivity extends BaseActivity {
     //第四个pop
     public void setmReview(final List<CommentBean.ResultBean> result) {
         RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
+        ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
+        //取消 pop
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow4.dismiss();
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -290,16 +309,30 @@ public class SynopsisActivity extends BaseActivity {
     public void getData(int id) {
         new FilmProsenter(new DetailView<DetailBean>() {
             @Override
-            public void onDataSuccess(DetailBean detailBean) {
+            public void onDataSuccess(final DetailBean detailBean) {
                 //拆装
                 DetailBean.ResultBean result = detailBean.getResult();
                 //获取图片集合
                 List<String> posterList = result.getPosterList();
                 //将数据装进适配器
                 adapter.refreshData(posterList);
-
                 //给tv 赋值
                 mTitleSynopsis.setText(result.getName());
+                //红心
+                mHartSynopsis.setChecked(result.getFollowMovie() == 2 ? false : true);
+                //点亮
+                mHartSynopsis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        EventBus.getDefault().post(new RefreshEvent(isChecked == true ? true : false, detailBean.getResult().getId()));
+                    }
+                });
+                //跳转
+                mBuySynopsis.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                });
                 //给背景 赋值
                 onBlurry(Uri.parse(posterList.get(0)), mBackgroundSynopsis);
                 //为第一个pop 添加数据
@@ -330,7 +363,7 @@ public class SynopsisActivity extends BaseActivity {
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                 //参数1:重度
                 //参数2:半径
-                .setPostprocessor(new IterativeBoxBlurPostProcessor(5, 5))
+                .setPostprocessor(new IterativeBoxBlurPostProcessor(2, 2))
                 .build();
         AbstractDraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setOldController(draweeView.getController())
@@ -346,6 +379,14 @@ public class SynopsisActivity extends BaseActivity {
         List<String> posterList = result.getPosterList();
 
         //找到控件
+        ImageView back = mDatail.findViewById(R.id.back_pop_datail);
+        //关闭方法
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
         RecyclerView mRecyclerView = mDatail.findViewById(R.id.Recyclerview_pop_datail);
         TextView mPlot = mDatail.findViewById(R.id.Plot_pop_datail); //剧情
         TextView mArea = mDatail.findViewById(R.id.area_pop_datail); //产地
@@ -400,6 +441,14 @@ public class SynopsisActivity extends BaseActivity {
     //mTrail  预告片
     public void setTrail(DetailBean.ResultBean result) {
         final List<DetailBean.ResultBean.ShortFilmListBean> shortFilmList = result.getShortFilmList();
+        ImageView back = mTrail.findViewById(R.id.back_pop_trail);
+        //销毁
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow2.dismiss();
+            }
+        });
         RecyclerView mRecyclerView = mTrail.findViewById(R.id.Recyclerview_pop_trail);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -445,17 +494,24 @@ public class SynopsisActivity extends BaseActivity {
     //剧照
     public void setStills(DetailBean.ResultBean result) {
         RecyclerView mRecyclerView = mStills.findViewById(R.id.Recyclerview_pop_stills);
-
+        ImageView back = mStills.findViewById(R.id.back_pop_stills);
+        //销毁
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow3.dismiss();
+            }
+        });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         List<DetailBean.ResultBean> list = new ArrayList<>();
-        for (int i = 0; i <5 ; i++) {
+        for (int i = 0; i < 5; i++) {
             list.add(new DetailBean.ResultBean(1));
             list.add(new DetailBean.ResultBean(2));
         }
         List<String> posterList = result.getPosterList();
-        StillsAdapder stillsAdapder  = new StillsAdapder(list);
+        StillsAdapder stillsAdapder = new StillsAdapder(list);
         mRecyclerView.setAdapter(stillsAdapder);
-         stillsAdapder.setPoster(posterList);
+        stillsAdapder.setPoster(posterList);
         mRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
@@ -483,26 +539,26 @@ public class SynopsisActivity extends BaseActivity {
         int height = windowManager.getDefaultDisplay().getHeight();
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
-                PopupWindow popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow.setBackgroundDrawable(new ColorDrawable());
                 popupWindow.setOutsideTouchable(true);
 
                 popupWindow.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
             case R.id.rb_Trail_synopsis:
-                PopupWindow popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow2.setBackgroundDrawable(new ColorDrawable());
                 popupWindow2.setOutsideTouchable(true);
                 popupWindow2.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
             case R.id.rb_Stills_synopsis:
-                PopupWindow popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow3.setBackgroundDrawable(new ColorDrawable());
                 popupWindow3.setOutsideTouchable(true);
                 popupWindow3.showAsDropDown(v, 0, -(height * 2 / 3) + 40);
                 break;
             case R.id.rb_Review_synopsis:
-                PopupWindow popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow4.setBackgroundDrawable(new ColorDrawable());
                 popupWindow4.setOutsideTouchable(true);
                 popupWindow4.showAsDropDown(v, 0, -(height * 2 / 3) + 40);

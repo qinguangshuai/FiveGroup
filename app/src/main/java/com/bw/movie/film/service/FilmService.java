@@ -1,8 +1,10 @@
 package com.bw.movie.film.service;
 
+import com.bw.movie.film.bean.CancelFollowMovieBean;
 import com.bw.movie.film.bean.CarouselBean;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
+import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
@@ -46,6 +48,15 @@ public interface FilmService {
     //请求评论接口
     @GET("movie/v1/findAllMovieComment")
     Observable<CommentBean> getCommentBeanObservable(@Query("movieId") int movieId ,@Query("page") int page ,@Query("count") int count);
+
+
+    //关注电影
+    @GET("movie/v1/verify/followMovie")
+    Observable<FollowBean> getFollowBeanObservable(@Query("movieId") int movieId );
+
+    //取消关注
+    @GET("movie/v1/verify/cancelFollowMovie")
+    Observable<CancelFollowMovieBean> getCancelFollowMovieBeanObservable(@Query("movieId") int movieId );
 
 
 }

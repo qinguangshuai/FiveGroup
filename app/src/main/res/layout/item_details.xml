@@ -54,6 +54,7 @@
                     android:layout_weight="1" />
 
                 <CheckBox
+                    android:id="@+id/hart_detaitem"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_width="@dimen/dp_12"
