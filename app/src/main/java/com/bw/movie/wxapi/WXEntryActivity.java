@@ -38,14 +38,13 @@ import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneTimelin
  * 微信界面
  * date:2018/12/27
  * author:秦广帅(Lenovo)
- * */
+ */
 
-public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler,WXView<WXUser> {
+public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, WXView<WXUser> {
 
 
     //    private LoginPresenter mLoginPresenter;
     private static final String TAG = "WXEntryActivity";
-
     private static final int REQUESTMSG = 0;
     private String message;
     private WXPresenter mWxPresenter;
@@ -71,13 +70,12 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         iwxapi = WXAPIFactory.createWXAPI(this, APP_ID, false);
         iwxapi.handleIntent(getIntent(), this);
         iwxapi.registerApp(APP_ID);
-
     }
 
     @Override
     public void onReq(BaseReq baseReq) {
 //        LogUtil.d("==1111111" );
-        Log.d(TAG,"==1111111" );
+        Log.d(TAG, "==1111111");
     }
 
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
@@ -92,21 +90,21 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                         mCode = ((SendAuth.Resp) baseResp).code;
 //                        LogUtil.d("==1111111" + code);
                         if (!flag) {
-                            flag=true;
-                            Log.d(TAG,"==1111111     "+ mCode);
+                            flag = true;
+                            Log.d(TAG, "==1111111     " + mCode);
                             mWxPresenter.postWX(mCode);
                         }
 
                     }
                 });
 
-                //finish();
+                finish();
 
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 //取消
 //                LogUtil.d("code =ERR_USER_CANCEL");
-                Log.d(TAG,"code =ERR_USER_CANCEL");
+                Log.d(TAG, "code =ERR_USER_CANCEL");
                 break;
 
         }
@@ -114,13 +112,14 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
     }
 
-    Handler handler = new Handler(){
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
-                    Toast.makeText(WXEntryActivity.this,mWxUser1.getMessage(),Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(WXEntryActivity.this, mWxUser1.getMessage(), Toast.LENGTH_SHORT).show();
+                    ;
                     startActivity(new Intent(WXEntryActivity.this, ShowActivity.class));
                     break;
                 case 2:

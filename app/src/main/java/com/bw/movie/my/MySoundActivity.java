@@ -3,6 +3,7 @@ package com.bw.movie.my;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.bw.movie.my.mysound.XiSoundUser;
 import com.bw.movie.my.mysound.XiSoundView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +55,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     private int mCount;
     private int mId;
     private int page = 1;
+    private MySoundAdapter mMySoundAdapter;
 
 
     @Override
@@ -135,8 +139,8 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         soundrecycle.setLayoutManager(linearLayoutManager);
         mList = mySoundUser.getResult();
-        MySoundAdapter mySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
-        mySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
+        mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
+        mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
             @Override
             public void getClick(View view, int position) {
                 mId = mList.get(position).getId();
@@ -145,8 +149,12 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
                     @Override
                     public void onDataSuccess(UpdateSoundUser updateSoundUser) {
                         String message = updateSoundUser.getMessage();
-                        mCount--;
-                        Toast.makeText(MySoundActivity.this,message.toString(),Toast.LENGTH_SHORT).show();
+
+                        if (message.equals("状态改变成功")){
+                            mCount--;
+                            soundtext.setText("系统消息  ("+mCount+"条未读"+")");
+                        }
+                        Toast.makeText(MySoundActivity.this,message,Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -166,7 +174,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
                 }).getSound(mId);
             }
         });
-        soundrecycle.setAdapter(mySoundAdapter);
+        soundrecycle.setAdapter(mMySoundAdapter);
     }
 
     @Override

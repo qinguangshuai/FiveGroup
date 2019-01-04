@@ -1,6 +1,7 @@
 package com.bw.movie.my.attention.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
+import com.bw.movie.wxapi.WXEntryActivity;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -116,6 +118,13 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         attenrecycle1.setLayoutManager(linearLayoutManager);
         mList = attCinemaUser.getResult();
         AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
+        attCinemaAdapter.setHttpClick(new AttCinemaAdapter.HttpClick() {
+            @Override
+            public void getClick(View view, int position) {
+                startActivity(new Intent(getActivity(),WXEntryActivity.class));
+                getActivity().finish();
+            }
+        });
         attenrecycle1.setAdapter(attCinemaAdapter);
     }
 

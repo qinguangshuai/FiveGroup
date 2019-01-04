@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="---------------第三方账号快捷登录---------------"
+            android:text="----------第三方账号快捷登录----------"
             android:textColor="#fff"
             android:gravity="center"/>
         <ImageView

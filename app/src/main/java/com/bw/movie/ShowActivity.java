@@ -2,6 +2,7 @@ package com.bw.movie;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
+import com.bw.movie.util.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,8 @@ public class ShowActivity extends AppCompatActivity {
         aa.playTogether(ra1);
         aa.setDuration(300);
         aa.start();
+
+        StatusBarUtil.setStatusBarColor(Color.WHITE);
     }
 
     private void initData() {

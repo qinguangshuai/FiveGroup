@@ -14,6 +14,6 @@ import retrofit2.http.Query;
  */
 public interface AttFilmService {
     //http://172.17.8.100/movieApi/movie/v1/verify/findMoviePageList
-    @GET("movie/v1/verify/findMoviePageList?count=10")
+    @GET("movie/v1/verify/findMoviePageList?count=5")
     Observable<MyAttFilmUser> getFilm(@Query("page") int page);
 }

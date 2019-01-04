@@ -35,6 +35,7 @@ import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -104,6 +105,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisteActivity.class));
+                finish();
             }
         });
     }
@@ -252,12 +254,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             PendingIntent pIntent = PendingIntent.getActivity(this,
                     requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             int smallIcon = R.mipmap.ic_launcher;
+            int largeIcon = R.mipmap.ffanhui;
             String ticker = "您有一条新通知";
             String title = "登录";
             String content = "用户"+mNickName+"登陆成功";
+            ArrayList<String> messageList = new ArrayList<String>();
+            messageList.add("文明,今晚有空吗？");
+            String content1 = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
 
             NotifyUtil notify1 = new NotifyUtil(this, 1);
-            notify1.notify_normal_singline(pIntent, smallIcon, ticker, title, content, true, true, false);
+            //notify1.notify_normal_singline(pIntent, smallIcon, ticker, title, content, true, true, false);
+            notify1.notify_mailbox(pIntent, smallIcon, largeIcon, messageList, ticker,
+                    title, content1, true, true, false);
             currentNotify = notify1;
         }
 
