@@ -1,5 +1,6 @@
 package com.bw.movie.film.adapter;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.bw.movie.Constant;
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
+import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /*
@@ -44,6 +49,15 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mDetails = view.findViewById(R.id.details_item_affililated);
             mKm = view.findViewById(R.id.km_item_affililated);
             mGood = view.findViewById(R.id.good_item_affililated);
+            //点击事件
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getIntentsa.getInts(v,getAdapterPosition());
+                }
+            });
+
+
         }
     }
     @NonNull
@@ -54,14 +68,26 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        CinemaBean.ResultBean resultBean = cinemaBean.getResult().get(i);
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+        final CinemaBean.ResultBean resultBean = cinemaBean.getResult().get(i);
         Holder holder = (Holder) viewHolder;
         holder.mGood.setChecked(resultBean.getFollowCinema()==1?true:false);
         holder.mName.setText(resultBean.getName());
         holder.mImg.setImageURI(Uri.parse(resultBean.getLogo()));
         holder.mKm.setText("待获取");
         holder.mDetails.setText(resultBean.getAddress());
+
+
+
+    }
+    private getIntentsa getIntentsa;
+
+    public void setGetIntents(AffililaterdAdapter.getIntentsa getIntents) {
+        this.getIntentsa = getIntents;
+    }
+
+    public interface getIntentsa{
+        void getInts(View view,int position);
     }
 
     @Override
