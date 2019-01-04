@@ -57,6 +57,7 @@
 
         </LinearLayout>
 
+
         <TextView
             android:id="@+id/title_synopsis"
             android:layout_marginTop="@dimen/dp_20"
@@ -79,7 +80,10 @@
 
         </com.dak.weakview.layout.WeakCardOverlapLayout>
 
-
+        <Space
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
 
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_20"
@@ -139,6 +143,10 @@
 
         </LinearLayout>
 
+        <Space
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
 
         <Button
             android:id="@+id/buy_synopsis"
@@ -150,9 +158,6 @@
             android:background="@drawable/shapebuy"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60" />
-
-
-
     </LinearLayout>
 
 

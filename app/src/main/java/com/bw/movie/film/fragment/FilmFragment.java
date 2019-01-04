@@ -29,6 +29,7 @@ import com.bw.movie.film.v.FollowView;
 import com.bw.movie.film.v.HotPlayView;
 import com.bw.movie.film.v.PlayingView;
 import com.bw.movie.film.v.PopularmView;
+import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -53,6 +54,8 @@ public class FilmFragment extends BaseFragment {
     private RootAdapter mRootAdapter = new RootAdapter();
     //吐司工具类
     private ToastUtil toast = new ToastUtil();
+    //判空工具类
+    private EmptyUtil emptyUtil = new EmptyUtil();
 
     Unbinder unbinder;
     @BindView(R.id.RecyclerView_filefragment)
@@ -105,7 +108,6 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
                 mRootAdapter.setCarouselBean(carouselBean);
-
             }
 
             @Override
@@ -220,11 +222,12 @@ public class FilmFragment extends BaseFragment {
         new FilmProsenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
-                if (isLoad) {
-                    mRootAdapter.addResult(popularBean.getResult());
-                } else {
-                    mRootAdapter.setResult(popularBean.getResult());
+                    if (isLoad) {
+                        mRootAdapter.addResult(popularBean.getResult());
+                    } else {
+                        mRootAdapter.setResult(popularBean.getResult());
                 }
+
             }
 
             @Override
@@ -251,11 +254,13 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
-                if (isLoad) {
-                    mRootAdapter.addHotResult(result);
-                } else {
-                    mRootAdapter.setHotResult(result);
-                }
+
+                    if (isLoad) {
+                        mRootAdapter.addHotResult(result);
+                    } else {
+                        mRootAdapter.setHotResult(result);
+                    }
+
             }
 
             @Override
@@ -282,11 +287,13 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
                 List<PlayingBean.ResultBean> result = playingBean.getResult();
-                if (isLoad) {
-                    mRootAdapter.addPlayResult(result);
-                } else {
-                    mRootAdapter.setPlayResult(result);
-                }
+
+                    if (isLoad) {
+                        mRootAdapter.addPlayResult(result);
+                    } else {
+                        mRootAdapter.setPlayResult(result);
+                    }
+
             }
 
             @Override

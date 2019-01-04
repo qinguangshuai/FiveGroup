@@ -191,37 +191,6 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
-    //第四个pop
-    public void setmReview(final List<CommentBean.ResultBean> result) {
-        RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
-        ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
-        //取消 pop
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow4.dismiss();
-            }
-        });
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
-        popupWindow4Adapter.setResult(result);
-        mRecyclerView.setAdapter(popupWindow4Adapter);
-
-        //抽取方法 上拉 加载更多
-        RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
-            @Override
-            public void info() {
-                //加载更多功能的代码
-                a++;
-                getCommentData(id, a, 10);
-            }
-        });
-
-    }
-
-
     //请求数据
     public void getData(int id) {
         new FilmProsenter(new DetailView<DetailBean>() {
@@ -344,6 +313,10 @@ public class SynopsisActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 popupWindow2.dismiss();
+                if (JCVideoPlayer.backPress()) {
+                    return;
+                }
+                JCVideoPlayer.releaseAllVideos();
             }
         });
         RecyclerView mRecyclerView = mTrail.findViewById(R.id.Recyclerview_pop_trail);
@@ -379,6 +352,37 @@ public class SynopsisActivity extends BaseActivity {
         stillsAdapder.setPoster(posterList);
         mRecyclerView.setLayoutManager(gridLayoutManager);
     }
+
+    //第四个pop
+    public void setmReview(final List<CommentBean.ResultBean> result) {
+        RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
+        ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
+        //取消 pop
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow4.dismiss();
+            }
+        });
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
+        popupWindow4Adapter.setResult(result);
+        mRecyclerView.setAdapter(popupWindow4Adapter);
+
+        //抽取方法 上拉 加载更多
+        RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                //加载更多功能的代码
+                a++;
+                getCommentData(id, a, 10);
+            }
+        });
+
+    }
+
 
 
     //暂停
