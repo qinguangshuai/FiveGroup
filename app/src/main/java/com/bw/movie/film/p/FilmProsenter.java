@@ -2,16 +2,22 @@ package com.bw.movie.film.p;
 
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.film.bean.CancelFollowMovieBean;
 import com.bw.movie.film.bean.CarouselBean;
+import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
+import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.m.CancelFollowMovieCallBack;
 import com.bw.movie.film.m.CarouseCallBack;
+import com.bw.movie.film.m.CinemaCallBack;
 import com.bw.movie.film.m.CommentCallBack;
 import com.bw.movie.film.m.DetailCallBack;
 import com.bw.movie.film.m.FilmModle;
+import com.bw.movie.film.m.FollowCallBack;
 import com.bw.movie.film.m.HotPlayCallBack;
 import com.bw.movie.film.m.PlayingCallBack;
 import com.bw.movie.film.m.PopularCallBack;
@@ -123,6 +129,53 @@ public class FilmProsenter extends BasePresenter {
             }
         });
     }
+
+    //关注
+    public void getFollowBeanObservable(int folllow){
+        mFilmModle.getFollowBeanObservable(folllow, new FollowCallBack() {
+            @Override
+            public void success(FollowBean followBean) {
+                getiBaseView().onDataSuccess(followBean);
+            }
+
+            @Override
+            public void error(String message) {
+                getiBaseView().onDataFailer(message);
+            }
+        });
+    }
+
+
+    //取消关注
+    public void getCancelFollowMovieBeanObservable(int can){
+        mFilmModle.getCancelFollowMovieBeanObservable(can, new CancelFollowMovieCallBack() {
+            @Override
+            public void success(CancelFollowMovieBean cancelFollowMovieBean) {
+                getiBaseView().onDataSuccess(cancelFollowMovieBean);
+            }
+
+            @Override
+            public void error(String s) {
+                getiBaseView().onDataFailer(s);
+            }
+        });
+    }
+
+    //查询影院
+    public void getCinemaBeanObservable(int id){
+        mFilmModle.getCinemaBeanObservable(id, new CinemaCallBack() {
+            @Override
+            public void success(CinemaBean cinemaBean) {
+                getiBaseView().onDataSuccess(cinemaBean);
+            }
+
+            @Override
+            public void error(String message) {
+                getiBaseView().onDataFailer(message);
+            }
+        });
+    }
+
 
 
 }

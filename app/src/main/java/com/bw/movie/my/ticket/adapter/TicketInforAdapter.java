@@ -46,7 +46,7 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return super.getItemCount();
+        return list==null?0:list.size();
     }
 
 

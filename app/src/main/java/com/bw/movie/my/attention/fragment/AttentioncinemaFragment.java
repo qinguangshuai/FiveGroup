@@ -18,6 +18,7 @@ import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
@@ -45,7 +46,8 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-
+        attenrecycle1.setRefreshProgressStyle(ProgressStyle.BallZigZag);
+        attenrecycle1.setArrowImageView(R.mipmap.jiazai);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAttCinemaPresenter.getCinema(page++);
+                        mAttCinemaPresenter.getCinema(page);
                         attenrecycle1.refreshComplete();
                     }
                 },2000);
@@ -68,7 +70,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAttCinemaPresenter.getCinema(page);
+                        mAttCinemaPresenter.getCinema(page++);
                         attenrecycle1.loadMoreComplete();
                     }
                 },2000);
