@@ -2,6 +2,8 @@ package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,6 +37,8 @@ import butterknife.Unbinder;
 public class RecommendFragment extends BaseFragment implements NeightbourView<NeightbourBean> {
     @BindView(R.id.recy_recommend)
     RecyclerView recyRecommend;
+    @BindView(R.id.swiperecomment)
+    SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
 
     @Override
@@ -56,7 +60,17 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
 
     @Override
     public void initListener() {
-
+       swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+           @Override
+           public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },2000);
+           }
+       });
     }
 
     @Override
