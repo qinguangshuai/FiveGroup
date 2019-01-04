@@ -19,6 +19,7 @@ import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.event.JumpEvent;
 import com.bw.movie.film.event.PopularEvent;
 import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -283,41 +284,14 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(final List<PopularBean.ResultBean> result) {
             popularAdapter.setResult(result);
             popularAdapter.notifyDataSetChanged();
-            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                //用来标记是否正在向最后一个滑动
-                boolean isSlidingToLast = false;
-
+            //自定义记载更多
+            RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
                 @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    //设置什么布局管理器,就获取什么的布局管理器
-                    LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    // 当停止滑动时
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        //获取最后一个完全显示的ItemPosition ,角标值
-                        int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
-                        //所有条目,数量值
-                        int totalItemCount = manager.getItemCount();
-                        // 判断是否滚动到底部，并且是向右滚动
-                        if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                            //加载更多功能的代码
-                            EventBus.getDefault().post(new PopularEvent(1));
-                            popularAdapter.addResult(result);
-                            popularAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
-                    //dx>0:向右滑动,dx<0:向左滑动
-                    //dy>0:向下滑动,dy<0:向上滑动
-                    if (dx > 0) {
-                        isSlidingToLast = true;
-                    } else {
-                        isSlidingToLast = false;
-                    }
+                public void info() {
+                    //加载更多功能的代码
+                    EventBus.getDefault().post(new PopularEvent(1));
+                    popularAdapter.addResult(result);
+                    popularAdapter.notifyDataSetChanged();
                 }
             });
 
@@ -346,45 +320,16 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(final List<HotPlayBean.ResultBean> hotresult) {
             hotPlayAdapter.setHotResult(hotresult);
             hotPlayAdapter.notifyDataSetChanged();
-            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                //用来标记是否正在向最后一个滑动
-                boolean isSlidingToLast = false;
-
+            //自定义 上拉加载
+            RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
                 @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    //设置什么布局管理器,就获取什么的布局管理器
-                    LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    // 当停止滑动时
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        //获取最后一个完全显示的ItemPosition ,角标值
-                        int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
-                        //所有条目,数量值
-                        int totalItemCount = manager.getItemCount();
-                        // 判断是否滚动到底部，并且是向右滚动
-                        if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                            //加载更多功能的代码
-                            EventBus.getDefault().post(new PopularEvent(2));
-                            hotPlayAdapter.addHotResult(hotresult);
-                            hotPlayAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
-                    //dx>0:向右滑动,dx<0:向左滑动
-                    //dy>0:向下滑动,dy<0:向上滑动
-                    if (dx > 0) {
-                        isSlidingToLast = true;
-                    } else {
-                        isSlidingToLast = false;
-                    }
+                public void info() {
+                    //加载更多功能的代码
+                    EventBus.getDefault().post(new PopularEvent(2));
+                    hotPlayAdapter.addHotResult(hotresult);
+                    hotPlayAdapter.notifyDataSetChanged();
                 }
             });
-
-
         }
     }
 
@@ -409,44 +354,16 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(final List<PlayingBean.ResultBean> playresult) {
             playingAdapter.setPlayResult(playresult);
             playingAdapter.notifyDataSetChanged();
-            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                //用来标记是否正在向最后一个滑动
-                boolean isSlidingToLast = false;
-
+            //自定义 封装上拉加载
+            RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
                 @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    //设置什么布局管理器,就获取什么的布局管理器
-                    LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    // 当停止滑动时
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        //获取最后一个完全显示的ItemPosition ,角标值
-                        int lastVisibleItem = manager.findLastCompletelyVisibleItemPosition();
-                        //所有条目,数量值
-                        int totalItemCount = manager.getItemCount();
-                        // 判断是否滚动到底部，并且是向右滚动
-                        if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                            //加载更多功能的代码
-                            EventBus.getDefault().post(new PopularEvent(3));
-                            playingAdapter.addPlayResult(playresult);
-                            playingAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }
-
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
-                    //dx>0:向右滑动,dx<0:向左滑动
-                    //dy>0:向下滑动,dy<0:向上滑动
-                    if (dx > 0) {
-                        isSlidingToLast = true;
-                    } else {
-                        isSlidingToLast = false;
-                    }
+                public void info() {
+                    //加载更多功能的代码
+                    EventBus.getDefault().post(new PopularEvent(3));
+                    playingAdapter.addPlayResult(playresult);
+                    playingAdapter.notifyDataSetChanged();
                 }
             });
-
 
         }
     }
