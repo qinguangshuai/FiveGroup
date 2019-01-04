@@ -2,9 +2,13 @@ package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
@@ -33,7 +37,11 @@ import butterknife.Unbinder;
 public class NeighbouringFragment extends BaseFragment implements NeightbourView<NeightbourBean> {
     @BindView(R.id.recy_neightbor)
     RecyclerView recyNeightbor;
+    @BindView(R.id.swipe)
+    SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+
+
 
     @Override
     public void initView() {
@@ -51,11 +59,21 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
             NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
             neightbourPresenter.getNeightbour(1, 10);
         }
-    } 
+    }
 
     @Override
     public void initListener() {
-
+     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+         @Override
+         public void onRefresh() {
+             new Handler().postDelayed(new Runnable() {
+                 @Override
+                 public void run() {
+                      swipeRefreshLayout.setRefreshing(false);
+                 }
+             },2000);
+         }
+     });
     }
 
     @Override
@@ -82,6 +100,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
+
         final List<NeightbourBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
         NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
         recyNeightbor.setAdapter(neightbourAdapder);
@@ -130,4 +149,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
+
+
 }

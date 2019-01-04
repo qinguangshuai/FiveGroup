@@ -32,6 +32,7 @@ import com.bw.movie.my.ticket.ticketnet.presenter.TiketPresenter;
 import com.bw.movie.my.ticket.ticketnet.view.TicketView;
 import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.MDSUtil;
+import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.WXPayEntryActivity;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
@@ -118,8 +119,7 @@ public class SeatSelectionActivity extends BaseActivity {
                                     @Override
                                     public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
                                         Toast.makeText(SeatSelectionActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Intent intent =new Intent(SeatSelectionActivity.this,WXPayEntryActivity.class);
-                                        startActivity(intent);
+                                        WeiXinUtil.weiXinPay(orderSuccessBean);
 
                                     }
 
