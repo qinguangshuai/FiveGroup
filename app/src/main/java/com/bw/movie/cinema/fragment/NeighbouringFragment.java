@@ -109,7 +109,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         neightbourAdapder.setGetListener(new NeightbourAdapder.getListener() {
             @Override
             public void getList(View view, int position) {
-//跳转到ParticularsActivity页面
+               //跳转到ParticularsActivity页面
                 Intent intent = new Intent(getActivity(), ParticularsActivity.class);
                 //获取推荐的logo的
                 String logo = nearbyCinemaList.get(position).getLogo();
