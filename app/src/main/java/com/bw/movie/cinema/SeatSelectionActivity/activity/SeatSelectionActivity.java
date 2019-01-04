@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -83,7 +84,7 @@ public class SeatSelectionActivity extends BaseActivity {
                         WindowManager windowManager = getWindowManager();
                         int height = windowManager.getDefaultDisplay().getHeight();
                         final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        popupWindow.showAsDropDown(v, 0, -height/4);
+                        popupWindow.showAtLocation(v.getRootView(),Gravity.BOTTOM,0,0);
                         RadioButton radioButton = view.findViewById(R.id.weixinfu);
                         RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);
                         final Button button = view.findViewById(R.id.fukuan);
@@ -111,6 +112,7 @@ public class SeatSelectionActivity extends BaseActivity {
                                 }
                             }
                         });
+                        //点击支付按钮，调用支付接口
                         fukuan.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -138,23 +140,20 @@ public class SeatSelectionActivity extends BaseActivity {
 
                                     }
                                 }).getOeder(1,orderId);
-//                                startActivity(new Intent(SeatSelectionActivity.this, Ticket_nformationActivity.class));
+
                             }
                         });
                     }
                 });
-
-
-                seyno.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
-
-
             }
         });
+        seyno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 
