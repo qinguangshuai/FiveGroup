@@ -19,6 +19,7 @@
             android:background="@mipmap/xxhdpi_filebacnground">
 
             <CheckBox
+
                 android:id="@+id/Positioning_item_carouse"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
