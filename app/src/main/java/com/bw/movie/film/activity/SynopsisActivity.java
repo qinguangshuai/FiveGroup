@@ -256,7 +256,10 @@ public class SynopsisActivity extends BaseActivity {
                 mBuySynopsis.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(SynopsisActivity.this, AffiliatedTheaterActivity.class).putExtra("id", detailBean.getResult().getId()));
+                        Intent intent = new Intent(SynopsisActivity.this, AffiliatedTheaterActivity.class);
+                        intent.putExtra("id", detailBean.getResult().getId());
+                        intent.putExtra("name",detailBean.getResult().getName());
+                        startActivity(intent);
                     }
                 });
                 //给背景 赋值
