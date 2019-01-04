@@ -21,5 +21,7 @@ public interface Constant {
     String PHONE = "phone";
     //密码
     String PASSWORD="pwd";
+    //电影院Id
+    String CINEMAID="cinemaid";
 
 }

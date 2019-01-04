@@ -49,6 +49,7 @@
                 android:layout_weight="1" />
 
             <CheckBox
+                android:id="@+id/hart_synopsis"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@drawable/selectcollection"
@@ -73,8 +74,8 @@
             android:layout_marginTop="@dimen/dp_10"
             android:id="@+id/card_synopsis"
             android:layout_gravity="center"
-            android:layout_width="@dimen/dp_270"
-            android:layout_height="@dimen/dp_360">
+            android:layout_width="@dimen/dp_250"
+            android:layout_height="@dimen/dp_310">
 
         </com.dak.weakview.layout.WeakCardOverlapLayout>
 
@@ -124,7 +125,6 @@
                 android:layout_width="@dimen/dp_59"
                 android:layout_height="@dimen/dp_35" />
 
-
             <Button
                 android:id="@+id/rb_Review_synopsis"
                 android:padding="@dimen/dp_5"
@@ -137,9 +137,20 @@
                 android:layout_width="@dimen/dp_59"
                 android:layout_height="@dimen/dp_35" />
 
-
-
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/buy_synopsis"
+            android:textSize="@dimen/sp_19"
+            android:textColor="#fff"
+            android:text="购票"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_gravity="right"
+            android:background="@drawable/shapebuy"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60" />
+
 
 
     </LinearLayout>

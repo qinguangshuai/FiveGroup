@@ -63,7 +63,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wxentry);
 
-        WeiXinUtil.success(WXEntryActivity.this).handleIntent(getIntent(), this);
+        WeiXinUtil.reg(WXEntryActivity.this).handleIntent(getIntent(), this);
 //        mLoginPresenter = new LoginPresenter(this);
         mWxPresenter = new WXPresenter(this);
         //

@@ -2,8 +2,11 @@ package com.bw.movie.film.m;
 
 import android.util.Log;
 
+import com.bw.movie.film.bean.CancelFollowMovieBean;
+import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
+import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.service.FilmService;
 import com.bw.movie.film.bean.CarouselBean;
 import com.bw.movie.film.bean.HotPlayBean;
@@ -209,6 +212,101 @@ public class FilmModle {
                     @Override
                     public void onError(Throwable e) {
                         commentCallBack.error(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
+    //关注
+    public void getFollowBeanObservable(int follow, final FollowCallBack followCallBack){
+        OkHttpUtil
+                .get()
+                .createa(FilmService.class)
+                .getFollowBeanObservable(follow)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FollowBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(FollowBean followBean) {
+                        followCallBack.success(followBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        followCallBack.error(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    //取消关注
+    public void getCancelFollowMovieBeanObservable(int can , final CancelFollowMovieCallBack cancelFollowMovieCallBack){
+        OkHttpUtil
+                .get()
+                .createa(FilmService.class)
+                .getCancelFollowMovieBeanObservable(can)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CancelFollowMovieBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CancelFollowMovieBean cancelFollowMovieBean) {
+                        cancelFollowMovieCallBack.success(cancelFollowMovieBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        cancelFollowMovieCallBack.error(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
+    //查询影院
+    public void getCinemaBeanObservable(int id, final CinemaCallBack cinemaCallBack){
+        OkHttpUtil
+                .get()
+                .createa(FilmService.class)
+                .getCinemaBeanObservable(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CinemaBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CinemaBean cinemaBean) {
+                        cinemaCallBack.success(cinemaBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        cinemaCallBack.error(e.getMessage());
                     }
 
                     @Override

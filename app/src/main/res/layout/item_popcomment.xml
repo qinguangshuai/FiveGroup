@@ -59,6 +59,8 @@
             android:text="2001" />
 
         <CheckBox
+            android:paddingLeft="@dimen/dp_2"
+            android:button="@mipmap/com_icon_comment_default_hdpi"
             android:id="@+id/comment_item_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
