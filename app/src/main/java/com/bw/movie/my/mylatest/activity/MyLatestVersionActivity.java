@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
@@ -79,7 +80,12 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
         mWebView.setWebChromeClient(new WebChromeClient());
         linearLayout.addView(mWebView, params);
         setContentView(linearLayout);*/
-        showUpdataDialog();
+        if (mDownloadUrl == null){
+            ImageView imageView = new ImageView(this);
+            imageView.setImageResource(R.mipmap.ic_launcher);
+        }else {
+            showUpdataDialog();
+        }
     }
 
     @Override

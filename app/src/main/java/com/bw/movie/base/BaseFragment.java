@@ -14,12 +14,12 @@ import android.view.ViewGroup;
  *  basefragment
  * */
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
+
     public AppCompatActivity mActivity;
     protected String TAG = "";
     protected boolean isinitData = false;
     public View rootView;
     private T mBasePresenter;
-
 
     //oncreate方法
     @Override
@@ -52,7 +52,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initListener();
-        if (!isinitData) {
+        if (!isinitData && getUserVisibleHint()) {
             initData();
             isinitData = true;
         } else {
