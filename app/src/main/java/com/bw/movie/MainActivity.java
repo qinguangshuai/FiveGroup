@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getStreetNum();//街道门牌号信息
                 aMapLocation.getCityCode();//城市编码
                 aMapLocation.getAdCode();//地区编码
-                Log.e("1111", mCity + mDis);
+                Log.e("==1111", mCity + mDis);
                 //Toast.makeText(MainActivity.this, country + "==" + city +"=="+street+ "==="+dis +"=="+num+ city_code + "==" + tude + "===" + longitude, Toast.LENGTH_SHORT).show();
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();

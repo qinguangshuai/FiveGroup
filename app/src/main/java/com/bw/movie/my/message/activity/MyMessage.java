@@ -12,10 +12,13 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
+import com.bw.movie.my.message.bean.Portrait;
 import com.bw.movie.my.message.presenter.MyMessagePresenter;
 import com.bw.movie.my.message.view.MyMessageView;
 import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -135,7 +138,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         Uri uri = Uri.parse(headPic);
         mMyHeadimage.setImageURI(uri);
 
-
+        EventBus.getDefault().post(new Portrait(headPic));
     }
 
     @Override

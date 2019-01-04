@@ -14,11 +14,15 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.my.attention.activity.MyattentionActivity;
 import com.bw.movie.my.message.activity.MyMessage;
+import com.bw.movie.my.message.bean.Portrait;
 import com.bw.movie.my.mylatest.activity.MyLatestVersionActivity;
 import com.bw.movie.my.myoption.activity.MyOpitionActivity;
 import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
 import com.bw.movie.util.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,10 +64,21 @@ public class MyFragment extends Fragment {
         mMyTouxiang.setImageURI(uri);
         String name = SpUtil.getString("nickName", "");
         mMyName.setText(name);
-
+        EventBus.getDefault().register(this);
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void setXiang(Portrait portrait){
+        Uri uri=Uri.parse(portrait.getImage());
+        mMyTouxiang.setImageURI(uri);
+    }
 
     @Override
     public void onDestroyView() {
@@ -80,7 +95,7 @@ public class MyFragment extends Fragment {
                 startActivity(new Intent(getContext(),MySoundActivity.class));
                 break;
             case R.id.my_touxiang:
-                startActivity(new Intent(getContext(),MyHeadportraitActivity.class));
+                //startActivity(new Intent(getContext(),MyHeadportraitActivity.class));
                 break;
             case R.id.my_name:
                 break;

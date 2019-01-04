@@ -1,31 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#fff"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    >
+    android:background="#fff"
+    android:orientation="vertical">
 
     <!-- 影片  页面 -->
 
-
-
-
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/RecyclerView_filefragment"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-
-
-
-
-   </android.support.v7.widget.RecyclerView>
-
-
-
-
-
-
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerView_filefragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_12"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/file_carouse"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:src="@mipmap/com_icon_loc_white_default_hdpi"
+            android:padding="@dimen/dp_5"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/file_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="北京"
+            android:textColor="#fff"/>
+    </LinearLayout>
 
 </RelativeLayout>

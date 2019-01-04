@@ -67,13 +67,10 @@ public class CinemaFragment extends BaseFragment {
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         rgCinema.check(R.id.recommendcinema);
-        if (EventBus.getDefault().isRegistered(this)){
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
     }
-
-
 
     //初始化监听
     @Override
@@ -149,15 +146,15 @@ public class CinemaFragment extends BaseFragment {
             public void onClickListener(View v, String s) {
 
 
-                if (TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     Toast.makeText(mActivity, "请输入查询信息", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     new SearchPresenter(new com.bw.movie.cinema.search.view.SearchView<SearchBean>() {
 
                         @Override
                         public void onDataSuccess(SearchBean searchBean) {
                             Toast.makeText(mActivity, searchBean.getResult().toString(), Toast.LENGTH_SHORT).show();
-                            if (searchBean.getResult()!=null){
+                            if (searchBean.getResult() != null) {
 //                                Intent intent = new Intent(getActivity(),ParticularsActivity.class);
 //                                getActivity().startActivity(intent);
 
@@ -182,7 +179,7 @@ public class CinemaFragment extends BaseFragment {
                         public void onHideLoading() {
 
                         }
-                    }).getSreach(1,5,s);
+                    }).getSreach(1, 5, s);
                 }
 
             }
@@ -195,17 +192,17 @@ public class CinemaFragment extends BaseFragment {
         zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MainActivity.class));
+                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
     }
 
     @Subscribe
-    public void setAddress(AddressUser address){
+    public void setAddress(AddressUser address) {
         a++;
-        if (a==1){
-            zuoBiaoText.setText(address.getCity()+"  "+address.getCid());
-        }else {
+        if (a == 1) {
+            zuoBiaoText.setText(address.getCity() + "  " + address.getCid());
+        } else {
             return;
         }
     }

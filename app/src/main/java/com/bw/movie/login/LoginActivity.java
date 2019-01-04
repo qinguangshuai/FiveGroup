@@ -200,6 +200,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
                     }
                 });
+
                 break;
             case R.id.loginimg:
                 wxLogin();
@@ -225,8 +226,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             req.state = "diandi_wx_login";
             WeiXinUtil.reg(LoginActivity.this).sendReq(req);
         }
-
-
     }
 
     @Override
@@ -250,6 +249,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             getSp();
 
             Intent intent = new Intent(this, ShowActivity.class);
+            finish();
             startActivity(intent);
             PendingIntent pIntent = PendingIntent.getActivity(this,
                     requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -259,13 +259,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             String title = "登录";
             String content = "用户"+mNickName+"登陆成功";
             ArrayList<String> messageList = new ArrayList<String>();
-            messageList.add("文明,今晚有空吗？");
+            messageList.add("");
             String content1 = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
 
             NotifyUtil notify1 = new NotifyUtil(this, 1);
             //notify1.notify_normal_singline(pIntent, smallIcon, ticker, title, content, true, true, false);
             notify1.notify_mailbox(pIntent, smallIcon, largeIcon, messageList, ticker,
-                    title, content1, true, true, false);
+                    title, content, true, true, false);
             currentNotify = notify1;
         }
 

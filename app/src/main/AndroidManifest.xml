@@ -64,6 +64,7 @@
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".cinema.activity.ParticularsActivity" />
         <!-- 高德集成 -->
+        <service android:name="com.amap.api.location.APSService"></service>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6ad11ccb906ec62b5b106ae673d9d41c" />

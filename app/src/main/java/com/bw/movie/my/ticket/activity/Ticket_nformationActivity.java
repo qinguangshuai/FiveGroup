@@ -30,18 +30,10 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
     private TicketformationPresenter presenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
+    public void initView() {
         presenter = new TicketformationPresenter(this);
         presenter.getTicet(1, 5);
         ButterKnife.bind(this);
-    }
-
-    @Override
-    public void initView() {
-
     }
 
     @Override
