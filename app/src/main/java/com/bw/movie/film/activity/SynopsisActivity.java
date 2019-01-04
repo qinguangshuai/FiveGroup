@@ -82,6 +82,8 @@ public class SynopsisActivity extends BaseActivity {
     CheckBox mHartSynopsis;
     @BindView(R.id.buy_synopsis)
     Button mBuySynopsis;
+    @BindView(R.id.imagereturnsynopsis)
+   ImageView imagereturnsynopsis;
     private WeakCurrencyAdapter<String> adapter;
     private View mTrail;
     private View mStills;
@@ -116,6 +118,12 @@ public class SynopsisActivity extends BaseActivity {
 
     @Override
     public void initListener() {
+        imagereturnsynopsis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
