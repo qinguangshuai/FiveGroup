@@ -101,42 +101,43 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     @Override
     public void onDataSuccess(MyMessageEntity myMessageEntity) {
 
-        result = myMessageEntity.getResult();
-        email = result.getEmail();
-        headPic = result.getHeadPic();
-        int id = result.getId();
-        nickName = result.getNickName();
-        phone1 = result.getPhone();
-        sex1 = result.getSex();
+       result = myMessageEntity.getResult();
+       email = result.getEmail();
+       headPic = result.getHeadPic();
+       int id = result.getId();
+       nickName = result.getNickName();
+       phone1 = result.getPhone();
+       sex1 = result.getSex();
 
 
 
-        if (sex1 == 1) {
-            mTxtMyinfoSex.setText("男");
-        } else if (sex1 == 2) {
-            mTxtMyinfoSex.setText("女");
-        } else {
-            mTxtMyinfoSex.setText("获取性别失败");
-        }
+       if (sex1 == 1) {
+           mTxtMyinfoSex.setText("男");
+       } else if (sex1 == 2) {
+           mTxtMyinfoSex.setText("女");
+       } else {
+           mTxtMyinfoSex.setText("获取性别失败");
+       }
 
-        mTxtMyinfoMail.setText(email);
-        mTxtMyinfoPhone.setText(phone1);
-        mTxtMyinfoNikename.setText(nickName);
-
-
-        browseTime = result.getBirthday();
-        GregorianCalendar gc = new GregorianCalendar();
-        s = String.valueOf(browseTime);
-        gc.setTimeInMillis(Long.parseLong(s));
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
+       mTxtMyinfoMail.setText(email);
+       mTxtMyinfoPhone.setText(phone1);
+       mTxtMyinfoNikename.setText(nickName);
 
 
-        Uri uri = Uri.parse(headPic);
-        mMyHeadimage.setImageURI(uri);
+       browseTime = result.getBirthday();
+       GregorianCalendar gc = new GregorianCalendar();
+       s = String.valueOf(browseTime);
+       gc.setTimeInMillis(Long.parseLong(s));
+       SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+       mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
 
 
-    }
+       Uri uri = Uri.parse(headPic);
+       mMyHeadimage.setImageURI(uri);
+   }
+
+
+
 
     @Override
     public void onDataFailer(String msg) {
@@ -175,14 +176,16 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
             case R.id.my_headimage:
                 break;
             case R.id.my_update:
-                Intent intent = new Intent(this, UpdataInfoActivity.class);
-                intent.putExtra("sex1",sex1);
-                intent.putExtra("email",email);
-                intent.putExtra("headPic",headPic);
-                intent.putExtra("nickName",nickName);
-                intent.putExtra("phone1",phone1);
-                intent.putExtra("s",s);
-                startActivity(intent);
+
+                   Intent intent = new Intent(this, UpdataInfoActivity.class);
+                   intent.putExtra("sex1",sex1);
+                   intent.putExtra("email",email);
+                   intent.putExtra("headPic",headPic);
+                   intent.putExtra("nickName",nickName);
+                   intent.putExtra("phone1",phone1);
+                   intent.putExtra("s",s);
+                   startActivity(intent);
+
                 finish();
                 break;
         }

@@ -109,8 +109,6 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                               if (followBean.getMessage().contains("成功")){
                                   holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
                               }
-
-
                           }
 
                           @Override
@@ -136,8 +134,6 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                               if (followBean.getMessage().contains("成功")){
                                   holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
                               }
-
-
                           }
                           @Override
                           public void onDataFailer(String msg) {

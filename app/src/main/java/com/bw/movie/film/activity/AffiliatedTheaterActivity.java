@@ -12,6 +12,11 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
+import com.bw.movie.cinema.adapter.NeightbourAdapder;
+import com.bw.movie.cinema.bean.NeightbourBean;
+import com.bw.movie.cinema.event.FollowEvent;
+import com.bw.movie.cinema.prosenter.NeightbourPresenter;
+import com.bw.movie.cinema.view.NeightbourView;
 import com.bw.movie.film.adapter.AffililaterdAdapter;
 import com.bw.movie.film.bean.CinemaBean;
 import com.bw.movie.film.event.AffililaterEvent;
@@ -23,10 +28,12 @@ import com.bw.movie.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AffiliatedTheaterActivity extends BaseActivity implements CinemaView<CinemaBean>{
+public class AffiliatedTheaterActivity extends BaseActivity implements NeightbourView<NeightbourBean>{
 
 
     @BindView(R.id.title_affiliated)
@@ -44,27 +51,26 @@ public class AffiliatedTheaterActivity extends BaseActivity implements CinemaVie
         id = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
         mTitleAffiliated.setText(name);
-//        getData(id);
-        FilmProsenter filmProsenter = new FilmProsenter(this);
-        filmProsenter.getCinemaBeanObservable(id);
-        setmRecyAffiliated();
-        if (!EventBus.getDefault().isRegistered(this)) {
+     // getData();
+        NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
+        neightbourPresenter.getNeightbour(1,10);
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-    }
-
-    @Subscribe
-    public void getAffililaterId(AffililaterEvent affililaterEvent) {
-        if (affililaterEvent.getAffililaterId()==Constant.AFFILILATER) {
-            FilmProsenter filmProsenter = new FilmProsenter(this);
-            filmProsenter.getCinemaBeanObservable(id);
-        }
+        setmRecyAffiliated();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+    @Subscribe
+    public void getFollowId(FollowEvent followEvent) {
+        if (followEvent.getId() == Constant.FOLLOWID) {
+            NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
+            neightbourPresenter.getNeightbour(1, 10);
+        }
     }
 
     @Override
@@ -97,53 +103,57 @@ public class AffiliatedTheaterActivity extends BaseActivity implements CinemaVie
     public void setmRecyAffiliated() {
 
     }
-/*
-    //请求数据
-    public void getData(int id) {
-        new FilmProsenter(new CinemaView<CinemaBean>() {
-            @Override
-            public void onDataSuccess(CinemaBean cinemaBean) {
 
-            }
+   /* //请求数据
+    public void getData() {
 
-            @Override
-            public void onDataFailer(String msg) {
+      new NeightbourPresenter(new NeightbourView<NeightbourBean>() {
 
-            }
 
-            @Override
-            public void onShowLoading() {
+          @Override
+          public void onDataSuccess(NeightbourBean neightbourBean) {
 
-            }
 
-            @Override
-            public void onHideLoading() {
+          }
 
-            }
-        }).getCinemaBeanObservable(id);*/
+          @Override
+          public void onDataFailer(String msg) {
+
+          }
+
+          @Override
+          public void onShowLoading() {
+
+          }
+
+          @Override
+          public void onHideLoading() {
+
+          }
+      }).getNeightbour(1,10);*/
 //    }
 
 
-    //adapter
-    public void setAdapter(final CinemaBean cinemaBean) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    @Override
+    public void onDataSuccess(NeightbourBean neightbourBean) {
+        final List<NeightbourBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
+        NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, AffiliatedTheaterActivity.this);
+        mRecyAffiliated.setAdapter(neightbourAdapder);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AffiliatedTheaterActivity.this);
         mRecyAffiliated.setLayoutManager(linearLayoutManager);
-        AffililaterdAdapter affililaterdAdapter = new AffililaterdAdapter();
-        affililaterdAdapter.setCinemaBean(cinemaBean);
-        mRecyAffiliated.setAdapter(affililaterdAdapter);
-        affililaterdAdapter.setGetIntents(new AffililaterdAdapter.getIntentsa() {
+
+        neightbourAdapder.setGetListener(new NeightbourAdapder.getListener() {
             @Override
-            public void getInts(View view, int position) {
+            public void getList(View view, int position) {
                 //跳转到ParticularsActivity页面
                 Intent intent = new Intent(AffiliatedTheaterActivity.this, ParticularsActivity.class);
                 //获取推荐的logo的
-                String logo = cinemaBean.getResult().get(position).getLogo();
+                String logo = nearbyCinemaList.get(position).getLogo();
                 //获取推荐姓名
-                String name = cinemaBean.getResult().get(position).getName();
+                String name = nearbyCinemaList.get(position).getName();
                 //获取推荐的地址
-                String address = cinemaBean.getResult().get(position).getAddress();
-                int id = cinemaBean.getResult().get(position).getId();
+                String address = nearbyCinemaList.get(position).getAddress();
+                int id = nearbyCinemaList.get(position).getId();
                 intent.putExtra(Constant.TUIJIANID, id + "");
                 intent.putExtra(Constant.LOGO, logo);
                 intent.putExtra(Constant.NAME, name);
@@ -151,18 +161,11 @@ public class AffiliatedTheaterActivity extends BaseActivity implements CinemaVie
                 startActivity(intent);
             }
         });
-
-    }
-
-
-    @Override
-    public void onDataSuccess(CinemaBean cinemaBean) {
-        setAdapter(cinemaBean);
     }
 
     @Override
     public void onDataFailer(String msg) {
-        new ToastUtil().Toast(msg);
+
     }
 
     @Override

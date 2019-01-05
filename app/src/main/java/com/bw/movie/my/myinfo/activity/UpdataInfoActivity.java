@@ -69,8 +69,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
-
         Intent intent = getIntent();
         int sex1 = intent.getIntExtra("sex1", -1);
         mMxingbie.setText(sex1 + "");
@@ -83,7 +81,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         mMnicheng.setText(nickName);
         String phone1 = intent.getStringExtra("phone1");
         mMshoujihao.setText(phone1);
-
         String s = intent.getStringExtra("s");
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(Long.parseLong(s));
