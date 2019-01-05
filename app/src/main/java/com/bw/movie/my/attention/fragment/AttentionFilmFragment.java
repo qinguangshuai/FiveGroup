@@ -1,14 +1,15 @@
 package com.bw.movie.my.attention.fragment;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -17,6 +18,8 @@ import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attention.adapter.AttFilmAdapter;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.presenter.AttFilmPresenter;
+import com.bw.movie.my.mysound.MySoundAdapter;
+import com.bw.movie.wxapi.WXEntryActivity;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -31,9 +34,10 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
 
     @BindView(R.id.attenrecycle2)
     XRecyclerView attenrecycle2;
-    @BindView(R.id.attenimage1)
-    ImageView attenimage1;
     Unbinder unbinder;
+    @BindView(R.id.attenimage2)
+    ImageView attenimage2;
+    Unbinder unbinder1;
     private AttFilmPresenter mAttFilmPresenter;
     private List<MyAttFilmUser.ResultBean> mList;
     int page = 1;
@@ -62,7 +66,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
                         mAttFilmPresenter.getFilm(page);
                         attenrecycle2.refreshComplete();
                     }
-                },2000);
+                }, 2000);
             }
 
             @Override
@@ -73,7 +77,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
                         mAttFilmPresenter.getFilm(page++);
                         attenrecycle2.loadMoreComplete();
                     }
-                },2000);
+                }, 2000);
             }
         });
     }
@@ -105,7 +109,14 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         attenrecycle2.setLayoutManager(linearLayoutManager);
         mList = myAttFilmUser.getResult();
-        AttFilmAdapter attFilmAdapter = new AttFilmAdapter(getContext(),mList);
+        AttFilmAdapter attFilmAdapter = new AttFilmAdapter(getContext(), mList);
+        attFilmAdapter.setHttpClick(new AttFilmAdapter.HttpClick() {
+            @Override
+            public void getClick(View view, int position) {
+                startActivity(new Intent(getActivity(),WXEntryActivity.class));
+                getActivity().finish();
+            }
+        });
         attenrecycle2.setAdapter(attFilmAdapter);
     }
 
@@ -124,10 +135,23 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
 
     }
 
-    Handler mHandler = new Handler(){
+    Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
     };
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @OnClick(R.id.attenimage2)
+    public void onViewClicked() {
+        getActivity().finish();
+    }
 }

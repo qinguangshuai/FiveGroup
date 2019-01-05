@@ -101,13 +101,13 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     @Override
     public void onDataSuccess(MyMessageEntity myMessageEntity) {
 
-       result = myMessageEntity.getResult();
-       email = result.getEmail();
-       headPic = result.getHeadPic();
-       int id = result.getId();
-       nickName = result.getNickName();
-       phone1 = result.getPhone();
-       sex1 = result.getSex();
+        result = myMessageEntity.getResult();
+        email = result.getEmail();
+        headPic = result.getHeadPic();
+        int id = result.getId();
+        nickName = result.getNickName();
+        phone1 = result.getPhone();
+        sex1 = result.getSex();
 
 
 

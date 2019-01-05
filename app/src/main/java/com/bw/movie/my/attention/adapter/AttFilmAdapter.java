@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
+import com.bw.movie.my.mysound.MySoundAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +39,7 @@ public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.attcinema, viewGroup, false);
-        MyViewHolder holder = new MyViewHolder(view);
+        MyViewHolder holder = new MyViewHolder(view,mHttpClick);
         return holder;
     }
 
@@ -73,13 +75,31 @@ public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHo
 
         SimpleDraweeView simple;
         TextView text1,text2,text3;
+        ImageView attCinemaImage;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, final HttpClick httpClick) {
             super(itemView);
             simple = itemView.findViewById(R.id.attcinemasimple);
             text1 = itemView.findViewById(R.id.attcinematext1);
             text2 = itemView.findViewById(R.id.attcinematext2);
             text3 = itemView.findViewById(R.id.attcinematext3);
+            attCinemaImage = itemView.findViewById(R.id.attCinemaImage);
+            attCinemaImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    httpClick.getClick(v,getAdapterPosition());
+                }
+            });
         }
+    }
+
+    private HttpClick mHttpClick;
+
+    public void setHttpClick(HttpClick httpClick) {
+        mHttpClick = httpClick;
+    }
+
+    public interface HttpClick{
+        void getClick(View view,int position);
     }
 }

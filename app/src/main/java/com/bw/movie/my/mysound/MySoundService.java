@@ -11,6 +11,6 @@ import retrofit2.http.Query;
  */
 public interface MySoundService {
     //http://172.17.8.100/movieApi/tool/v1/verify/findAllSysMsgList?page=1&count=5
-    @GET("tool/v1/verify/findAllSysMsgList?count=5")
+    @GET("tool/v1/verify/findAllSysMsgList?count=50")
     Observable<MySoundUser> getSound(@Query("page") int page);
 }

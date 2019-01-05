@@ -50,7 +50,6 @@ public class StatusView extends FrameLayout {
         addView(errorSub);
         addView(emptySub);
         addView(contentView);
-
     }
 
 

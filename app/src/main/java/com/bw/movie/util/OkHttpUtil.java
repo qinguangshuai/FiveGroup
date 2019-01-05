@@ -11,16 +11,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * author:Therefore(Lenovo)
  * fileName:OkHttpUtil
  */
+
 /**
  * 网络请求
- * */
+ */
 public class OkHttpUtil {
 
     private static OkHttpClient client;
     public static Retrofit retrofit;
 
     //单例模式
-    private OkHttpUtil(){
+    private OkHttpUtil() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(UrlUtil.TOTAL)
                 .client(client)
@@ -29,7 +30,7 @@ public class OkHttpUtil {
                 .build();
     }
 
-    public static void init(){
+    public static void init() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //判断是否断网
         builder.retryOnConnectionFailure(true);
@@ -41,14 +42,15 @@ public class OkHttpUtil {
         client = builder.build();
     }
 
-    public static OkHttpUtil get(){
+    public static OkHttpUtil get() {
         return OkHttpUtilThis.mOkHttpUtil;
     }
-    private static final class OkHttpUtilThis
-    {
-        private static  final OkHttpUtil mOkHttpUtil=new OkHttpUtil();
+
+    private static final class OkHttpUtilThis {
+        private static final OkHttpUtil mOkHttpUtil = new OkHttpUtil();
     }
-    public <T>T createa(Class<T> tClass){
+
+    public <T> T createa(Class<T> tClass) {
         return retrofit.create(tClass);
     }
 }

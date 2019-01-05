@@ -6,6 +6,7 @@ package com.bw.movie.cinema.bean;
  * fileName:AddressUser
  */
 public class AddressUser {
+
     private String city;
     private String cid;
 

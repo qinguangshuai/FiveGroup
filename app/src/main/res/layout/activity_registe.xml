@@ -15,7 +15,7 @@
         android:id="@+id/registetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ffanhui"/>
+        android:background="@mipmap/ffanhui"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,7 +52,7 @@
             android:layout_marginRight="50dp"
             android:drawableLeft="@drawable/register_icon_sex_default_hdpi"
             android:ems="10"
-            android:hint="       性别"
+            android:hint="       性别(1为男,2为女)"
             android:inputType="textPersonName"
             android:text=""
             android:textColor="@color/white"

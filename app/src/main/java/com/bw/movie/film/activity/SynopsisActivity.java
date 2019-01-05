@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -144,18 +145,18 @@ public class SynopsisActivity extends BaseActivity {
     public BasePresenter initPresenter() {
         return null;
     }
-    //判断并销毁视频 的 播放
-    public void isPlay(){
-        if(popupWindow2.isShowing()){
 
-        }else {
+    //判断并销毁视频 的 播放
+    public void isPlay() {
+        if (popupWindow2.isShowing()) {
+
+        } else {
             if (JCVideoPlayer.backPress()) {
                 return;
             }
             JCVideoPlayer.releaseAllVideos();
         }
     }
-
 
 
     //向第三方控件中set 数据
@@ -240,7 +241,7 @@ public class SynopsisActivity extends BaseActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(SynopsisActivity.this, AffiliatedTheaterActivity.class);
                         intent.putExtra("id", detailBean.getResult().getId());
-                        intent.putExtra("name",detailBean.getResult().getName());
+                        intent.putExtra("name", detailBean.getResult().getName());
                         startActivity(intent);
                     }
                 });
@@ -323,8 +324,6 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
-
-
     //第二个Popupwindow  mTrail  预告片
     public void setTrail(DetailBean.ResultBean result) {
         final List<DetailBean.ResultBean.ShortFilmListBean> shortFilmList = result.getShortFilmList();
@@ -403,7 +402,6 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
-
     //暂停
     @Override
     public void onBackPressed() {
@@ -427,28 +425,32 @@ public class SynopsisActivity extends BaseActivity {
         int height = windowManager.getDefaultDisplay().getHeight();
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
-                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
 //                popupWindow.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow.setOutsideTouchable(true);
-                popupWindow.showAsDropDown(v, 0, -(height * 3 / 5) );
+//                popupWindow.showAsDropDown(v, 0, -(height * 3 / 5) );
+                popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
-                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
 //                popupWindow2.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow2.setOutsideTouchable(true);
-                popupWindow2.showAsDropDown(v, 0, -(height * 3 / 5) );
+//                popupWindow2.showAsDropDown(v, 0, -(height * 3 / 5) );
+                popupWindow2 .showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+
                 break;
+
             case R.id.rb_Stills_synopsis:
-                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
 //                popupWindow3.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow3.setOutsideTouchable(true);
-                popupWindow3.showAsDropDown(v, 0, -(height * 3 / 5) );
+                popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
-                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
 //                popupWindow4.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow4.setOutsideTouchable(true);
-                popupWindow4.showAsDropDown(v, 0, -(height * 3 / 5) );
+                popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
     }

@@ -68,13 +68,10 @@ public class CinemaFragment extends BaseFragment {
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         rgCinema.check(R.id.recommendcinema);
-        if (EventBus.getDefault().isRegistered(this)){
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
     }
-
-
 
     //初始化监听
     @Override
@@ -154,6 +151,7 @@ public class CinemaFragment extends BaseFragment {
                     Toast.makeText(mActivity, "请输入查询信息", Toast.LENGTH_SHORT).show();
                 }else{
                     new SearchPresenter(new com.bw.movie.cinema.search.view.SearchView<SearchBean>() {
+
                         @Override
                         public void onDataSuccess(SearchBean searchBean) {
 
@@ -205,7 +203,7 @@ public class CinemaFragment extends BaseFragment {
         zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MainActivity.class));
+                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
     }

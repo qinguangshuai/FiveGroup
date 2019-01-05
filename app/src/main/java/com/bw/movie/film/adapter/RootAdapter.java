@@ -232,7 +232,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private class CarouseHolder extends RecyclerView.ViewHolder {
         private final RecyclerCoverFlow mRecyclerCoverFlow;
         private final ScrollView mScrollView;
-        private final CheckBox mPositinging;
         private final SearchView mSearch;
         private final CarouselAdapter mCarouselAdapter;
 
@@ -241,7 +240,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mSearch = view.findViewById(R.id.search_item_carouse);
             mRecyclerCoverFlow = view.findViewById(R.id.RecyclerCoverFlow_item_carouse);
             mScrollView = view.findViewById(R.id.customScrollView_item_carouse);
-            mPositinging = view.findViewById(R.id.Positioning_item_carouse);
             mCarouselAdapter = new CarouselAdapter();
         }
 

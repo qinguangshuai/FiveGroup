@@ -18,17 +18,6 @@
             android:layout_height="@dimen/dp_186"
             android:background="@mipmap/xxhdpi_filebacnground">
 
-            <CheckBox
-                android:id="@+id/Positioning_item_carouse"
-                android:layout_width="@dimen/dp_50"
-                android:layout_height="@dimen/dp_50"
-                android:layout_margin="@dimen/sp_12"
-                android:button="@mipmap/com_icon_loc_white_default_hdpi"
-                android:padding="@dimen/dp_5"
-                android:text="北京"
-                android:textColor="#fff"
-                android:textSize="12sp"
-                android:textStyle="bold" />
 
             <com.bw.movie.custom.SearchView
                 android:id="@+id/search_item_carouse"

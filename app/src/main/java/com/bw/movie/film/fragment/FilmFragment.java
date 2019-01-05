@@ -2,12 +2,19 @@ package com.bw.movie.film.fragment;
 
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.bean.AddressUser;
 import com.bw.movie.film.activity.DetailsActivity;
 import com.bw.movie.film.adapter.RootAdapter;
 import com.bw.movie.film.bean.CancelFollowMovieBean;
@@ -22,9 +29,6 @@ import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CancelFollowMovieView;
 import com.bw.movie.film.v.CarousemView;
-
-import org.greenrobot.eventbus.EventBus;
-
 import com.bw.movie.film.v.FollowView;
 import com.bw.movie.film.v.HotPlayView;
 import com.bw.movie.film.v.PlayingView;
@@ -32,6 +36,7 @@ import com.bw.movie.film.v.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
@@ -50,6 +55,11 @@ import butterknife.Unbinder;
  * 正在上映 具备加载功能   √
  */
 public class FilmFragment extends BaseFragment {
+    @BindView(R.id.file_carouse)
+    ImageView fileCarouse;
+    @BindView(R.id.file_text)
+    TextView fileText;
+    Unbinder unbinder1;
     //根布局的adapter 适配器
     private RootAdapter mRootAdapter = new RootAdapter();
     //吐司工具类
@@ -61,6 +71,7 @@ public class FilmFragment extends BaseFragment {
     @BindView(R.id.RecyclerView_filefragment)
     RecyclerView mRecyclerViewFilefragment;
     private Intent intent;
+    private int a = 0;
 
     //初始化控件
     @Override
@@ -74,6 +85,16 @@ public class FilmFragment extends BaseFragment {
         getPlayingBeanObservable(1, 10, false);
         //intent 传值 准备
         intent = new Intent(getActivity(), DetailsActivity.class);
+    }
+
+    @Subscribe
+    public void setAddress(AddressUser address){
+        a++;
+        if (a==1){
+            fileText.setText(address.getCity()+"  "+address.getCid());
+        }else {
+            return;
+        }
     }
 
     //点击事件
@@ -330,6 +351,13 @@ public class FilmFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 }//----------|结束主函数结束|----------
 
 

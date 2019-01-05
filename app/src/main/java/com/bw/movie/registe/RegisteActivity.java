@@ -93,10 +93,10 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
         Integer sex = -1;
         String etRegisterName = this.etRegisterName.getText().toString();
         String etRegisterSex = this.etRegisterSex.getText().toString();
-        if ("".equals(etRegisterSex)) {
-            sex = -1;
-        } else {
-            sex = Integer.valueOf(etRegisterSex);
+        if ("男".equals(etRegisterSex)) {
+            sex = 1;
+        } else if ("女".equals(etRegisterSex)){
+            sex = 2;
         }
         String etRegsiterDate = this.etRegsiterDate.getText().toString();
         String etRegisterPhone = this.etRegisterPhone.getText().toString();
@@ -141,7 +141,7 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
 
     @Override
     public void onDataSuccess(RegisteUser registeUser) {
-        Toast.makeText(this, registeUser.getMessage(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, registeUser.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
