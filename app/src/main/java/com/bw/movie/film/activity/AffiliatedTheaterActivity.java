@@ -14,15 +14,19 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.film.adapter.AffililaterdAdapter;
 import com.bw.movie.film.bean.CinemaBean;
+import com.bw.movie.film.event.AffililaterEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CinemaView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AffiliatedTheaterActivity extends BaseActivity {
+public class AffiliatedTheaterActivity extends BaseActivity implements CinemaView<CinemaBean>{
 
 
     @BindView(R.id.title_affiliated)
@@ -40,8 +44,27 @@ public class AffiliatedTheaterActivity extends BaseActivity {
         id = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
         mTitleAffiliated.setText(name);
-        getData(id);
+//        getData(id);
+        FilmProsenter filmProsenter = new FilmProsenter(this);
+        filmProsenter.getCinemaBeanObservable(id);
         setmRecyAffiliated();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Subscribe
+    public void getAffililaterId(AffililaterEvent affililaterEvent) {
+        if (affililaterEvent.getAffililaterId()==Constant.AFFILILATER) {
+            FilmProsenter filmProsenter = new FilmProsenter(this);
+            filmProsenter.getCinemaBeanObservable(id);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -74,18 +97,18 @@ public class AffiliatedTheaterActivity extends BaseActivity {
     public void setmRecyAffiliated() {
 
     }
-
+/*
     //请求数据
     public void getData(int id) {
         new FilmProsenter(new CinemaView<CinemaBean>() {
             @Override
             public void onDataSuccess(CinemaBean cinemaBean) {
-                setAdapter(cinemaBean);
+
             }
 
             @Override
             public void onDataFailer(String msg) {
-                new ToastUtil().Toast(msg);
+
             }
 
             @Override
@@ -97,8 +120,8 @@ public class AffiliatedTheaterActivity extends BaseActivity {
             public void onHideLoading() {
 
             }
-        }).getCinemaBeanObservable(id);
-    }
+        }).getCinemaBeanObservable(id);*/
+//    }
 
 
     //adapter
@@ -132,5 +155,23 @@ public class AffiliatedTheaterActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onDataSuccess(CinemaBean cinemaBean) {
+        setAdapter(cinemaBean);
+    }
 
+    @Override
+    public void onDataFailer(String msg) {
+        new ToastUtil().Toast(msg);
+    }
+
+    @Override
+    public void onShowLoading() {
+
+    }
+
+    @Override
+    public void onHideLoading() {
+
+    }
 }

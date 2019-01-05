@@ -23,5 +23,7 @@ public interface Constant {
     String PASSWORD="pwd";
     //电影院Id
     String CINEMAID="cinemaid";
+    //点赞
+    int AFFILILATER=0x0000;
 
 }

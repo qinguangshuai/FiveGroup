@@ -8,16 +8,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.Constant;
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.cinema.activity.ParticularsActivity;
+import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
+import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
+import com.bw.movie.cinema.event.FollowEvent;
+import com.bw.movie.cinema.follow.bean.FollowBean;
+import com.bw.movie.cinema.follow.presenter.FollowProsenter;
+import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.film.bean.CinemaBean;
+import com.bw.movie.film.event.AffililaterEvent;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 /*
  *作者:ash
@@ -69,13 +80,78 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+
+
         final CinemaBean.ResultBean resultBean = cinemaBean.getResult().get(i);
-        Holder holder = (Holder) viewHolder;
-        holder.mGood.setChecked(resultBean.getFollowCinema()==1?true:false);
+        final Holder holder = (Holder) viewHolder;
+
+        if (cinemaBean.getResult().get(i) .getFollowCinema() == 1) {
+            holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+            holder.mGood.setChecked(true);
+
+        } else {
+            holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+            holder.mGood.setChecked(false);
+
+        }
+//         holder.mGood.setChecked(resultBean.getFollowCinema()==1?true:false);
         holder.mName.setText(resultBean.getName());
         holder.mImg.setImageURI(Uri.parse(resultBean.getLogo()));
         holder.mKm.setText("待获取");
         holder.mDetails.setText(resultBean.getAddress());
+        holder.mGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                  if (isChecked){
+                      new FollowProsenter(new FollowView<FollowBean>() {
+                          @Override
+                          public void onDataSuccess(FollowBean followBean) {
+                              if (followBean.getMessage().contains("成功")){
+                                  holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+                              }
+
+
+                          }
+
+                          @Override
+                          public void onDataFailer(String msg) {
+
+                          }
+
+                          @Override
+                          public void onShowLoading() {
+
+                          }
+
+                          @Override
+                          public void onHideLoading() {
+
+                          }
+                      }).getFollow(resultBean.getId());
+                  }else{
+                      new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
+                          @Override
+                          public void onDataSuccess(FollowBean followBean) {
+
+                              if (followBean.getMessage().contains("成功")){
+                                  holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+                              }
+
+
+                          }
+                          @Override
+                          public void onDataFailer(String msg) {
+                          }
+                          @Override
+                          public void onShowLoading() {
+                          }
+                          @Override
+                          public void onHideLoading() {
+                          }
+                      }).getCannelFollow(resultBean.getId());
+                  }
+            }
+        });
 
 
 
