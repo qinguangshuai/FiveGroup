@@ -18,7 +18,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /**
  * date:2019/1/2
- * author:刘鹏发 liu
+ * author:张文龙 liu
  * function:微信支付对应的Activity
  */
 public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEventHandler {

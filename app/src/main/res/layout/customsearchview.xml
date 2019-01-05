@@ -24,10 +24,12 @@
 
 
         <EditText
+            android:maxLength="18"
+            android:maxLines="1"
             android:id="@+id/cumtomedittext"
             android:textColor="#f2f2f2"
             android:layout_marginLeft="@dimen/dp_10"
-            android:hint="铁血战士"
+            android:hint="请输入搜索内容"
             android:layout_gravity="center"
             android:background="@null"
             android:textSize="12sp"

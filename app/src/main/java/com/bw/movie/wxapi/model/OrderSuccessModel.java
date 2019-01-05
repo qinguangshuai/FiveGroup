@@ -23,7 +23,7 @@ public class OrderSuccessModel {
 
                     @Override
                     public void onNext(OrderSuccessBean orderSuccessBean) {
-                        WeiXinUtil.weiXinPay(orderSuccessBean);
+
                         getOrder.getOreders(orderSuccessBean);
                     }
 

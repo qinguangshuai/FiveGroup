@@ -40,6 +40,7 @@
             android:layout_below="@id/seatView"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
+            android:padding="@dimen/dp_10"
             android:background="@drawable/seat_back"
             android:orientation="horizontal">
 
@@ -56,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
-                android:text="0"
+                android:text="0.0"
                 android:textColor="#e2099a"
                 android:textSize="@dimen/dp_30" />
 

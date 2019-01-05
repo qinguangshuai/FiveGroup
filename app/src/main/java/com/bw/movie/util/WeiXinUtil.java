@@ -11,7 +11,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /**
  * date:2018/12/26
- * author:刘鹏发 liu
+ * author:张文龙 liu
  * function:微信工具类
  */
 public class WeiXinUtil {
