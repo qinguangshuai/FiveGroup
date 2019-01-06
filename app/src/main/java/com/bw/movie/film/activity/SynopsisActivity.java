@@ -29,10 +29,13 @@ import com.bw.movie.film.adapter.StillsItem;
 import com.bw.movie.film.adapter.WeakCurrencyAdapter;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
+import com.bw.movie.film.bean.PraiseBean;
+import com.bw.movie.film.event.PraiseEvent;
 import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CommentView;
 import com.bw.movie.film.v.DetailView;
+import com.bw.movie.film.v.PraiseView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
@@ -46,6 +49,7 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +88,7 @@ public class SynopsisActivity extends BaseActivity {
     @BindView(R.id.buy_synopsis)
     Button mBuySynopsis;
     @BindView(R.id.imagereturnsynopsis)
-   ImageView imagereturnsynopsis;
+    ImageView imagereturnsynopsis;
     private WeakCurrencyAdapter<String> adapter;
     private View mTrail;
     private View mStills;
@@ -103,6 +107,7 @@ public class SynopsisActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
@@ -146,6 +151,34 @@ public class SynopsisActivity extends BaseActivity {
         return null;
     }
 
+
+    @Subscribe
+    public void good(PraiseEvent praiseEvent){
+        new FilmProsenter(new PraiseView<PraiseBean>() {
+
+            @Override
+            public void onDataSuccess(PraiseBean praiseBean) {
+                toast.Toast(praiseBean.getMessage());
+            }
+
+            @Override
+            public void onDataFailer(String msg) {
+                toast.Toast(msg);
+            }
+
+            @Override
+            public void onShowLoading() {
+
+            }
+
+            @Override
+            public void onHideLoading() {
+
+            }
+        }).getPraiseBeanObservable(praiseEvent.getI());
+    }
+
+
     //判断并销毁视频 的 播放
     public void isPlay() {
         if (popupWindow2.isShowing()) {
@@ -157,7 +190,6 @@ public class SynopsisActivity extends BaseActivity {
             JCVideoPlayer.releaseAllVideos();
         }
     }
-
 
     //向第三方控件中set 数据
     public void setCardSynopsis() {
@@ -179,7 +211,6 @@ public class SynopsisActivity extends BaseActivity {
         };
         mCardSynopsis.setAdapter(adapter);
     }
-
 
     //请求评论数据
     public void getCommentData(int id, int page, int count) {
@@ -211,7 +242,6 @@ public class SynopsisActivity extends BaseActivity {
             }
         }).getCommentBeanObservable(id, page, count);
     }
-
 
     //请求数据
     public void getData(int id) {
@@ -269,7 +299,6 @@ public class SynopsisActivity extends BaseActivity {
         }).getDetailBeanObservable(id);
     }
 
-
     //高斯模糊效果
     public void onBlurry(Uri uri, SimpleDraweeView draweeView) {
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
@@ -283,7 +312,6 @@ public class SynopsisActivity extends BaseActivity {
                 .build();
         draweeView.setController(controller);
     }
-
 
     //第一个Popupwindow 的数据
     private void setmDatail(DetailBean.ResultBean result) {
@@ -346,7 +374,6 @@ public class SynopsisActivity extends BaseActivity {
         mRecyclerView.setAdapter(popupWindow2Adapter);
     }
 
-
     //第三个popupwindow  剧照
     public void setStills(DetailBean.ResultBean result) {
         RecyclerView mRecyclerView = mStills.findViewById(R.id.Recyclerview_pop_stills);
@@ -370,6 +397,7 @@ public class SynopsisActivity extends BaseActivity {
         stillsAdapder.setPoster(posterList);
         mRecyclerView.setLayoutManager(gridLayoutManager);
     }
+
 
     //第四个pop
     public void setmReview(final List<CommentBean.ResultBean> result) {
@@ -399,6 +427,10 @@ public class SynopsisActivity extends BaseActivity {
             }
         });
 
+
+
+
+
     }
 
 
@@ -418,6 +450,14 @@ public class SynopsisActivity extends BaseActivity {
         JCVideoPlayer.releaseAllVideos();
     }
 
+
+    //注销
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     //点击事件
     @OnClick({R.id.rb_Datail_synopsis, R.id.rb_Trail_synopsis, R.id.rb_Stills_synopsis, R.id.rb_Review_synopsis})
     public void onViewClicked(View v) {
@@ -425,29 +465,29 @@ public class SynopsisActivity extends BaseActivity {
         int height = windowManager.getDefaultDisplay().getHeight();
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
-                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow.setOutsideTouchable(true);
 //                popupWindow.showAsDropDown(v, 0, -(height * 3 / 5) );
                 popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
-                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow2.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow2.setOutsideTouchable(true);
 //                popupWindow2.showAsDropDown(v, 0, -(height * 3 / 5) );
-                popupWindow2 .showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
 
                 break;
 
             case R.id.rb_Stills_synopsis:
-                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow3.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow3.setOutsideTouchable(true);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
-                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow4.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow4.setOutsideTouchable(true);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
