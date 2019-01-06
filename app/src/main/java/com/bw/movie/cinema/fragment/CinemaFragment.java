@@ -66,11 +66,66 @@ public class CinemaFragment extends BaseFragment {
     //初始化控件
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        unbinder1 = ButterKnife.bind(this, rootView);
         rgCinema.check(R.id.recommendcinema);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        searchView = rootView.findViewById(R.id.serch);
+        searchView.setClick(new SearchView.Click() {
+            @Override
+            public void onClickListener(View v, String s) {
+
+
+                if (TextUtils.isEmpty(s)){
+                    Toast.makeText(mActivity, "请输入查询信息", Toast.LENGTH_SHORT).show();
+                }else{
+                    new SearchPresenter(new com.bw.movie.cinema.search.view.SearchView<SearchBean>() {
+
+                        @Override
+                        public void onDataSuccess(SearchBean searchBean) {
+
+                            if (searchBean.getResult()!=null && searchBean.getResult().size()>0){
+                                //跳转到ParticularsActivity页面
+                                Intent intent = new Intent(getActivity(), ParticularsActivity.class);
+                                //获取推荐的logo的
+                                String logo = searchBean.getResult().get(0).getLogo();
+                                //获取推荐姓名
+                                String name = searchBean.getResult().get(0).getName();
+                                //获取推荐的地址
+                                String address = searchBean.getResult().get(0).getAddress();
+                                int id = searchBean.getResult().get(0).getId();
+                                intent.putExtra(Constant.TUIJIANID, id + "");
+                                intent.putExtra(Constant.LOGO, logo);
+                                intent.putExtra(Constant.NAME, name);
+                                intent.putExtra(Constant.ADDRESS, address);
+                                startActivity(intent);
+                            }else {
+                                Toast.makeText(mActivity, "请输入正确电影院信息", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onDataFailer(String msg) {
+
+                        }
+
+                        @Override
+                        public void onShowLoading() {
+
+                        }
+
+                        @Override
+                        public void onHideLoading() {
+
+                        }
+                    }).getSreach(1,5,s);
+                }
+
+            }
+        });
+
     }
 
     //初始化监听
@@ -136,67 +191,6 @@ public class CinemaFragment extends BaseFragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        searchView = rootView.findViewById(R.id.serch);
-        searchView.setClick(new SearchView.Click() {
-            @Override
-            public void onClickListener(View v, String s) {
-
-
-                if (TextUtils.isEmpty(s)){
-                    Toast.makeText(mActivity, "请输入查询信息", Toast.LENGTH_SHORT).show();
-                }else{
-                    new SearchPresenter(new com.bw.movie.cinema.search.view.SearchView<SearchBean>() {
-
-                        @Override
-                        public void onDataSuccess(SearchBean searchBean) {
-
-                            if (searchBean.getResult()!=null && searchBean.getResult().size()>0){
-                                //跳转到ParticularsActivity页面
-                                Intent intent = new Intent(getActivity(), ParticularsActivity.class);
-                                //获取推荐的logo的
-                                String logo = searchBean.getResult().get(0).getLogo();
-                                //获取推荐姓名
-                                String name = searchBean.getResult().get(0).getName();
-                                //获取推荐的地址
-                                String address = searchBean.getResult().get(0).getAddress();
-                                int id = searchBean.getResult().get(0).getId();
-                                intent.putExtra(Constant.TUIJIANID, id + "");
-                                intent.putExtra(Constant.LOGO, logo);
-                                intent.putExtra(Constant.NAME, name);
-                                intent.putExtra(Constant.ADDRESS, address);
-                                startActivity(intent);
-                            }else {
-                                Toast.makeText(mActivity, "请输入正确电影院信息", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onDataFailer(String msg) {
-
-                        }
-
-                        @Override
-                        public void onShowLoading() {
-
-                        }
-
-                        @Override
-                        public void onHideLoading() {
-
-                        }
-                    }).getSreach(1,5,s);
-                }
-
-            }
-        });
-        return rootView;
-    }
 
     @OnClick(R.id.zuoBiaoImage)
     public void onViewClicked() {

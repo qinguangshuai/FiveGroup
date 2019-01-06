@@ -1,17 +1,21 @@
 package com.bw.movie.film.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -29,10 +33,12 @@ import com.bw.movie.film.adapter.StillsItem;
 import com.bw.movie.film.adapter.WeakCurrencyAdapter;
 import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
+import com.bw.movie.film.bean.InputcommentsBean;
 import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CommentView;
 import com.bw.movie.film.v.DetailView;
+import com.bw.movie.film.v.InputcommentsView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
@@ -84,7 +90,7 @@ public class SynopsisActivity extends BaseActivity {
     @BindView(R.id.buy_synopsis)
     Button mBuySynopsis;
     @BindView(R.id.imagereturnsynopsis)
-   ImageView imagereturnsynopsis;
+    ImageView imagereturnsynopsis;
     private WeakCurrencyAdapter<String> adapter;
     private View mTrail;
     private View mStills;
@@ -99,7 +105,7 @@ public class SynopsisActivity extends BaseActivity {
     private PopupWindow popupWindow2;
     private PopupWindow popupWindow3;
     private PopupWindow popupWindow4;
-
+    private boolean flag;
 
     @Override
     public void initView() {
@@ -373,7 +379,9 @@ public class SynopsisActivity extends BaseActivity {
 
     //第四个pop
     public void setmReview(final List<CommentBean.ResultBean> result) {
+
         RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
+        final ImageView imageView = mReview.findViewById(R.id.writemessage);
         ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
         //取消 pop
         back.setOnClickListener(new View.OnClickListener() {
@@ -385,9 +393,84 @@ public class SynopsisActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
+        final PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
         popupWindow4Adapter.setResult(result);
         mRecyclerView.setAdapter(popupWindow4Adapter);
+
+        popupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
+            @Override
+            public void isData(View view, final int position) {
+                if (flag) {
+
+                    imageView.setVisibility(View.GONE);
+                    flag = false;
+                } else {
+                    imageView.setVisibility(View.VISIBLE);
+                    flag = true;
+                }
+
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SynopsisActivity.this);
+                        View view = View.inflate(SynopsisActivity.this, R.layout.alertdialogitem, null);
+                        builder.setView(view);
+                        final AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                        //调用这个方法时，按对话框以外的地方不起作用。按返回键还起作用
+//                alertDialog.setCanceledOnTouchOutside(false);
+                        //调用这个方法时，按对话框以外的地方不起作用。按返回键也不起作用
+//                alertDialog.setCancelable(false);
+                        final EditText Inputcomments = view.findViewById(R.id.inputcomments);
+
+                        TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
+
+                        SendInputcomments.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final String trim = Inputcomments.getText().toString().trim();
+                                if (TextUtils.isEmpty(trim)){
+                                    Toast.makeText(SynopsisActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    new FilmProsenter(new InputcommentsView<InputcommentsBean>() {
+
+                                        @Override
+                                        public void onDataSuccess(InputcommentsBean inputcommentsBean) {
+                                            Toast.makeText(SynopsisActivity.this, inputcommentsBean.getMessage(), Toast.LENGTH_SHORT).show();
+                                            if (inputcommentsBean.getMessage().contains("成功")){
+                                                getCommentData(id,1,10);
+                                                alertDialog.dismiss();
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onDataFailer(String msg) {
+
+                                        }
+
+                                        @Override
+                                        public void onShowLoading() {
+
+                                        }
+
+                                        @Override
+                                        public void onHideLoading() {
+
+                                        }
+                                    }).getInputcomments(result.get(position).getCommentId(),trim);
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+            }
+        });
+
 
         //抽取方法 上拉 加载更多
         RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
@@ -425,29 +508,29 @@ public class SynopsisActivity extends BaseActivity {
         int height = windowManager.getDefaultDisplay().getHeight();
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
-                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow.setOutsideTouchable(true);
 //                popupWindow.showAsDropDown(v, 0, -(height * 3 / 5) );
                 popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
-                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow2.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow2.setOutsideTouchable(true);
 //                popupWindow2.showAsDropDown(v, 0, -(height * 3 / 5) );
-                popupWindow2 .showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
 
                 break;
 
             case R.id.rb_Stills_synopsis:
-                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow3.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow3.setOutsideTouchable(true);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
-                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height*3/5);
+                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
 //                popupWindow4.setBackgroundDrawable(new ColorDrawable());
 //                popupWindow4.setOutsideTouchable(true);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);

@@ -12,10 +12,13 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
+import com.bw.movie.my.message.bean.Portrait;
 import com.bw.movie.my.message.presenter.MyMessagePresenter;
 import com.bw.movie.my.message.view.MyMessageView;
 import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -132,12 +135,11 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
        mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
 
 
-       Uri uri = Uri.parse(headPic);
-       mMyHeadimage.setImageURI(uri);
-   }
+        Uri uri = Uri.parse(headPic);
+        mMyHeadimage.setImageURI(uri);
 
 
-
+    }
 
     @Override
     public void onDataFailer(String msg) {
@@ -176,16 +178,14 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
             case R.id.my_headimage:
                 break;
             case R.id.my_update:
-
-                   Intent intent = new Intent(this, UpdataInfoActivity.class);
-                   intent.putExtra("sex1",sex1);
-                   intent.putExtra("email",email);
-                   intent.putExtra("headPic",headPic);
-                   intent.putExtra("nickName",nickName);
-                   intent.putExtra("phone1",phone1);
-                   intent.putExtra("s",s);
-                   startActivity(intent);
-
+                Intent intent = new Intent(this, UpdataInfoActivity.class);
+                intent.putExtra("sex1",sex1);
+                intent.putExtra("email",email);
+                intent.putExtra("headPic",headPic);
+                intent.putExtra("nickName",nickName);
+                intent.putExtra("phone1",phone1);
+                intent.putExtra("s",s);
+                startActivity(intent);
                 finish();
                 break;
         }

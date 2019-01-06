@@ -30,6 +30,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setResult(List<CommentBean.ResultBean> result) {
         this.result = result;
     }
+
     class Holder extends RecyclerView.ViewHolder {
         private final SimpleDraweeView mDraweeView;
         private final TextView mName;
@@ -46,6 +47,12 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mTime = view.findViewById(R.id.time_item_comment);
             mGood = view.findViewById(R.id.good_item_comment);
             mComment = view.findViewById(R.id.comment_item_comment);
+            mComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getData.isData(v,getAdapterPosition());
+                }
+            });
         }
 
         public void setData(CommentBean.ResultBean resultBean) {
@@ -57,12 +64,22 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             gc.setTimeInMillis(Long.parseLong(s));
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             mTime.setText(df.format(gc.getTime()));
-            mGood.setText(resultBean.getReplyNum() + "");
-            mComment.setText(resultBean.getGreatNum() + "");
+            mGood.setText (resultBean.getGreatNum() + "");
+            mComment.setText(resultBean.getReplyNum() + "");
             mContext.setText(resultBean.getCommentContent() + "");
+
         }
     }
 
+    private getData getData;
+
+    public void setGetData(PopupWindow4Adapter.getData getData) {
+        this.getData = getData;
+    }
+
+    public interface getData{
+        void isData(View view,int position);
+    }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -80,4 +97,6 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount() {
         return result.size();
     }
+
+
 }

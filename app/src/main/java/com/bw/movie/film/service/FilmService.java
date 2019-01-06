@@ -7,11 +7,15 @@ import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
+import com.bw.movie.film.bean.InputcommentsBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /*
@@ -63,6 +67,11 @@ public interface FilmService {
     //根据电影Id 查询影院
     @GET("movie/v1/findCinemasListByMovieId")
     Observable<CinemaBean> getCinemaBeanObservable(@Query("movieId") int movieId );
+
+    @POST("movie/v1/verify/commentReply")
+    @FormUrlEncoded
+    Observable<InputcommentsBean> getInputcomments(@Field("commentId") int commentId,@Field("replyContent") String replyContent);
+
 
 
 }
