@@ -64,9 +64,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
         presenter = new MyMessagePresenter(this);
         presenter.getMessage();
-
-
-
         ButterKnife.bind(this);
     }
 
@@ -111,8 +108,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         nickName = result.getNickName();
         phone1 = result.getPhone();
         sex1 = result.getSex();
-
-
 
         if (sex1 == 1) {
             mTxtMyinfoSex.setText("男");

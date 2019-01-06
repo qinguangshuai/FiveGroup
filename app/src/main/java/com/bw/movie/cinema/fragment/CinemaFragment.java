@@ -1,14 +1,17 @@
 package com.bw.movie.cinema.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -145,8 +148,6 @@ public class CinemaFragment extends BaseFragment {
         searchView.setClick(new SearchView.Click() {
             @Override
             public void onClickListener(View v, String s) {
-
-
                 if (TextUtils.isEmpty(s)){
                     Toast.makeText(mActivity, "请输入查询信息", Toast.LENGTH_SHORT).show();
                 }else{

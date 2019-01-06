@@ -3,12 +3,17 @@ package com.bw.movie.custom;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 
@@ -31,7 +36,6 @@ import com.bw.movie.R;
     public String getEditText() {
         return editText.getText().toString();
     }
-
 
     public SearchView(Context context) {
         this(context, null);
@@ -67,21 +71,61 @@ import com.bw.movie.R;
                     animator.start();
                     isShow = false;
                 }
-
             }
         });
-
 
         //点击搜索
         cumtomresult.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 click.onClickListener(v,editText.getText().toString());
+
             }
         });
 
+        editText.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER&& event.getAction() == KeyEvent.ACTION_DOWN) {
+                    InputMethodManager imm = (InputMethodManager) v.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    String text = editText.getText().toString();
+                    if(imm.isActive()) {
+                        imm.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+                    }
 
+                    if(TextUtils.isEmpty(text)){
+                        Toast.makeText(context,"请输入您想要搜索的地址",Toast.LENGTH_SHORT).show();
+                        return true;
+                    }else {
+                        click.onClickListener(v,text);
+                    }
+                }
+                return false;
+            }
+        });
 
+        /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                *//*判断是否是“搜索”键*//*
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    String key = editText.getText().toString().trim();
+                    if(TextUtils.isEmpty(key)){
+                        Toast.makeText(context,"请输入您想要搜索的地址",Toast.LENGTH_SHORT).show();
+                        return true;
+                    }else {
+
+                    }
+                    //  下面就是大家的业务逻辑
+                    //searchPoi(key);
+                    //  这里记得一定要将键盘隐藏了
+                    //hideKeyBoard();
+                    return true;
+                }
+                return false;
+            }
+        });*/
     }
 
 
@@ -99,8 +143,4 @@ import com.bw.movie.R;
     public interface Click{
         void onClickListener(View v, String s);
     }
-
-
-
-
 }

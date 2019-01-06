@@ -5,7 +5,7 @@ package com.bw.movie.util;
  * author:Therefore(Lenovo)
  * fileName:Constant
  */
-public interface Constant {
+public class Constant {
     int eventId = 0x0000;
     String SP_NAME="sessionId";
     int USER_NIKE_NAME = 7358;

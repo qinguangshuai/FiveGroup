@@ -74,8 +74,13 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         ButterKnife.bind(this);
         permission();
         Intent intent = getIntent();
-        int sex1 = intent.getIntExtra("sex1", -1);
-        mMxingbie.setText(sex1 + "");
+        int sex1 = intent.getIntExtra("sex1", 0);
+        if ("1".equals(sex1)){
+            mMxingbie.setText("男");
+        }else if ("2".equals(sex1)){
+            mMxingbie.setText("女");
+        }
+
         String email = intent.getStringExtra("email");
         mMyouxiang.setText(email);
         String headPic = intent.getStringExtra("headPic");
@@ -220,7 +225,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         String nickname = mMnicheng.getText().toString().trim();
 
         String sex = mMxingbie.getText().toString();
-        Integer sex1 = Integer.valueOf(sex);
+        //Integer sex1 = Integer.valueOf(sex);
         String email = mMyouxiang.getText().toString();
 
         switch (v.getId()) {
@@ -279,9 +284,17 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 break;
 
             case R.id.update_myinfo:
-                mMxingbie.setText(sex1 + "");
+
+                Integer q = -1;
+                if ("男".equals(sex)) {
+                    q = 1;
+                } else if ("女".equals(sex)){
+                    q = 2;
+                }
+
+                mMxingbie.setText(q + "");
                 presenter = new UpDateUserInfoPresenter(this);
-                presenter.getUserInfo(nickname, sex1, email);
+                presenter.getUserInfo(nickname, q, email);
                 startActivity(new Intent(this, MyMessage.class));
                 finish();
                 break;

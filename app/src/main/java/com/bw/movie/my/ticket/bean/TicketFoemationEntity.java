@@ -1,13 +1,12 @@
 package com.bw.movie.my.ticket.bean;
 
 import java.util.List;
+
 /*
-*
-*   购票记录bean类
-* */
+ *
+ *   购票记录bean类
+ * */
 public class TicketFoemationEntity {
-
-
     private String message;
     private String status;
     private List<ResultBean> result;
@@ -39,10 +38,10 @@ public class TicketFoemationEntity {
     public static class ResultBean {
 
         private int amount;
-        private int beginTime;
+        private String beginTime;
         private String cinemaName;
-        private long createTime;
-        private int endTime;
+        private String createTime;
+        private String endTime;
         private int id;
         private String movieName;
         private String orderId;
@@ -59,11 +58,11 @@ public class TicketFoemationEntity {
             this.amount = amount;
         }
 
-        public int getBeginTime() {
+        public String getBeginTime() {
             return beginTime;
         }
 
-        public void setBeginTime(int beginTime) {
+        public void setBeginTime(String beginTime) {
             this.beginTime = beginTime;
         }
 
@@ -75,19 +74,19 @@ public class TicketFoemationEntity {
             this.cinemaName = cinemaName;
         }
 
-        public long getCreateTime() {
+        public String getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(long createTime) {
+        public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
 
-        public int getEndTime() {
+        public String getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(int endTime) {
+        public void setEndTime(String endTime) {
             this.endTime = endTime;
         }
 

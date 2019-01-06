@@ -8,8 +8,8 @@ import com.bw.movie.my.message.view.MyMessageView;
 * MyMessagePresenter
 * */
 public class MyMessagePresenter extends BasePresenter<MyMessageView> {
-    private MyMessageModel myMessageModel;
 
+    private MyMessageModel myMessageModel;
 
     public MyMessagePresenter(MyMessageView iBaseView) {
         super(iBaseView);
@@ -24,6 +24,4 @@ public class MyMessagePresenter extends BasePresenter<MyMessageView> {
             }
         });
     }
-
-
 }
