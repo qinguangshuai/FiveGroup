@@ -1,6 +1,5 @@
 package com.bw.movie.my.myinfo.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,7 +19,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.activity.MyMessage;
@@ -33,7 +30,6 @@ import com.bw.movie.my.updatehaed.bean.UpdateHeadEntity;
 import com.bw.movie.my.updatehaed.presenter.UpdateHeadPresenter;
 import com.bw.movie.my.updatehaed.view.UpdateHeadView;
 import com.bw.movie.util.ImageUtil;
-import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.File;
@@ -68,11 +64,11 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     private UpdateHeadPresenter headPresenter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        permission();
         Intent intent = getIntent();
         int sex1 = intent.getIntExtra("sex1", 0);
         if ("1".equals(sex1)){
@@ -90,7 +86,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         mMnicheng.setText(nickName);
         String phone1 = intent.getStringExtra("phone1");
         mMshoujihao.setText(phone1);
-
         String s = intent.getStringExtra("s");
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(Long.parseLong(s));
@@ -156,7 +151,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     File file = new File(data1);
                     xj(file);
 
-                }
+        }
                 break;
             //相册
             case 1:
@@ -166,6 +161,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     String path = ImageUtil.getPath(getApplicationContext(), data.getData());
                     File file1 = new File(path);
                     xj(file1);
+
                 }
                 break;
         }
@@ -186,40 +182,37 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     public void onHideLoading() {
 
     }
+public void xj(File file){
+    new UpdateHeadPresenter(new UpdateHeadView<UpdateHeadEntity>() {
 
-    public void xj(File file) {
-        new UpdateHeadPresenter(new UpdateHeadView<UpdateHeadEntity>() {
-            @Override
-            public void onDataSuccess(UpdateHeadEntity updateHeadEntity) {
-                if (!updateHeadEntity.getStatus().equals("0000")) {
-                    Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_LONG).show();
-                } else {
-                    String headPath = updateHeadEntity.getHeadPath();
-                    Uri uri = Uri.parse(headPath);
-                    mMtouxiang.setImageURI(uri);
-                }
+
+        @Override
+        public void onDataSuccess(UpdateHeadEntity updateHeadEntity) {
+            if (!updateHeadEntity.getStatus().equals("0000")) {
+                Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_LONG).show();
+            } else {
+                String headPath = updateHeadEntity.getHeadPath();
+                Uri uri = Uri.parse(headPath);
+                mMtouxiang.setImageURI(uri);
             }
+        }
 
-            @Override
-            public void onDataFailer(String msg) {
-                new ToastUtil().Toast("1");
-            }
+        @Override
+        public void onDataFailer(String msg) {
 
-            @Override
-            public void onShowLoading() {
-                new ToastUtil().Toast("2");
+        }
 
-            }
+        @Override
+        public void onShowLoading() {
 
-            @Override
-            public void onHideLoading() {
-                new ToastUtil().Toast("3");
+        }
 
+        @Override
+        public void onHideLoading() {
 
-            }
-        }).getHead(file);
-    }
-
+        }
+    }).getHead(file);
+}
     @OnClick({R.id.mtouxiang, R.id.mnicheng, R.id.mxingbie, R.id.mriqi, R.id.mshoujihao, R.id.myouxiang, R.id.update_myinfo, R.id.chongzhimima})
     public void onClick(View v) {
         String nickname = mMnicheng.getText().toString().trim();
@@ -246,7 +239,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 intent.addCategory("android.intent.category.DEFAULT");
                                 startActivityForResult(intent, 0);
-                                permission();
                                 popupWindow.dismiss();
                             }
                         });
@@ -258,7 +250,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                                 Intent intent = new Intent(Intent.ACTION_PICK);
                                 intent.setType("image/*");
                                 startActivityForResult(intent, 1);
-                                permission();
                                 popupWindow.dismiss();
                             }
                         });
@@ -296,6 +287,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 presenter = new UpDateUserInfoPresenter(this);
                 presenter.getUserInfo(nickname, q, email);
                 startActivity(new Intent(this, MyMessage.class));
+
                 finish();
                 break;
 
@@ -306,25 +298,5 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         }
     }
 
-    //动态授权
 
-    private void permission() {
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.CALL_PHONE,
-                    Manifest.permission.ACCESS_WIFI_STATE,
-                    Manifest.permission.READ_LOGS,
-                    Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.SET_DEBUG_APP,
-                    Manifest.permission.SYSTEM_ALERT_WINDOW,
-                    Manifest.permission.GET_ACCOUNTS,
-                    Manifest.permission.WRITE_APN_SETTINGS,
-                    Manifest.permission.CAMERA};
-            ActivityCompat.requestPermissions(UpdataInfoActivity.this, mPermissionList, 123);
-        }
-    }
 }

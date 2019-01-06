@@ -109,6 +109,8 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         phone1 = result.getPhone();
         sex1 = result.getSex();
 
+
+
         if (sex1 == 1) {
             mTxtMyinfoSex.setText("男");
         } else if (sex1 == 2) {
