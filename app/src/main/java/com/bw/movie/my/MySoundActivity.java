@@ -137,6 +137,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @Override
     public void onDataSuccess(MySoundUser mySoundUser) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         soundrecycle.setLayoutManager(linearLayoutManager);
         mList = mySoundUser.getResult();
         mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);

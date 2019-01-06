@@ -64,9 +64,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
         presenter = new MyMessagePresenter(this);
         presenter.getMessage();
-
-
-
         ButterKnife.bind(this);
     }
 
@@ -114,31 +111,31 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
 
 
-       if (sex1 == 1) {
-           mTxtMyinfoSex.setText("男");
-       } else if (sex1 == 2) {
-           mTxtMyinfoSex.setText("女");
-       } else {
-           mTxtMyinfoSex.setText("获取性别失败");
-       }
+        if (sex1 == 1) {
+            mTxtMyinfoSex.setText("男");
+        } else if (sex1 == 2) {
+            mTxtMyinfoSex.setText("女");
+        } else {
+            mTxtMyinfoSex.setText("获取性别失败");
+        }
 
-       mTxtMyinfoMail.setText(email);
-       mTxtMyinfoPhone.setText(phone1);
-       mTxtMyinfoNikename.setText(nickName);
+        mTxtMyinfoMail.setText(email);
+        mTxtMyinfoPhone.setText(phone1);
+        mTxtMyinfoNikename.setText(nickName);
 
 
-       browseTime = result.getBirthday();
-       GregorianCalendar gc = new GregorianCalendar();
-       s = String.valueOf(browseTime);
-       gc.setTimeInMillis(Long.parseLong(s));
-       SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-       mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
+        browseTime = result.getBirthday();
+        GregorianCalendar gc = new GregorianCalendar();
+        s = String.valueOf(browseTime);
+        gc.setTimeInMillis(Long.parseLong(s));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
 
 
         Uri uri = Uri.parse(headPic);
         mMyHeadimage.setImageURI(uri);
 
-
+        EventBus.getDefault().post(new Portrait(headPic));
     }
 
     @Override
