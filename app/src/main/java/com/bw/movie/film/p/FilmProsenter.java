@@ -12,6 +12,7 @@ import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.InputcommentsBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.bean.PraiseBean;
 import com.bw.movie.film.m.CancelFollowMovieCallBack;
 import com.bw.movie.film.m.CarouseCallBack;
 import com.bw.movie.film.m.CinemaCallBack;
@@ -23,6 +24,7 @@ import com.bw.movie.film.m.HotPlayCallBack;
 import com.bw.movie.film.m.InputcommentsCallBack;
 import com.bw.movie.film.m.PlayingCallBack;
 import com.bw.movie.film.m.PopularCallBack;
+import com.bw.movie.film.m.PraiseCallBack;
 
 /*
  *作者:ash
@@ -183,6 +185,22 @@ public class FilmProsenter extends BasePresenter {
             @Override
             public void isInputcomments(InputcommentsBean inputcommentsBean) {
                 getiBaseView().onDataSuccess(inputcommentsBean);
+            }
+        });
+    }
+
+
+    //点赞
+    public void getPraiseBeanObservable(int id){
+        mFilmModle.getPraiseBeanObservable(id, new PraiseCallBack() {
+            @Override
+            public void success(PraiseBean praiseBean) {
+                getiBaseView().onDataSuccess(praiseBean);
+            }
+
+            @Override
+            public void error(String message) {
+                getiBaseView().onDataFailer(message);
             }
         });
     }

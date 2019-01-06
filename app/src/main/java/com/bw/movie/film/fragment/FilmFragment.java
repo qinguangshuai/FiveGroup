@@ -349,13 +349,7 @@ public class FilmFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
+
 }//----------|结束主函数结束|----------
 
 

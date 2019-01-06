@@ -8,6 +8,7 @@ import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.InputcommentsBean;
+import com.bw.movie.film.bean.PraiseBean;
 import com.bw.movie.film.service.FilmService;
 import com.bw.movie.film.bean.CarouselBean;
 import com.bw.movie.film.bean.HotPlayBean;
@@ -316,6 +317,38 @@ public class FilmModle {
                     }
                 });
     }
+
+
+    //点赞
+    public void getPraiseBeanObservable(int id  , final PraiseCallBack praiseCallBack){
+        OkHttpUtil
+                .get()
+                .createa(FilmService.class)
+                .getPraiseBeanObservable(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<PraiseBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(PraiseBean praiseBean) {
+                        praiseCallBack.success(praiseBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        praiseCallBack.error(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
   //添加用户对评论的回复
   public void getInputcomments(int commentId,String replyContent, final InputcommentsCallBack inputcommentsCallBack){
       OkHttpUtil
@@ -346,6 +379,7 @@ public class FilmModle {
                   }
               });
   }
+
 
 }
 

@@ -7,11 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.film.bean.CommentBean;
+import com.bw.movie.film.event.PraiseEvent;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,9 +68,15 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             gc.setTimeInMillis(Long.parseLong(s));
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             mTime.setText(df.format(gc.getTime()));
+            mGood.setText(resultBean.getGreatNum() + "");
+            mGood.setChecked(resultBean.getIsGreat()==0?false:true);
+            mComment.setText(resultBean.getReplyNum() + "");
             mGood.setText (resultBean.getGreatNum() + "");
             mComment.setText(resultBean.getReplyNum() + "");
             mContext.setText(resultBean.getCommentContent() + "");
+
+
+
 
         }
     }
@@ -88,9 +98,21 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         Holder holder = (Holder) viewHolder;
         holder.setData(result.get(i));
+
+        //点赞
+        holder.mGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    EventBus.getDefault().post(new PraiseEvent(result.get(i).getCommentId()));
+                }else {
+                    EventBus.getDefault().post(new PraiseEvent(result.get(i).getCommentId()));
+                }
+            }
+        });
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.InputcommentsBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.bean.PraiseBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -71,6 +72,12 @@ public interface FilmService {
     @POST("movie/v1/verify/commentReply")
     @FormUrlEncoded
     Observable<InputcommentsBean> getInputcomments(@Field("commentId") int commentId,@Field("replyContent") String replyContent);
+
+
+    //点赞
+    @POST("movie/v1/verify/movieCommentGreat")
+    @FormUrlEncoded
+    Observable<PraiseBean> getPraiseBeanObservable(@Field("commentId") int commentId );
 
 
 
