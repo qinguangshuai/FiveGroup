@@ -84,7 +84,6 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
     @Override
     public RegistePresenter initPresenter() {
         mRegistePresenter = new RegistePresenter(this);
-
         return mRegistePresenter;
     }
 

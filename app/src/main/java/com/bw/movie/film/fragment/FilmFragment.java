@@ -88,11 +88,11 @@ public class FilmFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void setAddress(AddressUser address){
+    public void setAddress(AddressUser address) {
         a++;
-        if (a==1){
-            fileText.setText(address.getCity()+"  "+address.getCid());
-        }else {
+        if (a == 1) {
+            fileText.setText(address.getCity() + "  " + address.getCid());
+        } else {
             return;
         }
     }
@@ -243,10 +243,10 @@ public class FilmFragment extends BaseFragment {
         new FilmProsenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
-                    if (isLoad) {
-                        mRootAdapter.addResult(popularBean.getResult());
-                    } else {
-                        mRootAdapter.setResult(popularBean.getResult());
+                if (isLoad) {
+                    mRootAdapter.addResult(popularBean.getResult());
+                } else {
+                    mRootAdapter.setResult(popularBean.getResult());
                 }
 
             }
@@ -275,13 +275,11 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
-
-                    if (isLoad) {
-                        mRootAdapter.addHotResult(result);
-                    } else {
-                        mRootAdapter.setHotResult(result);
-                    }
-
+                if (isLoad) {
+                    mRootAdapter.addHotResult(result);
+                } else {
+                    mRootAdapter.setHotResult(result);
+                }
             }
 
             @Override
@@ -309,11 +307,11 @@ public class FilmFragment extends BaseFragment {
             public void onDataSuccess(PlayingBean playingBean) {
                 List<PlayingBean.ResultBean> result = playingBean.getResult();
 
-                    if (isLoad) {
-                        mRootAdapter.addPlayResult(result);
-                    } else {
-                        mRootAdapter.setPlayResult(result);
-                    }
+                if (isLoad) {
+                    mRootAdapter.addPlayResult(result);
+                } else {
+                    mRootAdapter.setPlayResult(result);
+                }
 
             }
 

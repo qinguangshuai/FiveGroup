@@ -12,10 +12,13 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
+import com.bw.movie.my.message.bean.Portrait;
 import com.bw.movie.my.message.presenter.MyMessagePresenter;
 import com.bw.movie.my.message.view.MyMessageView;
 import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -61,9 +64,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
         presenter = new MyMessagePresenter(this);
         presenter.getMessage();
-
-
-
         ButterKnife.bind(this);
     }
 
@@ -111,33 +111,32 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
 
 
-       if (sex1 == 1) {
-           mTxtMyinfoSex.setText("男");
-       } else if (sex1 == 2) {
-           mTxtMyinfoSex.setText("女");
-       } else {
-           mTxtMyinfoSex.setText("获取性别失败");
-       }
+        if (sex1 == 1) {
+            mTxtMyinfoSex.setText("男");
+        } else if (sex1 == 2) {
+            mTxtMyinfoSex.setText("女");
+        } else {
+            mTxtMyinfoSex.setText("获取性别失败");
+        }
 
-       mTxtMyinfoMail.setText(email);
-       mTxtMyinfoPhone.setText(phone1);
-       mTxtMyinfoNikename.setText(nickName);
-
-
-       browseTime = result.getBirthday();
-       GregorianCalendar gc = new GregorianCalendar();
-       s = String.valueOf(browseTime);
-       gc.setTimeInMillis(Long.parseLong(s));
-       SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-       mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
+        mTxtMyinfoMail.setText(email);
+        mTxtMyinfoPhone.setText(phone1);
+        mTxtMyinfoNikename.setText(nickName);
 
 
-       Uri uri = Uri.parse(headPic);
-       mMyHeadimage.setImageURI(uri);
-   }
+        browseTime = result.getBirthday();
+        GregorianCalendar gc = new GregorianCalendar();
+        s = String.valueOf(browseTime);
+        gc.setTimeInMillis(Long.parseLong(s));
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
 
 
+        Uri uri = Uri.parse(headPic);
+        mMyHeadimage.setImageURI(uri);
 
+        EventBus.getDefault().post(new Portrait(headPic));
+    }
 
     @Override
     public void onDataFailer(String msg) {
@@ -176,16 +175,14 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
             case R.id.my_headimage:
                 break;
             case R.id.my_update:
-
-                   Intent intent = new Intent(this, UpdataInfoActivity.class);
-                   intent.putExtra("sex1",sex1);
-                   intent.putExtra("email",email);
-                   intent.putExtra("headPic",headPic);
-                   intent.putExtra("nickName",nickName);
-                   intent.putExtra("phone1",phone1);
-                   intent.putExtra("s",s);
-                   startActivity(intent);
-
+                Intent intent = new Intent(this, UpdataInfoActivity.class);
+                intent.putExtra("sex1",sex1);
+                intent.putExtra("email",email);
+                intent.putExtra("headPic",headPic);
+                intent.putExtra("nickName",nickName);
+                intent.putExtra("phone1",phone1);
+                intent.putExtra("s",s);
+                startActivity(intent);
                 finish();
                 break;
         }

@@ -238,8 +238,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改成功"
-            android:id="@+id/update_myinfo"
-            />
+            android:id="@+id/update_myinfo" />
 
 
     </LinearLayout>

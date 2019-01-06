@@ -1,6 +1,7 @@
 package com.bw.movie.wxapi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.util.NotifyUtil;
+import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.WXUser;
 import com.bw.movie.wxapi.presenter.WXPresenter;
@@ -42,7 +44,6 @@ import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneTimelin
 
 public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, WXView<WXUser> {
 
-
     //    private LoginPresenter mLoginPresenter;
     private static final String TAG = "WXEntryActivity";
     private static final int REQUESTMSG = 0;
@@ -56,6 +57,14 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     private String APP_ID = "wxb3852e6a6b7d9516";
     private IWXAPI iwxapi;
     boolean flag;
+    private String mSessionId;
+    private int mUserId;
+    private String mNickName;
+    private String mHeadPic;
+    private int mSex;
+    private long mLastLoginTime;
+    private int mId;
+
     enum SHARE_TYPE {Type_WXSceneSession, Type_WXSceneTimeline}
 
     @Override
@@ -119,7 +128,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             switch (msg.what) {
                 case 1:
                     Toast.makeText(WXEntryActivity.this, mWxUser1.getMessage(), Toast.LENGTH_SHORT).show();
-                    ;
                     startActivity(new Intent(WXEntryActivity.this, ShowActivity.class));
                     break;
                 case 2:
@@ -132,6 +140,14 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     @Override
     public void onDataSuccess(WXUser wxUser) {
         mWxUser1 = wxUser;
+        mSessionId = wxUser.getResult().getSessionId();
+        mUserId = wxUser.getResult().getUserId();
+        mNickName = wxUser.getResult().getUserInfo().getNickName();
+        mHeadPic = wxUser.getResult().getUserInfo().getHeadPic();
+        mSex = wxUser.getResult().getUserInfo().getSex();
+        mLastLoginTime = wxUser.getResult().getUserInfo().getLastLoginTime();
+        mId = wxUser.getResult().getUserInfo().getId();
+        getSp();
         handler.sendEmptyMessage(1);
     }
 
@@ -205,5 +221,16 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             e.printStackTrace();
         }
         return result;
+    }
+
+    public void getSp() {
+        SpUtil.put("sessionId", mSessionId);
+        SpUtil.put("userId", mUserId);
+        SpUtil.put("birthday", mLastLoginTime);
+        SpUtil.put("headPic", mHeadPic);
+        SpUtil.put("lastLoginTime", mLastLoginTime);
+        SpUtil.put("nickName", mNickName);
+        SpUtil.put("id", mId);
+        SpUtil.put("sex", mSex);
     }
 }

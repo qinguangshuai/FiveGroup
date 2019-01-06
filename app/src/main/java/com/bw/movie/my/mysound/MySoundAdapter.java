@@ -75,7 +75,7 @@ public class MySoundAdapter extends RecyclerView.Adapter<MySoundAdapter.MyViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    httpClick.getClick(v,getAdapterPosition());
+                    httpClick.getClick(v,getAdapterPosition()-1);
                     text4.setVisibility(View.GONE);
                     text4.setBackgroundColor(Color.WHITE);
                 }

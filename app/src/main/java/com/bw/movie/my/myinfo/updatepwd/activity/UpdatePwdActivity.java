@@ -2,6 +2,7 @@ package com.bw.movie.my.myinfo.updatepwd.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -119,9 +120,14 @@ public class UpdatePwdActivity extends BaseActivity<UpdatePwdPresenter> implemen
             case R.id.update_recoverpwd:
                 break;
             case R.id.updatePwdback:
-                pwdPresenter.getPwd(oldPwd1, newPwd1, copyPwd1);
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
+                if (TextUtils.isEmpty(newPwd) && TextUtils.isEmpty(copyPwd)){
+                    Toast.makeText(this,"新密码为空",Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    pwdPresenter.getPwd(oldPwd1, newPwd1, copyPwd1);
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                }
                 break;
             case R.id.miMaBack:
                 finish();
