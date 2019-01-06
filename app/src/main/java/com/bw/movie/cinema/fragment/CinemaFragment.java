@@ -66,7 +66,7 @@ public class CinemaFragment extends BaseFragment {
     //初始化控件
     @Override
     public void initView() {
-        unbinder1 = ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         rgCinema.check(R.id.recommendcinema);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
