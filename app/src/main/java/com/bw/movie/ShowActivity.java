@@ -1,11 +1,17 @@
 package com.bw.movie;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -28,6 +34,7 @@ import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
+import com.bw.movie.util.GPSUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -81,7 +88,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
         if (aMap == null) {
             aMap = showMap.getMap();
         }
-        initLocation();
+//        initLocation();
         //初始化监听
         initListener();
         initData();
@@ -363,7 +370,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
 
     //重写该 方法 响应 申请
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,  String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
