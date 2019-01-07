@@ -164,7 +164,7 @@ public class SynopsisActivity extends BaseActivity {
 
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-                toast.Toast(praiseBean.getMessage());
+//                toast.Toast(praiseBean.getMessage());
             }
 
             @Override
@@ -550,30 +550,20 @@ public class SynopsisActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
                 popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
-//                popupWindow.setBackgroundDrawable(new ColorDrawable());
-//                popupWindow.setOutsideTouchable(true);
-//                popupWindow.showAsDropDown(v, 0, -(height * 3 / 5) );
                 popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
-//                popupWindow2.setBackgroundDrawable(new ColorDrawable());
-//                popupWindow2.setOutsideTouchable(true);
-//                popupWindow2.showAsDropDown(v, 0, -(height * 3 / 5) );
                 popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
 
                 break;
 
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
-//                popupWindow3.setBackgroundDrawable(new ColorDrawable());
-//                popupWindow3.setOutsideTouchable(true);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
-//                popupWindow4.setBackgroundDrawable(new ColorDrawable());
-//                popupWindow4.setOutsideTouchable(true);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
