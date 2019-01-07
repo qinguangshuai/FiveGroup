@@ -299,10 +299,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(final List<PopularBean.ResultBean> result) {
             popularAdapter.setResult(result);
             popularAdapter.notifyDataSetChanged();
-
-
-
-
         }
     }
 
