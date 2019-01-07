@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@mipmap/bigbackground"
     android:layout_height="match_parent"
-    tools:context=".film.activity.SynopsisActivity">
+    tools:context=".film.synopsis.activity.SynopsisActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:scaleType="fitXY"
