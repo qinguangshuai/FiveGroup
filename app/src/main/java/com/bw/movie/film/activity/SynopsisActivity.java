@@ -159,12 +159,24 @@ public class SynopsisActivity extends BaseActivity {
 
 
     @Subscribe
-    public void good(PraiseEvent praiseEvent){
+    public void good(final PraiseEvent praiseEvent){
         new FilmProsenter(new PraiseView<PraiseBean>() {
 
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-//                toast.Toast(praiseBean.getMessage());
+                if(praiseBean.getMessage().equals("点赞成功")){
+                    praiseEvent.getCheckBox().setText(praiseEvent.getNum()+1+"");
+                    praiseEvent.getCheckBox().setChecked(true);
+                    praiseEvent.getCheckBox().setClickable(false);
+                    toast.Toast(praiseBean.getMessage());
+                }else if(praiseBean.getMessage().equals("不能重复点赞")){
+                    praiseEvent.getCheckBox().setChecked(true);
+                    praiseEvent.getCheckBox().setClickable(false);
+                    toast.Toast(praiseBean.getMessage());
+                }else {
+                    praiseEvent.getCheckBox().setChecked(false);
+                    praiseEvent.getCheckBox().setClickable(true);
+                }
             }
 
             @Override

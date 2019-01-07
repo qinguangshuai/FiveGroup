@@ -54,7 +54,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getData.isData(v,getAdapterPosition());
+                    getData.isData(v, getAdapterPosition());
                 }
             });
         }
@@ -69,37 +69,23 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             mTime.setText(df.format(gc.getTime()));
             mGood.setText(resultBean.getGreatNum() + "");
-            mGood.setChecked(resultBean.getIsGreat()==0?false:true);
+            mGood.setChecked(resultBean.getIsGreat() == 0 ? false : true);
             mComment.setText(resultBean.getReplyNum() + "");
-            mGood.setText (resultBean.getGreatNum() + "");
+            mGood.setText(resultBean.getGreatNum() + "");
             mComment.setText(resultBean.getReplyNum() + "");
             mContext.setText(resultBean.getCommentContent() + "");
 
 
-            //点赞
-            mGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        mGood.setClickable(false);
-                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId()));
-                    }else {
-                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId()));
-                    }
-                }
-            });
-
             mGood.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mGood.isChecked()){
-                        mGood.setText((resultBean.getGreatNum()+1)+"");
-                    }else {
-                        mGood.setText((resultBean.getGreatNum()+1)+"");
+                    if (mGood.isChecked()) {
+                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
+                    } else {
+                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
                     }
                 }
             });
-
 
 
         }
@@ -111,9 +97,10 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.getData = getData;
     }
 
-    public interface getData{
-        void isData(View view,int position);
+    public interface getData {
+        void isData(View view, int position);
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
