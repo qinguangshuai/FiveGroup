@@ -52,7 +52,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mComment = view.findViewById(R.id.comment_item_comment);
         }
 
-        public void setData(CommentBean.ResultBean resultBean) {
+        public void setData(final CommentBean.ResultBean resultBean) {
             mDraweeView.setImageURI(Uri.parse(resultBean.getCommentHeadPic()));
             mName.setText(resultBean.getCommentUserName());
             long browseTime = resultBean.getCommentTime();
@@ -67,6 +67,30 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mContext.setText(resultBean.getCommentContent() + "");
 
 
+            //点赞
+            mGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        mGood.setClickable(false);
+                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId()));
+                    }else {
+                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId()));
+                    }
+                }
+            });
+
+            mGood.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mGood.isChecked()){
+                        mGood.setText((resultBean.getGreatNum()+1)+"");
+                    }else {
+                        mGood.setText((resultBean.getGreatNum()+1)+"");
+                    }
+                }
+            });
+
 
         }
     }
@@ -80,20 +104,10 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        Holder holder = (Holder) viewHolder;
+        final Holder holder = (Holder) viewHolder;
         holder.setData(result.get(i));
 
-        //点赞
-        holder.mGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    EventBus.getDefault().post(new PraiseEvent(result.get(i).getCommentId()));
-                }else {
-                    EventBus.getDefault().post(new PraiseEvent(result.get(i).getCommentId()));
-                }
-            }
-        });
+
     }
 
     @Override
