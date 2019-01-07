@@ -18,6 +18,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
+import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
 import com.bw.movie.wxapi.WXEntryActivity;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -42,8 +43,8 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     ImageView attenimage1;
     Unbinder unbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
-    private List<AttCinemaUser.ResultBean> mList;
     int page = 1;
+    private List<ResultBean> mList;
 
     @Override
     public void initView() {

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
+import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
 import com.bw.movie.my.ticket.view.TicketformationView;
@@ -34,6 +35,7 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
     ImageView myTicket;
     private TicketformationPresenter presenter;
     private int page = 1;
+    private List<ResultBean> result;
 
     @Override
     public void initView() {
@@ -99,7 +101,7 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
     @Override
     public void onDataSuccess(final TicketFoemationEntity ticketFoemationEntity) {
-        List<TicketFoemationEntity.ResultBean> result = ticketFoemationEntity.getResult();
+        result = ticketFoemationEntity.getResult();
         mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
         TicketInforAdapter inforAdapter = new TicketInforAdapter(result, this);
         inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
