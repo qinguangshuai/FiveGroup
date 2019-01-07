@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.film.synopsis.activity.SynopsisActivity;
+import com.bw.movie.film.activity.SynopsisActivity;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;

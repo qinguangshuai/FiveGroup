@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.login.pwd.EncryptUtil;
@@ -140,7 +141,11 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
 
     @Override
     public void onDataSuccess(RegisteUser registeUser) {
-        //Toast.makeText(this, registeUser.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, registeUser.getMessage(), Toast.LENGTH_SHORT).show();
+        if (registeUser.getMessage().contains("成功")){
+            startActivity(new Intent(this,ShowActivity.class));
+        }
+
     }
 
     @Override

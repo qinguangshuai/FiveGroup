@@ -113,7 +113,10 @@ public class SynopsisActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
