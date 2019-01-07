@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseRecyclerAdapter;
+import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 
 import java.text.SimpleDateFormat;
@@ -18,10 +19,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, TicketFoemationEntity> {
-    private List<TicketFoemationEntity.ResultBean> list;
+    private List<ResultBean> list;
     private Context context;
 
-    public TicketInforAdapter(List<TicketFoemationEntity.ResultBean> list, Context context) {
+    public TicketInforAdapter(List<ResultBean> list, Context context) {
         this.list = list;
         this.context = context;
     }

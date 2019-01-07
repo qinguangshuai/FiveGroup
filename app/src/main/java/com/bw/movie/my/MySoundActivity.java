@@ -21,6 +21,7 @@ import com.bw.movie.my.mysound.MySoundAdapter;
 import com.bw.movie.my.mysound.MySoundPresenter;
 import com.bw.movie.my.mysound.MySoundUser;
 import com.bw.movie.my.mysound.MySoundView;
+import com.bw.movie.my.mysound.ResultBean;
 import com.bw.movie.my.mysound.UpdateSoundPresenter;
 import com.bw.movie.my.mysound.UpdateSoundUser;
 import com.bw.movie.my.mysound.UpdateSoundView;
@@ -51,11 +52,12 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @BindView(R.id.soundimage)
     ImageView soundimage;
     private MySoundPresenter mMySoundPresenter;
-    private List<MySoundUser.ResultBean> mList;
+//    private List<MySoundUser.ResultBean> mList;
     private int mCount;
     private int mId;
     private int page = 1;
     private MySoundAdapter mMySoundAdapter;
+    private List<ResultBean> mList;
 
 
     @Override

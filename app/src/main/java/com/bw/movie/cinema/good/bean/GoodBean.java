@@ -1,21 +1,9 @@
-package com.bw.movie.my.myinfo.bean;
-/*
-*  修改用户信息bean类
-* */
-public class UpDateUserInfoEntity {
+package com.bw.movie.cinema.good.bean;
 
+public class GoodBean {
 
-    private ResultBean result;
     private String message;
     private String status;
-
-    public ResultBean getResult() {
-        return result;
-    }
-
-    public void setResult(ResultBean result) {
-        this.result = result;
-    }
 
     public String getMessage() {
         return message;
@@ -32,6 +20,4 @@ public class UpDateUserInfoEntity {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
 }

@@ -14,6 +14,7 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
+import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
 import com.bw.movie.my.attcinema.view.AttCinemaView;
 
@@ -36,7 +37,8 @@ public class AttentioncinemaFragment extends BaseFragment implements AttCinemaVi
     ImageView attenimage1;
     Unbinder unbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
-    private List<AttCinemaUser.ResultBean> mList;
+//    private List<AttCinemaUser.ResultBean> mList;
+    private List<ResultBean> mList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

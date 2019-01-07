@@ -27,9 +27,9 @@ import java.util.List;
 public class MySoundAdapter extends RecyclerView.Adapter<MySoundAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<MySoundUser.ResultBean> mList;
+    private List<ResultBean> mList;
 
-    public MySoundAdapter(Context context, List<MySoundUser.ResultBean> list) {
+    public MySoundAdapter(Context context, List<ResultBean> list) {
         mContext = context;
         mList = list;
     }
@@ -44,7 +44,7 @@ public class MySoundAdapter extends RecyclerView.Adapter<MySoundAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        MySoundUser.ResultBean bean = mList.get(i);
+       ResultBean bean = mList.get(i);
         myViewHolder.text1.setText(bean.getTitle());
         myViewHolder.text2.setText(bean.getContent());
         long browseTime = bean.getPushTime();

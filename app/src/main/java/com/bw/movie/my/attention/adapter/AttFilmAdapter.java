@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
+import com.bw.movie.my.attention.bean.ResultBean;
 import com.bw.movie.my.mysound.MySoundAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -28,9 +29,9 @@ import java.util.List;
 public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<MyAttFilmUser.ResultBean> mList;
+    private List<ResultBean> mList;
 
-    public AttFilmAdapter(Context context, List<MyAttFilmUser.ResultBean> list) {
+    public AttFilmAdapter(Context context, List<ResultBean> list) {
         mContext = context;
         mList = list;
     }
@@ -45,7 +46,7 @@ public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        MyAttFilmUser.ResultBean bean = mList.get(i);
+       ResultBean bean = mList.get(i);
         String imageUrl = bean.getImageUrl();
         if (imageUrl==null){
             int launcher = R.mipmap.ic_launcher;
