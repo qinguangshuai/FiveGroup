@@ -1,5 +1,6 @@
 package com.bw.movie.film.adapter;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.bw.movie.film.event.PopularEvent;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -284,7 +286,18 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mRecyclerView.setLayoutManager(linearLayoutManager);
             mRecyclerView.setAdapter(popularAdapter);
 
-            //自定义记载更多
+
+
+
+
+
+        }
+
+        public void setData(final List<PopularBean.ResultBean> result) {
+            popularAdapter.setResult(result);
+            popularAdapter.notifyDataSetChanged();
+
+            //自定义 上拉加载
             RecyclerViewScrollUtil.Scroll(mRecyclerView, false, new RecyclerViewScrollUtil.onEvent() {
                 @Override
                 public void info() {
@@ -294,11 +307,8 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
-        }
 
-        public void setData(final List<PopularBean.ResultBean> result) {
-            popularAdapter.setResult(result);
-            popularAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -350,15 +360,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mRecyclerView.setLayoutManager(linearLayoutManager);
             mRecyclerView.setAdapter(playingAdapter);
 
-            //自定义 封装上拉加载
-            RecyclerViewScrollUtil.Scroll(mRecyclerView, false, new RecyclerViewScrollUtil.onEvent() {
-                @Override
-                public void info() {
-                    //加载更多功能的代码
-                    EventBus.getDefault().post(new PopularEvent(3));
-                    playingAdapter.addPlayResult(playresult);
-                }
-            });
         }
 
         public void setData(final List<PlayingBean.ResultBean> playresult) {

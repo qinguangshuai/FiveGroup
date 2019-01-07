@@ -9,9 +9,13 @@ import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.bean.PraiseBean;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /*
@@ -63,6 +67,12 @@ public interface FilmService {
     //根据电影Id 查询影院
     @GET("movie/v1/findCinemasListByMovieId")
     Observable<CinemaBean> getCinemaBeanObservable(@Query("movieId") int movieId );
+
+    //点赞
+    @POST("movie/v1/verify/movieCommentGreat")
+    @FormUrlEncoded
+    Observable<PraiseBean> getPraiseBeanObservable(@Field("commentId") int commentId );
+
 
 
 }
