@@ -1,11 +1,19 @@
 package com.bw.movie;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -61,10 +69,19 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
     public static String mCity;
     public static String mDis;
 
+    //权限
+    private String[] permissions = {Manifest.permission.CAMERA,                     //相机
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
+                                   };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+        doPermission(); //动态权限
         ButterKnife.bind(this);
         //初始化控件
         initView();
@@ -318,4 +335,62 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
             }
         }
     }
+
+
+
+
+
+
+
+
+    //权限申请
+    public void doPermission(){
+        //版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //检查相机
+            int i = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[0]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this,permissions,100);
+
+            }
+            //检查GPS
+            int i2 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[1]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i2 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this,permissions,101);
+
+            }
+
+            //检查读取
+            int i3 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[2]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i3 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this,permissions,102);
+
+            }
+
+
+            //检查写入
+            int i4 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[3]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i4 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, permissions, 103);
+
+            }
+
+        }
+    }
+
+    //重写该 方法 响应 申请
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
 }
