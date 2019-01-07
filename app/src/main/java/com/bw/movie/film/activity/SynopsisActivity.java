@@ -22,6 +22,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
@@ -36,6 +37,7 @@ import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.PraiseBean;
 import com.bw.movie.film.event.PraiseEvent;
 import com.bw.movie.film.bean.InputcommentsBean;
+import com.bw.movie.film.event.ReFreshMessageEvent;
 import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.p.FilmProsenter;
 import com.bw.movie.film.v.CommentView;
@@ -113,7 +115,10 @@ public class SynopsisActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
@@ -125,8 +130,15 @@ public class SynopsisActivity extends BaseActivity {
         id = intent.getIntExtra("详情id", -1);
         setCardSynopsis();
         getData(id);
-        getCommentData(id, 1, 10);
+        getCommentData(id, 1, 90);
 
+    }
+
+    @Subscribe
+    public void getData(ReFreshMessageEvent reFreshMessageEvent) {
+        if (reFreshMessageEvent.getMessageId() == Constant.MESSAGEID) {
+            getCommentData(id, 1, 90);
+        }
     }
 
     @Override
@@ -159,21 +171,23 @@ public class SynopsisActivity extends BaseActivity {
 
 
     @Subscribe
-    public void good(final PraiseEvent praiseEvent){
+    public void good(final PraiseEvent praiseEvent) {
         new FilmProsenter(new PraiseView<PraiseBean>() {
 
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-                if(praiseBean.getMessage().equals("点赞成功")){
-                    praiseEvent.getCheckBox().setText(praiseEvent.getNum()+1+"");
+                if (praiseBean.getMessage().equals("点赞成功")) {
+//                    praiseEvent.getCheckBox().setText(praiseEvent.getNum()+1+"");
+                    praiseEvent.getCheckBox().setChecked(true);
+                    praiseEvent.getCheckBox().setClickable(false);
+                    EventBus.getDefault().post(new ReFreshMessageEvent(Constant.MESSAGEID));
+//                    getCommentData(id,1,90);
+                    toast.Toast(praiseBean.getMessage());
+                } else if (praiseBean.getMessage().equals("不能重复点赞")) {
                     praiseEvent.getCheckBox().setChecked(true);
                     praiseEvent.getCheckBox().setClickable(false);
                     toast.Toast(praiseBean.getMessage());
-                }else if(praiseBean.getMessage().equals("不能重复点赞")){
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
-                }else {
+                } else {
                     praiseEvent.getCheckBox().setChecked(false);
                     praiseEvent.getCheckBox().setClickable(true);
                 }
@@ -420,7 +434,6 @@ public class SynopsisActivity extends BaseActivity {
 
     //第四个pop
     public void setmReview(final List<CommentBean.ResultBean> result) {
-
         RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
         final ImageView imageView = mReview.findViewById(R.id.writemessage);
         ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
@@ -442,7 +455,6 @@ public class SynopsisActivity extends BaseActivity {
             @Override
             public void isData(View view, final int position) {
                 if (flag) {
-
                     imageView.setVisibility(View.GONE);
                     flag = false;
                 } else {
@@ -470,19 +482,19 @@ public class SynopsisActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 final String trim = Inputcomments.getText().toString().trim();
-                                if (TextUtils.isEmpty(trim)){
+                                if (TextUtils.isEmpty(trim)) {
                                     Toast.makeText(SynopsisActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
 
-                                }else{
+                                } else {
                                     new FilmProsenter(new InputcommentsView<InputcommentsBean>() {
 
                                         @Override
                                         public void onDataSuccess(InputcommentsBean inputcommentsBean) {
                                             Toast.makeText(SynopsisActivity.this, inputcommentsBean.getMessage(), Toast.LENGTH_SHORT).show();
-                                            if (inputcommentsBean.getMessage().contains("成功")){
-                                                getCommentData(id,1,10);
+                                            if (inputcommentsBean.getMessage().contains("成功")) {
+//                                                getCommentData(id,1,90);
+                                                EventBus.getDefault().post(new ReFreshMessageEvent(Constant.MESSAGEID));
                                                 alertDialog.dismiss();
-
                                             }
                                         }
 
@@ -500,7 +512,7 @@ public class SynopsisActivity extends BaseActivity {
                                         public void onHideLoading() {
 
                                         }
-                                    }).getInputcomments(result.get(position).getCommentId(),trim);
+                                    }).getInputcomments(result.get(position).getCommentId(), trim);
                                 }
 
                             }
@@ -522,9 +534,6 @@ public class SynopsisActivity extends BaseActivity {
                 getCommentData(id, a, 10);
             }
         });
-
-
-
 
 
     }
@@ -552,6 +561,7 @@ public class SynopsisActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+
     }
 
     //点击事件

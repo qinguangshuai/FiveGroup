@@ -4,19 +4,18 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@mipmap/bigbackground"
     android:layout_height="match_parent"
+    android:background="@mipmap/bigbackground"
     tools:context=".film.activity.SynopsisActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:scaleType="fitXY"
-        android:alpha="0.2"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
         android:id="@+id/background_synopsis"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:alpha="0.2"
+        android:scaleType="fitXY" />
 
 
     <LinearLayout
@@ -59,126 +58,128 @@
 
         <TextView
             android:id="@+id/title_synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center"
+            android:text="铁血战士"
             android:textColor="#fff"
             android:textSize="@dimen/sp_24"
-            android:textStyle="bold"
-            android:text="铁血战士"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textStyle="bold" />
 
         <com.dak.weakview.layout.WeakCardOverlapLayout
-            android:padding="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
             android:id="@+id/card_synopsis"
-            android:layout_gravity="center"
             android:layout_width="@dimen/dp_250"
-            android:layout_height="@dimen/dp_310">
+            android:layout_height="@dimen/dp_310"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:padding="@dimen/dp_10">
 
         </com.dak.weakview.layout.WeakCardOverlapLayout>
 
 
-
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
 
-            android:layout_height="wrap_content">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/rb_Datail_synopsis"
-                android:padding="@dimen/dp_5"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35"
                 android:layout_margin="@dimen/dp_5"
-                android:gravity="center"
                 android:background="@drawable/shaperb"
                 android:button="@null"
-                android:textColor="#fff"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
                 android:text="详情"
-                android:layout_width="@dimen/dp_59"
-                android:layout_height="@dimen/dp_35" />
+                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/rb_Trail_synopsis"
-                android:padding="@dimen/dp_5"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35"
                 android:layout_margin="@dimen/dp_5"
-                android:gravity="center"
                 android:background="@drawable/shaperb"
                 android:button="@null"
-                android:textColor="#fff"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
                 android:text="预告"
-                android:layout_width="@dimen/dp_59"
-                android:layout_height="@dimen/dp_35" />
+                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/rb_Stills_synopsis"
-                android:padding="@dimen/dp_5"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35"
                 android:layout_margin="@dimen/dp_5"
-                android:gravity="center"
                 android:background="@drawable/shaperb"
                 android:button="@null"
-                android:textColor="#fff"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
                 android:text="剧照"
-                android:layout_width="@dimen/dp_59"
-                android:layout_height="@dimen/dp_35" />
+                android:textColor="#fff" />
 
             <Button
                 android:id="@+id/rb_Review_synopsis"
-                android:padding="@dimen/dp_5"
+                android:layout_width="@dimen/dp_59"
+                android:layout_height="@dimen/dp_35"
                 android:layout_margin="@dimen/dp_5"
-                android:gravity="center"
                 android:background="@drawable/shaperb"
                 android:button="@null"
-                android:textColor="#fff"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
                 android:text="影评"
-                android:layout_width="@dimen/dp_59"
-                android:layout_height="@dimen/dp_35" />
+                android:textColor="#fff" />
 
         </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
 
-    android:gravity="bottom"
-    android:orientation="horizontal">
-    <ImageView
-        android:id="@+id/imagereturnsynopsis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:layout_margin="@dimen/dp_10"
-        android:src="@drawable/idea_activity_back"
+            android:gravity="bottom"
+            android:orientation="horizontal">
 
-        />
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/buy_synopsis"
-            android:textSize="@dimen/sp_19"
-            android:textColor="#fff"
-            android:text="购票"
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_gravity="right"
-            android:background="@drawable/shapebuy"
-            android:layout_width="@dimen/dp_60"
-            android:layout_margin="@dimen/dp_10"
-            android:layout_height="@dimen/dp_60" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imagereturnsynopsis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:alpha="1"
+                android:src="@drawable/idea_activity_back"
+
+                />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buy_synopsis"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_gravity="right"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:background="@drawable/shapebuy"
+                    android:text="购票"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_19" />
+            </LinearLayout>
 
 
-</LinearLayout>
-
+        </LinearLayout>
 
 
     </LinearLayout>
