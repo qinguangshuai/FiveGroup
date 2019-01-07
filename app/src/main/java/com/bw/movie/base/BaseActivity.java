@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.R;
-import com.bw.movie.util.NetBroadCastReciver;
-import com.bw.movie.util.NetworkDetermineEvent;
-import com.bw.movie.util.NotifyUtil;
+
+import com.bw.movie.util.NetStateBroadReciver;
+import com.bw.movie.util.NetWorkChangeEvent;
+
 import com.bw.movie.util.StatusBarUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /*
@@ -24,12 +26,17 @@ import org.greenrobot.eventbus.Subscribe;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
     private T mBasePresenter;
     private StatusView statusView;
-
+    private ErrorView mErrorView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //设置全局显示
+        mErrorView = new ErrorView(this);
+        ((ViewGroup) getWindow().getDecorView()).addView(mErrorView);
         if (initLayoutId() != 0) {
             initVariable();
+            EventBus.getDefault().register(this);
             setContentView(initLayoutId());
             setStatusBarColor(R.color.themColor);
             initView();
@@ -61,21 +68,23 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void setContentView(View view) {
-        super.setContentView(view);
-        statusView = initStatuView(view);
+
+        initStatuView(view);
+        super.setContentView(statusView);
+
     }
 
     @Override
     public void setContentView(int layoutResID) {
         View inflate = View.inflate(this, layoutResID, null);
         statusView = initStatuView(inflate);
-        super.setContentView(layoutResID);
+        super.setContentView(statusView);
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         statusView = initStatuView(view);
-        super.setContentView(view, params);
+        super.setContentView(statusView, params);
     }
 
     private StatusView initStatuView(View content) {
@@ -110,27 +119,31 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     }
 
+    //显示内容
+    public void showContent() {
+        statusView.showContent();
+    }
+
     /**
      * 设置网络监听
      */
     private void setBreoadcast() {
-        BroadcastReceiver receiver = new NetBroadCastReciver();
+        BroadcastReceiver receiver = new NetStateBroadReciver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(receiver, filter);
     }
-
     @Subscribe
-    public void isNetWork(NetworkDetermineEvent event) {
-        boolean aTrue = event.isTrue();
+    public void isNetWork(NetWorkChangeEvent event) {
+        boolean aTrue = event.isConnected;
         //有网络
         if (aTrue) {
-
+            showContent();
+            mErrorView.setVisibility(View.GONE);
         } else {
-            //无网络
+            mErrorView.setVisibility(View.VISIBLE);
         }
     }
-
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.bw.movie.error.UnCatchExceptionHandler;
 import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.util.SpUtil;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
