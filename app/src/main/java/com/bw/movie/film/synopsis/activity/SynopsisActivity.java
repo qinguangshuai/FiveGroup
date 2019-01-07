@@ -1,4 +1,4 @@
-package com.bw.movie.film.synopsis.activity;
+package com.bw.movie.film.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;

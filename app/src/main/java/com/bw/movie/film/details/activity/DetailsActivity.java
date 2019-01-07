@@ -55,7 +55,10 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+
         ButterKnife.bind(this);
         intent = getIntent();
         index = intent.getIntExtra("index", -1);

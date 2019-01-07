@@ -24,6 +24,7 @@ public interface Constant {
     //电影院Id
     String CINEMAID="cinemaid";
     //点赞
-    int AFFILILATER=0x0000;
+    int MESSAGEID=0x0000;
+
 
 }
