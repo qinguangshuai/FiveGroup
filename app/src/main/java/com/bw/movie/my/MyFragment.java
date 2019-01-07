@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseFragment;
+import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.attention.activity.MyattentionActivity;
 import com.bw.movie.my.message.activity.MyMessage;
 import com.bw.movie.my.message.bean.Portrait;
@@ -32,8 +34,7 @@ import butterknife.Unbinder;
 /**
  * 我的页面
  */
-public class MyFragment extends Fragment {
-
+public class MyFragment extends BaseFragment {
 
     @BindView(R.id.my_sound)
     ImageView mMySound;
@@ -55,17 +56,38 @@ public class MyFragment extends Fragment {
     private Unbinder unbinder;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    public void initView() {
+        unbinder = ButterKnife.bind(this, rootView);
+    }
+
+    @Override
+    public void initListener() {
         String headPic = SpUtil.getString("headPic", "");
         Uri uri=Uri.parse(headPic);
         mMyTouxiang.setImageURI(uri);
         String name = SpUtil.getString("nickName", "");
         mMyName.setText(name);
         EventBus.getDefault().register(this);
-        return view;
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int initLayoutId() {
+        return R.layout.fragment_my;
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    public void initVarisble() {
+
     }
 
     @Override

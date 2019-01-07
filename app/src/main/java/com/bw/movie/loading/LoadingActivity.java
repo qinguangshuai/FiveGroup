@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BasePresenter;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.start.StartActivity;
 import com.bw.movie.util.NewThread;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * 主页倒计时
  * */
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends BaseActivity {
 
     @BindView(R.id.loadtext)
     TextView loadtext;
@@ -36,11 +38,8 @@ public class LoadingActivity extends AppCompatActivity {
     private ToastUtil mToastUtil;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loading);
+    public void initView() {
         ButterKnife.bind(this);
-
         final NewThread newThread = new NewThread();
         boolean netWork = newThread.isNetWork(this);
         mToastUtil = new ToastUtil();
@@ -66,7 +65,31 @@ public class LoadingActivity extends AppCompatActivity {
             });
         }
         loadtext.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int initLayoutId() {
+        return R.layout.activity_loading;
+    }
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     //创建计时器

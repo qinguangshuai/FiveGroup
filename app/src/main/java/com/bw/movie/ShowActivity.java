@@ -1,19 +1,11 @@
 package com.bw.movie;
 
-import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -104,25 +96,18 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
         aa.playTogether(ra1);
         aa.setDuration(300);
         aa.start();
-    }
 
-    private void initLocation() {
-        mMyLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
-//        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);
-//        myLocationStyle.interval(5000L); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
-        mMyLocationStyle.strokeColor(Color.parseColor("#2c78c2"));
-        mMyLocationStyle.radiusFillColor(Color.parseColor("#A6FFFFFF"));
-        aMap.setMyLocationStyle(mMyLocationStyle);//设置定位蓝点的Style
-        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomTo(18);//缩放级别
-        aMap.moveCamera(cameraUpdate);
+        GPSUtils.getInstance(this).getLngAndLat(new GPSUtils.OnLocationResultListener() {
+            @Override
+            public void onLocationResult(Location location) {
 
-        // 设置定位监听
-        aMap.setLocationSource(this);
-        // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-        aMap.setMyLocationEnabled(true);
-        // 设置定位的类型为定位模式，有定位、跟随或地图根据面向方向旋转几种
-        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+            }
+
+            @Override
+            public void OnLocationChange(Location location) {
+
+            }
+        });
     }
 
     private void initData() {

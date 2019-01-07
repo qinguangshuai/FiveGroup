@@ -1,6 +1,5 @@
 package com.bw.movie.my.message.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,11 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.bean.Portrait;
+import com.bw.movie.my.message.bean.ResultBean;
 import com.bw.movie.my.message.presenter.MyMessagePresenter;
 import com.bw.movie.my.message.view.MyMessageView;
 import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
@@ -50,7 +49,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     @BindView(R.id.my_update)
     Button mMyUpdate;
     private MyMessagePresenter presenter;
-    private MyMessageEntity.ResultBean result;
+//    private MyMessageEntity.ResultBean result;
     private int sex1;
     private String email;
     private String headPic;
@@ -58,6 +57,8 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     private String phone1;
     private long browseTime;
     private String s;
+    private ResultBean result;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,12 +104,12 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     public void onDataSuccess(MyMessageEntity myMessageEntity) {
 
         result = myMessageEntity.getResult();
-        email = result.getEmail();
-        headPic = result.getHeadPic();
-        int id = result.getId();
-        nickName = result.getNickName();
-        phone1 = result.getPhone();
-        sex1 = result.getSex();
+        email = this.result.getEmail();
+        headPic = this.result.getHeadPic();
+        int id = this.result.getId();
+        nickName = this.result.getNickName();
+        phone1 = this.result.getPhone();
+        sex1 = this.result.getSex();
 
 
 
@@ -123,12 +124,16 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         mTxtMyinfoMail.setText(email);
         mTxtMyinfoPhone.setText(phone1);
         mTxtMyinfoNikename.setText(nickName);
-        browseTime = result.getBirthday();
+
+
+        browseTime = this.result.getBirthday();
         GregorianCalendar gc = new GregorianCalendar();
         s = String.valueOf(browseTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
+
+
         Uri uri = Uri.parse(headPic);
         mMyHeadimage.setImageURI(uri);
 
@@ -166,17 +171,18 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
             case R.id.txt_myinfo_mail:
                 break;
             case R.id.myinfo_back:
+
                 finish();
                 break;
             case R.id.my_headimage:
                 break;
             case R.id.my_update:
                 Intent intent = new Intent(this, UpdataInfoActivity.class);
-                intent.putExtra(Constant.SEX,sex1);
-                intent.putExtra(Constant.EMAIL,email);
-                intent.putExtra(Constant.HEADPIC,headPic);
-                intent.putExtra(Constant.NICKNAME,nickName);
-                intent.putExtra(Constant.PHONE1,phone1);
+                intent.putExtra("sex1",sex1);
+                intent.putExtra("email",email);
+                intent.putExtra("headPic",headPic);
+                intent.putExtra("nickName",nickName);
+                intent.putExtra("phone1",phone1);
                 intent.putExtra("s",s);
                 startActivity(intent);
                 finish();

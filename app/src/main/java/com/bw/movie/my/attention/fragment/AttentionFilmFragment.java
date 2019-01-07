@@ -17,6 +17,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attention.adapter.AttFilmAdapter;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
+import com.bw.movie.my.attention.bean.ResultBean;
 import com.bw.movie.my.attention.presenter.AttFilmPresenter;
 import com.bw.movie.my.mysound.MySoundAdapter;
 import com.bw.movie.wxapi.WXEntryActivity;
@@ -39,8 +40,9 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     ImageView attenimage2;
     Unbinder unbinder1;
     private AttFilmPresenter mAttFilmPresenter;
-    private List<MyAttFilmUser.ResultBean> mList;
+//    private List<MyAttFilmUser.ResultBean> mList;
     int page = 1;
+    private List<ResultBean> mList;
 
     @Override
     public void initView() {

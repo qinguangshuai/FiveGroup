@@ -33,4 +33,5 @@ public interface Constant {
     String NICKNAME = "nickName";
     String PHONE1 = "phone";
 
+
 }
