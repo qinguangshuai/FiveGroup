@@ -2,12 +2,8 @@ package com.bw.movie.film.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,24 +11,29 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
-import com.bw.movie.film.activity.DetailsActivity;
+import com.bw.movie.film.details.activity.DetailsActivity;
 import com.bw.movie.film.adapter.RootAdapter;
-import com.bw.movie.film.bean.CancelFollowMovieBean;
-import com.bw.movie.film.bean.CarouselBean;
-import com.bw.movie.film.bean.FollowBean;
-import com.bw.movie.film.bean.HotPlayBean;
-import com.bw.movie.film.bean.PlayingBean;
-import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.details.bean.CancelFollowMovieBean;
+import com.bw.movie.film.details.presenter.CancelFollowPresenter;
+import com.bw.movie.film.details.presenter.FollowPresenter;
+import com.bw.movie.film.show.carousel.bean.CarouselBean;
+import com.bw.movie.film.details.bean.FollowBean;
+import com.bw.movie.film.show.carousel.presenter.CarouserlPresenter;
+import com.bw.movie.film.show.hot.bean.HotPlayBean;
+import com.bw.movie.film.show.hot.presenter.HotPresenter;
+import com.bw.movie.film.show.playing.playing.PlayingBean;
+import com.bw.movie.film.show.playing.presenter.PlayingPresenter;
+import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.event.JumpEvent;
 import com.bw.movie.film.event.PopularEvent;
 import com.bw.movie.film.event.RefreshEvent;
-import com.bw.movie.film.p.FilmProsenter;
-import com.bw.movie.film.v.CancelFollowMovieView;
-import com.bw.movie.film.v.CarousemView;
-import com.bw.movie.film.v.FollowView;
-import com.bw.movie.film.v.HotPlayView;
-import com.bw.movie.film.v.PlayingView;
-import com.bw.movie.film.v.PopularmView;
+import com.bw.movie.film.show.popular.presenter.PopularPresenter;
+import com.bw.movie.film.details.view.CancelFollowMovieView;
+import com.bw.movie.film.show.carousel.view.CarousemView;
+import com.bw.movie.film.details.view.FollowView;
+import com.bw.movie.film.show.hot.view.HotPlayView;
+import com.bw.movie.film.show.playing.view.PlayingView;
+import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 
@@ -125,7 +126,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求回调 轮播图 数据
     public void getCarouselBeanObservable(int page, int count) {
-        new FilmProsenter(new CarousemView<CarouselBean>() {
+        new CarouserlPresenter(new CarousemView<CarouselBean>() {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
                 mRootAdapter.setCarouselBean(carouselBean);
@@ -193,7 +194,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求关注
     public void follow(int a) {
-        new FilmProsenter(new FollowView<FollowBean>() {
+        new FollowPresenter(new FollowView<FollowBean>() {
             @Override
             public void onDataSuccess(FollowBean followBean) {
                 toast.Toast("关注成功");
@@ -215,7 +216,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求取消关注
     public void canceFollow(int a) {
-        new FilmProsenter(new CancelFollowMovieView<CancelFollowMovieBean>() {
+        new CancelFollowPresenter(new CancelFollowMovieView<CancelFollowMovieBean>() {
             @Override
             public void onDataSuccess(CancelFollowMovieBean cancelFollowMovieBean) {
                 toast.Toast("取消关注");
@@ -240,7 +241,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求回调 热门电影数据  第三个布尔值的参数 决定 是否执行 add 方法
     public void getPopularBeanObservable(int page, int count, final boolean isLoad) {
-        new FilmProsenter(new PopularmView<PopularBean>() {
+        new PopularPresenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
                 if (isLoad) {
@@ -271,7 +272,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求正在热映 回调数据
     public void getHotPlayBeanObservable(int page, int count, final boolean isLoad) {
-        new FilmProsenter(new HotPlayView<HotPlayBean>() {
+        new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
@@ -302,7 +303,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求正在上映 || 即将上映  回调数据
     public void getPlayingBeanObservable(int page, int count, final boolean isLoad) {
-        new FilmProsenter(new PlayingView<PlayingBean>() {
+        new PlayingPresenter(new PlayingView<PlayingBean>() {
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
                 List<PlayingBean.ResultBean> result = playingBean.getResult();

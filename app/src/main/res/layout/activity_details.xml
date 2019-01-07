@@ -7,7 +7,7 @@
 
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".film.activity.DetailsActivity">
+    tools:context=".film.details.activity.DetailsActivity">
 
     <!-- 影片详情 -->
 
