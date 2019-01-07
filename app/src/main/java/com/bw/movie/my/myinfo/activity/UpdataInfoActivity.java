@@ -65,16 +65,15 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     private UpdateHeadPresenter headPresenter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         int sex1 = intent.getIntExtra("sex1", 0);
-        if ("1".equals(sex1)){
+        if ("1".equals(sex1)) {
             mMxingbie.setText("男");
-        }else if ("2".equals(sex1)){
+        } else if ("2".equals(sex1)) {
             mMxingbie.setText("女");
         }
 
@@ -152,7 +151,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     File file = new File(data1);
                     xj(file);
 
-        }
+                }
                 break;
             //相册
             case 1:
@@ -183,37 +182,39 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     public void onHideLoading() {
 
     }
-public void xj(File file){
-    new UpdateHeadPresenter(new UpdateHeadView<UpdateHeadEntity>() {
+
+    public void xj(File file) {
+        new UpdateHeadPresenter(new UpdateHeadView<UpdateHeadEntity>() {
 
 
-        @Override
-        public void onDataSuccess(UpdateHeadEntity updateHeadEntity) {
-            if (!updateHeadEntity.getStatus().equals("0000")) {
-                Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_LONG).show();
-            } else {
-                String headPath = updateHeadEntity.getHeadPath();
-                Uri uri = Uri.parse(headPath);
-                mMtouxiang.setImageURI(uri);
+            @Override
+            public void onDataSuccess(UpdateHeadEntity updateHeadEntity) {
+                if (!updateHeadEntity.getStatus().equals("0000")) {
+                    Toast.makeText(getApplicationContext(), "上传失败", Toast.LENGTH_LONG).show();
+                } else {
+                    String headPath = updateHeadEntity.getHeadPath();
+                    Uri uri = Uri.parse(headPath);
+                    mMtouxiang.setImageURI(uri);
+                }
             }
-        }
 
-        @Override
-        public void onDataFailer(String msg) {
+            @Override
+            public void onDataFailer(String msg) {
 
-        }
+            }
 
-        @Override
-        public void onShowLoading() {
+            @Override
+            public void onShowLoading() {
 
-        }
+            }
 
-        @Override
-        public void onHideLoading() {
+            @Override
+            public void onHideLoading() {
 
-        }
-    }).getHead(file);
-}
+            }
+        }).getHead(file);
+    }
+
     @OnClick({R.id.mtouxiang, R.id.mnicheng, R.id.mxingbie, R.id.mriqi, R.id.mshoujihao, R.id.myouxiang, R.id.update_myinfo, R.id.chongzhimima})
     public void onClick(View v) {
         String nickname = mMnicheng.getText().toString().trim();
@@ -280,16 +281,21 @@ public void xj(File file){
                 Integer q = -1;
                 if ("男".equals(sex)) {
                     q = 1;
-                } else if ("女".equals(sex)){
+                } else if ("女".equals(sex)) {
                     q = 2;
                 }
+                if (TextUtils.isEmpty(nickname) || TextUtils.isEmpty(sex) || TextUtils.isEmpty(email)) {
+                    Toast.makeText(this, "请输入修改内容", Toast.LENGTH_SHORT).show();
+                } else {
+                    mMxingbie.setText(q + "");
+                    presenter = new UpDateUserInfoPresenter(this);
+                    presenter.getUserInfo(nickname, q, email);
+                    startActivity(new Intent(this, MyMessage.class));
 
-                mMxingbie.setText(q + "");
-                presenter = new UpDateUserInfoPresenter(this);
-                presenter.getUserInfo(nickname, q, email);
-                startActivity(new Intent(this, MyMessage.class));
+                    finish();
+                }
 
-                finish();
+
                 break;
 
             case R.id.chongzhimima:

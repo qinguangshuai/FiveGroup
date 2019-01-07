@@ -9,6 +9,7 @@ import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
+import com.bw.movie.film.bean.InputcommentsBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.bean.PraiseBean;
@@ -20,6 +21,7 @@ import com.bw.movie.film.m.DetailCallBack;
 import com.bw.movie.film.m.FilmModle;
 import com.bw.movie.film.m.FollowCallBack;
 import com.bw.movie.film.m.HotPlayCallBack;
+import com.bw.movie.film.m.InputcommentsCallBack;
 import com.bw.movie.film.m.PlayingCallBack;
 import com.bw.movie.film.m.PopularCallBack;
 import com.bw.movie.film.m.PraiseCallBack;
@@ -174,6 +176,15 @@ public class FilmProsenter extends BasePresenter {
             @Override
             public void error(String message) {
                 getiBaseView().onDataFailer(message);
+            }
+        });
+    }
+    //添加用户对评论的回复
+    public void  getInputcomments(int commentId,String replyContent){
+        mFilmModle.getInputcomments(commentId, replyContent, new InputcommentsCallBack() {
+            @Override
+            public void isInputcomments(InputcommentsBean inputcommentsBean) {
+                getiBaseView().onDataSuccess(inputcommentsBean);
             }
         });
     }

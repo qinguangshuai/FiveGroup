@@ -34,6 +34,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setResult(List<CommentBean.ResultBean> result) {
         this.result = result;
     }
+
     class Holder extends RecyclerView.ViewHolder {
         private final SimpleDraweeView mDraweeView;
         private final TextView mName;
@@ -50,9 +51,15 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mTime = view.findViewById(R.id.time_item_comment);
             mGood = view.findViewById(R.id.good_item_comment);
             mComment = view.findViewById(R.id.comment_item_comment);
+            mComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getData.isData(v, getAdapterPosition());
+                }
+            });
         }
 
-        public void setData(CommentBean.ResultBean resultBean) {
+        public void setData(final CommentBean.ResultBean resultBean) {
             mDraweeView.setImageURI(Uri.parse(resultBean.getCommentHeadPic()));
             mName.setText(resultBean.getCommentUserName());
             long browseTime = resultBean.getCommentTime();
@@ -62,13 +69,36 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             mTime.setText(df.format(gc.getTime()));
             mGood.setText(resultBean.getGreatNum() + "");
-            mGood.setChecked(resultBean.getIsGreat()==0?false:true);
+            mGood.setChecked(resultBean.getIsGreat() == 0 ? false : true);
+            mComment.setText(resultBean.getReplyNum() + "");
+            mGood.setText(resultBean.getGreatNum() + "");
             mComment.setText(resultBean.getReplyNum() + "");
             mContext.setText(resultBean.getCommentContent() + "");
 
 
+            mGood.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mGood.isChecked()) {
+                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
+                    } else {
+                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
+                    }
+                }
+            });
+
 
         }
+    }
+
+    private getData getData;
+
+    public void setGetData(PopupWindow4Adapter.getData getData) {
+        this.getData = getData;
+    }
+
+    public interface getData {
+        void isData(View view, int position);
     }
 
     @NonNull
@@ -80,24 +110,16 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        Holder holder = (Holder) viewHolder;
+        final Holder holder = (Holder) viewHolder;
         holder.setData(result.get(i));
 
-        //点赞
-        holder.mGood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    EventBus.getDefault().post(new PraiseEvent(result.get(i).getCommentId()));
-                }else {
-                    EventBus.getDefault().post(new PraiseEvent(result.get(i).getCommentId()));
-                }
-            }
-        });
+
     }
 
     @Override
     public int getItemCount() {
         return result.size();
     }
+
+
 }

@@ -7,6 +7,7 @@ import com.bw.movie.film.bean.CommentBean;
 import com.bw.movie.film.bean.DetailBean;
 import com.bw.movie.film.bean.FollowBean;
 import com.bw.movie.film.bean.HotPlayBean;
+import com.bw.movie.film.bean.InputcommentsBean;
 import com.bw.movie.film.bean.PlayingBean;
 import com.bw.movie.film.bean.PopularBean;
 import com.bw.movie.film.bean.PraiseBean;
@@ -67,6 +68,11 @@ public interface FilmService {
     //根据电影Id 查询影院
     @GET("movie/v1/findCinemasListByMovieId")
     Observable<CinemaBean> getCinemaBeanObservable(@Query("movieId") int movieId );
+
+    @POST("movie/v1/verify/commentReply")
+    @FormUrlEncoded
+    Observable<InputcommentsBean> getInputcomments(@Field("commentId") int commentId,@Field("replyContent") String replyContent);
+
 
     //点赞
     @POST("movie/v1/verify/movieCommentGreat")

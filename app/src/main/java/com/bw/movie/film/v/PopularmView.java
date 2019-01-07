@@ -1,7 +1,6 @@
 package com.bw.movie.film.v;
 
 import com.bw.movie.base.IBaseView;
-import com.bw.movie.film.bean.CarouselBean;
 import com.bw.movie.film.bean.PopularBean;
 
 /*

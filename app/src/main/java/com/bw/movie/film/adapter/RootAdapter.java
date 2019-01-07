@@ -252,6 +252,7 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mRecyclerCoverFlow.setAdapter(mCarouselAdapter);
             //默认选中第 120 个条目
             mRecyclerCoverFlow.smoothScrollToPosition(120);
+
             //为自定义效果添加监听事件
             mRecyclerCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
                 @Override
@@ -265,7 +266,10 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mSearch.setClick(new SearchView.Click() {
                 @Override
                 public void onClickListener(View v, String s) {
-                    toast.Toast(s);
+//                    toast.Toast(s);
+
+
+
                 }
             });
 
