@@ -115,7 +115,9 @@ public class SynopsisActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
@@ -129,9 +131,6 @@ public class SynopsisActivity extends BaseActivity {
         setCardSynopsis();
         getData(id);
         getCommentData(id, 1, 90);
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
 
     }
 
