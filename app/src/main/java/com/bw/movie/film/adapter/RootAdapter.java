@@ -1,28 +1,29 @@
 package com.bw.movie.film.adapter;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.custom.ScrollView;
 import com.bw.movie.custom.SearchView;
-import com.bw.movie.film.bean.CarouselBean;
-import com.bw.movie.film.bean.HotPlayBean;
-import com.bw.movie.film.bean.PlayingBean;
-import com.bw.movie.film.bean.PopularBean;
+import com.bw.movie.film.show.carousel.bean.CarouselBean;
+import com.bw.movie.film.show.hot.bean.HotPlayBean;
+import com.bw.movie.film.show.playing.playing.PlayingBean;
+import com.bw.movie.film.show.popular.bean.PopularBean;
+import com.bw.movie.film.details.playing.adapter.PlayingAdapter;
+import com.bw.movie.film.details.popular.adapter.PopularAdapter;
 import com.bw.movie.film.event.JumpEvent;
 import com.bw.movie.film.event.PopularEvent;
+import com.bw.movie.film.show.carousel.adapter.CarouselAdapter;
+import com.bw.movie.film.show.hot.adapter.HotPlayAdapter;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 

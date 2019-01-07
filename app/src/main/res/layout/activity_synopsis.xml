@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bigbackground"
-    tools:context=".film.activity.SynopsisActivity">
+    >
+    tools:context=".film.synopsis.activity.SynopsisActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/background_synopsis"

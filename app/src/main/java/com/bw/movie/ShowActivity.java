@@ -3,7 +3,6 @@ package com.bw.movie;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -29,7 +28,6 @@ import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
-import com.bw.movie.util.GPSUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -63,10 +61,19 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
     public static String mCity;
     public static String mDis;
 
+    //权限
+    private String[] permissions = {Manifest.permission.CAMERA,                     //相机
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
+                                   };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+        doPermission(); //动态权限
         ButterKnife.bind(this);
         //初始化控件
         initView();
@@ -239,25 +246,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
 
     }
 
-    private void initLocation() {
-        mMyLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
-//        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER);
-//        myLocationStyle.interval(5000L); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
-        mMyLocationStyle.strokeColor(Color.parseColor("#2c78c2"));
-        mMyLocationStyle.radiusFillColor(Color.parseColor("#A6FFFFFF"));
-        aMap.setMyLocationStyle(mMyLocationStyle);//设置定位蓝点的Style
-        CameraUpdate cameraUpdate = CameraUpdateFactory.zoomTo(18);//缩放级别
-        aMap.moveCamera(cameraUpdate);
-
-        // 设置定位监听
-        aMap.setLocationSource(this);
-        // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-        aMap.setMyLocationEnabled(true);
-        // 设置定位的类型为定位模式，有定位、跟随或地图根据面向方向旋转几种
-        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-    }
-
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
         mListener = onLocationChangedListener;
@@ -332,4 +320,62 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
             }
         }
     }
+
+
+
+
+
+
+
+
+    //权限申请
+    public void doPermission(){
+        //版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //检查相机
+            int i = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[0]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this,permissions,100);
+
+            }
+            //检查GPS
+            int i2 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[1]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i2 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this,permissions,101);
+
+            }
+
+            //检查读取
+            int i3 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[2]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i3 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this,permissions,102);
+
+            }
+
+
+            //检查写入
+            int i4 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[3]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i4 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, permissions, 103);
+
+            }
+
+        }
+    }
+
+    //重写该 方法 响应 申请
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
 }

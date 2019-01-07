@@ -8,7 +8,7 @@ import com.bw.movie.cinema.follow.model.FollowModel;
 /**
  * date:2018/12/27    17:29
  * author:张文龙(张文龙)
- * fileName:FollowProsenter
+ * fileName:FollowPresenter
  */
 public class FollowProsenter extends BasePresenter {
     private FollowModel followModel;

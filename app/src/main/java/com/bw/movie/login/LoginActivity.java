@@ -64,6 +64,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     Button loginbtn;
     @BindView(R.id.loginimg)
     ImageView loginimg;
+    @BindView(R.id.remeberbox)
+    CheckBox mRemeberbox;
     private String mEdit1;
     private String mEdit2;
     private LoginPresenter presenter;
@@ -97,7 +99,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             loginedit2.setText(sp.getString("pwd", mEdit2));
             loginbox.setChecked(true);
         }
+
     }
+
 
     @Override
     public void initData() {
@@ -108,6 +112,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 finish();
             }
         });
+        setRemeberboxData();
     }
 
     @Override
@@ -149,7 +154,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 }
                 if (!ButtonUtils.isFastDoubleClick(R.id.loginbtn)) {
                     //写你相关操作即可
-                    ButtonUtils.isFastDoubleClick(1,2000);
+                    ButtonUtils.isFastDoubleClick(1, 2000);
                 }
                 String encrypt = EncryptUtil.encrypt(mEdit2);
                 if (TextUtils.isEmpty(mEdit1) && TextUtils.isEmpty(mEdit2)) {
@@ -176,7 +181,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                             @Override
                             public void onDataSuccess(XinUser xinUser) {
                                 String message = xinUser.getMessage();
-                                Toast.makeText(LoginActivity.this,message+"",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, message + "", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -193,8 +198,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                             public void onHideLoading() {
 
                             }
-                        }).getLogin(da,1);
+                        }).getLogin(da, 1);
                     }
+
                     @Override
                     public void onFail(Object data, int errCode, String msg) {
                         Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
@@ -219,8 +225,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         if (!WeiXinUtil.success(LoginActivity.this)) {
             Toast.makeText(this, "您还未安装微信客户端", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else {
+        } else {
             final SendAuth.Req req = new SendAuth.Req();
             req.scope = "snsapi_userinfo";
             req.state = "diandi_wx_login";
@@ -257,7 +262,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             int largeIcon = R.mipmap.ffanhui;
             String ticker = "您有一条新通知";
             String title = "登录";
-            String content = "用户"+mNickName+"登陆成功";
+            String content = "用户" + mNickName + "登陆成功";
             ArrayList<String> messageList = new ArrayList<String>();
             messageList.add("");
             String content1 = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
@@ -320,4 +325,19 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void onHideLoading() {
 
     }
+
+
+    //给俺妞监听
+    public void setRemeberboxData(){
+        mRemeberbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginbox.setChecked(mRemeberbox.isChecked());
+
+            }
+        });
+    }
+
+
+
 }

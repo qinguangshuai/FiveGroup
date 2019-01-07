@@ -57,7 +57,7 @@
         <activity android:name=".my.myinfo.activity.UpdataInfoActivity" />
         <activity android:name=".my.myinfo.updatepwd.activity.UpdatePwdActivity" />
         <activity android:name=".my.ticket.activity.Ticket_nformationActivity" />
-        <activity android:name=".film.activity.DetailsActivity" />
+        <activity android:name=".film.details.activity.DetailsActivity" />
         <activity
             android:name=".ShowActivity"
             tools:ignore="WrongManifestParent"
@@ -89,8 +89,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".film.activity.SynopsisActivity" />
-        <activity android:name=".film.activity.AffiliatedTheaterActivity"></activity>
+        <activity android:name=".film.synopsis.activity.SynopsisActivity" />
+        <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity"></activity>
     </application>
 
 </manifest>
