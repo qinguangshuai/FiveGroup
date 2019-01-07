@@ -1,4 +1,3 @@
-package com.bw.movie.film.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -110,10 +109,13 @@ public class SynopsisActivity extends BaseActivity {
     private PopupWindow popupWindow3;
     private PopupWindow popupWindow4;
     private boolean flag;
+    private PopupWindow4Adapter mPopupWindow4Adapter  = new PopupWindow4Adapter();
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
@@ -157,26 +159,14 @@ public class SynopsisActivity extends BaseActivity {
         return null;
     }
 
-
+    //点赞
     @Subscribe
     public void good(final PraiseEvent praiseEvent){
         new SynopsisPresenter(new PraiseView<PraiseBean>() {
 
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-                if(praiseBean.getMessage().equals("点赞成功")){
-                    praiseEvent.getCheckBox().setText(praiseEvent.getNum()+1+"");
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
-                }else if(praiseBean.getMessage().equals("不能重复点赞")){
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
-                }else {
-                    praiseEvent.getCheckBox().setChecked(false);
-                    praiseEvent.getCheckBox().setClickable(true);
-                }
+                mPopupWindow4Adapter.notifyItemChanged(praiseEvent.getIndex());
             }
 
             @Override
@@ -539,7 +529,7 @@ public class SynopsisActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    //销毁
+    //暂停
     @Override
     protected void onPause() {
         super.onPause();

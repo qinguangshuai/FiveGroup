@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -39,7 +40,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final TextView mName;
         private final TextView mTime;
         private final TextView mContext;
-        private final CheckBox mGood;
+        private final RadioButton mGood;
         private final CheckBox mComment;
 
         public Holder(View view) {
@@ -75,18 +76,6 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mContext.setText(resultBean.getCommentContent() + "");
 
 
-            mGood.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mGood.isChecked()) {
-                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
-                    } else {
-                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
-                    }
-                }
-            });
-
-
         }
     }
 
@@ -110,8 +99,16 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final Holder holder = (Holder) viewHolder;
-        holder.setData(result.get(i));
+        final CommentBean.ResultBean resultBean = result.get(i);
+        holder.setData(resultBean);
 
+        //点击 点赞
+        holder.mGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId(), holder.mGood, resultBean.getGreatNum(), i));
+            }
+        });
 
     }
 
