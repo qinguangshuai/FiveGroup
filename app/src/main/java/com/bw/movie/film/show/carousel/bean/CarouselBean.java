@@ -38,9 +38,6 @@ public class CarouselBean implements Serializable {
         this.result = result;
     }
 
-
-
-
     public  class ResultBean {
 
         private int followMovie;

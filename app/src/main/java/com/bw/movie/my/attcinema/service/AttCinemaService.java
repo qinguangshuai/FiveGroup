@@ -12,7 +12,6 @@ import retrofit2.http.Query;
  * fileName:AttCinemaService
  */
 public interface AttCinemaService {
-    //http://172.17.8.100/movieApi/cinema/v1/verify/findCinemaPageList
     @GET("cinema/v1/verify/findCinemaPageList?count=10")
     Observable<AttCinemaUser> getCinema(@Query("page") int page);
 }

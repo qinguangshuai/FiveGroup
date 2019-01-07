@@ -13,15 +13,12 @@ import com.bw.movie.film.details.model.DetailModel;
  */
 public class DetailPresenter extends BasePresenter {
 
-
     private DetailModel detailModel;
 
     public DetailPresenter(IBaseView iBaseView) {
         super(iBaseView);
         detailModel = new DetailModel();
     }
-
-    
 
     //Id查询详情
     public void getDetailBeanObservable(int id){
@@ -37,8 +34,5 @@ public class DetailPresenter extends BasePresenter {
             }
         });
     }
-
-
-
 
 }

@@ -86,7 +86,6 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
 
-
         }
     }
 
@@ -111,14 +110,11 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final Holder holder = (Holder) viewHolder;
         holder.setData(result.get(i));
-
-
     }
 
     @Override
     public int getItemCount() {
         return result.size();
     }
-
 
 }

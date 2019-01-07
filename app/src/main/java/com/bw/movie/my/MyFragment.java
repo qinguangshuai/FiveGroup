@@ -95,7 +95,6 @@ public class MyFragment extends Fragment {
                 startActivity(new Intent(getContext(),MySoundActivity.class));
                 break;
             case R.id.my_touxiang:
-                //startActivity(new Intent(getContext(),MyHeadportraitActivity.class));
                 break;
             case R.id.my_name:
                 break;

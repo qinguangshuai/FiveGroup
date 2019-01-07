@@ -17,5 +17,4 @@ public interface CanceFollowService {
     @GET("movie/v1/verify/cancelFollowMovie")
     Observable<CancelFollowMovieBean> getCancelFollowMovieBeanObservable(@Query("movieId") int movieId);
 
-
 }

@@ -10,8 +10,6 @@ import java.util.List;
  */
 public class CommentBean implements Serializable {
 
-
-
     private String message;
     private String status;
     private List<ResultBean> result;
@@ -41,7 +39,6 @@ public class CommentBean implements Serializable {
     }
 
     public class ResultBean {
-
 
         private String commentContent;
         private String commentHeadPic;

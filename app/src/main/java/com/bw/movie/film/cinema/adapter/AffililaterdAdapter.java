@@ -84,7 +84,6 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.mGood.setChecked(false);
 
         }
-//         holder.mGood.setChecked(resultBean.getFollowCinema()==1?true:false);
         holder.mName.setText(resultBean.getName());
         holder.mImg.setImageURI(Uri.parse(resultBean.getLogo()));
         holder.mKm.setText("待获取");

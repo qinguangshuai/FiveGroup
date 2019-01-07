@@ -49,7 +49,7 @@ import butterknife.ButterKnife;
 /**
  * fragment联动
  */
-public class ShowActivity extends AppCompatActivity implements LocationSource,AMapLocationListener {
+public class ShowActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
 
     @BindView(R.id.showMap)
@@ -126,14 +126,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
     }
 
     private void initData() {
-//        RotateAnimation
-     /*   if (film_show.isChecked()) {
-
-        } else if (cinema_show.isChecked()) {
-            ObjectAnimator ra = ObjectAnimator.ofFloat(cinema_show, "rotation", 0f, 360f);
-            ra.setDuration(3000);
-            ra.start();
-        }*/
         film_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -229,7 +221,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
         rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // vp_show.setCurrentItem(checkedId - 1);
                 switch (checkedId) {
                     case R.id.film_show:
                         vp_show.setCurrentItem(0);
@@ -312,7 +303,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
                 String street = aMapLocation.getStreet();//街道信息
                 String num = aMapLocation.getStreetNum();//街道门牌号信息
 
-                EventBus.getDefault().post(new AddressUser(mCity,mDis));
+                EventBus.getDefault().post(new AddressUser(mCity, mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 aMapLocation.getLatitude();//获取纬度
@@ -328,7 +319,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getCityCode();//城市编码
                 aMapLocation.getAdCode();//地区编码
                 Log.e("==1111", mCity + mDis);
-                //Toast.makeText(MainActivity.this, country + "==" + city +"=="+street+ "==="+dis +"=="+num+ city_code + "==" + tude + "===" + longitude, Toast.LENGTH_SHORT).show();
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);

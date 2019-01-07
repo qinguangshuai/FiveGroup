@@ -16,5 +16,4 @@ public interface PopularService {
     @GET("movie/v1/findHotMovieList")
     Observable<PopularBean> getPopularBeanObservable(@Query("page") int page, @Query("count") int count);
 
-
 }

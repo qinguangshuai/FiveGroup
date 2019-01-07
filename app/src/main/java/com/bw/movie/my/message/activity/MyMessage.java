@@ -1,5 +1,6 @@
 package com.bw.movie.my.message.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
@@ -56,7 +58,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     private String phone1;
     private long browseTime;
     private String s;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,16 +123,12 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         mTxtMyinfoMail.setText(email);
         mTxtMyinfoPhone.setText(phone1);
         mTxtMyinfoNikename.setText(nickName);
-
-
         browseTime = result.getBirthday();
         GregorianCalendar gc = new GregorianCalendar();
         s = String.valueOf(browseTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
-
-
         Uri uri = Uri.parse(headPic);
         mMyHeadimage.setImageURI(uri);
 
@@ -169,18 +166,17 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
             case R.id.txt_myinfo_mail:
                 break;
             case R.id.myinfo_back:
-
                 finish();
                 break;
             case R.id.my_headimage:
                 break;
             case R.id.my_update:
                 Intent intent = new Intent(this, UpdataInfoActivity.class);
-                intent.putExtra("sex1",sex1);
-                intent.putExtra("email",email);
-                intent.putExtra("headPic",headPic);
-                intent.putExtra("nickName",nickName);
-                intent.putExtra("phone1",phone1);
+                intent.putExtra(Constant.SEX,sex1);
+                intent.putExtra(Constant.EMAIL,email);
+                intent.putExtra(Constant.HEADPIC,headPic);
+                intent.putExtra(Constant.NICKNAME,nickName);
+                intent.putExtra(Constant.PHONE1,phone1);
                 intent.putExtra("s",s);
                 startActivity(intent);
                 finish();

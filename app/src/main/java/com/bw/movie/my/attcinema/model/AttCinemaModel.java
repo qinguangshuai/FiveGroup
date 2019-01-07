@@ -2,6 +2,7 @@ package com.bw.movie.my.attcinema.model;
 
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.service.AttCinemaService;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -32,7 +33,7 @@ public class AttCinemaModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.d(e+"");
                     }
 
                     @Override

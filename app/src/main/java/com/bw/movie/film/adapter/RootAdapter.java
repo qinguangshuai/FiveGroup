@@ -290,12 +290,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRecyclerView.setLayoutManager(linearLayoutManager);
             mRecyclerView.setAdapter(popularAdapter);
-
-
-
-
-
-
         }
 
         public void setData(final List<PopularBean.ResultBean> result) {
@@ -311,9 +305,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     popularAdapter.addResult(result);
                 }
             });
-
-
-
         }
     }
 
@@ -346,7 +337,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(final List<HotPlayBean.ResultBean> hotresult) {
             hotPlayAdapter.setHotResult(hotresult);
             hotPlayAdapter.notifyDataSetChanged();
-
         }
     }
 
@@ -370,8 +360,6 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(final List<PlayingBean.ResultBean> playresult) {
             playingAdapter.setPlayResult(playresult);
             playingAdapter.notifyDataSetChanged();
-
-
         }
     }
 }//----------|根布局adapter结束|----------

@@ -162,21 +162,21 @@ public class SynopsisActivity extends BaseActivity {
 
 
     @Subscribe
-    public void good(final PraiseEvent praiseEvent){
+    public void good(final PraiseEvent praiseEvent) {
         new SynopsisPresenter(new PraiseView<PraiseBean>() {
 
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-                if(praiseBean.getMessage().equals("点赞成功")){
-                    praiseEvent.getCheckBox().setText(praiseEvent.getNum()+1+"");
+                if (praiseBean.getMessage().equals("点赞成功")) {
+                    praiseEvent.getCheckBox().setText(praiseEvent.getNum() + 1 + "");
                     praiseEvent.getCheckBox().setChecked(true);
                     praiseEvent.getCheckBox().setClickable(false);
                     toast.Toast(praiseBean.getMessage());
-                }else if(praiseBean.getMessage().equals("不能重复点赞")){
+                } else if (praiseBean.getMessage().equals("不能重复点赞")) {
                     praiseEvent.getCheckBox().setChecked(true);
                     praiseEvent.getCheckBox().setClickable(false);
                     toast.Toast(praiseBean.getMessage());
-                }else {
+                } else {
                     praiseEvent.getCheckBox().setChecked(false);
                     praiseEvent.getCheckBox().setClickable(true);
                 }
@@ -461,10 +461,7 @@ public class SynopsisActivity extends BaseActivity {
                         builder.setView(view);
                         final AlertDialog alertDialog = builder.create();
                         alertDialog.show();
-                        //调用这个方法时，按对话框以外的地方不起作用。按返回键还起作用
-//                alertDialog.setCanceledOnTouchOutside(false);
-                        //调用这个方法时，按对话框以外的地方不起作用。按返回键也不起作用
-//                alertDialog.setCancelable(false);
+
                         final EditText Inputcomments = view.findViewById(R.id.inputcomments);
 
                         TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
@@ -473,17 +470,17 @@ public class SynopsisActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 final String trim = Inputcomments.getText().toString().trim();
-                                if (TextUtils.isEmpty(trim)){
+                                if (TextUtils.isEmpty(trim)) {
                                     Toast.makeText(SynopsisActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
 
-                                }else{
+                                } else {
                                     new SynopsisPresenter(new InputcommentsView<InputcommentsBean>() {
 
                                         @Override
                                         public void onDataSuccess(InputcommentsBean inputcommentsBean) {
                                             Toast.makeText(SynopsisActivity.this, inputcommentsBean.getMessage(), Toast.LENGTH_SHORT).show();
-                                            if (inputcommentsBean.getMessage().contains("成功")){
-                                                getCommentData(id,1,10);
+                                            if (inputcommentsBean.getMessage().contains("成功")) {
+                                                getCommentData(id, 1, 10);
                                                 alertDialog.dismiss();
 
                                             }
@@ -503,7 +500,7 @@ public class SynopsisActivity extends BaseActivity {
                                         public void onHideLoading() {
 
                                         }
-                                    }).getInputcomments(result.get(position).getCommentId(),trim);
+                                    }).getInputcomments(result.get(position).getCommentId(), trim);
                                 }
 
                             }
@@ -525,10 +522,6 @@ public class SynopsisActivity extends BaseActivity {
                 getCommentData(id, a, 10);
             }
         });
-
-
-
-
 
     }
 
@@ -583,7 +576,6 @@ public class SynopsisActivity extends BaseActivity {
                 break;
         }
     }
-
 
 }
 

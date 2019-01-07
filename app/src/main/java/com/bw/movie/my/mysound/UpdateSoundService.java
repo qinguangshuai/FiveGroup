@@ -10,7 +10,6 @@ import retrofit2.http.Query;
  * fileName:XiSoundService
  */
 public interface UpdateSoundService {
-    //http://172.17.8.100/movieApi/tool/v1/verify/changeSysMsgStatus
     @GET("tool/v1/verify/changeSysMsgStatus")
     Observable<UpdateSoundUser> getUpdate(@Query("id") int id);
 }

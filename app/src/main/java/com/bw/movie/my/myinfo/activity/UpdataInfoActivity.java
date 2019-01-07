@@ -20,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.activity.MyMessage;
@@ -32,11 +33,9 @@ import com.bw.movie.my.updatehaed.presenter.UpdateHeadPresenter;
 import com.bw.movie.my.updatehaed.view.UpdateHeadView;
 import com.bw.movie.util.ImageUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -70,28 +69,28 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        int sex1 = intent.getIntExtra("sex1", 0);
+        int sex1 = intent.getIntExtra(Constant.SEX, 0);
         if ("1".equals(sex1)) {
             mMxingbie.setText("男");
         } else if ("2".equals(sex1)) {
             mMxingbie.setText("女");
         }
 
-        String email = intent.getStringExtra("email");
+        String email = intent.getStringExtra(Constant.EMAIL);
         mMyouxiang.setText(email);
-        String headPic = intent.getStringExtra("headPic");
+        String headPic = intent.getStringExtra(Constant.HEADPIC);
         Uri uri = Uri.parse(headPic);
         mMtouxiang.setImageURI(uri);
-        String nickName = intent.getStringExtra("nickName");
+        String nickName = intent.getStringExtra(Constant.NICKNAME);
         mMnicheng.setText(nickName);
-        String phone1 = intent.getStringExtra("phone1");
+        String phone1 = intent.getStringExtra(Constant.PHONE1);
         mMshoujihao.setText(phone1);
+
         String s = intent.getStringExtra("s");
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mMriqi.setText(df.format(gc.getTime()));
-
 
     }
 
@@ -150,7 +149,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     String data1 = ImageUtil.getPath(getApplicationContext(), uri);
                     File file = new File(data1);
                     xj(file);
-
                 }
                 break;
             //相册
@@ -220,7 +218,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         String nickname = mMnicheng.getText().toString().trim();
 
         String sex = mMxingbie.getText().toString();
-        //Integer sex1 = Integer.valueOf(sex);
         String email = mMyouxiang.getText().toString();
 
         switch (v.getId()) {

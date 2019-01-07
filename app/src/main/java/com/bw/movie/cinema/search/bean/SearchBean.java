@@ -1,7 +1,9 @@
 package com.bw.movie.cinema.search.bean;
 
 import java.util.List;
-
+/*
+* SearchBean
+* */
 public class SearchBean {
     private String message;
     private String status;

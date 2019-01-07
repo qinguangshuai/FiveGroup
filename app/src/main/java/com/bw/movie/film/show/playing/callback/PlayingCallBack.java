@@ -11,5 +11,4 @@ import com.bw.movie.film.show.playing.playing.PlayingBean;
      void success(PlayingBean playingBean);
      void error(String message);
 
-
 }

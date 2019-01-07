@@ -72,14 +72,7 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
         int flag = myLatestUser.getFlag();
         Toast.makeText(this, message + flag, Toast.LENGTH_SHORT).show();
         mDownloadUrl = myLatestUser.getDownloadUrl();
-        /*mDownloadUrl = myLatestUser.getDownloadUrl();
-        LinearLayout linearLayout = new LinearLayout(MyLatestVersionActivity.this);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        WebView mWebView = new WebView(MyLatestVersionActivity.this);
-        mWebView.loadUrl(mDownloadUrl);
-        mWebView.setWebChromeClient(new WebChromeClient());
-        linearLayout.addView(mWebView, params);
-        setContentView(linearLayout);*/
+
         if (mDownloadUrl == null){
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.mipmap.ic_launcher);

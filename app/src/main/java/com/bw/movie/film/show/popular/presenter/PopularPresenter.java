@@ -22,7 +22,6 @@ public class PopularPresenter extends BasePresenter {
     }
 
 
-
     //热门电影请求回调
     public void getPopularBeanObservable(int page, int count){
         popularModel.getPopularBeanObservable(page, count, new PopularCallBack() {
@@ -37,10 +36,5 @@ public class PopularPresenter extends BasePresenter {
             }
         });
     }
-
-
-
-
-
 
 }

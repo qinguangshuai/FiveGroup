@@ -2,6 +2,7 @@ package com.bw.movie.my.myinfo.model;
 
 import com.bw.movie.my.myinfo.bean.UpDateUserInfoEntity;
 import com.bw.movie.my.myinfo.service.UpDateUserInfoService;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -31,7 +32,7 @@ public class UpDateUserInfoModel  {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.d(e+"");
                     }
 
                     @Override

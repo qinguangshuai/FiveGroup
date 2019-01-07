@@ -67,5 +67,4 @@ public class SynopsisPresenter extends BasePresenter {
         });
     }
 
-
 }

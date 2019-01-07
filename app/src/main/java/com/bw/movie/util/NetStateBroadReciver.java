@@ -14,7 +14,6 @@ public class NetStateBroadReciver extends BroadcastReceiver {
         //此处是主要代码，
         //如果是在开启wifi连接和有网络状态下
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
-          //  ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
             if (NetworkInfo.State.CONNECTED == info.getState()) {
                 //有网络

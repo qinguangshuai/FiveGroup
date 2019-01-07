@@ -64,8 +64,4 @@ public abstract class WeakCurrencyAdapter<T> extends WeakViewAdapter<WeakCurrenc
         mList.addAll(list);
         this.notifyDataSetChanged();
     }
-
-
-
-
 }

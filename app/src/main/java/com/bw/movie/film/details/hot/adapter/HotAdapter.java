@@ -112,8 +112,6 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
-
-
         }
 
     }

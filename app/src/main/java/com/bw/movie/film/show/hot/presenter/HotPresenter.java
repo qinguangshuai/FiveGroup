@@ -37,8 +37,4 @@ public class HotPresenter extends BasePresenter {
         });
     }
 
-
-
-
-
 }

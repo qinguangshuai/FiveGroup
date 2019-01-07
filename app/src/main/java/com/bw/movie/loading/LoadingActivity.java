@@ -64,7 +64,6 @@ public class LoadingActivity extends AppCompatActivity {
 
                 }
             });
-            //startActivity(new Intent(LoadingActivity.this,FailerActivity.class));
         }
         loadtext.setVisibility(View.GONE);
 
@@ -94,8 +93,6 @@ public class LoadingActivity extends AppCompatActivity {
                     loadtext.setText(""+i);
                     if (i == 0){
                         getData();
-                        //startActivity(new Intent(LoadingActivity.this,LoginActivity.class));
-                        //finish();
                     }
                     break;
             }

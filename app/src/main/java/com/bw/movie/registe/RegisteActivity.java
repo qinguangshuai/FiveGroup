@@ -119,7 +119,6 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
         } else {
             mRegistePresenter.postRegiste(etRegisterName, etRegisterPhone, pwd, pwd, sex, etRegsiterDate, "867180033786056", "华为", "5.0", "android", etRegisterEmail);
         }
-        //email:2103186530@qq.com  os:android  screenSize:5.0  ua:华为  imei:867180033786056
 
     }
 

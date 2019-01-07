@@ -98,7 +98,6 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             @Override
             public void onDataSuccess(XiSoundUser xiSoundUser) {
                 mCount = xiSoundUser.getCount();
-                //Toast.makeText(MySoundActivity.this,xiSoundUser.getCount()+"",Toast.LENGTH_SHORT).show();
                 soundtext.setText("系统消息  ("+mCount+"条未读"+")");
             }
 
