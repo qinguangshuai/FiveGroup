@@ -267,7 +267,7 @@ public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mSearch.setClick(new SearchView.Click() {
                 @Override
                 public void onClickListener(View v, String s) {
-                    toast.Toast(s);
+                 toast.Toast(s);
 
 
 

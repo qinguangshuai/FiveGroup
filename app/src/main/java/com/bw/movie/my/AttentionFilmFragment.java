@@ -8,15 +8,38 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseFragment;
+import com.bw.movie.base.BasePresenter;
 
-public class AttentionFilmFragment extends Fragment {
+public class AttentionFilmFragment extends BaseFragment {
+
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_attention_film, container, false);
-        return view;
+    public void initView() {
+    }
+
+    @Override
+    public void initListener() {
+    }
+
+    @Override
+    public void initData() {
+    }
+
+    @Override
+    public int initLayoutId() {
+        return R.layout.fragment_attention_film;
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    public void initVarisble() {
+
     }
 
 }

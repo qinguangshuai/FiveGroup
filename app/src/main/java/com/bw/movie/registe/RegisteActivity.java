@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.login.pwd.EncryptUtil;
@@ -102,7 +103,7 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
         String etRegisterEmail = this.etRegisterEmail.getText().toString();
         String etRegisterPassword = this.etRegisterPassword.getText().toString();
         String pwd = EncryptUtil.encrypt(etRegisterPassword);
-
+        mRegistePresenter.postRegiste(etRegisterName, etRegisterPhone, pwd, pwd, sex, etRegsiterDate, "867180033786056", "华为", "5.0", "android", etRegisterEmail);
         if (TextUtils.isEmpty(etRegisterName) && TextUtils.isEmpty(etRegsiterDate) && TextUtils.isEmpty(etRegisterPhone) && TextUtils.isEmpty(etRegisterEmail) && TextUtils.isEmpty(etRegisterPassword)) {
             Toast.makeText(this, "不能为空", Toast.LENGTH_SHORT).show();
             return;
@@ -118,9 +119,6 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
         } else {
             mRegistePresenter.postRegiste(etRegisterName, etRegisterPhone, pwd, pwd, sex, etRegsiterDate, "867180033786056", "华为", "5.0", "android", etRegisterEmail);
         }
-
-        //mRegistePresenter.postRegiste(etRegisterName, etRegisterPhone, pwd, pwd, sex, etRegsiterDate, "867180033786056", "华为", "5.0", "android", etRegisterEmail);
-
         //email:2103186530@qq.com  os:android  screenSize:5.0  ua:华为  imei:867180033786056
 
     }
@@ -144,11 +142,10 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
     @Override
     public void onDataSuccess(RegisteUser registeUser) {
         Toast.makeText(this, registeUser.getMessage(), Toast.LENGTH_SHORT).show();
-        if (registeUser.getMessage().equals("注册成功")){
-            startActivity(new Intent(this,LoginActivity.class));
-        }else {
-            return;
+        if (registeUser.getMessage().contains("成功")){
+            startActivity(new Intent(this,ShowActivity.class));
         }
+
     }
 
     @Override

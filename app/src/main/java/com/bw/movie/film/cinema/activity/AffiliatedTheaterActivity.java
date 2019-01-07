@@ -27,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AffiliatedTheaterActivity extends BaseActivity implements NeightbourView<NeightbourBean> {
+public class AffiliatedTheaterActivity extends BaseActivity implements NeightbourView<NeightbourBean>{
 
 
     @BindView(R.id.title_affiliated)
@@ -45,12 +45,12 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
         id = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
         mTitleAffiliated.setText(name);
-        // getData();
+     // getData();
         NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
-        neightbourPresenter.getNeightbour(1, 10);
-
-        EventBus.getDefault().register(this);
-
+        neightbourPresenter.getNeightbour(1,10);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         setmRecyAffiliated();
     }
 
@@ -59,7 +59,6 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
     @Subscribe
     public void getFollowId(FollowEvent followEvent) {
         if (followEvent.getId() == Constant.FOLLOWID) {
