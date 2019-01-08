@@ -20,7 +20,6 @@ public class CinemaProsenter extends BasePresenter {
         super(iBaseView);
         cinemaModle = new CinemaModle();
     }
-
     //查询影院
     public void getCinemaBeanObservable(int id){
         cinemaModle.getCinemaBeanObservable(id, new CinemaCallBack() {
@@ -35,8 +34,4 @@ public class CinemaProsenter extends BasePresenter {
             }
         });
     }
-
-
-
-
 }

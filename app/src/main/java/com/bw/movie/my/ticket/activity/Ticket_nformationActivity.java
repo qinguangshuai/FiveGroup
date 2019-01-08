@@ -107,11 +107,6 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
         inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
             @Override
             public void click(View view, int position) {
-              /*  Intent intent = new Intent(Ticket_nformationActivity.this,SeatSelectionActivity.class);
-                intent.putExtra(Constant.PARTID,ticketFoemationEntity.getResult().get(0).getPrice()+"");
-                intent.putExtra(Constant.PARTNAME,ticketFoemationEntity.getResult().get(0).getScreeningHall());
-                intent.putExtra(Constant.CINEMAID,ticketFoemationEntity.getResult().get(0).getId());
-                startActivity(intent);*/
                 new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
 
                     @Override
@@ -139,7 +134,6 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
             }
         });
         mTicketRecycler.setAdapter(inforAdapter);
-        //Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override

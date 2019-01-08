@@ -12,16 +12,13 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.cinema.good.bean.GoodBean;
-import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
 import com.bw.movie.cinema.good.view.GoodView;
+import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -33,10 +30,10 @@ import java.util.List;
  * fileName:MevaluateAdapder
  */
 public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.MevaulateteViewHolder> {
-    private List<MevaluateBean.ResultBean> list;
+    private List<MevaResultBean> list;
     private Context mContext;
 
-    public MevaluateAdapder(List<MevaluateBean.ResultBean> list, Context mContext) {
+    public MevaluateAdapder(List<MevaResultBean> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
     }

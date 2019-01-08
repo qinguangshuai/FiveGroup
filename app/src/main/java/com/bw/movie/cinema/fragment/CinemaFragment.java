@@ -135,7 +135,6 @@ public class CinemaFragment extends BaseFragment {
         list.add(new NeighbouringFragment());
         list.add(new RecommendFragment());
         list.add(new RecommendFragment());
-//        list.add(new NeighbouringFragment());
         vpCinema.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -204,9 +203,7 @@ public class CinemaFragment extends BaseFragment {
 
     @Subscribe
     public void setAddress(AddressUser address){
-
-            zuoBiaoText.setText(address.getCity()+"  "+address.getCid());
-
+        zuoBiaoText.setText(address.getCity()+"  "+address.getCid());
     }
 
     @Override

@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.event.PraiseEvent;
+import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,18 +31,31 @@ import java.util.List;
  */
 public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private EmptyUtil emptyUtil = new EmptyUtil();
+
+    private ToastUtil toast = new ToastUtil();
+
     private List<CommentBean.ResultBean> result = new ArrayList<>();
 
     public void setResult(List<CommentBean.ResultBean> result) {
         this.result = result;
     }
 
+    public void addResult(List<CommentBean.ResultBean> result) {
+        if(emptyUtil.isNull(result)){
+            toast.Toast("没更多了,官人明天来~");
+        }else {
+            this.result.addAll(result);
+        }
+    }
+
+
     class Holder extends RecyclerView.ViewHolder {
         private final SimpleDraweeView mDraweeView;
         private final TextView mName;
         private final TextView mTime;
         private final TextView mContext;
-        private final CheckBox mGood;
+        private final RadioButton mGood;
         private final CheckBox mComment;
 
         public Holder(View view) {
@@ -50,6 +66,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mTime = view.findViewById(R.id.time_item_comment);
             mGood = view.findViewById(R.id.good_item_comment);
             mComment = view.findViewById(R.id.comment_item_comment);
+
             mComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,18 +92,6 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mContext.setText(resultBean.getCommentContent() + "");
 
 
-            mGood.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mGood.isChecked()) {
-                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
-                    } else {
-                        EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId() , mGood ,resultBean.getGreatNum() ));
-                    }
-                }
-            });
-
-
         }
     }
 
@@ -110,14 +115,26 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final Holder holder = (Holder) viewHolder;
-        holder.setData(result.get(i));
+        final CommentBean.ResultBean resultBean = result.get(i);
+        holder.setData(resultBean);
 
+        //点击 点赞
+        holder.mGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new PraiseEvent(resultBean.getCommentId(), holder.mGood, resultBean.getGreatNum(), i));
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return result.size();
+        if(emptyUtil.isNull(result) ==false){
+            return result.size();
+        }else {
+            return 0;
+        }
     }
 
 

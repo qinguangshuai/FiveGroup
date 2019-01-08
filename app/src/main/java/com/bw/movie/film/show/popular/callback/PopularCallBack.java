@@ -10,6 +10,4 @@ import com.bw.movie.film.show.popular.bean.PopularBean;
 
      void success(PopularBean popularBean);
      void error(String message);
-
-
 }

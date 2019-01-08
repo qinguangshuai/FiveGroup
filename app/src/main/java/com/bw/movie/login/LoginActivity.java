@@ -268,7 +268,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             String content1 = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
 
             NotifyUtil notify1 = new NotifyUtil(this, 1);
-            //notify1.notify_normal_singline(pIntent, smallIcon, ticker, title, content, true, true, false);
             notify1.notify_mailbox(pIntent, smallIcon, largeIcon, messageList, ticker,
                     title, content, true, true, false);
             currentNotify = notify1;
@@ -292,18 +291,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             SharedPreferences.Editor edit = sp.edit();
             edit.putString("phone", mEdit1);
             edit.putString("pwd", mEdit2);
-            //edit.putString("pwd", pwd);
-            //edit.putString("sessionId", mSessionId);
-            //edit.putString("userId", "" + mUserId);
-            edit.putString("headPic", mHeadPic);
             edit.putString("nickName", mNickName);
             edit.putBoolean("loginbox", loginbox.isChecked());
             edit.commit();
         } else {
             edit.putString("phone", "");
             edit.putString("pwd", "");
-            //edit.putString("sessionId", mSessionId);
-            //edit.putString("userId", "" + mUserId);
             edit.putString("headPic", mHeadPic);
             edit.putString("nickName", mNickName);
             edit.putBoolean("loginbox", loginbox.isChecked());

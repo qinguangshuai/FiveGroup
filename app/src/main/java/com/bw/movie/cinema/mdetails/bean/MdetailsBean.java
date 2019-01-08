@@ -7,15 +7,15 @@ package com.bw.movie.cinema.mdetails.bean;
  */
 public class MdetailsBean {
 
-    private ResultBean result;
+    private MdetailsResultBean result;
     private String message;
     private String status;
 
-    public ResultBean getResult() {
+    public MdetailsResultBean getResult() {
         return result;
     }
 
-    public void setResult(ResultBean result) {
+    public void setResult(MdetailsResultBean result) {
         this.result = result;
     }
 
@@ -35,98 +35,4 @@ public class MdetailsBean {
         this.status = status;
     }
 
-    public static class ResultBean {
-
-
-        private String address;
-        private String businessHoursContent;
-        private int commentTotal;
-        private int distance;
-        private int followCinema;
-        private int id;
-        private String logo;
-        private String name;
-        private String phone;
-        private String vehicleRoute;
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getBusinessHoursContent() {
-            return businessHoursContent;
-        }
-
-        public void setBusinessHoursContent(String businessHoursContent) {
-            this.businessHoursContent = businessHoursContent;
-        }
-
-        public int getCommentTotal() {
-            return commentTotal;
-        }
-
-        public void setCommentTotal(int commentTotal) {
-            this.commentTotal = commentTotal;
-        }
-
-        public int getDistance() {
-            return distance;
-        }
-
-        public void setDistance(int distance) {
-            this.distance = distance;
-        }
-
-        public int getFollowCinema() {
-            return followCinema;
-        }
-
-        public void setFollowCinema(int followCinema) {
-            this.followCinema = followCinema;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getLogo() {
-            return logo;
-        }
-
-        public void setLogo(String logo) {
-            this.logo = logo;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-        public String getVehicleRoute() {
-            return vehicleRoute;
-        }
-
-        public void setVehicleRoute(String vehicleRoute) {
-            this.vehicleRoute = vehicleRoute;
-        }
-    }
 }

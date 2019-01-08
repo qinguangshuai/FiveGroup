@@ -1,5 +1,7 @@
 package com.bw.movie.film.event;
-
+/*
+* AffililaterEvent
+* */
 public class AffililaterEvent {
     private int AffililaterId;
 

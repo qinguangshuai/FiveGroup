@@ -33,7 +33,7 @@ public class FollowModel {
 
                     @Override
                     public void onNext(FollowBean followBean) {
-                        followCallBack.success(followBean);
+                       followCallBack.success(followBean);
                     }
 
                     @Override
@@ -47,10 +47,6 @@ public class FollowModel {
                     }
                 });
     }
-
-
-
-
 
 }
 

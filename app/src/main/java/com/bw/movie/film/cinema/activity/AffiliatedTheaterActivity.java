@@ -12,7 +12,8 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
-import com.bw.movie.cinema.bean.NeightbourBean;
+import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
+import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
@@ -29,7 +30,6 @@ import butterknife.ButterKnife;
 
 public class AffiliatedTheaterActivity extends BaseActivity implements NeightbourView<NeightbourBean>{
 
-
     @BindView(R.id.title_affiliated)
     TextView mTitleAffiliated;
     @BindView(R.id.recy_affiliated)
@@ -45,7 +45,6 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
         id = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
         mTitleAffiliated.setText(name);
-     // getData();
         NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
         neightbourPresenter.getNeightbour(1,10);
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -98,39 +97,9 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
 
     }
 
-   /* //请求数据
-    public void getData() {
-
-      new NeightbourPresenter(new NeightbourView<NeightbourBean>() {
-
-
-          @Override
-          public void onDataSuccess(NeightbourBean neightbourBean) {
-
-
-          }
-
-          @Override
-          public void onDataFailer(String msg) {
-
-          }
-
-          @Override
-          public void onShowLoading() {
-
-          }
-
-          @Override
-          public void onHideLoading() {
-
-          }
-      }).getNeightbour(1,10);*/
-//    }
-
-
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
-        final List<NeightbourBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
+        final List<NeightNearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
         NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, AffiliatedTheaterActivity.this);
         mRecyAffiliated.setAdapter(neightbourAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AffiliatedTheaterActivity.this);

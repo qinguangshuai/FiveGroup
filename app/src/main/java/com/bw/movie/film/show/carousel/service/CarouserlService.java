@@ -12,12 +12,7 @@ import retrofit2.http.Query;
  *   baseservice
  */
 public interface CarouserlService {
-
      //请求轮播数据  内网
      @GET("movie/v1/findHotMovieList")
      Observable<CarouselBean> getCarouselBeanObservable(@Query("page") int page, @Query("count") int count);
-
-
-
-
 }

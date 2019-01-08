@@ -7,7 +7,9 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import com.bw.movie.R;
-
+/*
+* StatusView
+* */
 public class StatusView extends FrameLayout {
 
     private final int status_normal = 0;

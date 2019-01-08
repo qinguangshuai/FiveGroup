@@ -109,9 +109,6 @@ public class PopularPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
                 }
             });
-
-
-
         }
 
     }

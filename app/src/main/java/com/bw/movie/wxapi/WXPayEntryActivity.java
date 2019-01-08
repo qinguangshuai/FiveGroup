@@ -44,12 +44,9 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
             int errCord = baseResp.errCode;
             if (errCord == 0) {
                 new ToastUtil().Toast("支付成功！");
-               // ToastUtil.To("支付成功！");
             } else if (errCord == -1) {
-                //ToastUtil.To("支付失败");
                 new ToastUtil().Toast("支付失败！");
             } else {
-               // ToastUtil.To("用户取消了");
                 new ToastUtil().Toast("用户取消了！");
             }
             //这里接收到了返回的状态码可以进行相应的操作，如果不想在这个页面操作可以把状态码存在本地然后finish掉这个页面，这样就回到了你调起支付的那个页面

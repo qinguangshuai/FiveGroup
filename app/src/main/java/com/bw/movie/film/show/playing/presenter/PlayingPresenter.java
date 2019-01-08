@@ -21,8 +21,6 @@ public class PlayingPresenter extends BasePresenter {
         playingModel = new PlayingModel();
     }
 
-
-
     //正在上映 || 即将上映 请求 回调
     public void getPlayingBeanObservable(int page, int count){
         playingModel.getPlayingBeanObservable(page, count, new PlayingCallBack() {
@@ -37,7 +35,5 @@ public class PlayingPresenter extends BasePresenter {
             }
         });
     }
-
-
 
 }

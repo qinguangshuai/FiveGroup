@@ -13,11 +13,7 @@ import retrofit2.http.Query;
  */
 public interface HotService {
 
-
      //请求正在热映数据 内网
      @GET("movie/v1/findReleaseMovieList")
      Observable<HotPlayBean> getHotPlayBeanObservable(@Query("page") int page, @Query("count") int count);
-
-
-
 }

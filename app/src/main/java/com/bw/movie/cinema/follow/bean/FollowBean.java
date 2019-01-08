@@ -7,11 +7,8 @@ package com.bw.movie.cinema.follow.bean;
  */
 public class FollowBean {
 
-
     private String message;
     private String status;
-
-
 
     public String getMessage() {
         return message;

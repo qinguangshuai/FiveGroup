@@ -78,7 +78,10 @@ public class FilmFragment extends BaseFragment {
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+
         setRootRecyclerViewData();
         getCarouselBeanObservable(1, 10);
         getPopularBeanObservable(1, 10, false);
@@ -90,9 +93,7 @@ public class FilmFragment extends BaseFragment {
 
     @Subscribe
     public void setAddress(AddressUser address) {
-
-            fileText.setText(address.getCity() + "  " + address.getCid());
-
+        fileText.setText(address.getCity() + "  " + address.getCid());
     }
 
     //点击事件

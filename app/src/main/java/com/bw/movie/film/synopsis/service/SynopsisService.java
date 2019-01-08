@@ -33,6 +33,4 @@ public interface SynopsisService {
     @FormUrlEncoded
     Observable<PraiseBean> getPraiseBeanObservable(@Field("commentId") int commentId);
 
-
-
 }

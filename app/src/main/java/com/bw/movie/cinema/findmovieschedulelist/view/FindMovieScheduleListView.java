@@ -10,5 +10,4 @@ import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
  */
 public interface  FindMovieScheduleListView<T> extends IBaseView<FindMovieScheduleListBean> {
 
-
 }

@@ -76,15 +76,9 @@ public class RecyclerViewScrollUtil {
         });
     }
 
-
-
-
-
-
     public interface onEvent{
         void info();
     }
-
 
 
 }

@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <CheckBox
+        <RadioButton
             android:paddingLeft="@dimen/dp_2"
             android:button="@drawable/selectgood"
             android:id="@+id/good_item_comment"

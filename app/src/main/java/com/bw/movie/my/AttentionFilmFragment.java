@@ -13,8 +13,6 @@ import com.bw.movie.base.BasePresenter;
 
 public class AttentionFilmFragment extends BaseFragment {
 
-
-
     @Override
     public void initView() {
     }

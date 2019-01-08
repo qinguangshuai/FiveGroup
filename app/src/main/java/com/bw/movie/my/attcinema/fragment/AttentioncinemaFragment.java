@@ -43,7 +43,6 @@ public class AttentioncinemaFragment extends BaseFragment implements AttCinemaVi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         mAttCinemaPresenter = new AttCinemaPresenter(this);

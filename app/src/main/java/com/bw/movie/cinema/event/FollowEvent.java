@@ -8,8 +8,6 @@ package com.bw.movie.cinema.event;
 public class FollowEvent {
     private int id;
 
-
-
     public FollowEvent(int id) {
         this.id = id;
     }
