@@ -79,6 +79,7 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
                             Toast.makeText(mContext, goodBean.getMessage(), Toast.LENGTH_SHORT).show();
                             if (goodBean.getMessage().contains("成功")){
                                 mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
+
                             }
                         }
 

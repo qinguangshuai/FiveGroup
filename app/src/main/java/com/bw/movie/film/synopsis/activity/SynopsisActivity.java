@@ -461,10 +461,7 @@ public class SynopsisActivity extends BaseActivity {
                         builder.setView(view);
                         final AlertDialog alertDialog = builder.create();
                         alertDialog.show();
-                        //调用这个方法时，按对话框以外的地方不起作用。按返回键还起作用
-//                alertDialog.setCanceledOnTouchOutside(false);
-                        //调用这个方法时，按对话框以外的地方不起作用。按返回键也不起作用
-//                alertDialog.setCancelable(false);
+
                         final EditText Inputcomments = view.findViewById(R.id.inputcomments);
 
                         TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
