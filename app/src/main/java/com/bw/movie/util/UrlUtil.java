@@ -6,7 +6,7 @@ package com.bw.movie.util;
  * fileName:UrlUtil
  */
 public interface UrlUtil {
-    String TOTAL = "http://172.17.8.100/movieApi/";
+  String TOTAL = "http://172.17.8.100/movieApi/";
     //public String TOTAL = "http://mobile.bwstudent.com/movieApi/";
 
     //取消点赞
@@ -75,4 +75,12 @@ public interface UrlUtil {
     String PAY="movie/v1/verify/pay";
     //微信登录
     String WECHATLOGIN="user/v1/weChatBindingLogin";
+    //请求轮播数据
+    String HOTMOVIE="movie/v1/findHotMovieList";
+    //请求正在热映数据
+    String RELEASEMOVIE="movie/v1/findReleaseMovieList";
+    //正在上映
+    String COMINGSOONMOVIE="movie/v1/findComingSoonMovieList";
+    //
+//    String p="movie/v1/findHotMovieList";
 }
