@@ -17,7 +17,6 @@
     <TextView
         android:id="@+id/tv_customtv2"
         android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
         android:text="即将上映"
         android:layout_marginRight="@dimen/dp_3"
         android:layout_marginLeft="@dimen/dp_3"

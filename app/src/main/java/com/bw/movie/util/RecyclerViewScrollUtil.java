@@ -5,6 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
+import com.bw.movie.MyApp;
 
 /*
  *作者:ash
@@ -30,7 +33,13 @@ public class RecyclerViewScrollUtil {
                     int totalItemCount = manager.getItemCount();
                     // 判断是否滚动到底部，并且是向右滚动
                     if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                        onEvent.info();
+                        Toast.makeText(MyApp.context, "正在加载", Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                onEvent.info();
+                            }
+                        },2000);
                     }
                 }
             }
