@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
             aMap = mapView.getMap();
         }
         initLocation();
-        finish();
     }
 
     private void initLocation() {
