@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.service.MovieListByCinemaIdService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class MovieListByCinemaIdModel {
 
-    public void getMovieByBean(int cinemaId, final isMovieByBean isMovieByBean) {
+    public void getMovieByBean(int cinemaId, final HttpCallBack<MovieListByCinemaIdBean> httpCallBack) {
         OkHttpUtil.get().createa(MovieListByCinemaIdService.class).getMovieByBean(cinemaId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -31,12 +32,12 @@ public class MovieListByCinemaIdModel {
 
                     @Override
                     public void onNext(MovieListByCinemaIdBean movieListByCinemaIdBean) {
-                        isMovieByBean.getMovieByBean(movieListByCinemaIdBean);
+                       httpCallBack.onSuccess(movieListByCinemaIdBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("zwl", e.getMessage());
+                       httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -46,7 +47,4 @@ public class MovieListByCinemaIdModel {
                 });
     }
 
-    public interface isMovieByBean {
-        void getMovieByBean(MovieListByCinemaIdBean movieListByCinemaIdBean);
-    }
 }

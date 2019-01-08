@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.model.AttCinemaModel;
+import com.bw.movie.util.HttpCallBack;
 
 /**
  * date:2018/12/28    15:22
@@ -19,11 +20,16 @@ public class AttCinemaPresenter extends BasePresenter {
         mAttCinemaModel = new AttCinemaModel();
     }
 
-    public void getCinema(int page){
-        mAttCinemaModel.getCinema(page, new AttCinemaModel.HttpCinema() {
+    public void getCinema(int page) {
+        mAttCinemaModel.getCinema(page, new HttpCallBack<AttCinemaUser>() {
             @Override
-            public void getSuccess(AttCinemaUser attCinemaUser) {
-                getiBaseView().onDataSuccess(attCinemaUser);
+            public void onSuccess(AttCinemaUser name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

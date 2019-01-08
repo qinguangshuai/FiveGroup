@@ -2,6 +2,7 @@ package com.bw.movie.login.model;
 
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.service.LoginService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:LoginModel
  */
 public class LoginModel {
-    public void getLogin(String phone, String pwd, final isLogin isLogin) {
+    public void getLogin(String phone, String pwd, final HttpCallBack<LoginUser> httpCallBack) {
         OkHttpUtil.get().createa(LoginService.class).getLogn(phone, pwd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -29,12 +30,12 @@ public class LoginModel {
 
                     @Override
                     public void onNext(LoginUser loginUser) {
-                        isLogin.thisLogin(loginUser);
+                        httpCallBack.onSuccess(loginUser);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -43,9 +44,4 @@ public class LoginModel {
                     }
                 });
     }
-
-    public interface isLogin {
-        void thisLogin(LoginUser loginUser);
-    }
-
 }

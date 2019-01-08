@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.registe.bean.RegisteUser;
 import com.bw.movie.registe.model.RegisteModel;
 import com.bw.movie.registe.view.RegisteView;
+import com.bw.movie.util.HttpCallBack;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,29 +26,17 @@ public class RegistePresenter extends BasePresenter<RegisteView> {
     }
 
     public void postRegiste(String nickName, String phone, String pwd, String pwd2, int sex, String birthday, String imei, String ua, String screenSize, String os, String email) {
-        mRegisteModel.postRegiste(nickName, phone, pwd, pwd2, sex, birthday, imei, ua, screenSize, os, email)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RegisteUser>() {
+        mRegisteModel.postRegiste(nickName, phone, pwd, pwd2, sex, birthday, imei, ua, screenSize, os, email, new HttpCallBack<RegisteUser>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
+                    public void onSuccess(RegisteUser name) {
+                        getiBaseView().onDataSuccess(name);
                     }
 
                     @Override
-                    public void onNext(RegisteUser registeUser) {
-                        getiBaseView().onDataSuccess(registeUser);
+                    public void onFailer(String result) {
+                        getiBaseView().onDataFailer(result);
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                }
+        );
     }
 }

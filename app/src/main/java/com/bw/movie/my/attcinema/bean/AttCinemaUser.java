@@ -1,9 +1,7 @@
 package com.bw.movie.my.attcinema.bean;
 
 import com.bw.movie.base.BaseEntity;
-
 import java.util.List;
-
 /**
  * date:2018/12/28    15:09
  * author:Therefore(Lenovo)

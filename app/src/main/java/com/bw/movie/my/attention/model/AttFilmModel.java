@@ -4,6 +4,7 @@ import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.service.AttCinemaService;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.service.AttFilmService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 
@@ -18,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:AttCinemaModel
  */
 public class AttFilmModel {
-    public void getFilm(int page, final HttpCinema httpCinema){
+    public void getFilm(int page, final HttpCallBack<MyAttFilmUser> httpCallBack){
         OkHttpUtil.get().createa(AttFilmService.class).getFilm(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -30,12 +31,12 @@ public class AttFilmModel {
 
                     @Override
                     public void onNext(MyAttFilmUser myAttFilmUser) {
-                        httpCinema.getSuccess(myAttFilmUser);
+                        httpCallBack.onSuccess(myAttFilmUser);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d(e+"");
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -45,7 +46,5 @@ public class AttFilmModel {
                 });
     }
 
-    public interface HttpCinema{
-        void getSuccess(MyAttFilmUser attCinemaUser);
-    }
+
 }

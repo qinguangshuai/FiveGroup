@@ -1,8 +1,8 @@
 package com.bw.movie.film.details.model;
 
 import com.bw.movie.film.details.bean.FollowBean;
-import com.bw.movie.film.details.callback.FollowCallBack;
 import com.bw.movie.film.details.service.FollowService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class FollowModel {
 
     //关注
-    public void getFollowBeanObservable(int follow, final FollowCallBack followCallBack){
+    public void getFollowBeanObservable(int follow, final HttpCallBack<FollowBean> httpCallBack){
         OkHttpUtil
                 .get()
                 .createa(FollowService.class)
@@ -33,12 +33,12 @@ public class FollowModel {
 
                     @Override
                     public void onNext(FollowBean followBean) {
-                       followCallBack.success(followBean);
+                      httpCallBack.onSuccess(followBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        followCallBack.error(e.getMessage());
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override

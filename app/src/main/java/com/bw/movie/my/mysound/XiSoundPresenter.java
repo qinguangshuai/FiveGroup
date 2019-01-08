@@ -2,6 +2,7 @@ package com.bw.movie.my.mysound;
 
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.util.HttpCallBack;
 
 /**
  * date:2018/12/30    8:35
@@ -17,11 +18,16 @@ public class XiSoundPresenter extends BasePresenter {
         mXiSoundModel = new XiSoundModel();
     }
 
-    public void getSound(){
-        mXiSoundModel.getSound(new XiSoundModel.HttpXi() {
+    public void getSound() {
+        mXiSoundModel.getSound(new HttpCallBack<XiSoundUser>() {
             @Override
-            public void getSuccess(XiSoundUser xiSoundUser) {
-                getiBaseView().onDataSuccess(xiSoundUser);
+            public void onSuccess(XiSoundUser name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }
