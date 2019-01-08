@@ -6,10 +6,7 @@ package com.bw.movie.cinema.follow.bean;
  * fileName:FollowBean
  */
 public class FollowBean {
-    /**
-     * message : 关注成功
-     * status : 0000
-     */
+
 
     private String message;
     private String status;

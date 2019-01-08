@@ -90,12 +90,9 @@ public class FilmFragment extends BaseFragment {
 
     @Subscribe
     public void setAddress(AddressUser address) {
-        a++;
-        if (a == 1) {
+
             fileText.setText(address.getCity() + "  " + address.getCid());
-        } else {
-            return;
-        }
+
     }
 
     //点击事件

@@ -204,12 +204,9 @@ public class CinemaFragment extends BaseFragment {
 
     @Subscribe
     public void setAddress(AddressUser address){
-        a++;
-        if (a==1){
+
             zuoBiaoText.setText(address.getCity()+"  "+address.getCid());
-        }else {
-            return;
-        }
+
     }
 
     @Override
