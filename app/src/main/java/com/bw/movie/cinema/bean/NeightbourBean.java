@@ -125,7 +125,7 @@ public class NeightbourBean implements Serializable {
         }
 
         public static class NearbyCinemaListBean {
-         
+
 
             private String address;
             private int commentTotal;
