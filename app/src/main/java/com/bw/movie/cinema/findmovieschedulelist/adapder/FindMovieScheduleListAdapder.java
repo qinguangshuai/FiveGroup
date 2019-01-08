@@ -80,7 +80,7 @@ public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovie
         }
     }
 
-    private IsSeatSelection isSeatSelection;
+    private  IsSeatSelection isSeatSelection;
 
     public void setIsSeatSelection(IsSeatSelection isSeatSelection) {
         this.isSeatSelection = isSeatSelection;
