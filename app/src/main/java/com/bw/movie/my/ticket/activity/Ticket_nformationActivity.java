@@ -1,8 +1,11 @@
 package com.bw.movie.my.ticket.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -14,11 +17,11 @@ import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
 import com.bw.movie.my.ticket.view.TicketformationView;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
 import com.bw.movie.wxapi.view.OrderSuccessView;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
@@ -30,9 +33,11 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
 
     @BindView(R.id.ticketRecycler)
-    XRecyclerView mTicketRecycler;
+    RecyclerView mTicketRecycler;
     @BindView(R.id.my_ticket)
     ImageView myTicket;
+    @BindView(R.id.ticketSwipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private TicketformationPresenter presenter;
     private int page = 1;
     private List<ResultBean> result;
@@ -46,32 +51,24 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
     @Override
     public void initListener() {
-        mTicketRecycler.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.getTicet(page, 5);
-                        mTicketRecycler.refreshComplete();
-                    }
-                },2000);
-            }
 
+        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
             @Override
-            public void onLoadMore() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.getTicet(page++, 5);
-                        mTicketRecycler.loadMoreComplete();
-                    }
-                },2000);
+            public void info() {
+                presenter.getTicet(page, 5);
             }
         });
+        RecyclerViewScrollUtil.Scroll(mTicketRecycler, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                presenter.getTicet(page++, 5);
+
+            }
+        });
+
     }
 
-    Handler mHandler = new Handler(){
+    Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -130,7 +127,7 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
                     public void onHideLoading() {
 
                     }
-                }).getOeder(1,ticketFoemationEntity.getResult().get(0).getOrderId());
+                }).getOeder(1, ticketFoemationEntity.getResult().get(0).getOrderId());
             }
         });
         mTicketRecycler.setAdapter(inforAdapter);
@@ -166,4 +163,6 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
     public void onViewClicked() {
         finish();
     }
+
+
 }

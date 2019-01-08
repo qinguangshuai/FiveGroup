@@ -3,20 +3,17 @@ package com.bw.movie.my;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
-import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.mysound.MySoundAdapter;
 import com.bw.movie.my.mysound.MySoundPresenter;
 import com.bw.movie.my.mysound.MySoundUser;
@@ -28,10 +25,9 @@ import com.bw.movie.my.mysound.UpdateSoundView;
 import com.bw.movie.my.mysound.XiSoundPresenter;
 import com.bw.movie.my.mysound.XiSoundUser;
 import com.bw.movie.my.mysound.XiSoundView;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,11 +44,13 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @BindView(R.id.soundtext)
     TextView soundtext;
     @BindView(R.id.soundrecycle)
-    XRecyclerView soundrecycle;
+    RecyclerView mSoundrecycle;
     @BindView(R.id.soundimage)
     ImageView soundimage;
+    @BindView(R.id.sounSwipeRefreshLayout)
+    SwipeRefreshLayout mSounSwipeRefreshLayout;
     private MySoundPresenter mMySoundPresenter;
-//    private List<MySoundUser.ResultBean> mList;
+    //    private List<MySoundUser.ResultBean> mList;
     private int mCount;
     private int mId;
     private int page = 1;
@@ -63,35 +61,28 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @Override
     public void initView() {
         ButterKnife.bind(this);
+
         mMySoundPresenter = new MySoundPresenter(this);
     }
 
     @Override
     public void initListener() {
         mMySoundPresenter.getSound(page);
-        soundrecycle.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMySoundPresenter.getSound(page);
-                        soundrecycle.refreshComplete();
-                    }
-                },2000);
-            }
 
-            @Override
-            public void onLoadMore() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMySoundPresenter.getSound(page++);
-                        soundrecycle.loadMoreComplete();
-                    }
-                },2000);
-            }
-        });
+       RecyclerViewScrollUtil.Refresh(mSounSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+           @Override
+           public void info() {
+               mMySoundPresenter.getSound(page);
+           }
+       });
+
+       RecyclerViewScrollUtil.Scroll(mSoundrecycle, true, new RecyclerViewScrollUtil.onEvent() {
+           @Override
+           public void info() {
+               mMySoundPresenter.getSound(page++);
+           }
+       });
+
     }
 
     @Override
@@ -100,7 +91,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             @Override
             public void onDataSuccess(XiSoundUser xiSoundUser) {
                 mCount = xiSoundUser.getCount();
-                soundtext.setText("系统消息  ("+mCount+"条未读"+")");
+                soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
             }
 
             @Override
@@ -139,7 +130,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     public void onDataSuccess(MySoundUser mySoundUser) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        soundrecycle.setLayoutManager(linearLayoutManager);
+        mSoundrecycle.setLayoutManager(linearLayoutManager);
         mList = mySoundUser.getResult();
         mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
         mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
@@ -152,11 +143,11 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
                     public void onDataSuccess(UpdateSoundUser updateSoundUser) {
                         String message = updateSoundUser.getMessage();
 
-                        if (message.equals("状态改变成功")){
+                        if (message.equals("状态改变成功")) {
                             mCount--;
-                            soundtext.setText("系统消息  ("+mCount+"条未读"+")");
+                            soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
                         }
-                        Toast.makeText(MySoundActivity.this,message,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MySoundActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -176,7 +167,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
                 }).getSound(mId);
             }
         });
-        soundrecycle.setAdapter(mMySoundAdapter);
+        mSoundrecycle.setAdapter(mMySoundAdapter);
     }
 
     @Override
@@ -195,13 +186,6 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick(R.id.soundimage)
     public void onViewClicked() {
         finish();
@@ -213,4 +197,6 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             super.handleMessage(msg);
         }
     };
+
+
 }

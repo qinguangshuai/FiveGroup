@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.bean.ResultBean;
 import com.bw.movie.my.attention.presenter.AttFilmPresenter;
 import com.bw.movie.my.mysound.MySoundAdapter;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -34,21 +37,21 @@ import butterknife.Unbinder;
 public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyAttFilmUser> {
 
     @BindView(R.id.attenrecycle2)
-    XRecyclerView attenrecycle2;
+    RecyclerView mAttenrecycle2;
     Unbinder unbinder;
     @BindView(R.id.attenimage2)
     ImageView attenimage2;
+    @BindView(R.id.attenSwipeRefreshLayout2)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     Unbinder unbinder1;
     private AttFilmPresenter mAttFilmPresenter;
-//    private List<MyAttFilmUser.ResultBean> mList;
     int page = 1;
     private List<ResultBean> mList;
 
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        attenrecycle2.setRefreshProgressStyle(ProgressStyle.BallZigZag);
-        attenrecycle2.setArrowImageView(R.mipmap.jiazai);
+
     }
 
     @Override
@@ -59,29 +62,21 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void initData() {
         mAttFilmPresenter.getFilm(page);
-        attenrecycle2.setLoadingListener(new XRecyclerView.LoadingListener() {
+        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
             @Override
-            public void onRefresh() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAttFilmPresenter.getFilm(page);
-                        attenrecycle2.refreshComplete();
-                    }
-                }, 2000);
-            }
-
-            @Override
-            public void onLoadMore() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAttFilmPresenter.getFilm(page++);
-                        attenrecycle2.loadMoreComplete();
-                    }
-                }, 2000);
+            public void info() {
+                mAttFilmPresenter.getFilm(page);
             }
         });
+
+        RecyclerViewScrollUtil.Scroll(mAttenrecycle2, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                mAttFilmPresenter.getFilm(page++);
+
+            }
+        });
+
     }
 
     @Override
@@ -109,7 +104,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void onDataSuccess(MyAttFilmUser myAttFilmUser) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        attenrecycle2.setLayoutManager(linearLayoutManager);
+        mAttenrecycle2.setLayoutManager(linearLayoutManager);
         mList = myAttFilmUser.getResult();
         AttFilmAdapter attFilmAdapter = new AttFilmAdapter(getContext(), mList);
         attFilmAdapter.setHttpClick(new AttFilmAdapter.HttpClick() {
@@ -119,7 +114,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
                 getActivity().finish();
             }
         });
-        attenrecycle2.setAdapter(attFilmAdapter);
+        mAttenrecycle2.setAdapter(attFilmAdapter);
     }
 
     @Override

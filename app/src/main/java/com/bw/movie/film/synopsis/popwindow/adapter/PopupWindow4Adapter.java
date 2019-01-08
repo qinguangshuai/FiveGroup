@@ -42,9 +42,9 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void addResult(List<CommentBean.ResultBean> result) {
-        if(emptyUtil.isNull(result)){
+        if (emptyUtil.isNull(result)) {
             toast.Toast("没更多了,官人明天来~");
-        }else {
+        } else {
             this.result.addAll(result);
         }
     }
@@ -130,9 +130,9 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if(emptyUtil.isNull(result) ==false){
+        if (emptyUtil.isNull(result) == false) {
             return result.size();
-        }else {
+        } else {
             return 0;
         }
     }

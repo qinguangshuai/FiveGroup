@@ -36,6 +36,7 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
