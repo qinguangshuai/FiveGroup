@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.bw.movie.error.UnCatchExceptionHandler;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 import com.bw.movie.util.SpUtil;
 import com.facebook.cache.disk.DiskCacheConfig;
@@ -45,7 +46,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
         Fresco.initialize(this, config);
         //捕获全局异常
         UnCatchExceptionHandler.getmExceptionHandler().init(this);
-
+        LogUtil.init();
         initXG();
         initWX();
     }

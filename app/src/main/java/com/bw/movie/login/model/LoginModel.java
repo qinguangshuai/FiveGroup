@@ -47,5 +47,4 @@ public class LoginModel {
     public interface isLogin {
         void thisLogin(LoginUser loginUser);
     }
-
 }
