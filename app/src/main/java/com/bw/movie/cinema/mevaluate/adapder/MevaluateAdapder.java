@@ -47,17 +47,16 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
 
     @Override
     public void onBindViewHolder(@NonNull final MevaulateteViewHolder mevaulateteViewHolder, final int i) {
-        if (list.get(i).getIsGreat() == 1) {
+        if (list.get(i).getIsGreat()==1){
             mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
             mevaulateteViewHolder.checkBox.setChecked(true);
-        } else {
+        }else{
             mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_default_hdpi);
             mevaulateteViewHolder.checkBox.setChecked(false);
         }
-
-        mevaulateteViewHolder.textViewname.setText(list.get(i).getCommentUserName());
-        mevaulateteViewHolder.textViewconnect.setText(list.get(i).getCommentContent());
-        mevaulateteViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getCommentHeadPic()));
+     mevaulateteViewHolder.textViewname.setText(list.get(i).getCommentUserName());
+     mevaulateteViewHolder.textViewconnect.setText(list.get(i).getCommentContent());
+     mevaulateteViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getCommentHeadPic()));
         long commentTime = list.get(i).getCommentTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(commentTime);
@@ -128,7 +127,7 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return list==null?0:list.size();
     }
 
     class MevaulateteViewHolder extends RecyclerView.ViewHolder {
