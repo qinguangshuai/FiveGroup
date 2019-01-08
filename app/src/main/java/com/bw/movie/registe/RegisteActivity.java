@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.login.pwd.EncryptUtil;
 import com.bw.movie.registe.bean.RegisteUser;
@@ -67,7 +68,7 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisteActivity.this, LoginActivity.class));
-                finish();
+                AppManager.getAppManager().finishActivity(RegisteActivity.this);
             }
         });
     }

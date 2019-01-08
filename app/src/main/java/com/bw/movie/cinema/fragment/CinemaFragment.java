@@ -29,6 +29,7 @@ import com.bw.movie.cinema.search.event.CinameEvent;
 import com.bw.movie.cinema.search.presenter.SearchPresenter;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.custom.SearchView;
+import com.bw.movie.error.AppManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

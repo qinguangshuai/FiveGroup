@@ -22,6 +22,11 @@ public class UpdateHeadPresenter extends BasePresenter<UpdateHeadView> {
             public void getHead(UpdateHeadEntity updateHeadEntity) {
                 getiBaseView().onDataSuccess(updateHeadEntity);
             }
+
+            @Override
+            public void error(String error) {
+
+            }
         });
     }
 }

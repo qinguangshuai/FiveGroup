@@ -42,7 +42,7 @@ public class UpdateHeadModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        getHead.error(e.getMessage());
                     }
 
                     @Override
@@ -55,5 +55,6 @@ public class UpdateHeadModel {
     //创建接口
     public interface getHead {
         void getHead(UpdateHeadEntity updateHeadEntity);
+        void error(String error);
     }
 }
