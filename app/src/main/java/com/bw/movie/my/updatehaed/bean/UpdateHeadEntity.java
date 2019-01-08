@@ -1,8 +1,11 @@
 package com.bw.movie.my.updatehaed.bean;
+
+import com.bw.movie.base.BaseEntity;
+
 /*
 *  修改头像bean类
 * */
-public class UpdateHeadEntity {
+public class UpdateHeadEntity extends BaseEntity {
 
     private String headPath;
     private String message;

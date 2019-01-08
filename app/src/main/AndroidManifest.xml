@@ -90,7 +90,7 @@
         </activity>
 
 
-        <activity android:name=".film.activity.SynopsisActivity"></activity>
+        <activity android:name=".film.synopsis.activity.SynopsisActivity"></activity>
         <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity"></activity>
     </application>
 

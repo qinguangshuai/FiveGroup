@@ -11,6 +11,7 @@ public class ButtonUtils {
     private static long lastClickTime = 0;
     private static long DIFF = 1000;
     private static int lastButtonId = -1;
+    private static long[] s = new long[2];
 
     /**
      * 判断两次点击的间隔，如果小于1000，则认为是多次无效点击
@@ -45,6 +46,15 @@ public class ButtonUtils {
         }
         lastClickTime = time;
         lastButtonId = buttonId;
+        return false;
+    }
+
+    public static  boolean isFastClick(){
+        System.arraycopy(s,1,s,0,s.length - 1);
+        s[s.length - 1] = System.currentTimeMillis();
+        if (s[0] >= System.currentTimeMillis() - 1500){
+            return true;
+        }
         return false;
     }
 }

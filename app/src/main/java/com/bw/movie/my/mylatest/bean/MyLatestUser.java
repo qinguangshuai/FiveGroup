@@ -1,11 +1,13 @@
 package com.bw.movie.my.mylatest.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2018/12/27    19:35
  * author:Therefore(Lenovo)
  * fileName:MyLatestUser
  */
-public class MyLatestUser {
+public class MyLatestUser extends BaseEntity {
 
     private int flag;
     private String downloadUrl;

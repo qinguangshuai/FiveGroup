@@ -1,4 +1,4 @@
-package com.bw.movie.film.activity;
+package com.bw.movie.film.synopsis.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -110,13 +110,13 @@ public class SynopsisActivity extends BaseActivity {
     private PopupWindow popupWindow3;
     private PopupWindow popupWindow4;
     private boolean flag;
+    private PopupWindow4Adapter mPopupWindow4Adapter = new PopupWindow4Adapter();
 
     @Override
     public void initView() {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
@@ -128,8 +128,9 @@ public class SynopsisActivity extends BaseActivity {
         id = intent.getIntExtra("详情id", -1);
         setCardSynopsis();
         getData(id);
-        getCommentData(id, 1, 10);
-
+        setmReview();
+        getCommentData(id, a, 10);
+        mPopupWindow4Adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -161,24 +162,20 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
+    //点赞
     @Subscribe
     public void good(final PraiseEvent praiseEvent) {
         new SynopsisPresenter(new PraiseView<PraiseBean>() {
-
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
+                toast.Toast(praiseBean.getMessage());
                 if (praiseBean.getMessage().equals("点赞成功")) {
-                    praiseEvent.getCheckBox().setText(praiseEvent.getNum() + 1 + "");
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
-                } else if (praiseBean.getMessage().equals("不能重复点赞")) {
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
-                } else {
-                    praiseEvent.getCheckBox().setChecked(false);
-                    praiseEvent.getCheckBox().setClickable(true);
+                    praiseEvent.getRadioButton().setText((praiseEvent.getNum()+1)+"");
+//                    mPopupWindow4Adapter.notifyDataSetChanged();
+                }else if(praiseBean.getMessage().equals("不能重复点赞")){
+
+                }else {
+
                 }
             }
 
@@ -241,8 +238,9 @@ public class SynopsisActivity extends BaseActivity {
             public void onDataSuccess(CommentBean commentBean) {
                 List<CommentBean.ResultBean> result = commentBean.getResult();
                 if (emptyUtil.isNull(result) == false) {
-                    list.addAll(result);
-                    setmReview(list);
+                    mPopupWindow4Adapter.addResult(commentBean.getResult());
+                    mPopupWindow4Adapter.notifyDataSetChanged();
+                    toast.Toast("加载更多");
                 } else {
                     toast.Toast("没有更多了");
                 }
@@ -422,8 +420,7 @@ public class SynopsisActivity extends BaseActivity {
 
 
     //第四个pop
-    public void setmReview(final List<CommentBean.ResultBean> result) {
-
+    public void setmReview() {
         RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
         final ImageView imageView = mReview.findViewById(R.id.writemessage);
         ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
@@ -436,23 +433,19 @@ public class SynopsisActivity extends BaseActivity {
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        final PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
-        popupWindow4Adapter.setResult(result);
-        mRecyclerView.setAdapter(popupWindow4Adapter);
+         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(mPopupWindow4Adapter);
 
-        popupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
+        mPopupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
             @Override
             public void isData(View view, final int position) {
                 if (flag) {
-
                     imageView.setVisibility(View.GONE);
                     flag = false;
                 } else {
                     imageView.setVisibility(View.VISIBLE);
                     flag = true;
                 }
-
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -461,54 +454,42 @@ public class SynopsisActivity extends BaseActivity {
                         builder.setView(view);
                         final AlertDialog alertDialog = builder.create();
                         alertDialog.show();
-
                         final EditText Inputcomments = view.findViewById(R.id.inputcomments);
-
                         TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
-
                         SendInputcomments.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 final String trim = Inputcomments.getText().toString().trim();
                                 if (TextUtils.isEmpty(trim)) {
                                     Toast.makeText(SynopsisActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
-
                                 } else {
                                     new SynopsisPresenter(new InputcommentsView<InputcommentsBean>() {
-
                                         @Override
                                         public void onDataSuccess(InputcommentsBean inputcommentsBean) {
                                             Toast.makeText(SynopsisActivity.this, inputcommentsBean.getMessage(), Toast.LENGTH_SHORT).show();
                                             if (inputcommentsBean.getMessage().contains("成功")) {
                                                 getCommentData(id, 1, 10);
                                                 alertDialog.dismiss();
-
                                             }
                                         }
 
                                         @Override
                                         public void onDataFailer(String msg) {
-
                                         }
 
                                         @Override
                                         public void onShowLoading() {
-
                                         }
 
                                         @Override
                                         public void onHideLoading() {
-
                                         }
-                                    }).getInputcomments(result.get(position).getCommentId(), trim);
+                                    }).getInputcomments(list.get(position).getCommentId(), trim);
                                 }
-
                             }
                         });
-
                     }
                 });
-
             }
         });
 
@@ -517,11 +498,12 @@ public class SynopsisActivity extends BaseActivity {
         RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                //加载更多功能的代码
                 a++;
+                //加载更多功能的代码
                 getCommentData(id, a, 10);
             }
         });
+
 
     }
 
@@ -535,7 +517,7 @@ public class SynopsisActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    //销毁
+    //暂停
     @Override
     protected void onPause() {
         super.onPause();
@@ -563,9 +545,7 @@ public class SynopsisActivity extends BaseActivity {
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
                 popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
-
                 break;
-
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
@@ -576,6 +556,7 @@ public class SynopsisActivity extends BaseActivity {
                 break;
         }
     }
+
 
 }
 

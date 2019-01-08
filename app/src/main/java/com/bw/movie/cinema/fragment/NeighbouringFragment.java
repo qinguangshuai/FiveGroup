@@ -39,8 +39,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
 
-
-
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
@@ -95,7 +93,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     }
 
-
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
 
@@ -147,6 +144,4 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
-
-
 }

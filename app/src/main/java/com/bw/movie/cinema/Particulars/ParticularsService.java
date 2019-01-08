@@ -10,5 +10,4 @@ import retrofit2.http.Query;
 public interface ParticularsService {
     @GET("movie/v1/findHotMovieList")
     Observable<ParticularsBean> getParticulars(@Query("page") int page, @Query("count") int count);
-
 }

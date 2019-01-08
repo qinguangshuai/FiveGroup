@@ -1,11 +1,13 @@
 package com.bw.movie.cinema.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2018/12/29    20:06
  * author:Therefore(Lenovo)
  * fileName:AddressUser
  */
-public class AddressUser {
+public class AddressUser extends BaseEntity {
 
     private String city;
     private String cid;

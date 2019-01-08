@@ -1,6 +1,8 @@
 package com.bw.movie.wxapi.bean;
 
-public class OrderSuccessBean {
+import com.bw.movie.base.BaseEntity;
+
+public class OrderSuccessBean extends BaseEntity {
 
     private String appId;
     private String message;

@@ -5,9 +5,9 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -34,7 +34,6 @@ import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
-import com.bw.movie.util.GPSUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,7 +47,7 @@ import butterknife.ButterKnife;
 /**
  * fragment联动
  */
-public class ShowActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
+public class ShowActivity extends AppCompatActivity {
 
 
     @BindView(R.id.showMap)
@@ -61,12 +60,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
     private RadioButton my_show;
     private ImageView image_populer;
     private ImageView lingdai;
-    private MyLocationStyle mMyLocationStyle;
-    LocationSource.OnLocationChangedListener mListener;
-    AMapLocationClient mlocationClient;
-    AMapLocationClientOption mLocationOption;
-    public static String mCity;
-    public static String mDis;
 
     //权限
     private String[] permissions = {Manifest.permission.CAMERA,                     //相机
@@ -84,11 +77,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
         ButterKnife.bind(this);
         //初始化控件
         initView();
-        showMap.onCreate(savedInstanceState);
-        if (aMap == null) {
-            aMap = showMap.getMap();
-        }
-//        initLocation();
         //初始化监听
         initListener();
         initData();
@@ -103,18 +91,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
         aa.playTogether(ra1);
         aa.setDuration(300);
         aa.start();
-
-        GPSUtils.getInstance(this).getLngAndLat(new GPSUtils.OnLocationResultListener() {
-            @Override
-            public void onLocationResult(Location location) {
-
-            }
-
-            @Override
-            public void OnLocationChange(Location location) {
-
-            }
-        });
     }
 
     private void initData() {
@@ -213,6 +189,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
         rg_show.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // vp_show.setCurrentItem(checkedId - 1);
                 switch (checkedId) {
                     case R.id.film_show:
                         vp_show.setCurrentItem(0);
@@ -242,80 +219,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
 
         lingdai = (ImageView) findViewById(R.id.lingdai);
 
-    }
-
-    @Override
-    public void activate(OnLocationChangedListener onLocationChangedListener) {
-        mListener = onLocationChangedListener;
-        if (mlocationClient == null) {
-            //初始化定位
-            mlocationClient = new AMapLocationClient(this);
-            //初始化定位参数
-            mLocationOption = new AMapLocationClientOption();
-            //设置定位回调监听
-            mlocationClient.setLocationListener(this);
-            //设置为高精度定位模式
-            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-            //设置定位参数
-            mlocationClient.setLocationOption(mLocationOption);
-            // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-            // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
-            mLocationOption.setInterval(2000L);
-            // 在定位结束后，在合适的生命周期调用onDestroy()方法
-            // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
-            mlocationClient.startLocation();//启动定位
-        }
-    }
-
-    @Override
-    public void deactivate() {
-        mListener = null;
-        if (mlocationClient != null) {
-            mlocationClient.stopLocation();
-            mlocationClient.onDestroy();
-        }
-        mlocationClient = null;
-    }
-
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        Log.e("===" + aMapLocation.getLatitude(), "====" + aMapLocation.getLongitude());
-        if (mListener != null && aMapLocation != null) {
-            if (aMapLocation != null
-                    && aMapLocation.getErrorCode() == 0) {
-                mListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
-                String country = aMapLocation.getCountry();//国家信息
-                //获取城市
-                mCity = aMapLocation.getCity();
-                double tude = aMapLocation.getLatitude();//维度
-                double longitude = aMapLocation.getLongitude();//经度
-                String city_code = aMapLocation.getCityCode();
-                //城区信息
-                mDis = aMapLocation.getDistrict();
-                String street = aMapLocation.getStreet();//街道信息
-                String num = aMapLocation.getStreetNum();//街道门牌号信息
-
-                EventBus.getDefault().post(new AddressUser(mCity, mDis));
-
-                aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
-                aMapLocation.getAccuracy();//获取精度信息
-                aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-                aMapLocation.getCountry();//国家信息
-                aMapLocation.getProvince();//省信息
-                aMapLocation.getCity();//城市信息
-                aMapLocation.getDistrict();//城区信息
-                aMapLocation.getStreet();//街道信息
-                aMapLocation.getStreetNum();//街道门牌号信息
-                aMapLocation.getCityCode();//城市编码
-                aMapLocation.getAdCode();//地区编码
-                Log.e("==1111", mCity + mDis);
-            } else {
-                String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
-                Log.e("AmapErr", errText);
-            }
-        }
     }
 
     //权限申请
@@ -363,7 +266,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
 
     //重写该 方法 响应 申请
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 

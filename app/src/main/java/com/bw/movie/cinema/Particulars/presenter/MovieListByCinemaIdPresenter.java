@@ -12,19 +12,18 @@ import com.bw.movie.cinema.Particulars.model.MovieListByCinemaIdModel;
  */
 public class MovieListByCinemaIdPresenter extends BasePresenter {
 
-
-
-      private MovieListByCinemaIdModel movieListByCinemaIdModel;
+    private MovieListByCinemaIdModel movieListByCinemaIdModel;
 
     public MovieListByCinemaIdPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        movieListByCinemaIdModel=new MovieListByCinemaIdModel();
+        movieListByCinemaIdModel = new MovieListByCinemaIdModel();
     }
-    public void getMovieByBean(int cinemaId){
+
+    public void getMovieByBean(int cinemaId) {
         movieListByCinemaIdModel.getMovieByBean(cinemaId, new MovieListByCinemaIdModel.isMovieByBean() {
             @Override
             public void getMovieByBean(MovieListByCinemaIdBean movieListByCinemaIdBean) {
-                 getiBaseView().onDataSuccess(movieListByCinemaIdBean);
+                getiBaseView().onDataSuccess(movieListByCinemaIdBean);
             }
         });
     }

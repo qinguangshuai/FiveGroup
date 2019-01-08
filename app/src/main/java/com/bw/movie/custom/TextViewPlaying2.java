@@ -35,8 +35,6 @@ public class TextViewPlaying2 extends LinearLayout {
         View view = View.inflate(context, R.layout.customplaying, this);
         tv = view.findViewById(R.id.tv_customtv2);
         img = view.findViewById(R.id.img_customimg2);
-
-
         //路径
         Uri uri1 = Uri.parse("res://drawable/" + R.drawable.mnew);
         //不多解释
@@ -45,7 +43,6 @@ public class TextViewPlaying2 extends LinearLayout {
                 .setAutoPlayAnimations(true)
                 .build();
         img.setController(build);
-
     }
 
     @Override
@@ -53,11 +50,8 @@ public class TextViewPlaying2 extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
     }
-
-
 }

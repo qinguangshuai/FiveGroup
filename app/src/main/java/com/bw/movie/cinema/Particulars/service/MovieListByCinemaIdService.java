@@ -12,8 +12,6 @@ import retrofit2.http.Query;
  * fileName:MovieListByCinemaIdService
  */
 public interface MovieListByCinemaIdService {
-
-
     @GET("movie/v1/findMovieListByCinemaId")
     Observable<MovieListByCinemaIdBean> getMovieByBean(@Query("cinemaId") int cinemaId);
 }
