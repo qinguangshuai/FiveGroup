@@ -1,5 +1,6 @@
 package com.bw.movie.wxapi.service;
 
+import com.bw.movie.util.UrlUtil;
 import com.bw.movie.wxapi.bean.WXUser;
 
 import io.reactivex.Observable;
@@ -13,7 +14,7 @@ import retrofit2.http.POST;
  * fileName:WXService
  */
 public interface WXService {
-    @POST("user/v1/weChatBindingLogin")
+    @POST(UrlUtil.WECHATLOGIN)
     @FormUrlEncoded
     Observable<WXUser> postWX(@Field("code") String code);
 }

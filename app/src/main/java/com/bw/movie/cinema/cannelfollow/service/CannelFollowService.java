@@ -1,6 +1,7 @@
 package com.bw.movie.cinema.cannelfollow.service;
 
 import com.bw.movie.cinema.follow.bean.FollowBean;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -12,6 +13,6 @@ import retrofit2.http.Query;
  * fileName:CannelFollowService
  */
 public interface CannelFollowService {
-    @GET("cinema/v1/verify/cancelFollowCinema")
+    @GET(UrlUtil.NFOLLOWCINEMA)
     Observable<FollowBean> getCannelFollow(@Query("cinemaId") int cinemaId);
 }

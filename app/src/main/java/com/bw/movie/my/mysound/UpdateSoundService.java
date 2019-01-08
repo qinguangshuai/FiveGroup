@@ -1,5 +1,7 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.util.UrlUtil;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,6 +12,6 @@ import retrofit2.http.Query;
  * fileName:XiSoundService
  */
 public interface UpdateSoundService {
-    @GET("tool/v1/verify/changeSysMsgStatus")
+    @GET(UrlUtil.CHANGESYSMSGSTATUS)
     Observable<UpdateSoundUser> getUpdate(@Query("id") int id);
 }

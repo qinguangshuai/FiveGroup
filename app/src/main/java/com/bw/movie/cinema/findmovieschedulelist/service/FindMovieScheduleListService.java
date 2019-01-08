@@ -1,6 +1,7 @@
 package com.bw.movie.cinema.findmovieschedulelist.service;
 
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -12,7 +13,7 @@ import retrofit2.http.Query;
  * fileName:FindMovieScheduleListService
  */
 public interface FindMovieScheduleListService {
-    @GET("movie/v1/findMovieScheduleList")
+    @GET(UrlUtil.SCHEDULELIST)
     Observable<FindMovieScheduleListBean> getFindMovieScheduleList(@Query("cinemasId") int cinemasId,
                                                                    @Query("movieId") int movieId);
 }

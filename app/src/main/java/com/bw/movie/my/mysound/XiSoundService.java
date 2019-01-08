@@ -1,5 +1,7 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.util.UrlUtil;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
@@ -9,6 +11,6 @@ import retrofit2.http.GET;
  * fileName:XiSoundService
  */
 public interface XiSoundService {
-    @GET("tool/v1/verify/findUnreadMessageCount")
+    @GET(UrlUtil.MESSAGECOUNT)
     Observable<XiSoundUser> getXi();
 }

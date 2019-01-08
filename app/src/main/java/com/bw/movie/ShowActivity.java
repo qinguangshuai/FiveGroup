@@ -14,10 +14,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -34,11 +36,14 @@ import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
+import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +52,7 @@ import butterknife.ButterKnife;
 /**
  * fragment联动
  */
-public class ShowActivity extends AppCompatActivity implements LocationSource,AMapLocationListener {
+public class ShowActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
 
     @BindView(R.id.showMap)
@@ -69,10 +74,10 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
 
     //权限
     private String[] permissions = {Manifest.permission.CAMERA,                     //相机
-                                    Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
-                                    Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
-                                   };
+            Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
+            Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
+    };
 
 
     @Override
@@ -310,7 +315,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
                 String street = aMapLocation.getStreet();//街道信息
                 String num = aMapLocation.getStreetNum();//街道门牌号信息
 
-                EventBus.getDefault().post(new AddressUser(mCity,mDis));
+                EventBus.getDefault().post(new AddressUser(mCity, mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 aMapLocation.getLatitude();//获取纬度
@@ -335,14 +340,8 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
     }
 
 
-
-
-
-
-
-
     //权限申请
-    public void doPermission(){
+    public void doPermission() {
         //版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //检查相机
@@ -350,7 +349,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
             //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
             if (i != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this,permissions,100);
+                ActivityCompat.requestPermissions(this, permissions, 100);
 
             }
             //检查GPS
@@ -358,7 +357,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
             //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
             if (i2 != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this,permissions,101);
+                ActivityCompat.requestPermissions(this, permissions, 101);
 
             }
 
@@ -367,7 +366,7 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
             //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
             if (i3 != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this,permissions,102);
+                ActivityCompat.requestPermissions(this, permissions, 102);
 
             }
 
@@ -390,5 +389,30 @@ public class ShowActivity extends AppCompatActivity implements LocationSource,AM
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    //
+    private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
+    @Override
+    public void onBackPressed() {
+        if (!mBackKeyPressed) {
+            ToastUtil.Toast("再按一次退出程序");
+            mBackKeyPressed = true;
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    mBackKeyPressed = false;
+                }
+            }, 2000);
+        } else {
+            this.finish();
+            System.exit(0);
+        }
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+
+    }
 }

@@ -3,6 +3,7 @@ package com.bw.movie.my.message.service;
 
 
 import com.bw.movie.my.message.bean.MyMessageEntity;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -13,7 +14,7 @@ import retrofit2.http.GET;
 * */
 public interface MyMessageService {
 
-    @GET("user/v1/verify/getUserInfoByUserId")
+    @GET(UrlUtil.USERINFOBYID)
     Observable<MyMessageEntity> getMessage();
 
 }

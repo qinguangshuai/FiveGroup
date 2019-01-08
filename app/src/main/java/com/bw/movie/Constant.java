@@ -32,6 +32,8 @@ public interface Constant {
     String HEADPIC = "headPic";
     String NICKNAME = "nickName";
     String PHONE1 = "phone";
+    //登录销毁
+    int LOGINFNISH=0x0000;
 
 
 }

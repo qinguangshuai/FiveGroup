@@ -1,6 +1,7 @@
 package com.bw.movie.cinema.Particulars.service;
 
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -12,6 +13,6 @@ import retrofit2.http.Query;
  * fileName:MovieListByCinemaIdService
  */
 public interface MovieListByCinemaIdService {
-    @GET("movie/v1/findMovieListByCinemaId")
+    @GET(UrlUtil.FINDMOVIELIST)
     Observable<MovieListByCinemaIdBean> getMovieByBean(@Query("cinemaId") int cinemaId);
 }

@@ -13,12 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.NotifyUtil;
 import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.WXUser;
+import com.bw.movie.wxapi.event.FinishEvent;
 import com.bw.movie.wxapi.presenter.WXPresenter;
 import com.bw.movie.wxapi.view.WXView;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -30,6 +33,8 @@ import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.ByteArrayOutputStream;
 
@@ -123,6 +128,8 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                 case 1:
                     Toast.makeText(WXEntryActivity.this, mWxUser1.getMessage(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(WXEntryActivity.this, ShowActivity.class));
+//                    LoginActivity().finish();
+                    EventBus.getDefault().post(new FinishEvent(Constant.LOGINFNISH));
                     break;
                 case 2:
 
