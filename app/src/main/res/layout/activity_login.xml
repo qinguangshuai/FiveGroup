@@ -89,16 +89,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <CheckBox
-                android:id="@+id/remeberbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_35"
-                android:text="自动登录"
-                android:textColor="#fff"
-                android:textSize="@dimen/dp_15"
-                android:theme="@style/MyCheckBox" />
-
             <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

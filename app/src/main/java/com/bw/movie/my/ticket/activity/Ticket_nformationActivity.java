@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
 import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;

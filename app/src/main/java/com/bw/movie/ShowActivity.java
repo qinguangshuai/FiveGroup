@@ -26,6 +26,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
@@ -46,7 +48,7 @@ import butterknife.ButterKnife;
 /**
  * fragment联动
  */
-public class ShowActivity extends AppCompatActivity {
+public class ShowActivity extends BaseActivity {
 
 
     @BindView(R.id.showMap)
@@ -92,7 +94,7 @@ public class ShowActivity extends AppCompatActivity {
         aa.start();
     }
 
-    private void initData() {
+    public void initData() {
         film_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -164,7 +166,22 @@ public class ShowActivity extends AppCompatActivity {
         });
     }
 
-    private void initListener() {
+    @Override
+    public int initLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
+
+    public void initListener() {
 
         final List<Fragment> list = new ArrayList<>();
         list.add(new FilmFragment());
@@ -207,7 +224,7 @@ public class ShowActivity extends AppCompatActivity {
         });
     }
 
-    private void initView() {
+    public void initView() {
         vp_show = findViewById(R.id.vp_show);
         rg_show = (RadioGroup) findViewById(R.id.rg_show);
         film_show = (RadioButton) findViewById(R.id.film_show);
@@ -293,6 +310,5 @@ public class ShowActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
-
     }
 }

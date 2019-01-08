@@ -17,6 +17,7 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.AddressUser;
 import com.bw.movie.login.LoginActivity;
 
@@ -134,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 String street = aMapLocation.getStreet();//街道信息
                 String num = aMapLocation.getStreetNum();//街道门牌号信息
 
-                EventBus.getDefault().post(new AddressUser(mCity,mDis));
+                //EventBus.getDefault().post(new AddressUser(mCity,mDis));
+                BaseEvent.post(new AddressUser(mCity,mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 aMapLocation.getLatitude();//获取纬度

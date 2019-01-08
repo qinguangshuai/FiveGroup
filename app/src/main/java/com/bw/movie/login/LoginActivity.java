@@ -52,7 +52,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView<LoginUser> {
 
     @BindView(R.id.loginedit1)
@@ -71,8 +70,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     Button loginbtn;
     @BindView(R.id.loginimg)
     ImageView loginimg;
-    @BindView(R.id.remeberbox)
-    CheckBox mRemeberbox;
     private String mEdit1;
     private String mEdit2;
     private LoginPresenter presenter;
@@ -134,7 +131,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 finish();
             }
         });
-        setRemeberboxData();
+        //setRemeberboxData();
     }
 
     @Override
@@ -336,7 +333,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     }
 
-    //给按钮监听
+    /*//给按钮监听
     public void setRemeberboxData() {
         mRemeberbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -344,5 +341,5 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 loginbox.setChecked(mRemeberbox.isChecked());
             }
         });
-    }
+    }*/
 }

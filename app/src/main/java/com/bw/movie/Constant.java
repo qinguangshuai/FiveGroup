@@ -26,7 +26,6 @@ public interface Constant {
     String CINEMAID = "cinemaid";
     //点赞
     int MESSAGEID = 0x0000;
-
     String SEX = "sex";
     String EMAIL = "email";
     String HEADPIC = "headPic";
@@ -34,6 +33,4 @@ public interface Constant {
     String PHONE1 = "phone";
     //登录销毁
     int LOGINFNISH=0x0000;
-
-
 }
