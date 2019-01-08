@@ -11,7 +11,6 @@ import retrofit2.http.GET;
  * fileName:MyLatestService
  */
 public interface MyLatestService {
-    //http://172.17.8.100/movieApi/tool/v1/findNewVersion
     @GET("tool/v1/findNewVersion")
     Observable<MyLatestUser> getVersion();
 }

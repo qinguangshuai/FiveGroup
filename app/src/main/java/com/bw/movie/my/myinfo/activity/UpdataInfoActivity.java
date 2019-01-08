@@ -64,10 +64,8 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     private UpDateUserInfoPresenter presenter;
     private UpdateHeadPresenter headPresenter;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initView() {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         int sex1 = intent.getIntExtra("sex1", 0);
@@ -91,13 +89,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mMriqi.setText(df.format(gc.getTime()));
-
-
-    }
-
-    @Override
-    public void initView() {
-
     }
 
     @Override

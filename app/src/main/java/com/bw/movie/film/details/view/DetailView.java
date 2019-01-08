@@ -10,5 +10,4 @@ import com.bw.movie.film.details.bean.DetailBean;
  */
 public interface DetailView<T> extends IBaseView<DetailBean> {
 
-
 }

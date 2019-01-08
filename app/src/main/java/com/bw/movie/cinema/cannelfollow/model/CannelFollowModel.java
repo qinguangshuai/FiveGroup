@@ -2,6 +2,7 @@ package com.bw.movie.cinema.cannelfollow.model;
 
 import com.bw.movie.cinema.cannelfollow.service.CannelFollowService;
 import com.bw.movie.cinema.follow.bean.FollowBean;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -36,7 +37,7 @@ public class CannelFollowModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.d(e+"");
                     }
 
                     @Override

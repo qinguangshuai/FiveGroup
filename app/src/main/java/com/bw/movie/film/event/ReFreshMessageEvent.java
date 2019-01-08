@@ -1,5 +1,7 @@
 package com.bw.movie.film.event;
-
+/*
+* ReFreshMessageEvent
+* */
 public class ReFreshMessageEvent {
     private int MessageId;
 

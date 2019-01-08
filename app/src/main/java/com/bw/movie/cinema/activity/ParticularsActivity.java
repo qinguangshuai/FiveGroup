@@ -18,12 +18,14 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.Particulars.ParticularsAdapder;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 import com.bw.movie.cinema.mdetails.presenter.MdetailsPresenter;
 import com.bw.movie.cinema.mdetails.view.MdetailsView;
 import com.bw.movie.cinema.mevaluate.adapder.MevaluateAdapder;
+import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
@@ -71,44 +73,10 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setAdapter(particularsAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recylerviewPart.setLayoutManager(linearLayoutManager);
-       /* if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }*/
+
 
     }
-   /* @Subscribe
-    public void getCinemaId(CinameEvent cinameEvent) {
-        int cinemaId = cinameEvent.getCinemaId();
-        Log.e("zwl",cinemaId+"");
-       *//* new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
-            @Override
-            public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
 
-                List<MovieListByCinemaIdBean.ResultBean> result = movieListByCinemaIdBean.getResult();
-                particularsAdapder.Lunbo(result);
-                particularsAdapder.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onDataFailer(String msg) {
-            }
-
-            @Override
-            public void onShowLoading() {
-            }
-
-            @Override
-            public void onHideLoading() {
-            }
-        }).getMovieByBean(cinameEvent.getCinemaId());*//*
-    }
-*/
-   /* @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().register(this);
-    }
-*/
     @Override
     public void initListener() {
         //返回键的监听
@@ -147,7 +115,6 @@ public class ParticularsActivity extends BaseActivity {
 
                         mdetails_layout.setVisibility(View.GONE);
                         mevaluate_layout.setVisibility(View.VISIBLE);
-                        //  isModetails();
                     }
                 });
 
@@ -174,7 +141,7 @@ public class ParticularsActivity extends BaseActivity {
 
             @Override
             public void onDataSuccess(MevaluateBean mevaluateBean) {
-                List<MevaluateBean.ResultBean> result = mevaluateBean.getResult();
+                List<MevaResultBean> result = mevaluateBean.getResult();
                 MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
                 recyclerView.setAdapter(mevaluateAdapder);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
@@ -225,7 +192,7 @@ public class ParticularsActivity extends BaseActivity {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
 
-                    List<MovieListByCinemaIdBean.ResultBean> result = movieListByCinemaIdBean.getResult();
+                    List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();
                 }
@@ -247,7 +214,7 @@ public class ParticularsActivity extends BaseActivity {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
 
-                    List<MovieListByCinemaIdBean.ResultBean> result = movieListByCinemaIdBean.getResult();
+                    List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();
 

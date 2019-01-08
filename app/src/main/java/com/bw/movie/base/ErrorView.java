@@ -9,7 +9,7 @@ import com.bw.movie.R;
 
 /**
  * date:2019/1/6
- * author:刘鹏发 liu
+ * author:秦广帅
  * function
  */
 public class ErrorView extends LinearLayout {

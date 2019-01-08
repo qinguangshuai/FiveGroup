@@ -2,8 +2,11 @@ package com.bw.movie.my.message.model;
 
 
 
+import android.widget.Toast;
+
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.service.MyMessageService;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -32,7 +35,7 @@ public class MyMessageModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.d(e+"");
                     }
 
                     @Override

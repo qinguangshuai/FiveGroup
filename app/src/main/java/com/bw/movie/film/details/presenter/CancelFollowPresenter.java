@@ -13,7 +13,6 @@ import com.bw.movie.film.details.model.CancelFollowModel;
  */
 public class CancelFollowPresenter extends BasePresenter {
 
-
     private CancelFollowModel cancelFollowModel;
 
     public CancelFollowPresenter(IBaseView iBaseView) {
@@ -23,7 +22,7 @@ public class CancelFollowPresenter extends BasePresenter {
 
 
     //取消关注
-    public void getCancelFollowMovieBeanObservable(int can){
+    public void getCancelFollowMovieBeanObservable(int can) {
         cancelFollowModel.getCancelFollowMovieBeanObservable(can, new CancelFollowMovieCallBack() {
             @Override
             public void success(CancelFollowMovieBean cancelFollowMovieBean) {
@@ -36,9 +35,4 @@ public class CancelFollowPresenter extends BasePresenter {
             }
         });
     }
-
-
-
-
-
 }

@@ -9,6 +9,4 @@ import com.bw.movie.film.show.hot.bean.HotPlayBean;
  */public interface HotPlayCallBack {
      void success(HotPlayBean hotPlayBean);
      void error(String message);
-
-
 }

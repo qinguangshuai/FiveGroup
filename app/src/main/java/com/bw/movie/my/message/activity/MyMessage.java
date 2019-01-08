@@ -13,6 +13,7 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.bean.Portrait;
+import com.bw.movie.my.message.bean.ResultBean;
 import com.bw.movie.my.message.presenter.MyMessagePresenter;
 import com.bw.movie.my.message.view.MyMessageView;
 import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
@@ -48,7 +49,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     @BindView(R.id.my_update)
     Button mMyUpdate;
     private MyMessagePresenter presenter;
-    private MyMessageEntity.ResultBean result;
+//    private MyMessageEntity.ResultBean result;
     private int sex1;
     private String email;
     private String headPic;
@@ -56,6 +57,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     private String phone1;
     private long browseTime;
     private String s;
+    private ResultBean result;
 
 
     @Override
@@ -102,12 +104,12 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     public void onDataSuccess(MyMessageEntity myMessageEntity) {
 
         result = myMessageEntity.getResult();
-        email = result.getEmail();
-        headPic = result.getHeadPic();
-        int id = result.getId();
-        nickName = result.getNickName();
-        phone1 = result.getPhone();
-        sex1 = result.getSex();
+        email = this.result.getEmail();
+        headPic = this.result.getHeadPic();
+        int id = this.result.getId();
+        nickName = this.result.getNickName();
+        phone1 = this.result.getPhone();
+        sex1 = this.result.getSex();
 
 
 
@@ -124,7 +126,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         mTxtMyinfoNikename.setText(nickName);
 
 
-        browseTime = result.getBirthday();
+        browseTime = this.result.getBirthday();
         GregorianCalendar gc = new GregorianCalendar();
         s = String.valueOf(browseTime);
         gc.setTimeInMillis(Long.parseLong(s));

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BasePresenter;
 import com.bw.movie.start.fragment.LeadFourFragment;
 import com.bw.movie.start.fragment.LeadOneFragment;
 import com.bw.movie.start.fragment.LeadThreeFragment;
@@ -23,16 +25,28 @@ import java.util.ArrayList;
  * 启动页
  */
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 
     private static ViewPager pager;
     private RadioGroup rg;
 
+    public static void Tiaozhuan2(){
+        pager.setCurrentItem(1);
+    }
+    public static void Tiaozhuan3(){
+        pager.setCurrentItem(2);
+    }
+    public static void Tiaozhuan4(){
+        pager.setCurrentItem(3);
+    }
+
+    public void initView() {
+        pager = findViewById(R.id.startpager);
+        rg = findViewById(R.id.startrg);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        initView();
+    public void initListener() {
         final ArrayList<Fragment> list = new ArrayList<>();
         list.add(new LeadOneFragment());
         list.add(new LeadTwoFragment());
@@ -90,18 +104,23 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    public static void Tiaozhuan2(){
-        pager.setCurrentItem(1);
-    }
-    public static void Tiaozhuan3(){
-        pager.setCurrentItem(2);
-    }
-    public static void Tiaozhuan4(){
-        pager.setCurrentItem(3);
+    @Override
+    public void initData() {
+
     }
 
-    private void initView() {
-        pager = findViewById(R.id.startpager);
-        rg = findViewById(R.id.startrg);
+    @Override
+    public int initLayoutId() {
+        return R.layout.activity_start;
+    }
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 }

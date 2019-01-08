@@ -44,7 +44,6 @@ public class UpdatePwdActivity extends BaseActivity<UpdatePwdPresenter> implemen
         ButterKnife.bind(this);
 
         pwdPresenter = new UpdatePwdPresenter(this);
-
         String pwd = SpUtil.getString("pwd", "");
         mUpdateOldpwd.setText(pwd);
 

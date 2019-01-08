@@ -105,27 +105,6 @@ import com.bw.movie.R;
             }
         });
 
-        /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                *//*判断是否是“搜索”键*//*
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                    String key = editText.getText().toString().trim();
-                    if(TextUtils.isEmpty(key)){
-                        Toast.makeText(context,"请输入您想要搜索的地址",Toast.LENGTH_SHORT).show();
-                        return true;
-                    }else {
-
-                    }
-                    //  下面就是大家的业务逻辑
-                    //searchPoi(key);
-                    //  这里记得一定要将键盘隐藏了
-                    //hideKeyBoard();
-                    return true;
-                }
-                return false;
-            }
-        });*/
     }
 
 

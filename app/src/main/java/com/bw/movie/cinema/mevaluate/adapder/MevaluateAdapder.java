@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -23,10 +24,10 @@ import java.util.List;
  * fileName:MevaluateAdapder
  */
 public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.MevaulateteViewHolder> {
-    private List<MevaluateBean.ResultBean> list;
+    private List<MevaResultBean> list;
     private Context mContext;
 
-    public MevaluateAdapder(List<MevaluateBean.ResultBean> list, Context mContext) {
+    public MevaluateAdapder(List<MevaResultBean> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
     }

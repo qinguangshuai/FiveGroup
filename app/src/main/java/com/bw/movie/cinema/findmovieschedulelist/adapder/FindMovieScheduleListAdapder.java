@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
+import com.bw.movie.cinema.findmovieschedulelist.bean.FindResultBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,9 @@ import java.util.List;
  */
 public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovieScheduleListAdapder.FindMovieScheduleListViewHolder> {
 
+    private List<FindResultBean> resultBeans = new ArrayList<>();
 
-
-    private List<FindMovieScheduleListBean.ResultBean> resultBeans = new ArrayList<>();
-
-    public void setResultBeans(List<FindMovieScheduleListBean.ResultBean> resultBeans) {
+    public void setResultBeans(List<FindResultBean> resultBeans) {
 
         if (this.resultBeans != null && this.resultBeans.size() > 0) {
             this.resultBeans.clear();
@@ -48,13 +47,6 @@ public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovie
         findMovieScheduleListViewHolder.textViewmovepull.setText(resultBeans.get(i).getScreeningHall());
         findMovieScheduleListViewHolder.textViewovetime.setText(resultBeans.get(i).getEndTime());
         findMovieScheduleListViewHolder.textViewprice.setText(resultBeans.get(i).getPrice() + "");
-      /*  findMovieScheduleListViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyApp.context,SeatSelectionActivity.class);
-                MyApp.context.startActivity(intent);
-            }
-        });*/
     }
 
     @Override

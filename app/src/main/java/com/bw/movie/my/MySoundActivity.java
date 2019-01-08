@@ -21,6 +21,7 @@ import com.bw.movie.my.mysound.MySoundAdapter;
 import com.bw.movie.my.mysound.MySoundPresenter;
 import com.bw.movie.my.mysound.MySoundUser;
 import com.bw.movie.my.mysound.MySoundView;
+import com.bw.movie.my.mysound.ResultBean;
 import com.bw.movie.my.mysound.UpdateSoundPresenter;
 import com.bw.movie.my.mysound.UpdateSoundUser;
 import com.bw.movie.my.mysound.UpdateSoundView;
@@ -51,11 +52,12 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @BindView(R.id.soundimage)
     ImageView soundimage;
     private MySoundPresenter mMySoundPresenter;
-    private List<MySoundUser.ResultBean> mList;
+//    private List<MySoundUser.ResultBean> mList;
     private int mCount;
     private int mId;
     private int page = 1;
     private MySoundAdapter mMySoundAdapter;
+    private List<ResultBean> mList;
 
 
     @Override
@@ -98,7 +100,6 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             @Override
             public void onDataSuccess(XiSoundUser xiSoundUser) {
                 mCount = xiSoundUser.getCount();
-                //Toast.makeText(MySoundActivity.this,xiSoundUser.getCount()+"",Toast.LENGTH_SHORT).show();
                 soundtext.setText("系统消息  ("+mCount+"条未读"+")");
             }
 

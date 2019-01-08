@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
+import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attention.adapter.AttFilmAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -25,9 +26,9 @@ import java.util.List;
 public class AttCinemaAdapter extends RecyclerView.Adapter<AttCinemaAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<AttCinemaUser.ResultBean> mList;
+    private List<ResultBean> mList;;
 
-    public AttCinemaAdapter(Context context, List<AttCinemaUser.ResultBean> list) {
+    public AttCinemaAdapter(Context context, List<ResultBean> list) {
         mContext = context;
         mList = list;
     }
@@ -42,7 +43,7 @@ public class AttCinemaAdapter extends RecyclerView.Adapter<AttCinemaAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        AttCinemaUser.ResultBean bean = mList.get(i);
+         ResultBean bean = mList.get(i);
 
         String logo = bean.getLogo();
         if (logo==null){

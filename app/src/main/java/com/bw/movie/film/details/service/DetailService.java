@@ -16,10 +16,4 @@ public interface DetailService {
     //通过ID 查找 电影详情页面
     @GET("movie/v1/findMoviesDetail")
     Observable<DetailBean> getDetailBeanObservable(@Query("movieId") int movieId);
-
-
-
-
-
-
 }

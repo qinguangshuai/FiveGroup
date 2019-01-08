@@ -13,7 +13,6 @@ import retrofit2.http.POST;
  * fileName:RegisteSrevice
  */
 public interface RegisteSrevice {
-    //注册http://172.17.8.100/movieApi/user/v1/registerUser
     @POST("user/v1/registerUser")
     @FormUrlEncoded
     Observable<RegisteUser> postRegiste(@Field("nickName") String nickName, @Field("phone") String phone, @Field("pwd") String pwd, @Field("pwd2") String pwd2, @Field("sex") int sex, @Field("birthday") String birthday, @Field("imei") String imei, @Field("ua") String ua, @Field("screenSize") String screenSize, @Field("os") String os, @Field("email") String email);

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
+import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
 import com.bw.movie.my.ticket.view.TicketformationView;
@@ -34,6 +35,7 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
     ImageView myTicket;
     private TicketformationPresenter presenter;
     private int page = 1;
+    private List<ResultBean> result;
 
     @Override
     public void initView() {
@@ -99,17 +101,12 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
     @Override
     public void onDataSuccess(final TicketFoemationEntity ticketFoemationEntity) {
-        List<TicketFoemationEntity.ResultBean> result = ticketFoemationEntity.getResult();
+        result = ticketFoemationEntity.getResult();
         mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
         TicketInforAdapter inforAdapter = new TicketInforAdapter(result, this);
         inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
             @Override
             public void click(View view, int position) {
-              /*  Intent intent = new Intent(Ticket_nformationActivity.this,SeatSelectionActivity.class);
-                intent.putExtra(Constant.PARTID,ticketFoemationEntity.getResult().get(0).getPrice()+"");
-                intent.putExtra(Constant.PARTNAME,ticketFoemationEntity.getResult().get(0).getScreeningHall());
-                intent.putExtra(Constant.CINEMAID,ticketFoemationEntity.getResult().get(0).getId());
-                startActivity(intent);*/
                 new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
 
                     @Override
@@ -137,7 +134,6 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
             }
         });
         mTicketRecycler.setAdapter(inforAdapter);
-        //Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override

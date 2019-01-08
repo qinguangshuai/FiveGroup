@@ -5,7 +5,7 @@ import com.bw.movie.film.cinema.bean.CinemaBean;
 /*
  *作者:ash
  *TODO:
- *
+ *CinemaCallBack
  */
 public interface CinemaCallBack {
     void success(CinemaBean cinemaBean);

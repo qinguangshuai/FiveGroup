@@ -50,7 +50,6 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             toast.Toast("没有更多了");
         }
         this.hotresult.addAll(hotresult);
-
     }
 
 
@@ -90,9 +89,6 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.itemView.getContext().startActivity(intent);
             }
         });
-
-
-
     }
 
     @Override
@@ -108,9 +104,6 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private class Hodler extends RecyclerView.ViewHolder {
         public Hodler(View view) {
             super(view);
-
-
-
         }
     }
 }//----------|正在热映适配器结束|----------

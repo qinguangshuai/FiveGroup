@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ import java.util.List;
  * fileName:PartCoverFlowAdapder
  */
 public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdapder.CoverFlowViewHolder> {
-    private List<MovieListByCinemaIdBean.ResultBean> list;
+    private List<MovieResultBean> list;
     private Context mContext;
     private  int p;
 
@@ -32,7 +33,7 @@ public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdap
         return p;
     }
 
-    public PartCoverFlowAdapder(List<MovieListByCinemaIdBean.ResultBean> list, Context mContext) {
+    public PartCoverFlowAdapder(List<MovieResultBean> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
     }

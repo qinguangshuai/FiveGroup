@@ -37,10 +37,6 @@ public class HotPlayBean implements Serializable {
         this.result = result;
     }
 
-
-
-
-
     public  class ResultBean {
         private int followMovie;
         private int id;

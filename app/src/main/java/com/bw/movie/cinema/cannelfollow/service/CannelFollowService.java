@@ -12,9 +12,6 @@ import retrofit2.http.Query;
  * fileName:CannelFollowService
  */
 public interface CannelFollowService {
-
-
-
     @GET("cinema/v1/verify/cancelFollowCinema")
     Observable<FollowBean> getCannelFollow(@Query("cinemaId") int cinemaId);
 }

@@ -4,6 +4,7 @@ import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.service.AttCinemaService;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.service.AttFilmService;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -34,7 +35,7 @@ public class AttFilmModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.d(e+"");
                     }
 
                     @Override

@@ -10,7 +10,6 @@ import retrofit2.http.POST;
 
 public interface XinService {
 
-    //信鸽http://172.17.8.100/movieApi/tool/v1/verify/uploadPushToken
     @POST("tool/v1/verify/uploadPushToken")
     @FormUrlEncoded
     Observable<XinUser> getXinGe(@Field("token") String token, @Field("os") int os);
