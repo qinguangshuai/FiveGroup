@@ -318,13 +318,6 @@ public class ShowActivity extends AppCompatActivity implements LocationSource, A
         }
     }
 
-
-
-
-
-
-
-
     //权限申请
     public void doPermission(){
         //版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取

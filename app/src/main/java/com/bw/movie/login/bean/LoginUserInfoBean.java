@@ -6,4 +6,5 @@ package com.bw.movie.login.bean;
  * fileName:LoginUserInfoBean
  */
 public class LoginUserInfoBean {
+
 }
