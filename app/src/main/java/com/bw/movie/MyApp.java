@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.bw.movie.error.UnCatchExceptionHandler;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 import com.bw.movie.util.SpUtil;
 import com.facebook.cache.disk.DiskCacheConfig;
@@ -23,13 +24,13 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  *
  */public class MyApp extends Application {
 
-     public static Context context;
+    public static Context context;
     private IWXAPI wxApi;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this ;
+        context = this;
         OkHttpUtil.init();
         Fresco.initialize(this);
 
@@ -42,18 +43,22 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
                 .setMainDiskCacheConfig(build)
                 .build();
-        Fresco.initialize(this,config);
+        Fresco.initialize(this, config);
         //捕获全局异常
         UnCatchExceptionHandler.getmExceptionHandler().init(this);
+        LogUtil.init();
+        initXG();
+        initWX();
+    }
 
-        XGPushConfig.enableDebug(this,true);
+    private void initXG() {
+        XGPushConfig.enableDebug(this, true);
         XGPushConfig.enableOtherPush(getApplicationContext(), true);
         XGPushConfig.setHuaweiDebug(true);
         XGPushConfig.setMiPushAppId(getApplicationContext(), "d71d384497c51");
         XGPushConfig.setMiPushAppKey(getApplicationContext(), "A44FJ9N7N9EY");
         XGPushConfig.setMzPushAppId(this, "d71d384497c51");
         XGPushConfig.setMzPushAppKey(this, "A44FJ9N7N9EY");
-        initWX();
     }
 
     /**

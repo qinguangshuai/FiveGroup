@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
@@ -21,6 +21,10 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
+import com.bw.movie.cinema.good.bean.GoodBean;
+import com.bw.movie.cinema.good.event.GoodEvent;
+import com.bw.movie.cinema.good.presenter.GoodPresenter;
+import com.bw.movie.cinema.good.view.GoodView;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 import com.bw.movie.cinema.mdetails.presenter.MdetailsPresenter;
 import com.bw.movie.cinema.mdetails.view.MdetailsView;
@@ -29,7 +33,6 @@ import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
-import com.bw.movie.cinema.search.event.CinameEvent;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,12 +65,16 @@ public class ParticularsActivity extends BaseActivity {
     LinearLayout detailedinformation;
     private ParticularsAdapder particularsAdapder;
     private int i;
+    private List<MevaResultBean> result;
 
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         List<String> list = new ArrayList<>();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         particularsAdapder = new ParticularsAdapder(this, list);
         recylerviewPart.setAdapter(particularsAdapder);
@@ -90,62 +97,132 @@ public class ParticularsActivity extends BaseActivity {
         detailedinformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = View.inflate(ParticularsActivity.this, R.layout.detailedinformation_popu, null);
-                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                ImageView mdowm_detaildin = view.findViewById(R.id.dowm_detaildin);
-                popupWindow.showAsDropDown(v, 150, 150);
-                RadioButton mevaluate_detaildin = view.findViewById(R.id.evaluate_detaildin);
-                RadioButton mdetails_detaildin = view.findViewById(R.id.details_detaildin);
-                final LinearLayout mdetails_layout = view.findViewById(R.id.details_layout);
-                final LinearLayout mevaluate_layout = view.findViewById(R.id.evaluate_layout);
-                TextView textViewTool = view.findViewById(R.id.toll);
-                TextView textViewTooltou = view.findViewById(R.id.tolltou);
-                TextView textViewMetro = view.findViewById(R.id.metro);
-                TextView textViewMetrotou = view.findViewById(R.id.metrotou);
-                TextView textViewBus = view.findViewById(R.id.bus);
-                TextView textViewBustou = view.findViewById(R.id.bustou);
-                TextView textViewTelephone = view.findViewById(R.id.telephone);
-                TextView address = view.findViewById(R.id.address);
-                RecyclerView recyclerView = view.findViewById(R.id.MecaluateRecy);
-                isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address,textViewTooltou,textViewMetrotou,textViewBustou);
-                getMevaluate(recyclerView);
-                mdetails_detaildin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        mdetails_layout.setVisibility(View.GONE);
-                        mevaluate_layout.setVisibility(View.VISIBLE);
-                    }
-                });
-
-                mevaluate_detaildin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mdetails_layout.setVisibility(View.VISIBLE);
-                        mevaluate_layout.setVisibility(View.GONE);
-                    }
-                });
-
-                mdowm_detaildin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        popupWindow.dismiss();
-                    }
-                });
+                getPopup(v);
             }
         });
     }
+
+    public void getPopup(View v) {
+        View view = View.inflate(ParticularsActivity.this, R.layout.detailedinformation_popu, null);
+        final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        ImageView mdowm_detaildin = view.findViewById(R.id.dowm_detaildin);
+        popupWindow.showAsDropDown(v, 150, 150);
+        RadioButton mevaluate_detaildin = view.findViewById(R.id.evaluate_detaildin);
+        RadioButton mdetails_detaildin = view.findViewById(R.id.details_detaildin);
+        final LinearLayout mdetails_layout = view.findViewById(R.id.details_layout);
+        final LinearLayout mevaluate_layout = view.findViewById(R.id.evaluate_layout);
+        TextView textViewTool = view.findViewById(R.id.toll);
+        TextView textViewTooltou = view.findViewById(R.id.tolltou);
+        TextView textViewMetro = view.findViewById(R.id.metro);
+        TextView textViewMetrotou = view.findViewById(R.id.metrotou);
+        TextView textViewBus = view.findViewById(R.id.bus);
+        TextView textViewBustou = view.findViewById(R.id.bustou);
+        TextView textViewTelephone = view.findViewById(R.id.telephone);
+        TextView address = view.findViewById(R.id.address);
+        RecyclerView recyclerView = view.findViewById(R.id.MecaluateRecy);
+        isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou);
+        getMevaluate(recyclerView);
+        mdetails_detaildin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mdetails_layout.setVisibility(View.GONE);
+                mevaluate_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mevaluate_detaildin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mdetails_layout.setVisibility(View.VISIBLE);
+                mevaluate_layout.setVisibility(View.GONE);
+            }
+        });
+
+        mdowm_detaildin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+
+    //点赞
+    @Subscribe
+    public void onSetGood(final com.bw.movie.cinema.event.GoodEvent goodEvent) {
+        if (goodEvent.isChecked()) {
+            new GoodPresenter(new GoodView<GoodBean>() {
+
+                @Override
+                public void onDataSuccess(GoodBean goodBean) {
+                    Toast.makeText(ParticularsActivity.this, goodBean.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (goodBean.getMessage().contains("成功")) {
+                        goodEvent.getmCheckBox().setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
+
+                    }
+                }
+
+                @Override
+                public void onDataFailer(String msg) {
+
+                }
+
+                @Override
+                public void onShowLoading() {
+
+                }
+
+                @Override
+                public void onHideLoading() {
+
+                }
+            }).getGodos(result.get(goodEvent.getIndex()).getCommentId());
+        } else {
+            new GoodPresenter(new GoodView<GoodBean>() {
+
+                @Override
+                public void onDataSuccess(GoodBean goodBean) {
+                    Toast.makeText(ParticularsActivity.this, goodBean.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (goodBean.getMessage().contains("成功")){
+                        goodEvent.getmCheckBox().setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
+                    }
+                }
+
+                @Override
+                public void onDataFailer(String msg) {
+
+                }
+
+                @Override
+                public void onShowLoading() {
+
+                }
+
+                @Override
+                public void onHideLoading() {
+
+                }
+            }).getGodos(result.get(goodEvent.getIndex()).getCommentId());
+        }
+    }
+
 
     public void getMevaluate(final RecyclerView recyclerView) {
         new MevaluatePresenter(new MevaluateView<MevaluateBean>() {
 
             @Override
-            public void onDataSuccess(MevaluateBean mevaluateBean) {
-                List<MevaResultBean> result = mevaluateBean.getResult();
-                MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
-                recyclerView.setAdapter(mevaluateAdapder);
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
-                recyclerView.setLayoutManager(linearLayoutManager);
+            public void onDataSuccess(final MevaluateBean mevaluateBean) {
+                if (mevaluateBean.getMessage().contains("成功")) {
+                    result = mevaluateBean.getResult();
+                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
+                    recyclerView.setAdapter(mevaluateAdapder);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+
+                }
+
+
             }
 
             @Override
@@ -173,7 +250,7 @@ public class ParticularsActivity extends BaseActivity {
         String paricularstaddress = intent.getStringExtra(Constant.ADDRESS);
         String stringExtra = intent.getStringExtra(Constant.TUIJIANID);
 
-            i = Integer.valueOf(stringExtra);
+        i = Integer.valueOf(stringExtra);
 
         partimage.setImageURI(Uri.parse(paricularstlogo));
         partname.setText(paricularstname);
@@ -244,13 +321,13 @@ public class ParticularsActivity extends BaseActivity {
 
                 String vehicleRoute = mdetailsBean.getResult().getVehicleRoute();
                 String[] split = vehicleRoute.split("。");
-                if (split.length==1) {
+                if (split.length == 1) {
                     textViewBus.setText(split[0]);
                     telephone.setText(mdetailsBean.getResult().getPhone());
                     address.setText(mdetailsBean.getResult().getAddress());
                     viewTool.setVisibility(View.GONE);
                     viewMetro.setVisibility(View.GONE);
-                }else{
+                } else {
                     telephone.setText(mdetailsBean.getResult().getPhone());
                     address.setText(mdetailsBean.getResult().getAddress());
                     textViewBus.setText(split[1]);
@@ -292,5 +369,12 @@ public class ParticularsActivity extends BaseActivity {
     public BasePresenter initPresenter() {
 
         return null;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

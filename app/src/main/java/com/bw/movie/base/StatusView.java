@@ -27,9 +27,9 @@ public class StatusView extends FrameLayout {
     private ViewStub emptySub;
     private View.OnClickListener onRetryClickListener;
 
-    private int loading_layout_id=-1;
-    private int error_layout_id=-1;
-    private int empty_layout_id=-1;
+    private int loading_layout_id = -1;
+    private int error_layout_id = -1;
+    private int empty_layout_id = -1;
 
     private StatusView(Context context, Builder builder) {
         super(context);
@@ -37,23 +37,22 @@ public class StatusView extends FrameLayout {
             throw new NullPointerException("contView cant be null");
         }
         this.contentView = builder.contentView;
-        error_layout_id=builder.error_layout_id;
-        empty_layout_id=builder.empty_layout_id;
-        loading_layout_id=builder.loading_layout_id;
-        onRetryClickListener=builder.onRetryClickListener;
+        error_layout_id = builder.error_layout_id;
+        empty_layout_id = builder.empty_layout_id;
+        loading_layout_id = builder.loading_layout_id;
+        onRetryClickListener = builder.onRetryClickListener;
         init(context);
     }
 
     private void init(Context context) {
-        loadingSub=new ViewStub(context);
-        errorSub=new ViewStub(context);
-        emptySub=new ViewStub(context);
+        loadingSub = new ViewStub(context);
+        errorSub = new ViewStub(context);
+        emptySub = new ViewStub(context);
         addView(loadingSub);
         addView(errorSub);
         addView(emptySub);
         addView(contentView);
     }
-
 
     public void showLoading() {
         changeStatus(status_loading);
@@ -90,11 +89,11 @@ public class StatusView extends FrameLayout {
                 empityView.setVisibility(VISIBLE);
                 break;
             case status_error:
-                errorView=getErrorView();
+                errorView = getErrorView();
                 errorView.setVisibility(VISIBLE);
                 break;
             case status_loading:
-                loadingView=getLoadingView();
+                loadingView = getLoadingView();
                 loadingView.setVisibility(VISIBLE);
                 break;
             case status_normal:
@@ -105,7 +104,7 @@ public class StatusView extends FrameLayout {
 
     private View getEmpityView() {
         if (empityView == null) {
-            emptySub.setLayoutResource(empty_layout_id==-1?R.layout.layout_empity:empty_layout_id);
+            emptySub.setLayoutResource(empty_layout_id == -1 ? R.layout.layout_empity : empty_layout_id);
             empityView = emptySub.inflate();
             if (onRetryClickListener != null) {
                 empityView.setOnClickListener(onRetryClickListener);
@@ -116,17 +115,15 @@ public class StatusView extends FrameLayout {
 
     public View getLoadingView() {
         if (loadingView == null) {
-            loadingSub.setLayoutResource(loading_layout_id==-1?R.layout.layout_loading:loading_layout_id);
+            loadingSub.setLayoutResource(loading_layout_id == -1 ? R.layout.layout_loading : loading_layout_id);
             loadingView = loadingSub.inflate();
         }
         return loadingView;
     }
 
-
-
     public View getErrorView() {
         if (errorView == null) {
-            errorSub.setLayoutResource(error_layout_id==-1?R.layout.layout_error:error_layout_id);
+            errorSub.setLayoutResource(error_layout_id == -1 ? R.layout.layout_error : error_layout_id);
             errorView = errorSub.inflate();
             if (onRetryClickListener != null) {
                 errorView.setOnClickListener(onRetryClickListener);
@@ -135,11 +132,10 @@ public class StatusView extends FrameLayout {
         return errorView;
     }
 
-
-    public static class Builder{
-        private int loading_layout_id=-1;
-        private int error_layout_id=-1;
-        private int empty_layout_id=-1;
+    public static class Builder {
+        private int loading_layout_id = -1;
+        private int error_layout_id = -1;
+        private int empty_layout_id = -1;
         private View.OnClickListener onRetryClickListener;
         private Context context;
         private View contentView;
@@ -148,16 +144,18 @@ public class StatusView extends FrameLayout {
             this.context = context;
         }
 
-        public Builder loadingId(int loadingId){
-            loading_layout_id=loadingId;
+        public Builder loadingId(int loadingId) {
+            loading_layout_id = loadingId;
             return this;
         }
-        public Builder erroryId(int erroryId){
-            error_layout_id=erroryId;
+
+        public Builder erroryId(int erroryId) {
+            error_layout_id = erroryId;
             return this;
         }
-        public Builder emptyId(int emptyId){
-            empty_layout_id=emptyId;
+
+        public Builder emptyId(int emptyId) {
+            empty_layout_id = emptyId;
             return this;
         }
 
@@ -171,8 +169,8 @@ public class StatusView extends FrameLayout {
             return this;
         }
 
-        public StatusView build(){
-            return new StatusView(context,this);
+        public StatusView build() {
+            return new StatusView(context, this);
         }
     }
 }

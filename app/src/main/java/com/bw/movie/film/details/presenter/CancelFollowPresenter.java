@@ -3,8 +3,8 @@ package com.bw.movie.film.details.presenter;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
-import com.bw.movie.film.details.callback.CancelFollowMovieCallBack;
 import com.bw.movie.film.details.model.CancelFollowModel;
+import com.bw.movie.util.HttpCallBack;
 
 /*
  *作者:ash
@@ -23,15 +23,15 @@ public class CancelFollowPresenter extends BasePresenter {
 
     //取消关注
     public void getCancelFollowMovieBeanObservable(int can) {
-        cancelFollowModel.getCancelFollowMovieBeanObservable(can, new CancelFollowMovieCallBack() {
+        cancelFollowModel.getCancelFollowMovieBeanObservable(can, new HttpCallBack<CancelFollowMovieBean>() {
             @Override
-            public void success(CancelFollowMovieBean cancelFollowMovieBean) {
-                getiBaseView().onDataSuccess(cancelFollowMovieBean);
+            public void onSuccess(CancelFollowMovieBean name) {
+                getiBaseView().onDataSuccess(name);
             }
 
             @Override
-            public void error(String s) {
-                getiBaseView().onDataFailer(s);
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

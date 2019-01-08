@@ -1,10 +1,8 @@
 package com.bw.movie.login.model;
 
-import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.bean.XinUser;
-import com.bw.movie.login.service.LoginService;
 import com.bw.movie.login.service.XinService;
-import com.bw.movie.my.mysound.XiSoundModel;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -18,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:LoginModel
  */
 public class XinModel {
-    public void getXinGe(String token, int os, final HttpXinGe httpXi) {
+    public void getXinGe(String token, int os, final HttpCallBack<XinUser> httpCallBack) {
         OkHttpUtil.get().createa(XinService.class).getXinGe(token, os)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -30,12 +28,12 @@ public class XinModel {
 
                     @Override
                     public void onNext(XinUser xinUser) {
-                        httpXi.thisLogin(xinUser);
+                        httpCallBack.onSuccess(xinUser);
                     }
 
                     @Override
-                        public void onError(Throwable e) {
-
+                    public void onError(Throwable e) {
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -45,8 +43,5 @@ public class XinModel {
                 });
     }
 
-    public interface HttpXinGe {
-        void thisLogin(XinUser xinUser);
-    }
 
 }

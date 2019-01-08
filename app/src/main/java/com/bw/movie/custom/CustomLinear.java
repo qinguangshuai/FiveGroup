@@ -14,7 +14,6 @@ import com.bw.movie.R;
  *
  */public class CustomLinear extends LinearLayout {
 
-
     public CustomLinear(Context context) {
         this(context,null);
     }
@@ -28,17 +27,13 @@ import com.bw.movie.R;
         View view = View.inflate(context, R.layout.customlinear, this);
     }
 
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-
-
 }

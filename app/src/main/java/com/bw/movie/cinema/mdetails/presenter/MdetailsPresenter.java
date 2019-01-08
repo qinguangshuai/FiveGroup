@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 import com.bw.movie.cinema.mdetails.model.MdetailsModel;
+import com.bw.movie.util.HttpCallBack;
 
 /**
  * date:2018/12/28    18:33
@@ -11,17 +12,24 @@ import com.bw.movie.cinema.mdetails.model.MdetailsModel;
  * fileName:MdetailsPresenter(影院详情)
  */
 public class MdetailsPresenter extends BasePresenter {
+
     private MdetailsModel mdetailsModel;
 
     public MdetailsPresenter(IBaseView iBaseView) {
         super(iBaseView);
         mdetailsModel = new MdetailsModel();
     }
-    public void getMdetails(int cinemaId){
-        mdetailsModel.getMdetails(cinemaId, new MdetailsModel.isMdetails() {
+
+    public void getMdetails(int cinemaId) {
+        mdetailsModel.getMdetails(cinemaId, new HttpCallBack<MdetailsBean>() {
             @Override
-            public void getMdetails(MdetailsBean mdetailsBean) {
-                getiBaseView().onDataSuccess(mdetailsBean);
+            public void onSuccess(MdetailsBean name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.bw.movie.my.mysound;
 
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:MySoundModel
  */
 public class MySoundModel {
-    public void getSound(int page,final HttpSound httpSound){
+    public void getSound(int page, final HttpCallBack<MySoundUser> httpCallBack) {
         OkHttpUtil.get().createa(MySoundService.class).getSound(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -27,12 +28,12 @@ public class MySoundModel {
 
                     @Override
                     public void onNext(MySoundUser mySoundUser) {
-                        httpSound.getSuccess(mySoundUser);
+                        httpCallBack.onSuccess(mySoundUser);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -42,7 +43,4 @@ public class MySoundModel {
                 });
     }
 
-    public interface HttpSound{
-        void getSuccess(MySoundUser mySoundUser);
-    }
 }

@@ -6,6 +6,7 @@ package com.bw.movie.cinema.event;
  * fileName:SeatEvent
  */
 public class SeatEvent {
+
     private int id;
 
     public SeatEvent(int id) {

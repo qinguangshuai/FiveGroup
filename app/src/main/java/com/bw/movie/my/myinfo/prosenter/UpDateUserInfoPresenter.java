@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.myinfo.bean.UpDateUserInfoEntity;
 import com.bw.movie.my.myinfo.model.UpDateUserInfoModel;
 import com.bw.movie.my.myinfo.view.UpDateUserInfoView;
+import com.bw.movie.util.HttpCallBack;
 
 /*
  *  修改用户信息presenter层
@@ -13,15 +14,19 @@ public class UpDateUserInfoPresenter extends BasePresenter<UpDateUserInfoView> {
 
     public UpDateUserInfoPresenter(UpDateUserInfoView iBaseView) {
         super(iBaseView);
-        model=new UpDateUserInfoModel();
+        model = new UpDateUserInfoModel();
     }
 
-    public void getUserInfo(String nickName,int sex,String email)
-    {
-        model.getUserInfo(nickName, sex, email, new UpDateUserInfoModel.getUserInterface() {
+    public void getUserInfo(String nickName, int sex, String email) {
+        model.getUserInfo(nickName, sex, email, new HttpCallBack<UpDateUserInfoEntity>() {
             @Override
-            public void getUserInfo(UpDateUserInfoEntity upDateUserInfoEntity) {
-                getiBaseView().onDataSuccess(upDateUserInfoEntity);
+            public void onSuccess(UpDateUserInfoEntity name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

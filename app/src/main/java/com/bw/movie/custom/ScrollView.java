@@ -17,7 +17,6 @@ import com.bw.movie.R;
  *
  */public class ScrollView extends LinearLayout {
 
-
     private CheckBox checkBox;
 
     public void onChecked(){
@@ -35,9 +34,7 @@ import com.bw.movie.R;
     public ScrollView(Context context,  AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customscrollview, this);
-
         checkBox = view.findViewById(R.id.customscrollbar);
-
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -50,10 +47,6 @@ import com.bw.movie.R;
                 set.start();
             }
         });
-
-
-
-
     }
 
     @Override
@@ -65,7 +58,4 @@ import com.bw.movie.R;
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-
-
-
 }

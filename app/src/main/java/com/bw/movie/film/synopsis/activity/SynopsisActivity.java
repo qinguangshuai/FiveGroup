@@ -170,11 +170,11 @@ public class SynopsisActivity extends BaseActivity {
             public void onDataSuccess(PraiseBean praiseBean) {
                 toast.Toast(praiseBean.getMessage());
                 if (praiseBean.getMessage().equals("点赞成功")) {
-                    praiseEvent.getRadioButton().setText((praiseEvent.getNum()+1)+"");
+                    praiseEvent.getRadioButton().setText((praiseEvent.getNum() + 1) + "");
 //                    mPopupWindow4Adapter.notifyDataSetChanged();
-                }else if(praiseBean.getMessage().equals("不能重复点赞")){
+                } else if (praiseBean.getMessage().equals("不能重复点赞")) {
 
-                }else {
+                } else {
 
                 }
             }
@@ -433,7 +433,7 @@ public class SynopsisActivity extends BaseActivity {
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mPopupWindow4Adapter);
 
         mPopupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
@@ -449,45 +449,7 @@ public class SynopsisActivity extends BaseActivity {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(SynopsisActivity.this);
-                        View view = View.inflate(SynopsisActivity.this, R.layout.alertdialogitem, null);
-                        builder.setView(view);
-                        final AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                        final EditText Inputcomments = view.findViewById(R.id.inputcomments);
-                        TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
-                        SendInputcomments.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final String trim = Inputcomments.getText().toString().trim();
-                                if (TextUtils.isEmpty(trim)) {
-                                    Toast.makeText(SynopsisActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    new SynopsisPresenter(new InputcommentsView<InputcommentsBean>() {
-                                        @Override
-                                        public void onDataSuccess(InputcommentsBean inputcommentsBean) {
-                                            Toast.makeText(SynopsisActivity.this, inputcommentsBean.getMessage(), Toast.LENGTH_SHORT).show();
-                                            if (inputcommentsBean.getMessage().contains("成功")) {
-                                                getCommentData(id, 1, 10);
-                                                alertDialog.dismiss();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onDataFailer(String msg) {
-                                        }
-
-                                        @Override
-                                        public void onShowLoading() {
-                                        }
-
-                                        @Override
-                                        public void onHideLoading() {
-                                        }
-                                    }).getInputcomments(list.get(position).getCommentId(), trim);
-                                }
-                            }
-                        });
+                        getpop(position);
                     }
                 });
             }
@@ -503,8 +465,49 @@ public class SynopsisActivity extends BaseActivity {
                 getCommentData(id, a, 10);
             }
         });
+    }
 
+    public void getpop(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SynopsisActivity.this);
+        View view = View.inflate(SynopsisActivity.this, R.layout.alertdialogitem, null);
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        final EditText Inputcomments = view.findViewById(R.id.inputcomments);
+        TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
+        SendInputcomments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String trim = Inputcomments.getText().toString().trim();
+                if (TextUtils.isEmpty(trim)) {
+                    ToastUtil.Toast("请输入内容");
+                } else {
+                    new SynopsisPresenter(new InputcommentsView<InputcommentsBean>() {
+                        @Override
+                        public void onDataSuccess(InputcommentsBean inputcommentsBean) {
+                            ToastUtil.Toast(inputcommentsBean.getMessage());
+                            if (inputcommentsBean.getMessage().contains("成功")) {
+                                getCommentData(id, 1, 10);
+                                alertDialog.dismiss();
+                            }
+                        }
 
+                        @Override
+                        public void onDataFailer(String msg) {
+
+                        }
+
+                        @Override
+                        public void onShowLoading() {
+                        }
+
+                        @Override
+                        public void onHideLoading() {
+                        }
+                    }).getInputcomments(list.get(position).getCommentId(), trim);
+                }
+            }
+        });
     }
 
 

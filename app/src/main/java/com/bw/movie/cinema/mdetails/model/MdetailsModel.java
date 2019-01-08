@@ -1,7 +1,10 @@
 package com.bw.movie.cinema.mdetails.model;
 
+import android.os.Message;
+
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 import com.bw.movie.cinema.mdetails.service.MdetailsService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -15,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:MdetailsModel
  */
 public class MdetailsModel {
-    public void getMdetails(int cinemaId, final isMdetails IsMdetails) {
+    public void getMdetails(int cinemaId, final HttpCallBack<MdetailsBean> httpCallBack) {
         OkHttpUtil.get().createa(MdetailsService.class).getMdtails(cinemaId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -27,12 +30,12 @@ public class MdetailsModel {
 
                     @Override
                     public void onNext(MdetailsBean mdetailsBean) {
-                        IsMdetails.getMdetails(mdetailsBean);
+                        httpCallBack.onSuccess(mdetailsBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -42,7 +45,4 @@ public class MdetailsModel {
                 });
     }
 
-    public interface isMdetails {
-        void getMdetails(MdetailsBean mdetailsBean);
-    }
 }

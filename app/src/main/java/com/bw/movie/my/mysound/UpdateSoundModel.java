@@ -1,5 +1,6 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -13,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:MySoundModel
  */
 public class UpdateSoundModel {
-    public void getSound(int id,final HttpUpdate httpUpdate){
+    public void getSound(int id, final HttpCallBack<UpdateSoundUser> httpCallBack) {
         OkHttpUtil.get().createa(UpdateSoundService.class).getUpdate(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -25,12 +26,12 @@ public class UpdateSoundModel {
 
                     @Override
                     public void onNext(UpdateSoundUser updateSoundUser) {
-                        httpUpdate.getSuccess(updateSoundUser);
+                        httpCallBack.onSuccess(updateSoundUser);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -40,7 +41,4 @@ public class UpdateSoundModel {
                 });
     }
 
-    public interface HttpUpdate{
-        void getSuccess(UpdateSoundUser updateSoundUser);
-    }
 }

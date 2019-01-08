@@ -1,12 +1,9 @@
 package com.bw.movie.film.show.carousel.model;
 
-import android.util.Log;
-
 import com.bw.movie.film.show.carousel.bean.CarouselBean;
-import com.bw.movie.film.show.carousel.callback.CarouseCallBack;
 import com.bw.movie.film.show.carousel.service.CarouserlService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -20,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CarouselModel {
 
     //轮播图请求数据回调
-    public void getCarouselBeanObservable(int page, int count, final CarouseCallBack carouseCallBack) {
+    public void getCarouselBeanObservable(int page, int count, final HttpCallBack<CarouselBean> httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(CarouserlService.class)
@@ -34,13 +31,12 @@ public class CarouselModel {
 
                     @Override
                     public void onNext(CarouselBean carouselBean) {
-                        carouseCallBack.success(carouselBean);
+                        httpCallBack.onSuccess(carouselBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        carouseCallBack.error(e.getMessage());
-                        Log.e("error", "onError: " + e.getMessage());
+                      httpCallBack.onFailer("失败");
                     }
 
                     @Override

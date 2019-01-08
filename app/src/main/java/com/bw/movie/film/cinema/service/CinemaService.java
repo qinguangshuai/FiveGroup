@@ -4,6 +4,7 @@ import com.bw.movie.film.cinema.bean.CinemaBean;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.synopsis.bean.InputcommentsBean;
 import com.bw.movie.film.synopsis.bean.PraiseBean;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -19,6 +20,6 @@ import retrofit2.http.Query;
  */
 public interface CinemaService {
     //根据电影Id 查询影院
-    @GET("movie/v1/findCinemasListByMovieId")
+    @GET(UrlUtil.CINEMAIDFINDCINEMA)
     Observable<CinemaBean> getCinemaBeanObservable(@Query("movieId") int movieId );
 }

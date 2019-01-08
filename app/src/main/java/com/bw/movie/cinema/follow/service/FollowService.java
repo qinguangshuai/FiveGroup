@@ -1,6 +1,7 @@
 package com.bw.movie.cinema.follow.service;
 
 import com.bw.movie.cinema.follow.bean.FollowBean;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -12,8 +13,6 @@ import retrofit2.http.Query;
  * fileName:FollowService
  */
 public interface FollowService {
-
-
-    @GET("cinema/v1/verify/followCinema")
+    @GET(UrlUtil.YFOLLOWCINEMA)
     Observable<FollowBean> getFollow(@Query("cinemaId") int cinemaId);
 }

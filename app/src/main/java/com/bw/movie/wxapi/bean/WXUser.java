@@ -1,21 +1,23 @@
 package com.bw.movie.wxapi.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2018/12/27    9:49
  * author:Therefore(Lenovo)
  * fileName:WXUser
  */
-public class WXUser {
+public class WXUser extends BaseEntity {
 
-    private ResultBean result;
+    private WXResultBean result;
     private String message;
     private String status;
 
-    public ResultBean getResult() {
+    public WXResultBean getResult() {
         return result;
     }
 
-    public void setResult(ResultBean result) {
+    public void setResult(WXResultBean result) {
         this.result = result;
     }
 
@@ -33,103 +35,5 @@ public class WXUser {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public static class ResultBean {
-
-        private String sessionId;
-        private int userId;
-        private UserInfoBean userInfo;
-
-        public String getSessionId() {
-            return sessionId;
-        }
-
-        public void setSessionId(String sessionId) {
-            this.sessionId = sessionId;
-        }
-
-        public int getUserId() {
-            return userId;
-        }
-
-        public void setUserId(int userId) {
-            this.userId = userId;
-        }
-
-        public UserInfoBean getUserInfo() {
-            return userInfo;
-        }
-
-        public void setUserInfo(UserInfoBean userInfo) {
-            this.userInfo = userInfo;
-        }
-
-        public static class UserInfoBean {
-
-            private long birthday;
-            private int id;
-            private long lastLoginTime;
-            private String nickName;
-            private String phone;
-            private int sex;
-            private String headPic;
-
-            public long getBirthday() {
-                return birthday;
-            }
-
-            public void setBirthday(long birthday) {
-                this.birthday = birthday;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public long getLastLoginTime() {
-                return lastLoginTime;
-            }
-
-            public void setLastLoginTime(long lastLoginTime) {
-                this.lastLoginTime = lastLoginTime;
-            }
-
-            public String getNickName() {
-                return nickName;
-            }
-
-            public void setNickName(String nickName) {
-                this.nickName = nickName;
-            }
-
-            public String getPhone() {
-                return phone;
-            }
-
-            public void setPhone(String phone) {
-                this.phone = phone;
-            }
-
-            public int getSex() {
-                return sex;
-            }
-
-            public void setSex(int sex) {
-                this.sex = sex;
-            }
-
-            public String getHeadPic() {
-                return headPic;
-            }
-
-            public void setHeadPic(String headPic) {
-                this.headPic = headPic;
-            }
-        }
     }
 }

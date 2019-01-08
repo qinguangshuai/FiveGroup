@@ -35,8 +35,6 @@ public class TextViewOfHot extends LinearLayout {
         View view = View.inflate(context, R.layout.customtextview, this);
         tv = view.findViewById(R.id.tv_customtv);
         img = view.findViewById(R.id.img_customimg);
-
-
         //路径
         Uri uri1 = Uri.parse("res://drawable/" + R.drawable.hot);
         //不多解释
@@ -45,7 +43,6 @@ public class TextViewOfHot extends LinearLayout {
                 .setAutoPlayAnimations(true)
                 .build();
         img.setController(build);
-
     }
 
     @Override
@@ -53,11 +50,8 @@ public class TextViewOfHot extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
     }
-
-
 }

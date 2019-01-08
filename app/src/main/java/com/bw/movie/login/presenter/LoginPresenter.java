@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.model.LoginModel;
 import com.bw.movie.login.view.LoginView;
+import com.bw.movie.util.HttpCallBack;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -25,11 +26,16 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     public void getLogin(String phone, String pwd) {
-          loginModel.getLogin(phone, pwd, new LoginModel.isLogin() {
-              @Override
-              public void thisLogin(LoginUser loginUser) {
-                    getiBaseView().onDataSuccess(loginUser);
-              }
-          });
+        loginModel.getLogin(phone, pwd, new HttpCallBack<LoginUser>() {
+            @Override
+            public void onSuccess(LoginUser name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
+            }
+        });
     }
 }

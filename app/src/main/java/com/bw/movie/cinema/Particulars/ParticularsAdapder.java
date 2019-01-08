@@ -47,7 +47,6 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.list = list;
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -105,8 +104,6 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }).getFindMovieScheduleList(1, result.get(i1).getId());
             }
         });
-
-
     }
 
     @Override
@@ -121,7 +118,6 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.result = result;
         }
     }
-
 
     class ParticularsViewHolder extends RecyclerView.ViewHolder {
         RecyclerCoverFlow recyclerCoverFlow;

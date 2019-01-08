@@ -1,8 +1,8 @@
 package com.bw.movie.film.details.model;
 
 import com.bw.movie.film.details.bean.DetailBean;
-import com.bw.movie.film.details.callback.DetailCallBack;
 import com.bw.movie.film.details.service.DetailService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class DetailModel {
 
     //Id 展示电影详情
-    public void getDetailBeanObservable(int id , final DetailCallBack detailCallBack){
+    public void getDetailBeanObservable(int id , final HttpCallBack<DetailBean> httpCallBack){
         OkHttpUtil
         .get()
         .createa(DetailService.class)
@@ -33,12 +33,12 @@ public class DetailModel {
 
             @Override
             public void onNext(DetailBean detailBean) {
-                detailCallBack.success(detailBean);
+                httpCallBack.onSuccess(detailBean);
             }
 
             @Override
             public void onError(Throwable e) {
-                detailCallBack.error(e.getMessage());
+                httpCallBack.onFailer("失败");
             }
 
             @Override

@@ -48,7 +48,6 @@ import butterknife.ButterKnife;
 
 public class SeatSelectionActivity extends BaseActivity {
 
-
     @BindView(R.id.seatView)
     SeatTable seatTableView;
     @BindView(R.id.cinemaprice)
@@ -64,84 +63,28 @@ public class SeatSelectionActivity extends BaseActivity {
     private int cinemaids;
     private String orderId;
 
-
     @Override
     public void initView() {
         ButterKnife.bind(this);
         seatTableView.setGetData(new SeatTable.getDatas() {
             @Override
             public void getDate(final int sizes) {
-                 getPopup(sizes);
-    }
+                getPopup(sizes);
+            }
 
 
-    public void getPopup(final int sizes){
-        double v = Double.parseDouble(paerprice);
-        v21 = v * sizes;
-        cinemaprice.setText(v21 + "");
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getZhiFu(sizes);
-                View view = View.inflate(SeatSelectionActivity.this, R.layout.seatpopuitem, null);
-                WindowManager windowManager = getWindowManager();
-                int height = windowManager.getDefaultDisplay().getHeight();
-                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                popupWindow.showAtLocation(v.getRootView(),Gravity.BOTTOM,0,0);
-                RadioButton radioButton = view.findViewById(R.id.weixinfu);
-                RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);
-                final Button button = view.findViewById(R.id.fukuan);
-                ImageView imageView = view.findViewById(R.id.returnfanhui);
-                Button fukuan = view.findViewById(R.id.fukuan);
-                radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            button.setText("微信支付" + v21);
-                        }
-                    }
-                });
-                imageView.setOnClickListener(new View.OnClickListener() {
+            public void getPopup(final int sizes) {
+                double v = Double.parseDouble(paerprice);
+                v21 = v * sizes;
+                cinemaprice.setText(v21 + "");
+                sure.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        popupWindow.dismiss();
-                    }
-                });
-                radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            button.setText("支付宝支付" + v21);
-                        }
-                    }
-                });
-                //点击支付按钮，调用支付接口
-                fukuan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
-                            @Override
-                            public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
-                                Toast.makeText(SeatSelectionActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
-                                WeiXinUtil.weiXinPay(orderSuccessBean);
-                            }
-                            @Override
-                            public void onDataFailer(String msg) {
-                            }
-                            @Override
-                            public void onShowLoading() {
-                            }
-                            @Override
-                            public void onHideLoading() {
-
-                            }
-                        }).getOeder(1,orderId);
-
+                        getZhiFu(sizes);
+                        getIsPopup(v);
                     }
                 });
             }
-        });
-    }
         });
         seyno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +93,7 @@ public class SeatSelectionActivity extends BaseActivity {
             }
         });
     }
+
     //订单
     public void getZhiFu(int sizes) {
         SharedPreferences login = getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -186,6 +130,74 @@ public class SeatSelectionActivity extends BaseActivity {
     public void initListener() {
 
 
+    }
+
+    public void getIsPopup(View v) {
+        View view = View.inflate(SeatSelectionActivity.this, R.layout.seatpopuitem, null);
+        WindowManager windowManager = getWindowManager();
+        int height = windowManager.getDefaultDisplay().getHeight();
+        final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+        RadioButton radioButton = view.findViewById(R.id.weixinfu);
+        RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);
+        final Button button = view.findViewById(R.id.fukuan);
+        ImageView imageView = view.findViewById(R.id.returnfanhui);
+        Button fukuan = view.findViewById(R.id.fukuan);
+        radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    button.setText("微信支付" + v21);
+                }
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        radioButton1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    button.setText("支付宝支付" + v21);
+                }
+            }
+        });
+        //点击支付按钮，调用支付接口
+        fukuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               getOrder(popupWindow);
+
+            }
+        });
+    }
+
+    //支付接口调用
+    public void getOrder(final PopupWindow popupWindow) {
+        new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
+            @Override
+            public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
+                Toast.makeText(SeatSelectionActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
+                WeiXinUtil.weiXinPay(orderSuccessBean);
+                popupWindow.dismiss();
+            }
+
+            @Override
+            public void onDataFailer(String msg) {
+            }
+
+            @Override
+            public void onShowLoading() {
+            }
+
+            @Override
+            public void onHideLoading() {
+
+            }
+        }).getOeder(1, orderId);
     }
 
     @Override

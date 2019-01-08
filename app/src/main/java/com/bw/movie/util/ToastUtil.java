@@ -11,23 +11,23 @@ import com.bw.movie.MyApp;
  */public class ToastUtil {
 
 
-    public void Toast(int a) {
+    public static void Toast(int a) {
         Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
     }
 
-    public void Toast(String a) {
+    public static void Toast(String a) {
         Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
     }
 
-    public void Toast(double a) {
+    public static void Toast(double a) {
         Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
     }
 
-    public void Toast(boolean a) {
+    public  static void Toast(boolean a) {
         Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
     }
 
-    public void Toast(int a, boolean islong) {
+    public static void Toast(int a, boolean islong) {
         if (islong) {
             Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
         } else {
@@ -35,7 +35,7 @@ import com.bw.movie.MyApp;
         }
     }
 
-    public void Toast(String a, boolean islong) {
+    public  static void Toast(String a, boolean islong) {
         if (islong) {
             Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
         } else {
@@ -44,7 +44,7 @@ import com.bw.movie.MyApp;
     }
 
 
-    public void Toast(double a, boolean islong) {
+    public  static void Toast(double a, boolean islong) {
         if (islong) {
             Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
         } else {
@@ -52,7 +52,7 @@ import com.bw.movie.MyApp;
         }
     }
 
-    public void Toast(boolean a, boolean islong) {
+    public static void Toast(boolean a, boolean islong) {
         if (islong) {
             Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
         } else {

@@ -9,6 +9,4 @@ import com.bw.movie.cinema.follow.bean.FollowBean;
  * fileName:FollowView
  */
 public interface FollowView<T> extends IBaseView<FollowBean> {
-
-
 }

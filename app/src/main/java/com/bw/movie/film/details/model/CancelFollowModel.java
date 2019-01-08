@@ -1,8 +1,8 @@
 package com.bw.movie.film.details.model;
 
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
-import com.bw.movie.film.details.callback.CancelFollowMovieCallBack;
 import com.bw.movie.film.details.service.CanceFollowService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CancelFollowModel {
 
     //取消关注
-    public void getCancelFollowMovieBeanObservable(int can , final CancelFollowMovieCallBack cancelFollowMovieCallBack){
+    public void getCancelFollowMovieBeanObservable(int can , final HttpCallBack<CancelFollowMovieBean> httpCallBack){
         OkHttpUtil
                 .get()
                 .createa(CanceFollowService.class)
@@ -33,12 +33,12 @@ public class CancelFollowModel {
 
                     @Override
                     public void onNext(CancelFollowMovieBean cancelFollowMovieBean) {
-                        cancelFollowMovieCallBack.success(cancelFollowMovieBean);
+                        httpCallBack.onSuccess(cancelFollowMovieBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        cancelFollowMovieCallBack.error(e.getMessage());
+                      httpCallBack.onFailer("失败");
                     }
 
                     @Override

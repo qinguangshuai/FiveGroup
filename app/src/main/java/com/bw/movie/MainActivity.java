@@ -1,5 +1,6 @@
 package com.bw.movie;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.bw.movie.cinema.bean.AddressUser;
+import com.bw.movie.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

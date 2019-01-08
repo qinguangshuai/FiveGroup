@@ -2,6 +2,7 @@ package com.bw.movie.my.attention.service;
 
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -13,6 +14,6 @@ import retrofit2.http.Query;
  * fileName:AttCinemaService
  */
 public interface AttFilmService {
-    @GET("movie/v1/verify/findMoviePageList?count=5")
+    @GET(UrlUtil.FINDMOVIEPAGELIST)
     Observable<MyAttFilmUser> getFilm(@Query("page") int page);
 }

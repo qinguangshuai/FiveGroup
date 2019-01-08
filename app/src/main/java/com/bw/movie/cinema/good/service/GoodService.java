@@ -1,6 +1,7 @@
 package com.bw.movie.cinema.good.service;
 
 import com.bw.movie.cinema.good.bean.GoodBean;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -12,7 +13,7 @@ import retrofit2.http.POST;
  */
 
 public interface GoodService {
-    @POST("cinema/v1/verify/cinemaCommentGreat")
+    @POST(UrlUtil.GOOD)
     @FormUrlEncoded
     Observable<GoodBean> getGoods(@Field("commentId")int commentId);
 }

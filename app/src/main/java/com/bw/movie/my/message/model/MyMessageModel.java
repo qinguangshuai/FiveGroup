@@ -1,14 +1,9 @@
 package com.bw.movie.my.message.model;
 
-
-
-import android.widget.Toast;
-
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.service.MyMessageService;
-import com.bw.movie.util.LogUtil;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -18,7 +13,7 @@ MyMessageModel
 * */
 public class MyMessageModel {
 
-    public void getMessage(final isMessage isMessage){
+    public void getMessage(final HttpCallBack<MyMessageEntity> httpCallBack){
         OkHttpUtil.get().createa(MyMessageService.class).getMessage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -30,12 +25,12 @@ public class MyMessageModel {
 
                     @Override
                     public void onNext(MyMessageEntity myMessageEntity) {
-                       isMessage.thisMessage(myMessageEntity);
+                      httpCallBack.onSuccess(myMessageEntity);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d(e+"");
+                       httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -46,7 +41,4 @@ public class MyMessageModel {
 
     }
 
-    public interface isMessage{
-        void thisMessage(MyMessageEntity myMessageEntity);
-    }
 }

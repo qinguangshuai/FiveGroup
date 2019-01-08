@@ -2,6 +2,7 @@ package com.bw.movie.cinema.mevaluate.model;
 
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.service.MevaluateService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:MevaluateModel
  */
 public class MevaluateModel {
-    public void getMevaluate(int cinemaId, int page, int count, final IsMevaluate isMevaluate) {
+    public void getMevaluate(int cinemaId, int page, int count, final HttpCallBack<MevaluateBean> httpCallBack) {
         OkHttpUtil.get().createa(MevaluateService.class)
                 .getMevaluate(cinemaId, page, count)
                 .subscribeOn(Schedulers.io())
@@ -28,12 +29,12 @@ public class MevaluateModel {
 
                     @Override
                     public void onNext(MevaluateBean mevaluateBean) {
-                        isMevaluate.getModevalute(mevaluateBean);
+                        httpCallBack.onSuccess(mevaluateBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -43,7 +44,5 @@ public class MevaluateModel {
                 });
     }
 
-    public interface IsMevaluate {
-        void getModevalute(MevaluateBean mevaluateBean);
-    }
+
 }
