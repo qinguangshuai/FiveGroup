@@ -17,6 +17,7 @@ import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.film.cinema.bean.CinemaBean;
+import com.bw.movie.film.cinema.bean.CinemaResultBean;
 import com.bw.movie.util.EmptyUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -72,10 +73,10 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
 
 
-        final CinemaBean.ResultBean resultBean = cinemaBean.getResult().get(i);
+        final CinemaResultBean resultBean = cinemaBean.getResult().get(i);
         final Holder holder = (Holder) viewHolder;
 
-        if (cinemaBean.getResult().get(i) .getFollowCinema() == 1) {
+        if (resultBean.getFollowCinema() == 1) {
             holder.mGood.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
             holder.mGood.setChecked(true);
 

@@ -1,5 +1,7 @@
 package com.bw.movie.my.attcinema.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * author:Therefore(Lenovo)
  * fileName:AttCinemaUser
  */
-public class AttCinemaUser {
+public class AttCinemaUser extends BaseEntity {
 
     private String message;
     private String status;

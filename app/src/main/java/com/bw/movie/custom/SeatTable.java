@@ -42,8 +42,8 @@ import java.util.Collections;
  * Created by baoyunlong on 16/6/16.
  */
 public class SeatTable extends View {
-    private final boolean DBG = false;
 
+    private final boolean DBG = false;
     Paint paint = new Paint();
     Paint overviewPaint = new Paint();
     Paint lineNumberPaint;

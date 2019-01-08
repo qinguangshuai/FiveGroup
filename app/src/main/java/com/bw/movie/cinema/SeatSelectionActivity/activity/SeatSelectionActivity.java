@@ -48,7 +48,6 @@ import butterknife.ButterKnife;
 
 public class SeatSelectionActivity extends BaseActivity {
 
-
     @BindView(R.id.seatView)
     SeatTable seatTableView;
     @BindView(R.id.cinemaprice)
@@ -63,7 +62,6 @@ public class SeatSelectionActivity extends BaseActivity {
     private double v21;
     private int cinemaids;
     private String orderId;
-
 
     @Override
     public void initView() {

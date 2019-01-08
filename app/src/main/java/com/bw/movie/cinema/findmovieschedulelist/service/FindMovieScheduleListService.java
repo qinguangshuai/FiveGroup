@@ -11,9 +11,7 @@ import retrofit2.http.Query;
  * author:张文龙(张文龙)
  * fileName:FindMovieScheduleListService
  */
-public interface  FindMovieScheduleListService {
-
-
+public interface FindMovieScheduleListService {
     @GET("movie/v1/findMovieScheduleList")
     Observable<FindMovieScheduleListBean> getFindMovieScheduleList(@Query("cinemasId") int cinemasId,
                                                                    @Query("movieId") int movieId);

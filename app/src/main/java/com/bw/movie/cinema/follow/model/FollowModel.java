@@ -16,7 +16,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class FollowModel {
 
-
     public void getFollow(int cinemaId, final isFollow isFollow) {
         OkHttpUtil.get().createa(FollowService.class).getFollow(cinemaId)
                 .subscribeOn(Schedulers.io())

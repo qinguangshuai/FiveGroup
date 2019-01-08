@@ -23,6 +23,7 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     private Context context;
 
     public TicketInforAdapter(List<ResultBean> list, Context context) {
+        super(context);
         this.list = list;
         this.context = context;
     }

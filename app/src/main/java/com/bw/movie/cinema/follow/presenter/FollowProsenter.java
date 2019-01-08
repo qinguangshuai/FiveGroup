@@ -15,8 +15,6 @@ public class FollowProsenter extends BasePresenter {
     public FollowProsenter(IBaseView iBaseView) {
         super(iBaseView);
         followModel=new FollowModel();
-
-
     }
     public void getFollow(int cinemaId){
         followModel.getFollow(cinemaId, new FollowModel.isFollow() {

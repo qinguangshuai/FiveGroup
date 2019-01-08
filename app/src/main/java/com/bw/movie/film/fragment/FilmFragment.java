@@ -4,9 +4,11 @@ package com.bw.movie.film.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -99,6 +101,12 @@ public class FilmFragment extends BaseFragment {
     //点击事件
     @Override
     public void initListener() {
+        fileCarouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
     }
 
     //加载数据

@@ -1,9 +1,11 @@
 package com.bw.movie.my.message.bean;
+
+import com.bw.movie.base.BaseEntity;
+
 /*
 MyMessageEntity
 * */
-public class MyMessageEntity {
-
+public class MyMessageEntity extends BaseEntity {
 
     private ResultBean result;
     private String message;

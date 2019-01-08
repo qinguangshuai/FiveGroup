@@ -40,11 +40,4 @@ public class TextViewPlaying extends LinearLayout {
         animator.start();
 
     }
-
-
-
-
-
-
-
 }

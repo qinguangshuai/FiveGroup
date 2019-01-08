@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class MovieListByCinemaIdModel {
 
-
     public void getMovieByBean(int cinemaId, final isMovieByBean isMovieByBean) {
         OkHttpUtil.get().createa(MovieListByCinemaIdService.class).getMovieByBean(cinemaId)
                 .subscribeOn(Schedulers.io())
@@ -45,7 +44,6 @@ public class MovieListByCinemaIdModel {
 
                     }
                 });
-
     }
 
     public interface isMovieByBean {

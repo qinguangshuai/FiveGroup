@@ -1,9 +1,11 @@
 package com.bw.movie.my.myinfo.bean;
+
+import com.bw.movie.base.BaseEntity;
+
 /*
 *  修改用户信息bean类
 * */
-public class UpDateUserInfoEntity {
-
+public class UpDateUserInfoEntity extends BaseEntity {
 
     private ResultBean result;
     private String message;
