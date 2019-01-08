@@ -274,9 +274,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     public void getSp() {
-        SpUtil.put(Constant.SESSIONID, mSessionId);
+        SpUtil.put("sessionId", mSessionId);
         SpUtil.put("userId", mUserId);
-        SpUtil.put(Constant.BIRTHDAY, mBirthday);
+        SpUtil.put("birthday", mBirthday);
         SpUtil.put(Constant.HEADPIC, mHeadPic);
         SpUtil.put("lastLoginTime", mLastLoginTime);
         SpUtil.put(Constant.NICKNAME, mNickName);
