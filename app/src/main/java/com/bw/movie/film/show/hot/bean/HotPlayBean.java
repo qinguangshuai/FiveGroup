@@ -1,5 +1,7 @@
 package com.bw.movie.film.show.hot.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  *TODO:
  *  正在热映 benan  类
  */
-public class HotPlayBean implements Serializable {
+public class HotPlayBean extends BaseEntity {
     private String message;
     private String status;
     private List<ResultBean> result;

@@ -1,5 +1,7 @@
 package com.bw.movie.film.synopsis.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  *TODO:
  *
  */
-public class CommentBean implements Serializable {
+public class CommentBean extends BaseEntity {
 
     private String message;
     private String status;

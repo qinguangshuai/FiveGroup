@@ -1,6 +1,8 @@
 package com.bw.movie.my.ticket.bean;
 
-public class ResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class ResultBean extends BaseEntity {
     private int amount;
     private String beginTime;
     private String cinemaName;

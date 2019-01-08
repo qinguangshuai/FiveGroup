@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.findmovieschedulelist.bean;
 
-public class FindResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class FindResultBean extends BaseEntity {
     private String beginTime;
     private String duration;
     private String endTime;
