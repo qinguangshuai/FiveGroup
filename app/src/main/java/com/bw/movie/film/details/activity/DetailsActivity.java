@@ -10,12 +10,12 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.custom.CustomViewpager;
-import com.bw.movie.film.activity.SynopsisActivity;
 import com.bw.movie.film.details.MyAdapter;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.details.fragment.HotFragment;
 import com.bw.movie.film.details.fragment.PlayingFragment;
 import com.bw.movie.film.details.fragment.PopularFragment;
+import com.bw.movie.film.synopsis.activity.SynopsisActivity;
 import com.bw.movie.util.ToastUtil;
 
 

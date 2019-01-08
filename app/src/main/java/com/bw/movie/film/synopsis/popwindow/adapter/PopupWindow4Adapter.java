@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.event.PraiseEvent;
+import com.bw.movie.util.EmptyUtil;
+import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,11 +31,24 @@ import java.util.List;
  */
 public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private EmptyUtil emptyUtil = new EmptyUtil();
+
+    private ToastUtil toast = new ToastUtil();
+
     private List<CommentBean.ResultBean> result = new ArrayList<>();
 
     public void setResult(List<CommentBean.ResultBean> result) {
         this.result = result;
     }
+
+    public void addResult(List<CommentBean.ResultBean> result) {
+        if(emptyUtil.isNull(result)){
+            toast.Toast("没更多了,官人明天来~");
+        }else {
+            this.result.addAll(result);
+        }
+    }
+
 
     class Holder extends RecyclerView.ViewHolder {
         private final SimpleDraweeView mDraweeView;
@@ -51,6 +66,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mTime = view.findViewById(R.id.time_item_comment);
             mGood = view.findViewById(R.id.good_item_comment);
             mComment = view.findViewById(R.id.comment_item_comment);
+
             mComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -114,7 +130,11 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return result.size();
+        if(emptyUtil.isNull(result) ==false){
+            return result.size();
+        }else {
+            return 0;
+        }
     }
 
 
