@@ -2,6 +2,7 @@ package com.bw.movie.my.mysound;
 
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.util.HttpCallBack;
 
 /**
  * date:2018/12/30    8:35
@@ -17,11 +18,16 @@ public class UpdateSoundPresenter extends BasePresenter {
         mUpdateSoundModel = new UpdateSoundModel();
     }
 
-    public void getSound(int id){
-        mUpdateSoundModel.getSound(id, new UpdateSoundModel.HttpUpdate() {
+    public void getSound(int id) {
+        mUpdateSoundModel.getSound(id, new HttpCallBack<UpdateSoundUser>() {
             @Override
-            public void getSuccess(UpdateSoundUser updateSoundUser) {
-                getiBaseView().onDataSuccess(updateSoundUser);
+            public void onSuccess(UpdateSoundUser name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

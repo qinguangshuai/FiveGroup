@@ -3,8 +3,8 @@ package com.bw.movie.film.cinema.presenter;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.cinema.bean.CinemaBean;
-import com.bw.movie.film.cinema.callback.CinemaCallBack;
 import com.bw.movie.film.cinema.model.CinemaModle;
+import com.bw.movie.util.HttpCallBack;
 
 /*
  *作者:ash
@@ -20,17 +20,18 @@ public class CinemaProsenter extends BasePresenter {
         super(iBaseView);
         cinemaModle = new CinemaModle();
     }
+
     //查询影院
-    public void getCinemaBeanObservable(int id){
-        cinemaModle.getCinemaBeanObservable(id, new CinemaCallBack() {
+    public void getCinemaBeanObservable(int id) {
+        cinemaModle.getCinemaBeanObservable(id, new HttpCallBack<CinemaBean>() {
             @Override
-            public void success(CinemaBean cinemaBean) {
-                getiBaseView().onDataSuccess(cinemaBean);
+            public void onSuccess(CinemaBean name) {
+                getiBaseView().onDataSuccess(name);
             }
 
             @Override
-            public void error(String message) {
-                getiBaseView().onDataFailer(message);
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

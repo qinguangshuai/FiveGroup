@@ -34,9 +34,13 @@ import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.NotifyUtil;
 import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
+import com.bw.movie.wxapi.event.FinishEvent;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -90,6 +94,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void initView() {
         mUnbinder = ButterKnife.bind(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Subscribe
+    public void getFinishLogin(FinishEvent finishEvent) {
+        if (finishEvent.getFinishlogin()==Constant.LOGINFNISH) {
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -317,7 +337,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     //给按钮监听
-    public void setRemeberboxData(){
+    public void setRemeberboxData() {
         mRemeberbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

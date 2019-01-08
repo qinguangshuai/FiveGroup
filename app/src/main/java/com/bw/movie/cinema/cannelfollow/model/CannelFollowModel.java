@@ -2,9 +2,8 @@ package com.bw.movie.cinema.cannelfollow.model;
 
 import com.bw.movie.cinema.cannelfollow.service.CannelFollowService;
 import com.bw.movie.cinema.follow.bean.FollowBean;
-import com.bw.movie.util.LogUtil;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -17,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class CannelFollowModel {
 
-    public void getCannelFollow(int cinemaId, final isCannelFollow isCannelFollow) {
+    public void getCannelFollow(int cinemaId, final HttpCallBack<FollowBean> httpCallBack) {
         OkHttpUtil.get().createa(CannelFollowService.class)
                 .getCannelFollow(cinemaId)
                 .subscribeOn(Schedulers.io())
@@ -30,12 +29,12 @@ public class CannelFollowModel {
 
                     @Override
                     public void onNext(FollowBean followBean) {
-                        isCannelFollow.getCannelFollw(followBean);
+                        httpCallBack.onSuccess(followBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d(e+"");
+                       httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -45,7 +44,5 @@ public class CannelFollowModel {
                 });
     }
 
-    public interface isCannelFollow {
-        void getCannelFollw(FollowBean followBean);
-    }
+
 }

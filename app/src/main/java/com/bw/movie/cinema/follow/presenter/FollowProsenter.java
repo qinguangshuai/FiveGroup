@@ -4,6 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.model.FollowModel;
+import com.bw.movie.util.HttpCallBack;
 
 /**
  * date:2018/12/27    17:29
@@ -12,15 +13,22 @@ import com.bw.movie.cinema.follow.model.FollowModel;
  */
 public class FollowProsenter extends BasePresenter {
     private FollowModel followModel;
+
     public FollowProsenter(IBaseView iBaseView) {
         super(iBaseView);
-        followModel=new FollowModel();
+        followModel = new FollowModel();
     }
-    public void getFollow(int cinemaId){
-        followModel.getFollow(cinemaId, new FollowModel.isFollow() {
+
+    public void getFollow(int cinemaId) {
+        followModel.getFollow(cinemaId, new HttpCallBack<FollowBean>() {
             @Override
-            public void getFollow(FollowBean followBean) {
-                getiBaseView().onDataSuccess(followBean);
+            public void onSuccess(FollowBean name) {
+                getiBaseView().onDataSuccess(name);
+            }
+
+            @Override
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

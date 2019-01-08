@@ -40,7 +40,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     ImageView attenimage2;
     Unbinder unbinder1;
     private AttFilmPresenter mAttFilmPresenter;
-//    private List<MyAttFilmUser.ResultBean> mList;
     int page = 1;
     private List<ResultBean> mList;
 

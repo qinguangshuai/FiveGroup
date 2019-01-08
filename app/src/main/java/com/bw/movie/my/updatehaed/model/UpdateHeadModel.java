@@ -2,6 +2,7 @@ package com.bw.movie.my.updatehaed.model;
 
 import com.bw.movie.my.updatehaed.bean.UpdateHeadEntity;
 import com.bw.movie.my.updatehaed.service.UpdateHeadService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import java.io.File;
@@ -19,7 +20,7 @@ import okhttp3.RequestBody;
  * */
 public class UpdateHeadModel {
 
-    public void getHead(File file, final getHead getHead) {
+    public void getHead(File file, final HttpCallBack<UpdateHeadEntity> httpCallBack) {
         //设置Content-Type:multipart/form-data
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         //设置Content-Disposition:form-data; name="photo"; filename="xuezhiqian.png"
@@ -37,12 +38,12 @@ public class UpdateHeadModel {
 
                     @Override
                     public void onNext(UpdateHeadEntity updateHeadEntity) {
-                        getHead.getHead(updateHeadEntity);
+                        httpCallBack.onSuccess(updateHeadEntity);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        getHead.error(e.getMessage());
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -52,9 +53,4 @@ public class UpdateHeadModel {
                 });
     }
 
-    //创建接口
-    public interface getHead {
-        void getHead(UpdateHeadEntity updateHeadEntity);
-        void error(String error);
-    }
 }

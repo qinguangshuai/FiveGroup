@@ -1,5 +1,6 @@
 package com.bw.movie.my.myoption.service;
 import com.bw.movie.my.myoption.bean.MyOptionEntity;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -10,7 +11,7 @@ import retrofit2.http.POST;
 * */
 public interface MyOptionService {
     //我的意见
-    @POST("tool/v1/verify/recordFeedBack")
+    @POST(UrlUtil.MYRECORD)
     @FormUrlEncoded
     Observable<MyOptionEntity> getOption(@Field("content") String content);
 }

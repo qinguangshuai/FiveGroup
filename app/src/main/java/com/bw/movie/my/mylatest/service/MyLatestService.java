@@ -1,6 +1,7 @@
 package com.bw.movie.my.mylatest.service;
 
 import com.bw.movie.my.mylatest.bean.MyLatestUser;
+import com.bw.movie.util.UrlUtil;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -11,6 +12,6 @@ import retrofit2.http.GET;
  * fileName:MyLatestService
  */
 public interface MyLatestService {
-    @GET("tool/v1/findNewVersion")
+    @GET(UrlUtil.NEWVERSION)
     Observable<MyLatestUser> getVersion();
 }

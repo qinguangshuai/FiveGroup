@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.details.model.FollowModel;
 import com.bw.movie.film.details.bean.FollowBean;
-import com.bw.movie.film.details.callback.FollowCallBack;
+import com.bw.movie.util.HttpCallBack;
 
 /*
  *作者:ash
@@ -21,16 +21,16 @@ public class FollowPresenter extends BasePresenter {
     }
 
     //关注
-    public void getFollowBeanObservable(int folllow){
-        followModel.getFollowBeanObservable(folllow, new FollowCallBack() {
+    public void getFollowBeanObservable(int folllow) {
+        followModel.getFollowBeanObservable(folllow, new HttpCallBack<FollowBean>() {
             @Override
-            public void success(FollowBean followBean) {
-                getiBaseView().onDataSuccess(followBean);
+            public void onSuccess(FollowBean name) {
+                getiBaseView().onDataSuccess(name);
             }
 
             @Override
-            public void error(String message) {
-                getiBaseView().onDataFailer(message);
+            public void onFailer(String result) {
+                getiBaseView().onDataFailer(result);
             }
         });
     }

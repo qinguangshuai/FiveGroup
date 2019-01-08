@@ -1,5 +1,7 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.util.UrlUtil;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,6 +12,6 @@ import retrofit2.http.Query;
  * fileName:MySoundService
  */
 public interface MySoundService {
-    @GET("tool/v1/verify/findAllSysMsgList?count=8")
+    @GET(UrlUtil.SYSMSG)
     Observable<MySoundUser> getSound(@Query("page") int page);
 }
