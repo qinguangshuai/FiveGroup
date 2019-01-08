@@ -2,6 +2,7 @@ package com.bw.movie.my.mylatest.model;
 
 import com.bw.movie.my.mylatest.bean.MyLatestUser;
 import com.bw.movie.my.mylatest.service.MyLatestService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -15,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:MyLatestModel
  */
 public class MyLatestModel {
-    public void getVersion(final HttpUser httpUser){
+    public void getVersion(final HttpCallBack<MyLatestUser> httpCallBack) {
         OkHttpUtil.get().createa(MyLatestService.class).getVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -27,12 +28,12 @@ public class MyLatestModel {
 
                     @Override
                     public void onNext(MyLatestUser myLatestUser) {
-                        httpUser.getSuccess(myLatestUser);
+                        httpCallBack.onSuccess(myLatestUser);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -42,7 +43,4 @@ public class MyLatestModel {
                 });
     }
 
-    public interface HttpUser{
-        void getSuccess(MyLatestUser myLatestUser);
-    }
 }

@@ -1,5 +1,6 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -13,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  * fileName:MySoundModel
  */
 public class XiSoundModel {
-    public void getSound(final HttpXi httpXi){
+    public void getSound(final HttpCallBack<XiSoundUser> httpCallBack) {
         OkHttpUtil.get().createa(XiSoundService.class).getXi()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -25,12 +26,12 @@ public class XiSoundModel {
 
                     @Override
                     public void onNext(XiSoundUser xiSoundUser) {
-                        httpXi.getSuccess(xiSoundUser);
+                        httpCallBack.onSuccess(xiSoundUser);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -40,7 +41,4 @@ public class XiSoundModel {
                 });
     }
 
-    public interface HttpXi{
-        void getSuccess(XiSoundUser xiSoundUser);
-    }
 }

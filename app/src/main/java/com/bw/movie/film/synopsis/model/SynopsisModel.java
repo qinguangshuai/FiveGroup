@@ -3,10 +3,8 @@ package com.bw.movie.film.synopsis.model;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.synopsis.bean.InputcommentsBean;
 import com.bw.movie.film.synopsis.bean.PraiseBean;
-import com.bw.movie.film.synopsis.callback.CommentCallBack;
-import com.bw.movie.film.synopsis.callback.InputcommentsCallBack;
-import com.bw.movie.film.synopsis.callback.PraiseCallBack;
 import com.bw.movie.film.synopsis.service.SynopsisService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -22,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SynopsisModel {
 
     //显示评论
-    public void getCommentBeanObservable(int id, int page, int count, final CommentCallBack commentCallBack) {
+    public void getCommentBeanObservable(int id, int page, int count, final HttpCallBack<CommentBean> httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(SynopsisService.class)
@@ -37,12 +35,12 @@ public class SynopsisModel {
 
                     @Override
                     public void onNext(CommentBean commentBean) {
-                        commentCallBack.success(commentBean);
+                        httpCallBack.onSuccess(commentBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        commentCallBack.error(e.getMessage());
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -54,7 +52,7 @@ public class SynopsisModel {
 
 
     //点赞
-    public void getPraiseBeanObservable(int id, final PraiseCallBack praiseCallBack) {
+    public void getPraiseBeanObservable(int id, final HttpCallBack<PraiseBean> httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(SynopsisService.class)
@@ -69,12 +67,12 @@ public class SynopsisModel {
 
                     @Override
                     public void onNext(PraiseBean praiseBean) {
-                        praiseCallBack.success(praiseBean);
+                        httpCallBack.onSuccess(praiseBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        praiseCallBack.error(e.getMessage());
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -85,7 +83,7 @@ public class SynopsisModel {
     }
 
     //添加用户对评论的回复
-    public void getInputcomments(int commentId, String replyContent, final InputcommentsCallBack inputcommentsCallBack) {
+    public void getInputcomments(int commentId, String replyContent, final HttpCallBack<InputcommentsBean> inputcommentsBeanHttpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(SynopsisService.class)
@@ -100,12 +98,12 @@ public class SynopsisModel {
 
                     @Override
                     public void onNext(InputcommentsBean inputcommentsBean) {
-                        inputcommentsCallBack.isInputcomments(inputcommentsBean);
+                        inputcommentsBeanHttpCallBack.onSuccess(inputcommentsBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        inputcommentsBeanHttpCallBack.onFailer("失败");
                     }
 
                     @Override

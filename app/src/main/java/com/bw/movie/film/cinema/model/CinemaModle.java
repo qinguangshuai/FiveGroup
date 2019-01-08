@@ -1,8 +1,8 @@
 package com.bw.movie.film.cinema.model;
 
 import com.bw.movie.film.cinema.bean.CinemaBean;
-import com.bw.movie.film.cinema.callback.CinemaCallBack;
 import com.bw.movie.film.cinema.service.CinemaService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CinemaModle {
 
     //查询影院
-    public void getCinemaBeanObservable(int id, final CinemaCallBack cinemaCallBack){
+    public void getCinemaBeanObservable(int id, final HttpCallBack<CinemaBean> httpCallBack){
         OkHttpUtil
                 .get()
                 .createa(CinemaService.class)
@@ -33,12 +33,12 @@ public class CinemaModle {
 
                     @Override
                     public void onNext(CinemaBean cinemaBean) {
-                        cinemaCallBack.success(cinemaBean);
+                      httpCallBack.onSuccess(cinemaBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        cinemaCallBack.error(e.getMessage());
+                      httpCallBack.onFailer("失败");
                     }
 
                     @Override

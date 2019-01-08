@@ -149,8 +149,8 @@
 
             <ImageView
                 android:id="@+id/imagereturnsynopsis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:layout_margin="@dimen/dp_10"
                 android:alpha="1"
                 android:src="@drawable/idea_activity_back"
@@ -168,15 +168,15 @@
 
                 <Button
                     android:id="@+id/buy_synopsis"
-                    android:layout_width="@dimen/dp_60"
-                    android:layout_height="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
                     android:layout_gravity="right"
                     android:layout_margin="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_20"
                     android:background="@drawable/shapebuy"
                     android:text="购票"
                     android:textColor="#fff"
-                    android:textSize="@dimen/sp_19" />
+                    android:textSize="@dimen/sp_12" />
             </LinearLayout>
 
 

@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.Particulars;
 
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -11,7 +12,7 @@ import io.reactivex.schedulers.Schedulers;
  * 影院内容轮播model
  */
 public class ParticularsModel {
-    public void getParticulars(int page, int count, final isParticulars isParticulars) {
+    public void getParticulars(int page, int count, final HttpCallBack<ParticularsBean> httpCallBack) {
         OkHttpUtil.get().createa(ParticularsService.class).getParticulars(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -23,12 +24,12 @@ public class ParticularsModel {
 
                     @Override
                     public void onNext(ParticularsBean particularsBean) {
-                        isParticulars.getParticulars(particularsBean);
+                        httpCallBack.onSuccess(particularsBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        httpCallBack.onFailer("失败");
                     }
 
                     @Override
@@ -38,7 +39,4 @@ public class ParticularsModel {
                 });
     }
 
-    public interface isParticulars {
-        void getParticulars(ParticularsBean particularsBean);
-    }
 }
