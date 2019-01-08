@@ -1,4 +1,4 @@
-package com.bw.movie.film.activity;
+package com.bw.movie.film.synopsis.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.film.cinema.activity.AffiliatedTheaterActivity;
 import com.bw.movie.film.details.presenter.DetailPresenter;
-import com.bw.movie.film.synopsis.bean.CommentResultBean;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow2Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow4Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.Popupwindow1Adapter;
@@ -105,19 +104,19 @@ public class SynopsisActivity extends BaseActivity {
     private int id;
     private EmptyUtil emptyUtil;
     private ToastUtil toast;
-    private ArrayList<CommentResultBean> list = new ArrayList<>();
+    private ArrayList<CommentBean.ResultBean> list = new ArrayList<>();
     private PopupWindow popupWindow;
     private PopupWindow popupWindow2;
     private PopupWindow popupWindow3;
     private PopupWindow popupWindow4;
     private boolean flag;
+    private PopupWindow4Adapter mPopupWindow4Adapter = new PopupWindow4Adapter();
 
     @Override
     public void initView() {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
         ButterKnife.bind(this);
         mDatail = View.inflate(this, R.layout.popupwindow_datail, null);        //详情
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
@@ -129,8 +128,9 @@ public class SynopsisActivity extends BaseActivity {
         id = intent.getIntExtra("详情id", -1);
         setCardSynopsis();
         getData(id);
-        getCommentData(id, 1, 10);
-
+        setmReview();
+        getCommentData(id, a, 10);
+        mPopupWindow4Adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -162,24 +162,20 @@ public class SynopsisActivity extends BaseActivity {
     }
 
 
+    //点赞
     @Subscribe
-    public void good(final PraiseEvent praiseEvent){
+    public void good(final PraiseEvent praiseEvent) {
         new SynopsisPresenter(new PraiseView<PraiseBean>() {
-
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-                if(praiseBean.getMessage().equals("点赞成功")){
-                    praiseEvent.getCheckBox().setText(praiseEvent.getNum()+1+"");
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
+                toast.Toast(praiseBean.getMessage());
+                if (praiseBean.getMessage().equals("点赞成功")) {
+                    praiseEvent.getRadioButton().setText((praiseEvent.getNum()+1)+"");
+//                    mPopupWindow4Adapter.notifyDataSetChanged();
                 }else if(praiseBean.getMessage().equals("不能重复点赞")){
-                    praiseEvent.getCheckBox().setChecked(true);
-                    praiseEvent.getCheckBox().setClickable(false);
-                    toast.Toast(praiseBean.getMessage());
+
                 }else {
-                    praiseEvent.getCheckBox().setChecked(false);
-                    praiseEvent.getCheckBox().setClickable(true);
+
                 }
             }
 
@@ -240,10 +236,11 @@ public class SynopsisActivity extends BaseActivity {
         new SynopsisPresenter(new CommentView<CommentBean>() {
             @Override
             public void onDataSuccess(CommentBean commentBean) {
-                List<CommentResultBean> result = commentBean.getResult();
+                List<CommentBean.ResultBean> result = commentBean.getResult();
                 if (emptyUtil.isNull(result) == false) {
-                    list.addAll(result);
-                    setmReview(list);
+                    mPopupWindow4Adapter.addResult(commentBean.getResult());
+                    mPopupWindow4Adapter.notifyDataSetChanged();
+                    toast.Toast("加载更多");
                 } else {
                     toast.Toast("没有更多了");
                 }
@@ -423,8 +420,7 @@ public class SynopsisActivity extends BaseActivity {
 
 
     //第四个pop
-    public void setmReview(final List<CommentResultBean> result) {
-
+    public void setmReview() {
         RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
         final ImageView imageView = mReview.findViewById(R.id.writemessage);
         ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
@@ -437,23 +433,19 @@ public class SynopsisActivity extends BaseActivity {
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        final PopupWindow4Adapter popupWindow4Adapter = new PopupWindow4Adapter();
-        popupWindow4Adapter.setResult(result);
-        mRecyclerView.setAdapter(popupWindow4Adapter);
+         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(mPopupWindow4Adapter);
 
-        popupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
+        mPopupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
             @Override
             public void isData(View view, final int position) {
                 if (flag) {
-
                     imageView.setVisibility(View.GONE);
                     flag = false;
                 } else {
                     imageView.setVisibility(View.VISIBLE);
                     flag = true;
                 }
-
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -462,57 +454,42 @@ public class SynopsisActivity extends BaseActivity {
                         builder.setView(view);
                         final AlertDialog alertDialog = builder.create();
                         alertDialog.show();
-                        //调用这个方法时，按对话框以外的地方不起作用。按返回键还起作用
-//                alertDialog.setCanceledOnTouchOutside(false);
-                        //调用这个方法时，按对话框以外的地方不起作用。按返回键也不起作用
-//                alertDialog.setCancelable(false);
                         final EditText Inputcomments = view.findViewById(R.id.inputcomments);
-
                         TextView SendInputcomments = view.findViewById(R.id.sendinputcomments);
-
                         SendInputcomments.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 final String trim = Inputcomments.getText().toString().trim();
-                                if (TextUtils.isEmpty(trim)){
+                                if (TextUtils.isEmpty(trim)) {
                                     Toast.makeText(SynopsisActivity.this, "请输入内容", Toast.LENGTH_SHORT).show();
-
-                                }else{
+                                } else {
                                     new SynopsisPresenter(new InputcommentsView<InputcommentsBean>() {
-
                                         @Override
                                         public void onDataSuccess(InputcommentsBean inputcommentsBean) {
                                             Toast.makeText(SynopsisActivity.this, inputcommentsBean.getMessage(), Toast.LENGTH_SHORT).show();
-                                            if (inputcommentsBean.getMessage().contains("成功")){
-                                                getCommentData(id,1,10);
+                                            if (inputcommentsBean.getMessage().contains("成功")) {
+                                                getCommentData(id, 1, 10);
                                                 alertDialog.dismiss();
-
                                             }
                                         }
 
                                         @Override
                                         public void onDataFailer(String msg) {
-
                                         }
 
                                         @Override
                                         public void onShowLoading() {
-
                                         }
 
                                         @Override
                                         public void onHideLoading() {
-
                                         }
-                                    }).getInputcomments(result.get(position).getCommentId(),trim);
+                                    }).getInputcomments(list.get(position).getCommentId(), trim);
                                 }
-
                             }
                         });
-
                     }
                 });
-
             }
         });
 
@@ -521,14 +498,11 @@ public class SynopsisActivity extends BaseActivity {
         RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                //加载更多功能的代码
                 a++;
+                //加载更多功能的代码
                 getCommentData(id, a, 10);
             }
         });
-
-
-
 
 
     }
@@ -543,7 +517,7 @@ public class SynopsisActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    //销毁
+    //暂停
     @Override
     protected void onPause() {
         super.onPause();
@@ -571,9 +545,7 @@ public class SynopsisActivity extends BaseActivity {
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
                 popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
-
                 break;
-
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);

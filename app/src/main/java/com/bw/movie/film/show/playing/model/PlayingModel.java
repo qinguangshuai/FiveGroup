@@ -19,7 +19,7 @@ public class PlayingModel {
 
 
     //正在上映  请求数据回调
-    public void getPlayingBeanObservable(int page, int count, final PlayingCallBack playingCallBack){
+    public void getPlayingBeanObservable(int page, int count, final PlayingCallBack playingCallBack) {
         OkHttpUtil
                 .get()
                 .createa(PlayingService.class)
@@ -48,11 +48,6 @@ public class PlayingModel {
                     }
                 });
     }
-
-
-
-
-
 
 }
 

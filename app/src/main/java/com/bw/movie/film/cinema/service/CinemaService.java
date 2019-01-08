@@ -18,15 +18,7 @@ import retrofit2.http.Query;
  *   baseservice
  */
 public interface CinemaService {
-
-
-
     //根据电影Id 查询影院
     @GET("movie/v1/findCinemasListByMovieId")
     Observable<CinemaBean> getCinemaBeanObservable(@Query("movieId") int movieId );
-
-
-
-
-
 }

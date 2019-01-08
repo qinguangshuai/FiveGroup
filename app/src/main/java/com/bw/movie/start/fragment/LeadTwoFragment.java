@@ -21,7 +21,6 @@ public class LeadTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lead_two, container, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

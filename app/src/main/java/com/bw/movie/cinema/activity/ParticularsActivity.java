@@ -18,13 +18,14 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.Particulars.ParticularsAdapder;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
-import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 import com.bw.movie.cinema.mdetails.presenter.MdetailsPresenter;
 import com.bw.movie.cinema.mdetails.view.MdetailsView;
 import com.bw.movie.cinema.mevaluate.adapder.MevaluateAdapder;
+import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
@@ -76,7 +77,6 @@ public class ParticularsActivity extends BaseActivity {
 
     }
 
-
     @Override
     public void initListener() {
         //返回键的监听
@@ -90,54 +90,48 @@ public class ParticularsActivity extends BaseActivity {
         detailedinformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPopup(v);
-            }
-        });
-    }
+                View view = View.inflate(ParticularsActivity.this, R.layout.detailedinformation_popu, null);
+                final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                ImageView mdowm_detaildin = view.findViewById(R.id.dowm_detaildin);
+                popupWindow.showAsDropDown(v, 150, 150);
+                RadioButton mevaluate_detaildin = view.findViewById(R.id.evaluate_detaildin);
+                RadioButton mdetails_detaildin = view.findViewById(R.id.details_detaildin);
+                final LinearLayout mdetails_layout = view.findViewById(R.id.details_layout);
+                final LinearLayout mevaluate_layout = view.findViewById(R.id.evaluate_layout);
+                TextView textViewTool = view.findViewById(R.id.toll);
+                TextView textViewTooltou = view.findViewById(R.id.tolltou);
+                TextView textViewMetro = view.findViewById(R.id.metro);
+                TextView textViewMetrotou = view.findViewById(R.id.metrotou);
+                TextView textViewBus = view.findViewById(R.id.bus);
+                TextView textViewBustou = view.findViewById(R.id.bustou);
+                TextView textViewTelephone = view.findViewById(R.id.telephone);
+                TextView address = view.findViewById(R.id.address);
+                RecyclerView recyclerView = view.findViewById(R.id.MecaluateRecy);
+                isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address,textViewTooltou,textViewMetrotou,textViewBustou);
+                getMevaluate(recyclerView);
+                mdetails_detaildin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        mdetails_layout.setVisibility(View.GONE);
+                        mevaluate_layout.setVisibility(View.VISIBLE);
+                    }
+                });
 
-    public void getPopup(View v) {
-        View view = View.inflate(ParticularsActivity.this, R.layout.detailedinformation_popu, null);
-        final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        ImageView mdowm_detaildin = view.findViewById(R.id.dowm_detaildin);
-        popupWindow.showAsDropDown(v, 150, 150);
-        RadioButton mevaluate_detaildin = view.findViewById(R.id.evaluate_detaildin);
-        RadioButton mdetails_detaildin = view.findViewById(R.id.details_detaildin);
-        final LinearLayout mdetails_layout = view.findViewById(R.id.details_layout);
-        final LinearLayout mevaluate_layout = view.findViewById(R.id.evaluate_layout);
-        TextView textViewTool = view.findViewById(R.id.toll);
-        TextView textViewTooltou = view.findViewById(R.id.tolltou);
-        TextView textViewMetro = view.findViewById(R.id.metro);
-        TextView textViewMetrotou = view.findViewById(R.id.metrotou);
-        TextView textViewBus = view.findViewById(R.id.bus);
-        TextView textViewBustou = view.findViewById(R.id.bustou);
-        TextView textViewTelephone = view.findViewById(R.id.telephone);
-        TextView address = view.findViewById(R.id.address);
-        RecyclerView recyclerView = view.findViewById(R.id.MecaluateRecy);
-        isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou);
-        getMevaluate(recyclerView);
-        mdetails_detaildin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                mevaluate_detaildin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mdetails_layout.setVisibility(View.VISIBLE);
+                        mevaluate_layout.setVisibility(View.GONE);
+                    }
+                });
 
-                mdetails_layout.setVisibility(View.GONE);
-                mevaluate_layout.setVisibility(View.VISIBLE);
-                //  isModetails();
-            }
-        });
-
-        mevaluate_detaildin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mdetails_layout.setVisibility(View.VISIBLE);
-                mevaluate_layout.setVisibility(View.GONE);
-            }
-        });
-
-        mdowm_detaildin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
+                mdowm_detaildin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
             }
         });
     }
@@ -147,7 +141,7 @@ public class ParticularsActivity extends BaseActivity {
 
             @Override
             public void onDataSuccess(MevaluateBean mevaluateBean) {
-                List<MevaluateBean.ResultBean> result = mevaluateBean.getResult();
+                List<MevaResultBean> result = mevaluateBean.getResult();
                 MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
                 recyclerView.setAdapter(mevaluateAdapder);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
@@ -168,7 +162,7 @@ public class ParticularsActivity extends BaseActivity {
             public void onHideLoading() {
 
             }
-        }).getMevaluate(i, 1, 25);
+        }).getMevaluate(i, 1, 5);
     }
 
     @Override
@@ -179,7 +173,7 @@ public class ParticularsActivity extends BaseActivity {
         String paricularstaddress = intent.getStringExtra(Constant.ADDRESS);
         String stringExtra = intent.getStringExtra(Constant.TUIJIANID);
 
-        i = Integer.valueOf(stringExtra);
+            i = Integer.valueOf(stringExtra);
 
         partimage.setImageURI(Uri.parse(paricularstlogo));
         partname.setText(paricularstname);
@@ -198,7 +192,7 @@ public class ParticularsActivity extends BaseActivity {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
 
-                    List<MovieListByCinemaIdBean.ResultBean> result = movieListByCinemaIdBean.getResult();
+                    List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();
                 }
@@ -220,7 +214,7 @@ public class ParticularsActivity extends BaseActivity {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
 
-                    List<MovieListByCinemaIdBean.ResultBean> result = movieListByCinemaIdBean.getResult();
+                    List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();
 
@@ -250,13 +244,13 @@ public class ParticularsActivity extends BaseActivity {
 
                 String vehicleRoute = mdetailsBean.getResult().getVehicleRoute();
                 String[] split = vehicleRoute.split("。");
-                if (split.length == 1) {
+                if (split.length==1) {
                     textViewBus.setText(split[0]);
                     telephone.setText(mdetailsBean.getResult().getPhone());
                     address.setText(mdetailsBean.getResult().getAddress());
                     viewTool.setVisibility(View.GONE);
                     viewMetro.setVisibility(View.GONE);
-                } else {
+                }else{
                     telephone.setText(mdetailsBean.getResult().getPhone());
                     address.setText(mdetailsBean.getResult().getAddress());
                     textViewBus.setText(split[1]);

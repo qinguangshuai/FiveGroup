@@ -13,14 +13,8 @@ import retrofit2.http.Query;
  */
 public interface PlayingService {
 
-
     //请求 正在上映 || 即将上映 数据  内网
     @GET("movie/v1/findComingSoonMovieList")
     Observable<PlayingBean> getPlayingBeanObservable(@Query("page") int page, @Query("count") int count);
-
-
-
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.bw.movie.wxapi.model;
 
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
@@ -29,7 +30,7 @@ public class OrderSuccessModel {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.d(e+"");
                     }
 
                     @Override

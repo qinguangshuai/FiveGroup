@@ -10,29 +10,33 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
-import com.bw.movie.cinema.bean.NeightbourBean;
+import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
+import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
 import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+/*
+* NeightbourAdapder
+* */
 public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.NeightbourViewHolder> {
-    private List<NeightbourBean.ResultBean.NearbyCinemaListBean> listBeans;
+    List<NeightNearbyCinemaListBean> listBeans;
     private Context mContext;
 
-    public NeightbourAdapder(List<NeightbourBean.ResultBean.NearbyCinemaListBean> listBeans, Context mContext) {
+
+
+    public NeightbourAdapder(List<NeightNearbyCinemaListBean> listBeans, Context mContext) {
         this.listBeans = listBeans;
         this.mContext = mContext;
     }
@@ -86,7 +90,11 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
 
                         }
                     }).getFollow(listBeans.get(i).getId());
+
+
                 } else {
+
+
                     new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
                         @Override
                         public void onDataSuccess(FollowBean followBean) {
@@ -104,6 +112,7 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
                         public void onHideLoading() {
                         }
                     }).getCannelFollow(listBeans.get(i).getId());
+
                 }
             }
         });

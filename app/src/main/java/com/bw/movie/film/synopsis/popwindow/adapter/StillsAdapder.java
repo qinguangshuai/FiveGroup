@@ -43,8 +43,6 @@ public class StillsAdapder extends BaseMultiItemQuickAdapter<StillsItem, BaseVie
         }
 
     }
-
-
     private List<String> posterList;
 
     public void setPoster(List<String> posterList) {

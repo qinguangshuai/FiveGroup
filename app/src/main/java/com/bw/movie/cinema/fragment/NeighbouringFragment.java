@@ -1,14 +1,11 @@
 package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
@@ -16,7 +13,8 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
-import com.bw.movie.cinema.bean.NeightbourBean;
+import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
+import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
@@ -98,7 +96,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
 
-        final List<NeightbourBean.ResultBean.NearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
+        final List<NeightNearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
         NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
         recyNeightbor.setAdapter(neightbourAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

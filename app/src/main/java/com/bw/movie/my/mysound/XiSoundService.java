@@ -9,7 +9,6 @@ import retrofit2.http.GET;
  * fileName:XiSoundService
  */
 public interface XiSoundService {
-    //http://172.17.8.100/movieApi/tool/v1/verify/findUnreadMessageCount
     @GET("tool/v1/verify/findUnreadMessageCount")
     Observable<XiSoundUser> getXi();
 }

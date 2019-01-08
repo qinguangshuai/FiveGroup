@@ -75,15 +75,17 @@ public class CinemaFragment extends BaseFragment {
         searchView.setClick(new SearchView.Click() {
             @Override
             public void onClickListener(View v, String s) {
-                if (TextUtils.isEmpty(s)) {
+
+
+                if (TextUtils.isEmpty(s)){
                     Toast.makeText(mActivity, "请输入查询信息", Toast.LENGTH_SHORT).show();
-                } else {
+                }else{
                     new SearchPresenter(new com.bw.movie.cinema.search.view.SearchView<SearchBean>() {
 
                         @Override
                         public void onDataSuccess(SearchBean searchBean) {
 
-                            if (searchBean.getResult() != null && searchBean.getResult().size() > 0) {
+                            if (searchBean.getResult()!=null && searchBean.getResult().size()>0){
                                 //跳转到ParticularsActivity页面
                                 Intent intent = new Intent(getActivity(), ParticularsActivity.class);
                                 //获取推荐的logo的
@@ -98,7 +100,7 @@ public class CinemaFragment extends BaseFragment {
                                 intent.putExtra(Constant.NAME, name);
                                 intent.putExtra(Constant.ADDRESS, address);
                                 startActivity(intent);
-                            } else {
+                            }else {
                                 Toast.makeText(mActivity, "请输入正确电影院信息", Toast.LENGTH_SHORT).show();
                             }
 
@@ -118,10 +120,12 @@ public class CinemaFragment extends BaseFragment {
                         public void onHideLoading() {
 
                         }
-                    }).getSreach(1, 5, s);
+                    }).getSreach(1,5,s);
                 }
+
             }
         });
+
     }
 
     //初始化监听
@@ -183,7 +187,9 @@ public class CinemaFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
     }
+
 
     @OnClick(R.id.zuoBiaoImage)
     public void onViewClicked() {
@@ -191,19 +197,13 @@ public class CinemaFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
-                getActivity().finish();
             }
         });
     }
 
     @Subscribe
-    public void setAddress(AddressUser address) {
-        //a++;
-        //if (a == 1) {
-            zuoBiaoText.setText(address.getCity() + "  " + address.getCid());
-        //} else {
-          //  return;
-        //}
+    public void setAddress(AddressUser address){
+        zuoBiaoText.setText(address.getCity()+"  "+address.getCid());
     }
 
     @Override

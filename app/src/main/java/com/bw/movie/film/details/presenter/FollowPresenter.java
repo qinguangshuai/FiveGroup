@@ -13,17 +13,12 @@ import com.bw.movie.film.details.callback.FollowCallBack;
  */
 public class FollowPresenter extends BasePresenter {
 
-
     private FollowModel followModel;
 
     public FollowPresenter(IBaseView iBaseView) {
         super(iBaseView);
         followModel = new FollowModel();
     }
-
-
-
-
 
     //关注
     public void getFollowBeanObservable(int folllow){
@@ -39,10 +34,5 @@ public class FollowPresenter extends BasePresenter {
             }
         });
     }
-
-
-
-
-
 
 }

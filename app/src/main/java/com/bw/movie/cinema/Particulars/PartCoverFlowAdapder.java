@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;
@@ -23,16 +24,16 @@ import java.util.List;
  * fileName:PartCoverFlowAdapder
  */
 public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdapder.CoverFlowViewHolder> {
-
-    private List<MovieListByCinemaIdBean.ResultBean> list;
+    private List<MovieResultBean> list;
     private Context mContext;
-    private int p;
+    private  int p;
+
 
     public int getP() {
         return p;
     }
 
-    public PartCoverFlowAdapder(List<MovieListByCinemaIdBean.ResultBean> list, Context mContext) {
+    public PartCoverFlowAdapder(List<MovieResultBean> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
     }
@@ -52,14 +53,15 @@ public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdap
         long releaseTime = list.get(i1).getReleaseTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(releaseTime);
-        gc.setTimeInMillis(Long.parseLong(s));
+         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        coverFlowViewHolder.moviename_item_coveflow.setText(list.get(i1).getName() + "    " + df.format(gc.getTime()));
+
+        coverFlowViewHolder.moviename_item_coveflow.setText(list.get(i1).getName()+"    "+df.format(gc.getTime()));
     }
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : Integer.MAX_VALUE;
+        return  list==null?0: Integer.MAX_VALUE;
     }
 
     class CoverFlowViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +71,7 @@ public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdap
         public CoverFlowViewHolder(@NonNull View itemView) {
             super(itemView);
             simpleDraweeView = itemView.findViewById(R.id.simple_coveflow);
-            moviename_item_coveflow = itemView.findViewById(R.id.moviename_item_coveflow);
+            moviename_item_coveflow=itemView.findViewById(R.id.moviename_item_coveflow);
         }
     }
 }

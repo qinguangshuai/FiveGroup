@@ -11,5 +11,4 @@ import com.bw.movie.film.show.carousel.bean.CarouselBean;
      void success(CarouselBean carouselBean);
      void error(String message);
 
-
 }

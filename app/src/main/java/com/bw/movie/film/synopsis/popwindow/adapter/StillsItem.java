@@ -7,9 +7,6 @@ public class StillsItem implements MultiItemEntity {
     public static final  int IMGSMALL=2;
     private int itemType;
 
-
-
-
     public StillsItem(int itemType) {
         this.itemType = itemType;
     }

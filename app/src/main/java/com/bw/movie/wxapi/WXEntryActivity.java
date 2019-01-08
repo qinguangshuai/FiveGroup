@@ -44,7 +44,6 @@ import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneTimelin
 
 public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, WXView<WXUser> {
 
-    //    private LoginPresenter mLoginPresenter;
     private static final String TAG = "WXEntryActivity";
     private static final int REQUESTMSG = 0;
     private String message;
@@ -73,9 +72,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
         setContentView(R.layout.activity_wxentry);
 
         WeiXinUtil.reg(WXEntryActivity.this).handleIntent(getIntent(), this);
-//        mLoginPresenter = new LoginPresenter(this);
         mWxPresenter = new WXPresenter(this);
-        //
         iwxapi = WXAPIFactory.createWXAPI(this, APP_ID, false);
         iwxapi.handleIntent(getIntent(), this);
         iwxapi.registerApp(APP_ID);
@@ -83,7 +80,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
 
     @Override
     public void onReq(BaseReq baseReq) {
-//        LogUtil.d("==1111111" );
         Log.d(TAG, "==1111111");
     }
 
@@ -97,7 +93,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                     public void run() {
                         //得到code
                         mCode = ((SendAuth.Resp) baseResp).code;
-//                        LogUtil.d("==1111111" + code);
                         if (!flag) {
                             flag = true;
                             Log.d(TAG, "==1111111     " + mCode);
@@ -112,7 +107,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 //取消
-//                LogUtil.d("code =ERR_USER_CANCEL");
                 Log.d(TAG, "code =ERR_USER_CANCEL");
                 break;
 

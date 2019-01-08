@@ -1,5 +1,7 @@
 package com.bw.movie.cinema.search.event;
-
+/*
+* CinameEvent
+* */
 public class CinameEvent {
     private int cinemaId;
 

@@ -13,7 +13,6 @@ import com.bw.movie.film.show.carousel.model.CarouselModel;
  */
 public class CarouserlPresenter extends BasePresenter {
 
-
     private CarouselModel carouselModel;
 
     public CarouserlPresenter(IBaseView iBaseView) {
@@ -34,10 +33,5 @@ public class CarouserlPresenter extends BasePresenter {
             }
         });
     }
-
-
-
-
-
 
 }

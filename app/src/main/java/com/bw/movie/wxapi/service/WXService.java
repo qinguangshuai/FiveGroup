@@ -13,7 +13,6 @@ import retrofit2.http.POST;
  * fileName:WXService
  */
 public interface WXService {
-    //http://172.17.8.100/movieApi/user/v1/weChatBindingLogin?code=0016X1X91bUUWO1JydV91PSRW916X1Xl
     @POST("user/v1/weChatBindingLogin")
     @FormUrlEncoded
     Observable<WXUser> postWX(@Field("code") String code);

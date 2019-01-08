@@ -14,9 +14,11 @@ import android.widget.Toast;
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
+import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.SeatSelectionActivity.activity.SeatSelectionActivity;
 import com.bw.movie.cinema.findmovieschedulelist.adapder.FindMovieScheduleListAdapder;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
+import com.bw.movie.cinema.findmovieschedulelist.bean.FindResultBean;
 import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
 import com.bw.movie.cinema.findmovieschedulelist.view.FindMovieScheduleListView;
 
@@ -38,7 +40,7 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
         cinema = cinema;
     }
 
-    private List<FindMovieScheduleListBean.ResultBean> resultBeans;
+    private List<FindResultBean> resultBeans;
 
     public ParticularsAdapder(Context mContext, List<String> list) {
         this.mContext = mContext;
@@ -109,9 +111,9 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
         return 1;
     }
 
-    private List<MovieListByCinemaIdBean.ResultBean> result;
+    private List<MovieResultBean> result;
 
-    public void Lunbo(List<MovieListByCinemaIdBean.ResultBean> result) {
+    public void Lunbo(List<MovieResultBean> result) {
         if (result != null && result.size() > 0) {
             this.result = result;
         }
