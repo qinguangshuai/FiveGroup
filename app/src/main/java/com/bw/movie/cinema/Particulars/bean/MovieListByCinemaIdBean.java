@@ -9,9 +9,6 @@ import java.util.List;
  */
 public class MovieListByCinemaIdBean {
 
-
-
-
     private String message;
     private String status;
     private List<ResultBean> result;
@@ -41,8 +38,6 @@ public class MovieListByCinemaIdBean {
     }
 
     public static class ResultBean {
-
-
 
         private String duration;
         private String fare;

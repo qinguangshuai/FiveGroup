@@ -11,6 +11,7 @@ import com.bw.movie.cinema.mdetails.model.MdetailsModel;
  * fileName:MdetailsPresenter(影院详情)
  */
 public class MdetailsPresenter extends BasePresenter {
+
     private MdetailsModel mdetailsModel;
 
     public MdetailsPresenter(IBaseView iBaseView) {

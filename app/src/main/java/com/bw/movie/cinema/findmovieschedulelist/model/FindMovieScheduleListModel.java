@@ -16,7 +16,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class  FindMovieScheduleListModel {
 
-
     public void getFindMovieScheduleList(int cinemasId, int movieId, final isFindMovieScheduleList isFindMovieScheduleList) {
         OkHttpUtil.get().createa(FindMovieScheduleListService.class).getFindMovieScheduleList(cinemasId, movieId)
                 .subscribeOn(Schedulers.io())

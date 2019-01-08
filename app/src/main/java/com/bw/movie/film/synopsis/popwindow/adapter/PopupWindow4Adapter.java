@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.event.PraiseEvent;
+import com.bw.movie.film.synopsis.bean.CommentResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,9 +29,9 @@ import java.util.List;
  */
 public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<CommentBean.ResultBean> result = new ArrayList<>();
+    private List<CommentResultBean> result = new ArrayList<>();
 
-    public void setResult(List<CommentBean.ResultBean> result) {
+    public void setResult(List<CommentResultBean> result) {
         this.result = result;
     }
 
@@ -58,7 +59,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         }
 
-        public void setData(final CommentBean.ResultBean resultBean) {
+        public void setData(final CommentResultBean resultBean) {
             mDraweeView.setImageURI(Uri.parse(resultBean.getCommentHeadPic()));
             mName.setText(resultBean.getCommentUserName());
             long browseTime = resultBean.getCommentTime();

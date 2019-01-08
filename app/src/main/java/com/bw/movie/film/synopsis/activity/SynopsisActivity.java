@@ -25,6 +25,7 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.film.cinema.activity.AffiliatedTheaterActivity;
 import com.bw.movie.film.details.presenter.DetailPresenter;
+import com.bw.movie.film.synopsis.bean.CommentResultBean;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow2Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow4Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.Popupwindow1Adapter;
@@ -104,7 +105,7 @@ public class SynopsisActivity extends BaseActivity {
     private int id;
     private EmptyUtil emptyUtil;
     private ToastUtil toast;
-    private ArrayList<CommentBean.ResultBean> list = new ArrayList<>();
+    private ArrayList<CommentResultBean> list = new ArrayList<>();
     private PopupWindow popupWindow;
     private PopupWindow popupWindow2;
     private PopupWindow popupWindow3;
@@ -239,7 +240,7 @@ public class SynopsisActivity extends BaseActivity {
         new SynopsisPresenter(new CommentView<CommentBean>() {
             @Override
             public void onDataSuccess(CommentBean commentBean) {
-                List<CommentBean.ResultBean> result = commentBean.getResult();
+                List<CommentResultBean> result = commentBean.getResult();
                 if (emptyUtil.isNull(result) == false) {
                     list.addAll(result);
                     setmReview(list);
@@ -422,7 +423,7 @@ public class SynopsisActivity extends BaseActivity {
 
 
     //第四个pop
-    public void setmReview(final List<CommentBean.ResultBean> result) {
+    public void setmReview(final List<CommentResultBean> result) {
 
         RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
         final ImageView imageView = mReview.findViewById(R.id.writemessage);

@@ -1,12 +1,14 @@
 package com.bw.movie.my.ticket.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 
 /*
  *
  *   购票记录bean类
  * */
-public class TicketFoemationEntity {
+public class TicketFoemationEntity extends BaseEntity {
     private String message;
     private String status;
     private List<ResultBean> result;

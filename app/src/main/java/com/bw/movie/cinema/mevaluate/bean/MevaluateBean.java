@@ -39,7 +39,6 @@ public class MevaluateBean {
 
     public static class ResultBean {
 
-
         private String commentContent;
         private String commentHeadPic;
         private int commentId;

@@ -12,8 +12,6 @@ import retrofit2.http.Query;
  * fileName:FollowService
  */
 public interface FollowService {
-
-
     @GET("cinema/v1/verify/followCinema")
     Observable<FollowBean> getFollow(@Query("cinemaId") int cinemaId);
 }

@@ -14,6 +14,4 @@ import retrofit2.http.Query;
 public interface MevaluateService {
     @GET("cinema/v1/findAllCinemaComment")
     Observable<MevaluateBean> getMevaluate(@Query("cinemaId") int cinemaId, @Query("page") int page, @Query("count") int count);
-
-
 }

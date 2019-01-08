@@ -15,10 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
+import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.login.bean.LoginUser;
+import com.bw.movie.login.bean.LoginUserInfoBean;
 import com.bw.movie.login.bean.XinUser;
 import com.bw.movie.login.presenter.LoginPresenter;
 import com.bw.movie.login.presenter.XinPresenter;
@@ -82,7 +85,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private int mUserId;
     private Unbinder mUnbinder;
     private NotifyUtil currentNotify;
-    private boolean isoncl = true;
     private int requestCode = (int) SystemClock.uptimeMillis();
 
     @Override
@@ -148,17 +150,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.loginbox:
                 break;
             case R.id.loginbtn:
-                if (isoncl) {
-                    //你要运行的方法
-                    isoncl = false; //点击一次后就改成false，这样就实现只点击一次了
-                }
                 if (!ButtonUtils.isFastDoubleClick(R.id.loginbtn)) {
                     //写你相关操作即可
                     ButtonUtils.isFastDoubleClick(1, 2000);
                 }
                 String encrypt = EncryptUtil.encrypt(mEdit2);
                 if (TextUtils.isEmpty(mEdit1) && TextUtils.isEmpty(mEdit2)) {
-                    Toast.makeText(this, "用户名或则密码不能为空", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "用户名或者密码不能为空", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -206,7 +204,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
                     }
                 });
-
                 break;
             case R.id.loginimg:
                 wxLogin();
@@ -241,7 +238,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
             mSessionId = loginUser.getResult().getSessionId();
             mUserId = loginUser.getResult().getUserId();
-            LoginUser.ResultBean.UserInfoBean userInfo = loginUser.getResult().getUserInfo();
+            LoginUserInfoBean userInfo = loginUser.getResult().getUserInfo();
             mBirthday = userInfo.getBirthday();
             mHeadPic = userInfo.getHeadPic();
             mLastLoginTime = userInfo.getLastLoginTime();
@@ -278,13 +275,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     public void getSp() {
-        SpUtil.put("sessionId", mSessionId);
+        SpUtil.put(Constant.SESSIONID, mSessionId);
         SpUtil.put("userId", mUserId);
-        SpUtil.put("birthday", mBirthday);
-        SpUtil.put("headPic", mHeadPic);
+        SpUtil.put(Constant.BIRTHDAY, mBirthday);
+        SpUtil.put(Constant.HEADPIC, mHeadPic);
         SpUtil.put("lastLoginTime", mLastLoginTime);
-        SpUtil.put("nickName", mNickName);
-        SpUtil.put("phone", mPhone);
+        SpUtil.put(Constant.NICKNAME, mNickName);
+        SpUtil.put(Constant.PHONE, mPhone);
         SpUtil.put("id", mId);
         SpUtil.put("sex", mSex);
 
@@ -326,18 +323,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     }
 
-
-    //给俺妞监听
+    //给按钮监听
     public void setRemeberboxData(){
         mRemeberbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginbox.setChecked(mRemeberbox.isChecked());
-
             }
         });
     }
-
-
-
 }

@@ -10,15 +10,16 @@ import com.bw.movie.cinema.findmovieschedulelist.model.FindMovieScheduleListMode
  * author:张文龙(张文龙)
  * fileName:FindMovieScheduleListProsenter
  */
-public class  FindMovieScheduleListProsenter extends BasePresenter {
+public class FindMovieScheduleListProsenter extends BasePresenter {
 
+    private FindMovieScheduleListModel findMovieScheduleListModel;
 
-     private FindMovieScheduleListModel findMovieScheduleListModel;
     public FindMovieScheduleListProsenter(IBaseView iBaseView) {
         super(iBaseView);
         findMovieScheduleListModel = new FindMovieScheduleListModel();
     }
-    public void getFindMovieScheduleList(int cinemasId, int movieId){
+
+    public void getFindMovieScheduleList(int cinemasId, int movieId) {
         findMovieScheduleListModel.getFindMovieScheduleList(cinemasId, movieId, new FindMovieScheduleListModel.isFindMovieScheduleList() {
             @Override
             public void getFindMovieSchedule(FindMovieScheduleListBean findMovieScheduleListBean) {

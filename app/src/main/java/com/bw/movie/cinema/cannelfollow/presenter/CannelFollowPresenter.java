@@ -12,14 +12,14 @@ import com.bw.movie.cinema.follow.bean.FollowBean;
  */
 public class CannelFollowPresenter extends BasePresenter {
 
+    private CannelFollowModel cannelFollowModel;
 
-
-     private CannelFollowModel cannelFollowModel;
     public CannelFollowPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        cannelFollowModel=new CannelFollowModel();
+        cannelFollowModel = new CannelFollowModel();
     }
-    public void getCannelFollow(int cinemaId){
+
+    public void getCannelFollow(int cinemaId) {
         cannelFollowModel.getCannelFollow(cinemaId, new CannelFollowModel.isCannelFollow() {
             @Override
             public void getCannelFollw(FollowBean followBean) {

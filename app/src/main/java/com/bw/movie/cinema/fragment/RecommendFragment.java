@@ -35,6 +35,7 @@ import butterknife.Unbinder;
  */
 
 public class RecommendFragment extends BaseFragment implements NeightbourView<NeightbourBean> {
+
     @BindView(R.id.recy_recommend)
     RecyclerView recyRecommend;
     @BindView(R.id.swiperecomment)
@@ -50,6 +51,7 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
             EventBus.getDefault().register(this);
         }
     }
+
     @Subscribe
     public void getFollowId(FollowEvent followEvent) {
         if (followEvent.getId() == Constant.FOLLOWID) {
@@ -94,7 +96,6 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
 
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -128,7 +129,6 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
                 startActivity(intent);
             }
         });
-
     }
 
     @Override

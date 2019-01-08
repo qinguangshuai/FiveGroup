@@ -23,12 +23,9 @@ import java.util.List;
  */
 public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovieScheduleListAdapder.FindMovieScheduleListViewHolder> {
 
-
-
     private List<FindMovieScheduleListBean.ResultBean> resultBeans = new ArrayList<>();
 
     public void setResultBeans(List<FindMovieScheduleListBean.ResultBean> resultBeans) {
-
         if (this.resultBeans != null && this.resultBeans.size() > 0) {
             this.resultBeans.clear();
         }
@@ -48,13 +45,6 @@ public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovie
         findMovieScheduleListViewHolder.textViewmovepull.setText(resultBeans.get(i).getScreeningHall());
         findMovieScheduleListViewHolder.textViewovetime.setText(resultBeans.get(i).getEndTime());
         findMovieScheduleListViewHolder.textViewprice.setText(resultBeans.get(i).getPrice() + "");
-      /*  findMovieScheduleListViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyApp.context,SeatSelectionActivity.class);
-                MyApp.context.startActivity(intent);
-            }
-        });*/
     }
 
     @Override
@@ -82,7 +72,7 @@ public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isSeatSelection.getSeatSelection(v,getAdapterPosition());
+                    isSeatSelection.getSeatSelection(v, getAdapterPosition());
                 }
             });
         }

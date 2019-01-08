@@ -16,8 +16,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class CannelFollowModel {
 
-
-
     public void getCannelFollow(int cinemaId, final isCannelFollow isCannelFollow) {
         OkHttpUtil.get().createa(CannelFollowService.class)
                 .getCannelFollow(cinemaId)

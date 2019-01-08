@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class FindMovieScheduleListBean {
 
-
-
     private String message;
     private String status;
     private List<ResultBean> result;
@@ -40,7 +38,6 @@ public class FindMovieScheduleListBean {
     }
 
     public static class ResultBean {
-
 
         private String beginTime;
         private String duration;

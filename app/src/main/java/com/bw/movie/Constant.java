@@ -25,7 +25,14 @@ public interface Constant {
     String CINEMAID="cinemaid";
     //点赞
     int MESSAGEID=0x0000;
-
-
-
+    //sessionId
+    String SESSIONID="sessionId";
+    //userId
+    int USERID=0x0000;
+    //birthday
+    String BIRTHDAY="birthday";
+    //headPic
+    String HEADPIC="headPic";
+    //nickName
+    String NICKNAME="nickName";
 }

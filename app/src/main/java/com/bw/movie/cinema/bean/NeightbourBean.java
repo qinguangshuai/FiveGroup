@@ -6,13 +6,6 @@ import java.util.List;
 
 public class NeightbourBean implements Serializable {
 
-
-    /**
-     * result : {"followCinemas":[{"address":"北京市西城区天桥南大街3号楼一层、二层（天桥艺术大厦南侧）","commentTotal":6,"distance":0,"followCinema":1,"id":3,"logo":"http://172.17.8.100/images/movie/logo/sd.jpg","name":"首都电影院"},{"address":"东城区滨河路乙1号雍和航星园74-76号楼","commentTotal":21,"distance":0,"followCinema":1,"id":1,"logo":"http://172.17.8.100/images/movie/logo/qcgx.jpg","name":"青春光线电影院"},{"address":"西城区前门大街大栅栏街36号","commentTotal":4,"distance":0,"followCinema":1,"id":2,"logo":"http://172.17.8.100/images/movie/logo/dgl.jpg","name":"大观楼电影院"}],"nearbyCinemaList":[{"address":"北京市海淀区远大路1号B座5层魔影国际影城","commentTotal":7,"distance":0,"followCinema":1,"id":4,"logo":"http://172.17.8.100/images/movie/logo/mygj.jpg","name":"魔影国际影城"},{"address":"朝阳区湖景东路11号新奥购物中心B1(东A口)","commentTotal":5,"distance":0,"followCinema":2,"id":5,"logo":"http://172.17.8.100/images/movie/logo/CGVxx.jpg","name":"CGV星星影城"}]}
-     * message : 查询成功
-     * status : 0000
-     */
-
     private ResultBean result;
     private String message;
     private String status;
@@ -62,15 +55,6 @@ public class NeightbourBean implements Serializable {
         }
 
         public static class FollowCinemasBean {
-            /**
-             * address : 北京市西城区天桥南大街3号楼一层、二层（天桥艺术大厦南侧）
-             * commentTotal : 6
-             * distance : 0
-             * followCinema : 1
-             * id : 3
-             * logo : http://172.17.8.100/images/movie/logo/sd.jpg
-             * name : 首都电影院
-             */
 
             private String address;
             private int commentTotal;
@@ -138,15 +122,6 @@ public class NeightbourBean implements Serializable {
         }
 
         public static class NearbyCinemaListBean {
-            /**
-             * address : 北京市海淀区远大路1号B座5层魔影国际影城
-             * commentTotal : 7
-             * distance : 0
-             * followCinema : 1
-             * id : 4
-             * logo : http://172.17.8.100/images/movie/logo/mygj.jpg
-             * name : 魔影国际影城
-             */
 
             private String address;
             private int commentTotal;

@@ -37,7 +37,6 @@ public class MdetailsBean {
 
     public static class ResultBean {
 
-
         private String address;
         private String businessHoursContent;
         private int commentTotal;

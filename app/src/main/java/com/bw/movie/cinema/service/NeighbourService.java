@@ -12,6 +12,4 @@ import retrofit2.http.Query;
 public interface NeighbourService {
   @GET("cinema/v1/findRecommendCinemas")
   Observable<NeightbourBean> getNeightbour(@Query("page") int page, @Query("count") int count);
-
-
 }

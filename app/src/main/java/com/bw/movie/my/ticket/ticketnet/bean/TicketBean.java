@@ -1,6 +1,8 @@
 package com.bw.movie.my.ticket.ticketnet.bean;
 
-public class TicketBean {
+import com.bw.movie.base.BaseEntity;
+
+public class TicketBean extends BaseEntity {
 
     private String orderId;
     private String message;

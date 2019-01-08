@@ -6,9 +6,8 @@ package com.bw.movie.cinema.event;
  * fileName:FindMovieScheduleListEvent
  */
 public class FindMovieScheduleListEvent {
+
     private int id;
-
-
 
     public FindMovieScheduleListEvent(int id) {
         this.id = id;

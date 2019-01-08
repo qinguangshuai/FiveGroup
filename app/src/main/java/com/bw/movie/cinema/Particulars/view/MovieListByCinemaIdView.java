@@ -9,7 +9,4 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
  * fileName:MovieListByCinemaIdView
  */
 public interface MovieListByCinemaIdView<T> extends IBaseView<MovieListByCinemaIdBean> {
-
-
-
 }

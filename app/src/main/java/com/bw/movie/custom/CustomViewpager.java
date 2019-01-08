@@ -11,6 +11,7 @@ import android.view.MotionEvent;
  * 自定义viewpager
  */
 public class CustomViewpager extends ViewPager {
+
     public CustomViewpager(@NonNull Context context) {
         this(context, null);
     }

@@ -28,12 +28,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-
 public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.NeightbourViewHolder> {
     private List<NeightbourBean.ResultBean.NearbyCinemaListBean> listBeans;
     private Context mContext;
-
-
 
     public NeightbourAdapder(List<NeightbourBean.ResultBean.NearbyCinemaListBean> listBeans, Context mContext) {
         this.listBeans = listBeans;
@@ -89,12 +86,7 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
 
                         }
                     }).getFollow(listBeans.get(i).getId());
-//                    listBeans.get(i).setFollowCinema(1);
-
-
                 } else {
-
-
                     new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
                         @Override
                         public void onDataSuccess(FollowBean followBean) {
@@ -112,8 +104,6 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
                         public void onHideLoading() {
                         }
                     }).getCannelFollow(listBeans.get(i).getId());
-//                    listBeans.get(i).setFollowCinema(2);
-
                 }
             }
         });

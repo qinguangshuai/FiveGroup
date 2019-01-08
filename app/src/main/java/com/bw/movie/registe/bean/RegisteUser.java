@@ -1,11 +1,13 @@
 package com.bw.movie.registe.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2018/12/26    18:39
  * author:Therefore(Lenovo)
  * fileName:RegisteUser
  */
-public class RegisteUser {
+public class RegisteUser extends BaseEntity {
 
     private String message;
     private String status;

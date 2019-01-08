@@ -6,9 +6,8 @@ package com.bw.movie.cinema.event;
  * fileName:FollowEvent
  */
 public class FollowEvent {
+
     private int id;
-
-
 
     public FollowEvent(int id) {
         this.id = id;
