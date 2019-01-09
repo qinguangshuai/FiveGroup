@@ -55,7 +55,7 @@ public class ErrorView extends LinearLayout {
         image.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                 context.startActivity(intent);
             }
         });
