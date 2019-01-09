@@ -32,8 +32,6 @@ import java.util.List;
  */
 public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private EmptyUtil emptyUtil = new EmptyUtil();
-
     private ToastUtil toast = new ToastUtil();
 
     private List<ResultBean> result = new ArrayList<>();
@@ -48,7 +46,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void addResult(List<ResultBean> result) {
-        if (emptyUtil.isNull(result)) {
+        if (EmptyUtil.isNull(result)) {
             toast.Toast("没更多了,官人明天来~");
         } else {
             this.result.addAll(result);
@@ -136,7 +134,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if (emptyUtil.isNull(result) == false) {
+        if (EmptyUtil.isNull(result) == false) {
             return result.size();
         } else {
             return 0;

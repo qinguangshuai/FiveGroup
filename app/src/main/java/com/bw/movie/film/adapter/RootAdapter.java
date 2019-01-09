@@ -49,10 +49,6 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
     private final PlayingAdapter playingAdapter= new PlayingAdapter();
     private final HotPlayAdapter hotPlayAdapter = new HotPlayAdapter();
 
-
-    //非空判断工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
-
     //轮播数据
     private CarouselBean mCarouselBean = new CarouselBean();
 
@@ -71,7 +67,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
 
     //热门电影 数据 set 方法
     public void setResult(List<PopularBean.ResultBean> result) {
-        if (emptyUtil.isNull(this.result) == false) {
+        if (EmptyUtil.isNull(this.result) == false) {
             this.result.clear();
         }
         this.result.addAll(result);
@@ -80,7 +76,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
 
     //热门电影 add 方法
     public void addResult(List<PopularBean.ResultBean> result) {
-        if (emptyUtil.isNull(result)) {
+        if (EmptyUtil.isNull(result)) {
             toast.Toast("没有更多了");
         } else {
             this.result.addAll(result);
@@ -94,7 +90,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
 
     //正在热映 数据 set 方法
     public void setHotResult(List<HotPlayBean.ResultBean> hotresult) {
-        if (emptyUtil.isNull(this.hotresult) == false) {
+        if (EmptyUtil.isNull(this.hotresult) == false) {
             this.hotresult.clear();
         }
         this.hotresult.addAll(hotresult);
@@ -103,7 +99,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
 
     //正在热映 add 方法
     public void addHotResult(List<HotPlayBean.ResultBean> hotresult) {
-        if (emptyUtil.isNull(hotresult)) {
+        if (EmptyUtil.isNull(hotresult)) {
             toast.Toast("没有更多了");
         } else {
             this.hotresult.addAll(hotresult);
@@ -116,7 +112,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
 
     //即将上映 || 正在上映  数据 set 方法
     public void setPlayResult(List<PlayingBean.ResultBean> playresult) {
-        if (emptyUtil.isNull(this.playresult) == false) {
+        if (EmptyUtil.isNull(this.playresult) == false) {
             this.playresult.clear();
         }
         this.playresult.addAll(playresult);
@@ -125,7 +121,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
 
     //即将上映 || 正在上映 数据 add 方法
     public void addPlayResult(List<PlayingBean.ResultBean> playresult) {
-        if (emptyUtil.isNull(playresult)) {
+        if (EmptyUtil.isNull(playresult)) {
             toast.Toast("没有更多了");
         } else {
             this.playresult.addAll(playresult);
@@ -217,16 +213,16 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
         //辅助变量 判断布局是否被加载进来
         int a = 0;
         //判断非空行为
-        if (emptyUtil.isNull(mCarouselBean.getResult()) == false) {
+        if (EmptyUtil.isNull(mCarouselBean.getResult()) == false) {
             a++;
         }
-        if (emptyUtil.isNull(result) == false) {
+        if (EmptyUtil.isNull(result) == false) {
             a++;
         }
-        if (emptyUtil.isNull(hotresult) == false) {
+        if (EmptyUtil.isNull(hotresult) == false) {
             a++;
         }
-        if (emptyUtil.isNull(playresult) == false) {
+        if (EmptyUtil.isNull(playresult) == false) {
             a++;
         }
         return a;

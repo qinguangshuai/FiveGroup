@@ -27,8 +27,6 @@ import butterknife.Unbinder;
  *      正在上映
  */
 public class PlayingFragment extends BaseFragment {
-    //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
     //吐司工具类
     private ToastUtil toast = new ToastUtil();
     //适配器

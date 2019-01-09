@@ -63,8 +63,6 @@ public class FilmFragment extends BaseFragment {
     private RootAdapter mRootAdapter = new RootAdapter();
     //吐司工具类
     private ToastUtil toast = new ToastUtil();
-    //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     Unbinder unbinder;
     @BindView(R.id.RecyclerView_filefragment)

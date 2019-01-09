@@ -27,8 +27,6 @@ import butterknife.Unbinder;
  *      热门电影
  */
 public class HotFragment extends BaseFragment {
-    //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
     //吐司工具类
     private ToastUtil toast = new ToastUtil();
     //适配器

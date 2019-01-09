@@ -28,8 +28,6 @@ public class PopularFragment extends BaseFragment {
     @BindView(R.id.swipe_detailsfragment)
     SwipeRefreshLayout mSwipeDetailsfragment;
     Unbinder unbinder1;
-    //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
     //吐司工具类
     private ToastUtil toast = new ToastUtil();
     //适配器

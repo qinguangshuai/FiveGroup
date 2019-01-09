@@ -36,7 +36,6 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
     @BindView(R.id.recy_affiliated)
     RecyclerView mRecyAffiliated;
     private int id;
-    private EmptyUtil emptyUtil = new EmptyUtil();
     private ToastUtil toast = new ToastUtil();
     private String name;
 

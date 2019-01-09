@@ -103,7 +103,6 @@ public class SynopsisActivity extends BaseActivity {
     private View mDatail;
     private int a = 1;
     private int id;
-    private EmptyUtil emptyUtil;
     private ToastUtil toast;
     private ArrayList<ResultBean> list = new ArrayList<>();
     private PopupWindow popupWindow;
@@ -123,7 +122,6 @@ public class SynopsisActivity extends BaseActivity {
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
         mStills = View.inflate(this, R.layout.popupwindow_stills, null);      //剧照
         mReview = View.inflate(this, R.layout.popupwindow_synopsis, null);    //影评
-        emptyUtil = new EmptyUtil();
         toast = new ToastUtil();
         Intent intent = getIntent();
         id = intent.getIntExtra("详情id", -1);
@@ -237,7 +235,7 @@ public class SynopsisActivity extends BaseActivity {
             @Override
             public void onDataSuccess(CommentBean commentBean) {
                 List<ResultBean> result = commentBean.getResult();
-                if (emptyUtil.isNull(result) == false) {
+                if (EmptyUtil.isNull(result) == false) {
                     mPopupWindow4Adapter.addResult(commentBean.getResult());
                     mPopupWindow4Adapter.notifyDataSetChanged();
                     toast.Toast("加载更多");
