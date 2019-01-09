@@ -81,6 +81,6 @@ public interface UrlUtil {
     String RELEASEMOVIE="movie/v1/findReleaseMovieList";
     //正在上映
     String COMINGSOONMOVIE="movie/v1/findComingSoonMovieList";
-    //
-//    String p="movie/v1/findHotMovieList";
+    //附近影院
+    String RECOMMEN="cinema/v1/findNearbyCinemas";
 }
