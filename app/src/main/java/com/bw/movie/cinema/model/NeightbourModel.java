@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.model;
 
 
+import com.bw.movie.base.BaseModel;
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.service.NeighbourService;
 import com.bw.movie.util.HttpCallBack;
@@ -11,30 +13,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class NeightbourModel {
+public class NeightbourModel extends BaseModel {
     public void getNeightbour(int page, int count, final HttpCallBack<NeightbourBean> httpCallBack) {
         OkHttpUtil.get().createa(NeighbourService.class).getNeightbour(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NeightbourBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+                .subscribe(new BaseObserver<NeightbourBean>(httpCallBack){
                     @Override
                     public void onNext(NeightbourBean neightbourBean) {
                         httpCallBack.onSuccess(neightbourBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }

@@ -170,7 +170,7 @@ public class SynopsisActivity extends BaseActivity {
                 } else if (praiseBean.getMessage().equals("不能重复点赞")) {
 
                 } else {
-
+                    praiseEvent.getRadioButton().setChecked(false);
                 }
             }
 
