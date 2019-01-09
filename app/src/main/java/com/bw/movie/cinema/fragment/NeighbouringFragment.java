@@ -16,7 +16,13 @@ import com.bw.movie.cinema.adapter.NeightbourAdapder;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
+import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
+import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
 import com.bw.movie.cinema.event.FollowEvent;
+import com.bw.movie.cinema.event.NeighbourEvent;
+import com.bw.movie.cinema.follow.bean.FollowBean;
+import com.bw.movie.cinema.follow.presenter.FollowProsenter;
+import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
 
@@ -45,7 +51,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         unbinder = ButterKnife.bind(this, rootView);
         NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
         neightbourPresenter.getNeightbour(1, 10);
-        if (EventBus.getDefault().isRegistered(this)) {
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
@@ -60,17 +66,17 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void initListener() {
-     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-         @Override
-         public void onRefresh() {
-             new Handler().postDelayed(new Runnable() {
-                 @Override
-                 public void run() {
-                      swipeRefreshLayout.setRefreshing(false);
-                 }
-             },2000);
-         }
-     });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
@@ -78,6 +84,56 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     }
 
+    @Subscribe
+    public void getNeighbour(final NeighbourEvent neighbourEvent) {
+        if (neighbourEvent.isChecked()) {
+            new FollowProsenter(new FollowView<FollowBean>() {
+                @Override
+                public void onDataSuccess(FollowBean followBean) {
+                    neighbourEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+
+                    EventBus.getDefault().post(new FollowEvent(Constant.FOLLOWID));
+                }
+
+                @Override
+                public void onDataFailer(String msg) {
+
+                }
+
+                @Override
+                public void onShowLoading() {
+
+                }
+
+                @Override
+                public void onHideLoading() {
+
+                }
+            }).getFollow(neighbourEvent.getId());
+        } else {
+
+            new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
+                @Override
+                public void onDataSuccess(FollowBean followBean) {
+                    neighbourEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+
+                    EventBus.getDefault().post(new FollowEvent(Constant.FOLLOWID));
+                }
+
+                @Override
+                public void onDataFailer(String msg) {
+                }
+
+                @Override
+                public void onShowLoading() {
+                }
+
+                @Override
+                public void onHideLoading() {
+                }
+            }).getCannelFollow(neighbourEvent.getId());
+        }
+    }
 
     @Override
     public int initLayoutId() {
@@ -106,7 +162,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         neightbourAdapder.setGetListener(new NeightbourAdapder.getListener() {
             @Override
             public void getList(View view, int position) {
-               //跳转到ParticularsActivity页面
+                //跳转到ParticularsActivity页面
                 Intent intent = new Intent(getActivity(), ParticularsActivity.class);
                 //获取推荐的logo的
                 String logo = nearbyCinemaList.get(position).getLogo();

@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
 import com.bw.movie.cinema.event.FollowEvent;
+import com.bw.movie.cinema.event.NeighbourEvent;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
@@ -67,54 +69,8 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
         neightbourViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    new FollowProsenter(new FollowView<FollowBean>() {
-                        @Override
-                        public void onDataSuccess(FollowBean followBean) {
-                            neightbourViewHolder.checkBox.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+                BaseEvent.post(new NeighbourEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
 
-                            EventBus.getDefault().post(new FollowEvent(Constant.FOLLOWID));
-                        }
-
-                        @Override
-                        public void onDataFailer(String msg) {
-
-                        }
-
-                        @Override
-                        public void onShowLoading() {
-
-                        }
-
-                        @Override
-                        public void onHideLoading() {
-
-                        }
-                    }).getFollow(listBeans.get(i).getId());
-
-
-                } else {
-
-
-                    new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
-                        @Override
-                        public void onDataSuccess(FollowBean followBean) {
-                            neightbourViewHolder.checkBox.setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
-
-                            EventBus.getDefault().post(new FollowEvent(Constant.FOLLOWID));
-                        }
-                        @Override
-                        public void onDataFailer(String msg) {
-                        }
-                        @Override
-                        public void onShowLoading() {
-                        }
-                        @Override
-                        public void onHideLoading() {
-                        }
-                    }).getCannelFollow(listBeans.get(i).getId());
-
-                }
             }
         });
     }

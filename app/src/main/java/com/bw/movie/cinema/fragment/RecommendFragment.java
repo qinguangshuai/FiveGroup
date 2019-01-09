@@ -16,7 +16,13 @@ import com.bw.movie.cinema.adapter.NeightbourAdapder;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
+import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
+import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
 import com.bw.movie.cinema.event.FollowEvent;
+import com.bw.movie.cinema.event.GreatEvent;
+import com.bw.movie.cinema.follow.bean.FollowBean;
+import com.bw.movie.cinema.follow.presenter.FollowProsenter;
+import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.recommend.RecommendEvent;
 import com.bw.movie.cinema.recommend.adapder.RecommendAdapder;
@@ -24,6 +30,7 @@ import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.bw.movie.cinema.recommend.presenter.RecommendPresenter;
 import com.bw.movie.cinema.recommend.view.RecommentView;
 import com.bw.movie.cinema.view.NeightbourView;
+import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,25 +56,81 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-//        RecommendPresenter recommendPresenter = new RecommendPresenter(this);
-//        recommendPresenter.getRecommend("116.30551391385724", "40.04571807462411", 1, 10);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
 
-    @Subscribe
-    public void getFollowId(FollowEvent followEvent) {
-        if (followEvent.getId() == Constant.FOLLOWID) {
-            RecommendPresenter recommendPresenter = new RecommendPresenter(this);
-            recommendPresenter.getRecommend("116.30551391385724", "40.04571807462411", 1, 10);
-        }
-    }
+//    @Subscribe
+//    public void getFollowId(FollowEvent followEvent) {
+//        if (followEvent.getId() == Constant.FOLLOWID) {
+//            RecommendPresenter recommendPresenter = new RecommendPresenter(this);
+//            recommendPresenter.getRecommend("116.30551391385724", "40.04571807462411", 1, 10);
+//        }
+//    }
     @Subscribe
     public void getlongitude(RecommendEvent recommendEvent){
         RecommendPresenter recommendPresenter = new RecommendPresenter(this);
         recommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
     }
+
+
+    //点赞
+    @Subscribe
+    public void great(final GreatEvent greatEvent){
+        if(greatEvent.isB()){
+            new FollowProsenter(new FollowView<FollowBean>() {
+                @Override
+                public void onDataSuccess(FollowBean followBean) {
+
+                    if (followBean.getMessage().equals("关注成功")){
+                        ToastUtil.Toast(followBean.getMessage());
+                        greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+
+                    }
+
+                }
+
+                @Override
+                public void onDataFailer(String msg) {
+
+                }
+
+                @Override
+                public void onShowLoading() {
+
+                }
+
+                @Override
+                public void onHideLoading() {
+
+                }
+            }).getFollow(greatEvent.getId());
+        }else {
+            new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
+                @Override
+                public void onDataSuccess(FollowBean followBean) {
+                    if (followBean.getMessage().equals("取消关注成功")){
+                        ToastUtil.Toast(followBean.getMessage());
+                        greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+
+                    }
+
+                }
+                @Override
+                public void onDataFailer(String msg) {
+                }
+                @Override
+                public void onShowLoading() {
+                }
+                @Override
+                public void onHideLoading() {
+                }
+            }).getCannelFollow(greatEvent.getId());
+        }
+    }
+
+
     @Override
     public void initListener() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
