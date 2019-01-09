@@ -1,5 +1,6 @@
 package com.bw.movie.my.ticket.ticketnet.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.service.TicketService;
 import com.bw.movie.util.OkHttpUtil;
@@ -9,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class TicketModel  {
+public class TicketModel extends BaseModel {
     public void getTicket(int scheduleId, int amount, String sign, final getTicket getTicket){
         OkHttpUtil.get().createa(TicketService.class).getTicket(scheduleId, amount, sign)
                 .subscribeOn(Schedulers.io())

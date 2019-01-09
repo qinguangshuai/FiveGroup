@@ -19,6 +19,9 @@ public class CinemaModle {
 
     //查询影院
     public void getCinemaBeanObservable(int id, final HttpCallBack<CinemaBean> httpCallBack){
+
+
+
         OkHttpUtil
                 .get()
                 .createa(CinemaService.class)

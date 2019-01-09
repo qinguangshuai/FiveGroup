@@ -56,7 +56,6 @@ public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHo
             Uri uri = Uri.parse(bean.getImageUrl());
             myViewHolder.simple.setImageURI(uri);
         }
-
         myViewHolder.text1.setText(bean.getName());
         myViewHolder.text2.setText(bean.getSummary());
         long browseTime = bean.getReleaseTime();

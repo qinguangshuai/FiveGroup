@@ -21,9 +21,9 @@ public class OKHeaderInterceptor implements Interceptor {
         Request request = chain.request();
         Request.Builder builder = request.newBuilder();
         builder.addHeader("version","version1.0");
-        builder.addHeader("sessionId",MyApp.context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("sessionId",""));
-        builder.addHeader("ak",MyApp.context.getSharedPreferences("login",Context.MODE_PRIVATE).getString("ak","0110010010000"));
-        builder.addHeader("userId",MyApp.context.getSharedPreferences("login",Context.MODE_PRIVATE).getInt("userId",-1)+"");
+        builder.addHeader("sessionId",MyApp.sContext.getSharedPreferences("login",Context.MODE_PRIVATE).getString("sessionId",""));
+        builder.addHeader("ak",MyApp.sContext.getSharedPreferences("login",Context.MODE_PRIVATE).getString("ak","0110010010000"));
+        builder.addHeader("userId",MyApp.sContext.getSharedPreferences("login",Context.MODE_PRIVATE).getInt("userId",-1)+"");
         request = builder.build();
         return chain.proceed(request);
     }
