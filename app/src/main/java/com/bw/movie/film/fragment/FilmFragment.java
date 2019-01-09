@@ -68,9 +68,7 @@ public class FilmFragment extends BaseFragment {
     //根布局的adapter 适配器
     private RootAdapter mRootAdapter = new RootAdapter();
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
     //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     Unbinder unbinder;
     @BindView(R.id.RecyclerView_filefragment)
@@ -143,7 +141,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -206,7 +204,7 @@ public class FilmFragment extends BaseFragment {
         new FollowPresenter(new FollowView<FollowBean>() {
             @Override
             public void onDataSuccess(FollowBean followBean) {
-                toast.Toast("关注成功");
+                ToastUtil.Toast("关注成功");
             }
 
             @Override
@@ -228,7 +226,7 @@ public class FilmFragment extends BaseFragment {
         new CancelFollowPresenter(new CancelFollowMovieView<CancelFollowMovieBean>() {
             @Override
             public void onDataSuccess(CancelFollowMovieBean cancelFollowMovieBean) {
-                toast.Toast("取消关注");
+                ToastUtil.Toast("取消关注");
             }
 
             @Override
@@ -263,7 +261,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -294,7 +292,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -327,7 +325,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override

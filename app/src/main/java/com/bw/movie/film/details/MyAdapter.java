@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class MyAdapter extends FragmentPagerAdapter {
 
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
 
     private ArrayList<Fragment> list = new ArrayList<>();
@@ -37,7 +36,7 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        if (emptyUtil.isNull(list) == false) {
+        if (EmptyUtil.isNull(list) == false) {
             return list.size();
         }
         return 0;

@@ -28,14 +28,13 @@ import java.util.List;
 */
 public class PopularPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     //热门电影数据 list
     private List<PopularBean.ResultBean> result = new ArrayList<>();
 
     //热门电影 数据 set 方法
     public void setResult(List<PopularBean.ResultBean> result) {
-        if (emptyUtil.isNull(this.result) == false) {
+        if (EmptyUtil.isNull(this.result) == false) {
             this.result.clear();
         }
         this.result.addAll(result);
@@ -64,7 +63,7 @@ public class PopularPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        if(emptyUtil.isNull(result)==false){
+        if(EmptyUtil.isNull(result)==false){
             return result.size();
         }
         return 0;

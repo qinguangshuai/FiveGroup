@@ -30,14 +30,12 @@ import java.util.List;
 
 public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
     //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
     //正在热映 数据 List
     private List<HotPlayBean.ResultBean> hotresult = new ArrayList<>();
     //正在热映 数据 set 方法
     public void setHotResult(List<HotPlayBean.ResultBean> hotresult) {
-        if (emptyUtil.isNull(this.hotresult) == false) {
+        if (EmptyUtil.isNull(this.hotresult) == false) {
             this.hotresult.clear();
         }
         this.hotresult.addAll(hotresult);
@@ -69,7 +67,7 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (emptyUtil.isNull(hotresult) == false) {
+        if (EmptyUtil.isNull(hotresult) == false) {
             return hotresult.size();
         }
         return 0;
