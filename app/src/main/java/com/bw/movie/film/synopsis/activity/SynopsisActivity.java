@@ -25,6 +25,7 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.film.cinema.activity.AffiliatedTheaterActivity;
 import com.bw.movie.film.details.presenter.DetailPresenter;
+import com.bw.movie.film.synopsis.bean.ResultBean;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow2Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow4Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.Popupwindow1Adapter;
@@ -104,7 +105,7 @@ public class SynopsisActivity extends BaseActivity {
     private int id;
     private EmptyUtil emptyUtil;
     private ToastUtil toast;
-    private ArrayList<CommentBean.ResultBean> list = new ArrayList<>();
+    private ArrayList<ResultBean> list = new ArrayList<>();
     private PopupWindow popupWindow;
     private PopupWindow popupWindow2;
     private PopupWindow popupWindow3;
@@ -236,7 +237,7 @@ public class SynopsisActivity extends BaseActivity {
         new SynopsisPresenter(new CommentView<CommentBean>() {
             @Override
             public void onDataSuccess(CommentBean commentBean) {
-                List<CommentBean.ResultBean> result = commentBean.getResult();
+                List<ResultBean> result = commentBean.getResult();
                 if (emptyUtil.isNull(result) == false) {
                     mPopupWindow4Adapter.addResult(commentBean.getResult());
                     mPopupWindow4Adapter.notifyDataSetChanged();
@@ -435,7 +436,7 @@ public class SynopsisActivity extends BaseActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mPopupWindow4Adapter);
-
+        final List<ResultBean> result = mPopupWindow4Adapter.getResult();
         mPopupWindow4Adapter.setGetData(new PopupWindow4Adapter.getData() {
             @Override
             public void isData(View view, final int position) {
@@ -446,15 +447,15 @@ public class SynopsisActivity extends BaseActivity {
                     imageView.setVisibility(View.VISIBLE);
                     flag = true;
                 }
+            
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getpop(position);
+                        getpop(result,position);
                     }
                 });
             }
         });
-
 
         //抽取方法 上拉 加载更多
         RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
@@ -466,8 +467,7 @@ public class SynopsisActivity extends BaseActivity {
             }
         });
     }
-
-    public void getpop(final int position) {
+    public void getpop(final List<ResultBean> result, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SynopsisActivity.this);
         View view = View.inflate(SynopsisActivity.this, R.layout.alertdialogitem, null);
         builder.setView(view);
@@ -487,24 +487,20 @@ public class SynopsisActivity extends BaseActivity {
                         public void onDataSuccess(InputcommentsBean inputcommentsBean) {
                             ToastUtil.Toast(inputcommentsBean.getMessage());
                             if (inputcommentsBean.getMessage().contains("成功")) {
-                                getCommentData(id, 1, 10);
+//                                                getCommentData(id, 1, 10);
                                 alertDialog.dismiss();
                             }
                         }
-
                         @Override
                         public void onDataFailer(String msg) {
-
                         }
-
                         @Override
                         public void onShowLoading() {
                         }
-
                         @Override
                         public void onHideLoading() {
                         }
-                    }).getInputcomments(list.get(position).getCommentId(), trim);
+                    }).getInputcomments(result.get(position).getCommentId(), trim);
                 }
             }
         });
