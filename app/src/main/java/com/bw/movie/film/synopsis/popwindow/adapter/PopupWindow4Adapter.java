@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.event.PraiseEvent;
+import com.bw.movie.film.synopsis.bean.ResultBean;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -35,13 +36,18 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ToastUtil toast = new ToastUtil();
 
-    private List<CommentBean.ResultBean> result = new ArrayList<>();
+    private List<ResultBean> result = new ArrayList<>();
 
-    public void setResult(List<CommentBean.ResultBean> result) {
+
+    public void setResult(List< ResultBean> result) {
         this.result = result;
     }
 
-    public void addResult(List<CommentBean.ResultBean> result) {
+    public List<ResultBean> getResult() {
+        return result;
+    }
+
+    public void addResult(List<ResultBean> result) {
         if (emptyUtil.isNull(result)) {
             toast.Toast("没更多了,官人明天来~");
         } else {
@@ -75,7 +81,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         }
 
-        public void setData(final CommentBean.ResultBean resultBean) {
+        public void setData(final  ResultBean resultBean) {
             mDraweeView.setImageURI(Uri.parse(resultBean.getCommentHeadPic()));
             mName.setText(resultBean.getCommentUserName());
             long browseTime = resultBean.getCommentTime();
@@ -115,7 +121,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final Holder holder = (Holder) viewHolder;
-        final CommentBean.ResultBean resultBean = result.get(i);
+        final  ResultBean resultBean = result.get(i);
         holder.setData(resultBean);
 
         //点击 点赞

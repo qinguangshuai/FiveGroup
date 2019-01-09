@@ -49,7 +49,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-
     }
 
     @Override
@@ -129,13 +128,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     public void onHideLoading() {
 
     }
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

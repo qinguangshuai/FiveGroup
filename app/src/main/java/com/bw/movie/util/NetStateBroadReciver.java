@@ -8,8 +8,6 @@ import android.net.NetworkInfo;
 
 import com.bw.movie.base.BaseEvent;
 
-import org.greenrobot.eventbus.EventBus;
-
 public class NetStateBroadReciver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -20,11 +18,9 @@ public class NetStateBroadReciver extends BroadcastReceiver {
             if (NetworkInfo.State.CONNECTED == info.getState()) {
                 //有网络
                 BaseEvent.post(new NetWorkChangeEvent(true));
-                //EventBus.getDefault().post(new NetWorkChangeEvent(true));
             } else {
                 //无网络
                 BaseEvent.post(new NetWorkChangeEvent(false));
-                //EventBus.getDefault().post(new NetWorkChangeEvent(false));
             }
         }
     }

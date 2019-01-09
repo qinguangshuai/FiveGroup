@@ -97,10 +97,11 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     public void onDataSuccess(NeightbourBean neightbourBean) {
 
         final List<NeightNearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
-        NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
-        recyNeightbor.setAdapter(neightbourAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyNeightbor.setLayoutManager(linearLayoutManager);
+        NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
+        recyNeightbor.setAdapter(neightbourAdapder);
+
         neightbourAdapder.setGetListener(new NeightbourAdapder.getListener() {
             @Override
             public void getList(View view, int position) {

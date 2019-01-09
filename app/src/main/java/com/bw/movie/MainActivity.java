@@ -1,5 +1,6 @@
 package com.bw.movie;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.AddressUser;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
         if (aMap == null) {
             aMap = mapView.getMap();
         }
+        startActivity(new Intent(this,ShowActivity.class));
+        finish();
         initLocation();
     }
 

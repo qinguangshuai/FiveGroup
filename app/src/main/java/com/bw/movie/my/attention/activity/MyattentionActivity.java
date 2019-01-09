@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BasePresenter;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.my.attention.fragment.AttentionFilmFragment;
 import com.bw.movie.my.attention.fragment.AttentioncinemaFragment;
@@ -24,7 +26,7 @@ import butterknife.OnClick;
  * 2018/12/28
  */
 
-public class MyattentionActivity extends AppCompatActivity {
+public class MyattentionActivity extends BaseActivity {
 
     @BindView(R.id.attenrb1)
     RadioButton attenrb1;
@@ -42,12 +44,13 @@ public class MyattentionActivity extends AppCompatActivity {
     private FragmentTransaction mTransaction;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mycollect);
+    public void initView() {
         ButterKnife.bind(this);
+    }
 
-        //开启事务
+    @Override
+    public void initListener() {
+//开启事务
         mManager = getSupportFragmentManager();
         mTransaction = mManager.beginTransaction();
         final AttentioncinemaFragment fragment1 = new AttentioncinemaFragment();
@@ -80,6 +83,26 @@ public class MyattentionActivity extends AppCompatActivity {
                 beginTransaction.commit();
             }
         });
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int initLayoutId() {
+        return R.layout.activity_mycollect;
+    }
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @OnClick(R.id.attenimage3)

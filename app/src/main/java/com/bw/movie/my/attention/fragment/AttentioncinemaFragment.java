@@ -131,11 +131,4 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     public void onHideLoading() {
 
     }
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
 }
