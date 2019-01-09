@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -22,7 +21,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -35,7 +33,6 @@ public class AttentioncinemaFragment extends BaseFragment implements AttCinemaVi
     RecyclerView attenrecycle1;
     Unbinder unbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
-//    private List<AttCinemaUser.ResultBean> mList;
     private List<ResultBean> mList;
 
     @Override

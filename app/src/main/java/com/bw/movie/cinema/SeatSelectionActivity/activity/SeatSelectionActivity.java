@@ -3,8 +3,6 @@ package com.bw.movie.cinema.SeatSelectionActivity.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,33 +14,19 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.Constant;
-import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
-import com.bw.movie.cinema.SeatSelectionActivity.popu.SeatPopuwindow;
-import com.bw.movie.cinema.event.SeatEvent;
-import com.bw.movie.cinema.search.event.CinameEvent;
 import com.bw.movie.custom.SeatTable;
-import com.bw.movie.login.pwd.EncryptUtil;
-import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
 import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.presenter.TiketPresenter;
 import com.bw.movie.my.ticket.ticketnet.view.TicketView;
-import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.MDSUtil;
 import com.bw.movie.util.WeiXinUtil;
-import com.bw.movie.wxapi.WXPayEntryActivity;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
 import com.bw.movie.wxapi.view.OrderSuccessView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
