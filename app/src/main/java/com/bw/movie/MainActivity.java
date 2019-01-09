@@ -1,6 +1,5 @@
 package com.bw.movie;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +16,8 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.AddressUser;
-import com.bw.movie.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -134,7 +133,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 String street = aMapLocation.getStreet();//街道信息
                 String num = aMapLocation.getStreetNum();//街道门牌号信息
 
-                EventBus.getDefault().post(new AddressUser(mCity,mDis));
+                //EventBus.getDefault().post(new AddressUser(mCity,mDis));
+                BaseEvent.post(new AddressUser(mCity,mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 aMapLocation.getLatitude();//获取纬度
@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getCityCode();//城市编码
                 aMapLocation.getAdCode();//地区编码
                 Log.e("==1111", mCity + mDis);
-                //Toast.makeText(MainActivity.this, country + "==" + city +"=="+street+ "==="+dis +"=="+num+ city_code + "==" + tude + "===" + longitude, Toast.LENGTH_SHORT).show();
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);

@@ -6,20 +6,23 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.bw.movie.R;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.my.attention.fragment.AttentionFilmFragment;
 import com.bw.movie.my.attention.fragment.AttentioncinemaFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 秦广帅
  * 2018/12/28
- * */
+ */
 
 public class MyattentionActivity extends AppCompatActivity {
 
@@ -33,6 +36,8 @@ public class MyattentionActivity extends AppCompatActivity {
     FrameLayout attenfragment;
     @BindView(R.id.attenpager)
     ViewPager attenpager;
+    @BindView(R.id.attenimage3)
+    ImageView attenimage3;
     private FragmentManager mManager;
     private FragmentTransaction mTransaction;
 
@@ -49,8 +54,8 @@ public class MyattentionActivity extends AppCompatActivity {
         final AttentionFilmFragment fragment2 = new AttentionFilmFragment();
 
         //添加事务
-        mTransaction.add(R.id.attenfragment,fragment1);
-        mTransaction.add(R.id.attenfragment,fragment2);
+        mTransaction.add(R.id.attenfragment, fragment1);
+        mTransaction.add(R.id.attenfragment, fragment2);
 
         mTransaction.show(fragment1);
         mTransaction.hide(fragment2);
@@ -62,7 +67,7 @@ public class MyattentionActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 FragmentTransaction beginTransaction = mManager.beginTransaction();
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.attenrb1:
                         beginTransaction.show(fragment1);
                         beginTransaction.hide(fragment2);
@@ -75,5 +80,10 @@ public class MyattentionActivity extends AppCompatActivity {
                 beginTransaction.commit();
             }
         });
+    }
+
+    @OnClick(R.id.attenimage3)
+    public void onViewClicked() {
+        AppManager.getAppManager().finishActivity(this);
     }
 }

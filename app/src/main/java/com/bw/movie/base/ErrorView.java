@@ -28,8 +28,5 @@ public class ErrorView extends LinearLayout {
 
     private void initView(Context context) {
         View view = View.inflate(context, R.layout.layout_error, this);
-
     }
-
-
 }

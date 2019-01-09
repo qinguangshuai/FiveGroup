@@ -49,7 +49,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     @BindView(R.id.my_update)
     Button mMyUpdate;
     private MyMessagePresenter presenter;
-//    private MyMessageEntity.ResultBean result;
     private int sex1;
     private String email;
     private String headPic;

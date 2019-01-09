@@ -33,8 +33,6 @@ public class AttentioncinemaFragment extends BaseFragment implements AttCinemaVi
 
     @BindView(R.id.attenrecycle1)
     RecyclerView attenrecycle1;
-    @BindView(R.id.attenimage1)
-    ImageView attenimage1;
     Unbinder unbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
 //    private List<AttCinemaUser.ResultBean> mList;
@@ -84,11 +82,6 @@ public class AttentioncinemaFragment extends BaseFragment implements AttCinemaVi
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @OnClick(R.id.attenimage1)
-    public void onViewClicked() {
-        getActivity().finish();
     }
 
     @Override

@@ -41,8 +41,6 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
 
     @BindView(R.id.attenrecycle1)
     RecyclerView mAttenrecycle1;
-    @BindView(R.id.attenimage1)
-    ImageView attenimage1;
     @BindView(R.id.attenSwipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     Unbinder unbinder;
@@ -101,11 +99,6 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @OnClick(R.id.attenimage1)
-    public void onViewClicked() {
-        getActivity().finish();
     }
 
     @Override

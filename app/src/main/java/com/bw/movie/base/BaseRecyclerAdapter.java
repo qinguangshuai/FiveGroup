@@ -5,10 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class  BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder,E> extends RecyclerView.Adapter {
+public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, E> extends RecyclerView.Adapter {
 
     private List<E> listData;
     private Context mContext;
@@ -69,14 +70,14 @@ public abstract class  BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder,E>
         return listData == null ? 0 : listData.size();
     }
 
-    public void addList(List list){
-        if (list != null && list.size()>0) {
+    public void addList(List list) {
+        if (list != null && list.size() > 0) {
             listData.addAll(list);
         }
     }
 
-    public void deleteList(List list){
-        if (list != null && list.size()>0) {
+    public void deleteList(List list) {
+        if (list != null && list.size() > 0) {
             listData.removeAll(list);
         }
     }
@@ -93,26 +94,27 @@ public abstract class  BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder,E>
      *
      * @param moreListerner
      */
-    public void setOnLoadMoreListerner(OnLoadMoreListener moreListerner) {//对外暴露的接口  设置加载更多的监听事件
+    public void setOnLoadMoreListerner(OnLoadMoreListener moreListerner) {
+        //对外暴露的接口  设置加载更多的监听事件
         isLoadMore = true;
         this.mLoadMoreListener = moreListerner;
     }
 
-    public void clearList(){
+    public void clearList() {
         listData.clear();
     }
 
-    public E getItem(int posito){
-        return   listData.get(posito);
+    public E getItem(int posito) {
+        return listData.get(posito);
     }
 
-    public void append(E o){
+    public void append(E o) {
         listData.add(o);
-        notifyItemInserted(listData.size()-2);
+        notifyItemInserted(listData.size() - 2);
     }
 
-    public void appendHead(E o){
-        listData.add(0,o);
+    public void appendHead(E o) {
+        listData.add(0, o);
         notifyItemInserted(0);
     }
 }

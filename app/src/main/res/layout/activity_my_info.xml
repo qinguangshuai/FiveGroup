@@ -231,8 +231,8 @@
     <!--返回键，悬在展示页面的上面，每个界面都是这样做-->
     <ImageView
         android:id="@+id/myinfo_back"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="30dp"

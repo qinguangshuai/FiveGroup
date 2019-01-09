@@ -37,7 +37,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         ((ViewGroup) getWindow().getDecorView()).addView(mErrorView);
         if (initLayoutId() != 0) {
             initVariable();
-            EventBus.getDefault().register(this);
+            BaseEvent.register(this);
             setContentView(initLayoutId());
             setStatusBarColor(R.color.themColor);
             AppManager.getAppManager().addActivity(this);
@@ -124,7 +124,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        BaseEvent.unregister(this);
     }
 
     //显示内容

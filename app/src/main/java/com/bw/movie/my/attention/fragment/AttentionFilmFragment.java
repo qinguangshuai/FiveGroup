@@ -39,8 +39,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @BindView(R.id.attenrecycle2)
     RecyclerView mAttenrecycle2;
     Unbinder unbinder;
-    @BindView(R.id.attenimage2)
-    ImageView attenimage2;
     @BindView(R.id.attenSwipeRefreshLayout2)
     SwipeRefreshLayout mSwipeRefreshLayout;
     Unbinder unbinder1;
@@ -145,10 +143,5 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
-    }
-
-    @OnClick(R.id.attenimage2)
-    public void onViewClicked() {
-        getActivity().finish();
     }
 }
