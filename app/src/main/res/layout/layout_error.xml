@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#f87c67"
+    android:orientation="vertical">
 
-    <ImageView
+    <TextView
         android:id="@+id/errImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/fail"
-        android:scaleType="fitXY"/>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:text="网络不给力,请开启网络或WIFI"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
+        android:layout_marginLeft="@dimen/dp_10" />
 </LinearLayout>

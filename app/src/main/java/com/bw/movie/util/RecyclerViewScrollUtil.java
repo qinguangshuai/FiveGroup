@@ -33,7 +33,7 @@ public class RecyclerViewScrollUtil {
                     int totalItemCount = manager.getItemCount();
                     // 判断是否滚动到底部，并且是向右滚动
                     if (lastVisibleItem == (totalItemCount - 1) && isSlidingToLast) {
-                        Toast.makeText(MyApp.context, "正在加载", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyApp.sContext, "正在加载", Toast.LENGTH_SHORT).show();
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

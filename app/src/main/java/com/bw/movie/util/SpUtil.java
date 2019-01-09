@@ -11,7 +11,7 @@ import com.bw.movie.MyApp;
 public class SpUtil {
     private static final String name="login";
     private static final int sp_name=Context.MODE_PRIVATE;
-    private static Context mContext=MyApp.context;
+    private static Context mContext=MyApp.sContext;
 
     public static boolean put(String key,Object value){
         SharedPreferences sharedPreferences=mContext.getSharedPreferences(name,sp_name);

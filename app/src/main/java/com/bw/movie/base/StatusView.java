@@ -102,6 +102,7 @@ public class StatusView extends FrameLayout {
         }
     }
 
+    //加载空布局
     private View getEmpityView() {
         if (empityView == null) {
             emptySub.setLayoutResource(empty_layout_id == -1 ? R.layout.layout_empity : empty_layout_id);
