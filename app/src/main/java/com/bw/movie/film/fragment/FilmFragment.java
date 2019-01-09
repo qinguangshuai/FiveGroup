@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
@@ -83,6 +84,7 @@ public class FilmFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, rootView);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
+            //BaseEvent.register(this);
         }
 
         setRootRecyclerViewData();
@@ -355,6 +357,7 @@ public class FilmFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+        //BaseEvent.unregister(this);
     }
 
 
