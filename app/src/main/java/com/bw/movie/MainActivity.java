@@ -1,6 +1,5 @@
 package com.bw.movie;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.bw.movie.cinema.bean.AddressUser;
-import com.bw.movie.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -150,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getCityCode();//城市编码
                 aMapLocation.getAdCode();//地区编码
                 Log.e("==1111", mCity + mDis);
-                //Toast.makeText(MainActivity.this, country + "==" + city +"=="+street+ "==="+dis +"=="+num+ city_code + "==" + tude + "===" + longitude, Toast.LENGTH_SHORT).show();
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
