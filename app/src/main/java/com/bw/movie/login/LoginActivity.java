@@ -90,6 +90,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private Unbinder mUnbinder;
     private NotifyUtil currentNotify;
     private int requestCode = (int) SystemClock.uptimeMillis();
+    private String mMessage;
 
     @Override
     public void initView() {
@@ -255,7 +256,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         String s = loginUser.getMessage();
         if (s.contains("成功")) {
             Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-
+            mMessage = loginUser.getMessage();
             mSessionId = loginUser.getResult().getSessionId();
             mUserId = loginUser.getResult().getUserId();
             LoginUserInfoBean userInfo = loginUser.getResult().getUserInfo();
@@ -295,6 +296,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     public void getSp() {
         SpUtil.put("sessionId", mSessionId);
+        SpUtil.put("session", mSessionId);
         SpUtil.put("userId", mUserId);
         SpUtil.put("birthday", mBirthday);
         SpUtil.put(Constant.HEADPIC, mHeadPic);
@@ -303,6 +305,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         SpUtil.put(Constant.PHONE, mPhone);
         SpUtil.put("id", mId);
         SpUtil.put("sex", mSex);
+        SpUtil.put("message", mMessage);
 
         if (loginbox.isChecked()) {
             SharedPreferences.Editor edit = sp.edit();

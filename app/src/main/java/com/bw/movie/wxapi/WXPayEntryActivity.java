@@ -28,7 +28,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mIwxapi = WXAPIFactory.createWXAPI(MyApp.context, WeiXinUtil.APP_ID);
+        mIwxapi = WXAPIFactory.createWXAPI(MyApp.sContext, WeiXinUtil.APP_ID);
         mIwxapi.handleIntent(getIntent(), this);
 
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.bw.movie.MyApp;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -46,7 +45,7 @@ public class WeiXinUtil {
     //支付
     public static void  weiXinPay(OrderSuccessBean bean){
         LogUtil.d(bean.toString()+"哈哈哈");
-        IWXAPI wxapi = WXAPIFactory.createWXAPI(MyApp.context, APP_ID, true);
+        IWXAPI wxapi = WXAPIFactory.createWXAPI(MyApp.sContext, APP_ID, true);
         //注册到微信
         wxapi.registerApp(APP_ID);
 

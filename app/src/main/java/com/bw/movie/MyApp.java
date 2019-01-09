@@ -19,13 +19,13 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  *
  */public class MyApp extends Application {
 
-    public static Context context;
+    public static Context sContext;
     private IWXAPI wxApi;
-
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
+
+        sContext = this;
         OkHttpUtil.init();
         Fresco.initialize(this);
 
