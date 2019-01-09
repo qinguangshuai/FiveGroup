@@ -26,6 +26,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.fragment.FilmFragment;
@@ -46,7 +48,7 @@ import butterknife.ButterKnife;
 /**
  * fragment联动
  */
-public class ShowActivity extends AppCompatActivity {
+public class ShowActivity extends BaseActivity {
 
 
     @BindView(R.id.showMap)
@@ -68,31 +70,9 @@ public class ShowActivity extends AppCompatActivity {
                                    };
 
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show);
-        doPermission(); //动态权限
-        ButterKnife.bind(this);
-        //初始化控件
-        initView();
-        //初始化监听
-        initListener();
-        initData();
-        rg_show.check(R.id.film_show);
-        ObjectAnimator anim = ObjectAnimator.ofFloat(lingdai, "alpha", 1f, 0f);
-        anim.setDuration(0);// 动画持续时间
-        anim.start();
-
-        ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, 200);
-
-        AnimatorSet aa = new AnimatorSet();
-        aa.playTogether(ra1);
-        aa.setDuration(300);
-        aa.start();
-    }
-
-    private void initData() {
+    public void initData() {
         film_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -164,7 +144,22 @@ public class ShowActivity extends AppCompatActivity {
         });
     }
 
-    private void initListener() {
+    @Override
+    public int initLayoutId() {
+        return R.layout.activity_show;
+    }
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
+    @Override
+    public void initListener() {
 
         final List<Fragment> list = new ArrayList<>();
         list.add(new FilmFragment());
@@ -206,8 +201,9 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void initView() {
 
-    private void initView() {
         vp_show = findViewById(R.id.vp_show);
         rg_show = (RadioGroup) findViewById(R.id.rg_show);
         film_show = (RadioButton) findViewById(R.id.film_show);
@@ -217,6 +213,19 @@ public class ShowActivity extends AppCompatActivity {
         image_populer = (ImageView) findViewById(R.id.image_populer);
 
         lingdai = (ImageView) findViewById(R.id.lingdai);
+
+
+        doPermission(); //动态权限
+        ButterKnife.bind(this);
+        rg_show.check(R.id.film_show);
+        ObjectAnimator anim = ObjectAnimator.ofFloat(lingdai, "alpha", 1f, 0f);
+        anim.setDuration(0);// 动画持续时间
+        anim.start();
+        ObjectAnimator ra1 = ObjectAnimator.ofFloat(image_populer, "translationY", 0, 200);
+        AnimatorSet aa = new AnimatorSet();
+        aa.playTogether(ra1);
+        aa.setDuration(300);
+        aa.start();
 
     }
 
