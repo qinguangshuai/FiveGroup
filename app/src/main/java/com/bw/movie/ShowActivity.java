@@ -50,7 +50,6 @@ import butterknife.ButterKnife;
  */
 public class ShowActivity extends BaseActivity {
 
-
     @BindView(R.id.showMap)
     MapView showMap;
     AMap aMap;

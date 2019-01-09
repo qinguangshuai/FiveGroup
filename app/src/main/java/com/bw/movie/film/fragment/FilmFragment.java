@@ -104,12 +104,12 @@ public class FilmFragment extends BaseFragment {
     //点击事件
     @Override
     public void initListener() {
-        fileCarouse.setOnClickListener(new View.OnClickListener() {
+        /*fileCarouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
-        });
+        });*/
     }
 
     //加载数据
@@ -362,7 +362,3 @@ public class FilmFragment extends BaseFragment {
 
 
 }//----------|结束主函数结束|----------
-
-
-
-

@@ -14,30 +14,28 @@ import com.bw.movie.R;
 
 import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
-import com.bw.movie.util.NetWorkChangeEvent;
 
 import com.bw.movie.util.StatusBarUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /*
  *  baseactivity
  * */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+
     private T mBasePresenter;
     private StatusView statusView;
     private ErrorView mErrorView;
+    private BroadcastReceiver receiver;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //设置全局显示
-        mErrorView = new ErrorView(this);
-        ((ViewGroup) getWindow().getDecorView()).addView(mErrorView);
         if (initLayoutId() != 0) {
+            //设置全局显示
+            mErrorView = new ErrorView(this);
+            ((ViewGroup) getWindow().getDecorView()).addView(mErrorView);
             initVariable();
-            BaseEvent.register(this);
             setContentView(initLayoutId());
             setStatusBarColor(R.color.themColor);
             AppManager.getAppManager().addActivity(this);
@@ -124,7 +122,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BaseEvent.unregister(this);
+        mErrorView.unRegister();
     }
 
     //显示内容
@@ -136,22 +134,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 设置网络监听
      */
     private void setBreoadcast() {
-        BroadcastReceiver receiver = new NetStateBroadReciver();
+        receiver = new NetStateBroadReciver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(receiver, filter);
-    }
-    @Subscribe
-    public void isNetWork(NetWorkChangeEvent event) {
-        boolean aTrue = event.isConnected;
-        //有网络
-        if (aTrue) {
-            showContent();
-            mErrorView.setVisibility(View.GONE);
-        } else {
-            mErrorView.setVisibility(View.VISIBLE);
-        }
     }
 }
