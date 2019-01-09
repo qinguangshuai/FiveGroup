@@ -83,8 +83,8 @@ public class FilmFragment extends BaseFragment {
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         if (!EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().register(this);
-            BaseEvent.register(this);
+            EventBus.getDefault().register(this);
+            //BaseEvent.register(this);
         }
 
         setRootRecyclerViewData();
@@ -356,8 +356,8 @@ public class FilmFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-//        EventBus.getDefault().unregister(this);
-        BaseEvent.unregister(this);
+        EventBus.getDefault().unregister(this);
+        //BaseEvent.unregister(this);
     }
 
 

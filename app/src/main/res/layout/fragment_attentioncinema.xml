@@ -16,13 +16,4 @@
             android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <ImageView
-        android:id="@+id/attenimage1"
-        android:layout_width="@dimen/dp_40"
-        android:layout_height="@dimen/dp_40"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_18"
-        android:layout_marginBottom="@dimen/dp_17"
-        android:background="@drawable/idea_activity_back"/>
 </RelativeLayout>
