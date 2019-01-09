@@ -12,4 +12,5 @@ public class BaseModel {
     public BaseModel(){
          retrofit = OkHttpUtil.retrofit;
     }
+
 }
