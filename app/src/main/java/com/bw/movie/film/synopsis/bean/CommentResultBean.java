@@ -1,11 +1,13 @@
 package com.bw.movie.film.synopsis.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2019/1/7    21:42
  * author:Therefore(Lenovo)
  * fileName:CommentResultBean
  */
-public class CommentResultBean {
+public class CommentResultBean extends BaseEntity {
     private String commentContent;
     private String commentHeadPic;
     private int commentId;

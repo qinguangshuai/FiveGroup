@@ -1,5 +1,7 @@
 package com.bw.movie.cinema.Particulars.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * author:张文龙(张文龙)
  * fileName:MovieListByCinemaIdBean
  */
-public class MovieListByCinemaIdBean {
+public class MovieListByCinemaIdBean  extends BaseEntity {
 
 
 

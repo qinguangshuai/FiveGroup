@@ -1,5 +1,7 @@
 package com.bw.movie.cinema.mevaluate.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * author:张文龙(张文龙)
  * fileName:MevaluateBean
  */
-public class MevaluateBean {
+public class MevaluateBean extends BaseEntity {
 
     private String message;
     private String status;

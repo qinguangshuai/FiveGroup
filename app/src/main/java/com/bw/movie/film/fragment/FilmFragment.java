@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
@@ -83,6 +84,7 @@ public class FilmFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, rootView);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
+            //BaseEvent.register(this);
         }
 
         setRootRecyclerViewData();
@@ -102,12 +104,12 @@ public class FilmFragment extends BaseFragment {
     //点击事件
     @Override
     public void initListener() {
-        fileCarouse.setOnClickListener(new View.OnClickListener() {
+        /*fileCarouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
-        });
+        });*/
     }
 
     //加载数据
@@ -355,11 +357,8 @@ public class FilmFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+        //BaseEvent.unregister(this);
     }
 
 
 }//----------|结束主函数结束|----------
-
-
-
-

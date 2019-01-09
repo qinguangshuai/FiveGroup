@@ -1,6 +1,8 @@
 package com.bw.movie.my.attention.bean;
 
-public class ResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class ResultBean extends BaseEntity {
     private int id;
     private String imageUrl;
     private String name;

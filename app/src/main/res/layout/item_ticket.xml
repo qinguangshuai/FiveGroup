@@ -15,7 +15,7 @@
             android:id="@+id/longText"
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_30"
-            android:background="#CF1757"
+           android:background="@drawable/cinema_check_shape_5"
             android:textColor="#fff"
             android:gravity="center"
             android:text="时间" />
@@ -154,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp_10"
-            android:background="#F8AA44"
+            android:background="@drawable/shapcolor"
             android:text="待付款"
             android:textColor="#fff" />
     </RelativeLayout>

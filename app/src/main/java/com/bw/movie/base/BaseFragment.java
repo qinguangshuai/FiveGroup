@@ -1,6 +1,10 @@
 package com.bw.movie.base;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bw.movie.R;
+import com.bw.movie.util.NetStateBroadReciver;
+import com.bw.movie.util.NetWorkChangeEvent;
+
+import org.greenrobot.eventbus.Subscribe;
 
 /*
  *  basefragment
@@ -20,6 +30,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     protected boolean isinitData = false;
     public View rootView;
     private T mBasePresenter;
+    private StatusView statusView;
 
     //oncreate方法
     @Override
@@ -43,7 +54,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         rootView = inflater.inflate(initLayoutId(), container, false);
         initVarisble();
         initView();
-
         return rootView;
     }
 

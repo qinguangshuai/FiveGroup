@@ -12,6 +12,7 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
+import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.event.FollowEvent;
@@ -99,7 +100,7 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
 
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
-        final List<NeightNearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
+        final List<NeightBourResultBean> nearbyCinemaList = neightbourBean.getResult();
         NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, AffiliatedTheaterActivity.this);
         mRecyAffiliated.setAdapter(neightbourAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AffiliatedTheaterActivity.this);

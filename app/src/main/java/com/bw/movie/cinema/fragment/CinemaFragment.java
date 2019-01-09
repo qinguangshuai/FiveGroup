@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bw.movie.Constant;
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.SeatSelectionActivity.activity.SeatSelectionActivity;
@@ -70,7 +71,8 @@ public class CinemaFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, rootView);
         rgCinema.check(R.id.recommendcinema);
         if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
+//            EventBus.getDefault().register(this);
+            BaseEvent.register(this);
         }
         searchView = rootView.findViewById(R.id.serch);
         searchView.setClick(new SearchView.Click() {
@@ -188,18 +190,17 @@ public class CinemaFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-
     }
 
 
     @OnClick(R.id.zuoBiaoImage)
     public void onViewClicked() {
-        zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
+        /*zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
-        });
+        });*/
     }
 
     @Subscribe
@@ -210,6 +211,7 @@ public class CinemaFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        BaseEvent.unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 }

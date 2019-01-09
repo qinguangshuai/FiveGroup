@@ -1,11 +1,13 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2018/12/30    9:47
  * author:Therefore(Lenovo)
  * fileName:XiSoundUser
  */
-public class XiSoundUser {
+public class XiSoundUser extends BaseEntity {
 
     private int count;
     private String message;
