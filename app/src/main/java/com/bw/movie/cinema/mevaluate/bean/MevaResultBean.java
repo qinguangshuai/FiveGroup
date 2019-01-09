@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.mevaluate.bean;
 
-public class MevaResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class MevaResultBean extends BaseEntity {
     private String commentContent;
     private String commentHeadPic;
     private int commentId;

@@ -1,5 +1,7 @@
 package com.bw.movie.film.show.popular.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  *TODO:
  *  热门的benan 类 同  轮播
  */
-public class PopularBean implements Serializable {
+public class PopularBean extends BaseEntity {
 
     //成功 or 失败
     private String message;

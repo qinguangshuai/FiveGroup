@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.Particulars.bean;
 
-public class MovieResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class MovieResultBean extends BaseEntity {
     private String duration;
     private String fare;
     private int id;

@@ -5,10 +5,18 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/attenrecycle1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/attenSwipeRefreshLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/attenrecycle1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <ImageView
         android:id="@+id/attenimage1"
         android:layout_width="@dimen/dp_40"

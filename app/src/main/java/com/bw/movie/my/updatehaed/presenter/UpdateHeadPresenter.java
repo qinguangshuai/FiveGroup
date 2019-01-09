@@ -7,9 +7,10 @@ import com.bw.movie.my.updatehaed.view.UpdateHeadView;
 import com.bw.movie.util.HttpCallBack;
 
 import java.io.File;
+
 /*
-*  修改头像p层
-* */
+ *  修改头像p层
+ * */
 public class UpdateHeadPresenter extends BasePresenter<UpdateHeadView> {
     private UpdateHeadModel model;
 
@@ -29,6 +30,7 @@ public class UpdateHeadPresenter extends BasePresenter<UpdateHeadView> {
             public void onFailer(String result) {
                 getiBaseView().onDataFailer(result);
             }
+
 
         });
     }

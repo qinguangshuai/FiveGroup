@@ -1,5 +1,7 @@
 package com.bw.movie.film.details.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 
 /*
@@ -7,7 +9,7 @@ import java.io.Serializable;
  *TODO:
  *
  */
-public class CancelFollowMovieBean implements Serializable {
+public class CancelFollowMovieBean extends BaseEntity {
 
     private String message;
     private String status;

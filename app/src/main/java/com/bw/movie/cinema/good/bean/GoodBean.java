@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.good.bean;
 
-public class GoodBean {
+import com.bw.movie.base.BaseEntity;
+
+public class GoodBean extends BaseEntity {
 
     private String message;
     private String status;

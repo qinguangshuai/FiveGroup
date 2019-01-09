@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -38,9 +40,11 @@ import butterknife.Unbinder;
 public class AttentioncinemaFragment extends BaseFragment implements IBaseView<AttCinemaUser> {
 
     @BindView(R.id.attenrecycle1)
-    XRecyclerView attenrecycle1;
+    RecyclerView mAttenrecycle1;
     @BindView(R.id.attenimage1)
     ImageView attenimage1;
+    @BindView(R.id.attenSwipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     Unbinder unbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
     int page = 1;
@@ -49,36 +53,27 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        attenrecycle1.setRefreshProgressStyle(ProgressStyle.BallZigZag);
-        attenrecycle1.setArrowImageView(R.mipmap.jiazai);
     }
 
     @Override
     public void initListener() {
         mAttCinemaPresenter.getCinema(page);
-        attenrecycle1.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAttCinemaPresenter.getCinema(page);
-                        attenrecycle1.refreshComplete();
-                    }
-                },2000);
-            }
 
+        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
             @Override
-            public void onLoadMore() {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAttCinemaPresenter.getCinema(page++);
-                        attenrecycle1.loadMoreComplete();
-                    }
-                },2000);
+            public void info() {
+                mAttCinemaPresenter.getCinema(page);
             }
         });
+
+        RecyclerViewScrollUtil.Scroll(mAttenrecycle1, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                mAttCinemaPresenter.getCinema(page++);
+
+            }
+        });
+
     }
 
     @Override
@@ -116,7 +111,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     @Override
     public void onDataSuccess(AttCinemaUser attCinemaUser) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        attenrecycle1.setLayoutManager(linearLayoutManager);
+        mAttenrecycle1.setLayoutManager(linearLayoutManager);
         mList = attCinemaUser.getResult();
         AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
         attCinemaAdapter.setHttpClick(new AttCinemaAdapter.HttpClick() {
@@ -126,7 +121,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
                 getActivity().finish();
             }
         });
-        attenrecycle1.setAdapter(attCinemaAdapter);
+        mAttenrecycle1.setAdapter(attCinemaAdapter);
     }
 
     @Override

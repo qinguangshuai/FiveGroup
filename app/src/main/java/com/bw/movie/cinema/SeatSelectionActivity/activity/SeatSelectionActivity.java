@@ -58,8 +58,7 @@ public class SeatSelectionActivity extends BaseActivity {
     ImageView seyno;
     private String paerprice;
     private String paername;
-    private double v2;
-    private double v21;
+    private double price;
     private int cinemaids;
     private String orderId;
 
@@ -75,8 +74,8 @@ public class SeatSelectionActivity extends BaseActivity {
 
             public void getPopup(final int sizes) {
                 double v = Double.parseDouble(paerprice);
-                v21 = v * sizes;
-                cinemaprice.setText(v21 + "");
+                price = v * sizes;
+                cinemaprice.setText(price + "");
                 sure.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -147,7 +146,7 @@ public class SeatSelectionActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    button.setText("微信支付" + v21);
+                    button.setText("微信支付" + price);
                 }
             }
         });
@@ -161,7 +160,7 @@ public class SeatSelectionActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    button.setText("支付宝支付" + v21);
+                    button.setText("支付宝支付" + price);
                 }
             }
         });

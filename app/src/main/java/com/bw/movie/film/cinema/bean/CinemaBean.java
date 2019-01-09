@@ -1,5 +1,7 @@
 package com.bw.movie.film.cinema.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  *TODO:
  *
  */
-public class CinemaBean implements Serializable {
+public class CinemaBean extends BaseEntity {
 
     private String message;
     private String status;

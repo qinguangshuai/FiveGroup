@@ -1,5 +1,7 @@
 package com.bw.movie.film.show.playing.playing;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  *TODO:
  *     正在上映 || 即将上映 bean  类
  */
-public class PlayingBean implements Serializable {
+public class PlayingBean extends BaseEntity {
 
     private String message;
     private String status;
