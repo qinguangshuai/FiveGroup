@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
         startActivity(new Intent(this,ShowActivity.class));
         finish();
         initLocation();
+
     }
 
     private void initLocation() {
@@ -138,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 String street = aMapLocation.getStreet();//街道信息
                 String num = aMapLocation.getStreetNum();//街道门牌号信息
 
-                //EventBus.getDefault().post(new AddressUser(mCity,mDis));
                 BaseEvent.post(new AddressUser(mCity,mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表

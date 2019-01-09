@@ -172,7 +172,6 @@ public class SynopsisActivity extends BaseActivity {
                 toast.Toast(praiseBean.getMessage());
                 if (praiseBean.getMessage().equals("点赞成功")) {
                     praiseEvent.getRadioButton().setText((praiseEvent.getNum() + 1) + "");
-//                    mPopupWindow4Adapter.notifyDataSetChanged();
                 } else if (praiseBean.getMessage().equals("不能重复点赞")) {
 
                 } else {
@@ -487,7 +486,6 @@ public class SynopsisActivity extends BaseActivity {
                         public void onDataSuccess(InputcommentsBean inputcommentsBean) {
                             ToastUtil.Toast(inputcommentsBean.getMessage());
                             if (inputcommentsBean.getMessage().contains("成功")) {
-//                                                getCommentData(id, 1, 10);
                                 alertDialog.dismiss();
                             }
                         }

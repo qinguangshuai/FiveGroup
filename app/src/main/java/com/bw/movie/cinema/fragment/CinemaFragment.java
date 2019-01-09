@@ -2,41 +2,29 @@ package com.bw.movie.cinema.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.Constant;
-import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
-import com.bw.movie.cinema.SeatSelectionActivity.activity.SeatSelectionActivity;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.bean.AddressUser;
 import com.bw.movie.cinema.search.bean.SearchBean;
-import com.bw.movie.cinema.search.event.CinameEvent;
-
 import com.bw.movie.cinema.search.presenter.SearchPresenter;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.custom.SearchView;
-import com.bw.movie.error.AppManager;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -61,8 +49,6 @@ public class CinemaFragment extends BaseFragment {
     ImageView zuoBiaoImage;
     @BindView(R.id.zuoBiaoText)
     TextView zuoBiaoText;
-    Unbinder unbinder1;
-    private int a = 0;
     private SearchView searchView;
 
     //初始化控件
@@ -71,7 +57,6 @@ public class CinemaFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, rootView);
         rgCinema.check(R.id.recommendcinema);
         if (!EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().register(this);
             BaseEvent.register(this);
         }
         searchView = rootView.findViewById(R.id.serch);
@@ -193,15 +178,6 @@ public class CinemaFragment extends BaseFragment {
     }
 
 
-    @OnClick(R.id.zuoBiaoImage)
-    public void onViewClicked() {
-        /*zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-            }
-        });*/
-    }
 
     @Subscribe
     public void setAddress(AddressUser address){
@@ -212,6 +188,5 @@ public class CinemaFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         BaseEvent.unregister(this);
-//        EventBus.getDefault().unregister(this);
     }
 }
