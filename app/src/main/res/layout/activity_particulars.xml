@@ -77,8 +77,8 @@
 </LinearLayout>
      <ImageView
          android:id="@+id/finnishback"
-         android:layout_width="@dimen/dp_40"
-         android:layout_height="@dimen/dp_40"
+         android:layout_width="@dimen/dp_60"
+         android:layout_height="@dimen/dp_60"
          android:alpha="1"
          android:layout_alignParentBottom="true"
          android:src="@drawable/idea_activity_back"

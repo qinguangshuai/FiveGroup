@@ -104,10 +104,11 @@ public class RecommendFragment extends BaseFragment implements NeightbourView<Ne
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
         final List<NeightNearbyCinemaListBean> nearbyCinemaList = neightbourBean.getResult().getNearbyCinemaList();
-        NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
-        recyRecommend.setAdapter(neightbourAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyRecommend.setLayoutManager(linearLayoutManager);
+        NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
+        recyRecommend.setAdapter(neightbourAdapder);
+
         neightbourAdapder.setGetListener(new NeightbourAdapder.getListener() {
             @Override
             public void getList(View view, int position) {

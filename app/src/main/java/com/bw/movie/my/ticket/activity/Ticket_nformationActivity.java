@@ -102,6 +102,9 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
         result = ticketFoemationEntity.getResult();
         mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
         TicketInforAdapter inforAdapter = new TicketInforAdapter(result, this);
+
+
+
         inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
             @Override
             public void click(View view, int position) {

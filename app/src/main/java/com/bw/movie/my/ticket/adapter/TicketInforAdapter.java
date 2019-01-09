@@ -26,6 +26,7 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         super(context);
         this.list = list;
         this.context = context;
+
     }
 
     @NonNull
@@ -94,8 +95,10 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
                     httpClick.click(v,getAdapterPosition());
                 }
             });
+
         }
     }
+
 
     private HttpClick mHttpClick;
 

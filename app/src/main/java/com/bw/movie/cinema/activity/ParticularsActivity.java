@@ -216,10 +216,11 @@ public class ParticularsActivity extends BaseActivity {
             public void onDataSuccess(final MevaluateBean mevaluateBean) {
                 if (mevaluateBean.getMessage().contains("成功")) {
                     result = mevaluateBean.getResult();
-                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
-                    recyclerView.setAdapter(mevaluateAdapder);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
                     recyclerView.setLayoutManager(linearLayoutManager);
+                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
+                    recyclerView.setAdapter(mevaluateAdapder);
+
 
                 }
 
