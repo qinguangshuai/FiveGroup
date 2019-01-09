@@ -31,10 +31,7 @@ public class UpdateHeadPresenter extends BasePresenter<UpdateHeadView> {
                 getiBaseView().onDataFailer(result);
             }
 
-            @Override
-            public void error(String error) {
 
-            }
         });
     }
 }

@@ -171,11 +171,10 @@ public class SynopsisActivity extends BaseActivity {
                 toast.Toast(praiseBean.getMessage());
                 if (praiseBean.getMessage().equals("点赞成功")) {
                     praiseEvent.getRadioButton().setText((praiseEvent.getNum() + 1) + "");
-//                    mPopupWindow4Adapter.notifyDataSetChanged();
                 } else if (praiseBean.getMessage().equals("不能重复点赞")) {
 
                 } else {
-
+                    praiseEvent.getRadioButton().setChecked(false);
                 }
             }
 
