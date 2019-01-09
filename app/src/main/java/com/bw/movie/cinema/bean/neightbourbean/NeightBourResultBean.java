@@ -1,6 +1,6 @@
 package com.bw.movie.cinema.bean.neightbourbean;
 
-public class NeightFollowCinemasBean {
+public class NeightBourResultBean {
     private String address;
     private int commentTotal;
     private int distance;

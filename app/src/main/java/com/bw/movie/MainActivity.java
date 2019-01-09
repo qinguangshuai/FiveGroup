@@ -19,6 +19,7 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.AddressUser;
+import com.bw.movie.cinema.recommend.RecommendEvent;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.login.LoginActivity;
 
@@ -142,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 BaseEvent.post(new AddressUser(mCity,mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
+                double latitude = aMapLocation.getLatitude();//获取纬度
+                double longitude1 = aMapLocation.getLongitude();//获取经度
                 aMapLocation.getAccuracy();//获取精度信息
                 aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
                 aMapLocation.getCountry();//国家信息
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getStreetNum();//街道门牌号信息
                 aMapLocation.getCityCode();//城市编码
                 aMapLocation.getAdCode();//地区编码
+                BaseEvent.post(new RecommendEvent(longitude1+"",latitude+""));
                 Log.e("==1111", mCity + mDis);
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();

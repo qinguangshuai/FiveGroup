@@ -1,4 +1,4 @@
-package com.bw.movie.cinema.adapter;
+package com.bw.movie.cinema.recommend.adapder;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,15 +15,14 @@ import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
-import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
-import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
 import com.bw.movie.cinema.event.FollowEvent;
-import com.bw.movie.cinema.event.NeighbourEvent;
+import com.bw.movie.cinema.event.GreatEvent;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
+import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,13 +32,13 @@ import java.util.List;
 /*
 * NeightbourAdapder
 * */
-public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.NeightbourViewHolder> {
-    List<NeightBourResultBean> listBeans;
+public class RecommendAdapder extends RecyclerView.Adapter<RecommendAdapder.NeightbourViewHolder> {
+    List<RecommendBean.ResultBean> listBeans;
     private Context mContext;
 
 
 
-    public NeightbourAdapder(List< NeightBourResultBean> listBeans, Context mContext) {
+    public RecommendAdapder(List< RecommendBean.ResultBean> listBeans, Context mContext) {
         this.listBeans = listBeans;
         this.mContext = mContext;
     }
@@ -69,8 +68,8 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
         neightbourViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                BaseEvent.post(new NeighbourEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
-
+//                    EventBus.getDefault().post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
+                BaseEvent.post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
             }
         });
     }
@@ -105,7 +104,7 @@ public class NeightbourAdapder extends RecyclerView.Adapter<NeightbourAdapder.Ne
 
     private getListener getListener;
 
-    public void setGetListener(NeightbourAdapder.getListener getListener) {
+    public void setGetListener(RecommendAdapder.getListener getListener) {
         this.getListener = getListener;
 
     }
