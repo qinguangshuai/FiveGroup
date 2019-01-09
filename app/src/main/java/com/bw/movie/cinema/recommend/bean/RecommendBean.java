@@ -1,16 +1,15 @@
-package com.bw.movie.cinema.bean.neightbourbean;
+package com.bw.movie.cinema.recommend.bean;
 
+import com.bw.movie.base.BaseEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class NeightbourBean implements Serializable {
-
+public class RecommendBean extends BaseEntity {
 
 
     private String message;
     private String status;
-    private List<NeightBourResultBean> result;
+    private List<ResultBean> result;
 
     public String getMessage() {
         return message;
@@ -28,15 +27,16 @@ public class NeightbourBean implements Serializable {
         this.status = status;
     }
 
-    public List<NeightBourResultBean> getResult() {
+    public List<ResultBean> getResult() {
         return result;
     }
 
-    public void setResult(List<NeightBourResultBean> result) {
+    public void setResult(List<ResultBean> result) {
         this.result = result;
     }
 
-   /* public static class ResultBean {
+    public static class ResultBean {
+
 
         private String address;
         private int commentTotal;
@@ -101,5 +101,5 @@ public class NeightbourBean implements Serializable {
         public void setName(String name) {
             this.name = name;
         }
-    }*/
+    }
 }

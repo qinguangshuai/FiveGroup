@@ -221,6 +221,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 mMtouxiang.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         View view = View.inflate(getApplication(), R.layout.item_head, null);
                         final PopupWindow popupWindow = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
                         popupWindow.setOutsideTouchable(true);
@@ -297,6 +298,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 break;
         }
     }
+
 
 
 }

@@ -26,10 +26,8 @@ import java.util.List;
 public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //非空判断工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
 
     //正在热映 数据 List
@@ -38,7 +36,7 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //正在热映 数据 set 方法
     public void setHotResult(List<HotPlayBean.ResultBean> hotresult) {
-        if (emptyUtil.isNull(this.hotresult) == false) {
+        if (EmptyUtil.isNull(this.hotresult) == false) {
             this.hotresult.clear();
         }
         this.hotresult.addAll(hotresult);
@@ -46,8 +44,8 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //正在热映 add 方法
     public void addHotResult(List<HotPlayBean.ResultBean> hotresult) {
-        if (emptyUtil.isNull(hotresult)) {
-            toast.Toast("没有更多了");
+        if (EmptyUtil.isNull(hotresult)) {
+            ToastUtil.Toast("没有更多了");
         }
         this.hotresult.addAll(hotresult);
     }
@@ -68,7 +66,7 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //查找文字控件
         TextView tv = holder.itemView.findViewById(R.id.moviename_item_popular_item);
         //判断是否为空
-        if (emptyUtil.isNull(hotresult) == false) {
+        if (EmptyUtil.isNull(hotresult) == false) {
             HotPlayBean.ResultBean resultBean = hotresult.get(i);
             //取出图片
             String imageUrl = resultBean.getImageUrl();
@@ -77,7 +75,7 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //取出文字并赋值
             tv.setText(resultBean.getName());
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
         //点击事件
@@ -94,7 +92,7 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         //非空判断
-        if (emptyUtil.isNull(hotresult) == false) {
+        if (EmptyUtil.isNull(hotresult) == false) {
             return hotresult.size();
         }
         return 0;

@@ -1,6 +1,5 @@
 package com.bw.movie.my;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,10 +25,7 @@ import com.bw.movie.my.mysound.XiSoundPresenter;
 import com.bw.movie.my.mysound.XiSoundUser;
 import com.bw.movie.my.mysound.XiSoundView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,7 +46,6 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @BindView(R.id.sounSwipeRefreshLayout)
     SwipeRefreshLayout mSounSwipeRefreshLayout;
     private MySoundPresenter mMySoundPresenter;
-    //    private List<MySoundUser.ResultBean> mList;
     private int mCount;
     private int mId;
     private int page = 1;

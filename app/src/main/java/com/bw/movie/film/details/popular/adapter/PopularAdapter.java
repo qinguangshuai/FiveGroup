@@ -26,10 +26,8 @@ import java.util.List;
 public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //非空判断工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
 
     //热门电影数据 list
@@ -37,7 +35,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //热门电影 数据 set 方法
     public void setResult(List<PopularBean.ResultBean> result) {
-        if (emptyUtil.isNull(this.result) == false) {
+        if (EmptyUtil.isNull(this.result) == false) {
             this.result.clear();
         }
         this.result.addAll(result);
@@ -63,7 +61,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //查找文字控件
         TextView tv = holder.itemView.findViewById(R.id.moviename_item_popular_item);
         //判断是否为空
-        if (emptyUtil.isNull(result) == false) {
+        if (EmptyUtil.isNull(result) == false) {
             PopularBean.ResultBean resultBean = result.get(i);
             //取出图片
             String imageUrl = resultBean.getImageUrl();
@@ -72,7 +70,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //取出文字并赋值
             tv.setText(resultBean.getName());
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
 
@@ -92,7 +90,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         //非空判断
-        if (emptyUtil.isNull(result) == false) {
+        if (EmptyUtil.isNull(result) == false) {
             return result.size();
         }
         return 0;

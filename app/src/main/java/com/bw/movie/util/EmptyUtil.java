@@ -9,8 +9,10 @@ import java.util.List;
  *
  */public class EmptyUtil {
 
+    private EmptyUtil() {
+    }
      //判断是否为空
-     public boolean isNull(List o){
+     public static boolean isNull(List o){
         if(o!=null && o.size()>0){
             return false;
         }else {

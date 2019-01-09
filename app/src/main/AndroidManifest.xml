@@ -60,11 +60,12 @@
         <activity android:name=".film.details.activity.DetailsActivity" />
         <activity
             android:name=".ShowActivity"
-            tools:ignore="WrongManifestParent"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="WrongManifestParent" />
         <activity android:name=".cinema.activity.ParticularsActivity" />
         <!-- 高德集成 -->
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6ad11ccb906ec62b5b106ae673d9d41c" />
@@ -84,14 +85,15 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="wxb3852e6a6b7d9516" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".film.synopsis.activity.SynopsisActivity"></activity>
-        <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity"></activity>
+        <activity android:name=".film.synopsis.activity.SynopsisActivity" />
+        <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity" />
+        <activity android:name=".base.BaseRecyclerListActivity"></activity>
     </application>
 
 </manifest>

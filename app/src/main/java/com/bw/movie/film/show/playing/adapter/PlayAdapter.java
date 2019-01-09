@@ -28,13 +28,12 @@ import java.util.List;
  */
 public class PlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private EmptyUtil emptyUtil = new EmptyUtil();
     // 即将上映 || 正在上映 数据 list
     private List<PlayingBean.ResultBean> playresult = new ArrayList<>();
 
     //即将上映 || 正在上映  数据 set 方法
     public void setPlayResult(List<PlayingBean.ResultBean> playresult) {
-        if (emptyUtil.isNull(this.playresult) == false) {
+        if (EmptyUtil.isNull(this.playresult) == false) {
             this.playresult.clear();
         }
         this.playresult.addAll(playresult);
@@ -64,7 +63,7 @@ public class PlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (emptyUtil.isNull(playresult) == false) {
+        if (EmptyUtil.isNull(playresult) == false) {
             return playresult.size();
         }
         return 0;
