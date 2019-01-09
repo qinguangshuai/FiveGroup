@@ -54,7 +54,7 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             ((MyTicketViewHolder) holder).longText.setText(df.format(gc.getTime()));
             if (list.get(i).getStatus() == 1){
-                ((MyTicketViewHolder) holder).nopay.setText("代付款");
+                ((MyTicketViewHolder) holder).nopay.setText("待付款");
             }else  if (list.get(i).getStatus() == 2){
                 ((MyTicketViewHolder) holder).nopay.setText("已付款");
             }
