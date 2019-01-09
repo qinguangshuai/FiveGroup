@@ -270,7 +270,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             LogUtil.d(mUserId + "");
             getSp();
 
-            Intent intent = new Intent(this, ShowActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             finish();
             startActivity(intent);
             PendingIntent pIntent = PendingIntent.getActivity(this,

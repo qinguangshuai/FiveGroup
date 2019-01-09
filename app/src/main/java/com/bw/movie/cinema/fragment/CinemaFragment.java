@@ -195,12 +195,12 @@ public class CinemaFragment extends BaseFragment {
 
     @OnClick(R.id.zuoBiaoImage)
     public void onViewClicked() {
-        zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
+        /*zuoBiaoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
-        });
+        });*/
     }
 
     @Subscribe

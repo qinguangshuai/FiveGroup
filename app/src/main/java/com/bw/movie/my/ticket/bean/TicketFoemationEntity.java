@@ -36,6 +36,4 @@ public class TicketFoemationEntity extends BaseEntity {
     public void setResult(List<ResultBean> result) {
         this.result = result;
     }
-
-
 }

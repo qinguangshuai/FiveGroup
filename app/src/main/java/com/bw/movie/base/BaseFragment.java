@@ -31,7 +31,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public View rootView;
     private T mBasePresenter;
     private StatusView statusView;
-    private ErrorView mErrorView;
 
     //oncreate方法
     @Override

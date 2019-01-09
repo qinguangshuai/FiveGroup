@@ -48,7 +48,6 @@ import butterknife.ButterKnife;
  */
 public class ShowActivity extends AppCompatActivity {
 
-
     @BindView(R.id.showMap)
     MapView showMap;
     AMap aMap;
