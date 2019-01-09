@@ -1,5 +1,7 @@
 package com.bw.movie.film.show.carousel.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  *TODO:
  *  轮播 bean 类
  */ 
-public class CarouselBean implements Serializable {
+public class CarouselBean extends BaseEntity {
 
     private String message;
     private String status;

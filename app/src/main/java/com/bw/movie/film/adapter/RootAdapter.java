@@ -24,6 +24,7 @@ import com.bw.movie.film.show.hot.adapter.HotPlayAdapter;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,7 +42,7 @@ import recycler.coverflow.RecyclerCoverFlow;
  * list3                             √
  *
  */
-public class RootAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder> {
 
     //全局化适配器 是为了 更新ad 方法
     private final PopularAdapter popularAdapter= new PopularAdapter();

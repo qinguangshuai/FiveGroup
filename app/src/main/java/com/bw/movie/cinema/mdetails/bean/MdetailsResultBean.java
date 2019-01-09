@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.mdetails.bean;
 
-public class MdetailsResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class MdetailsResultBean  extends BaseEntity {
     private String address;
     private String businessHoursContent;
     private int commentTotal;

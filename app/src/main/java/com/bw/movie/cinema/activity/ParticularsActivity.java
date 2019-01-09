@@ -64,7 +64,7 @@ public class ParticularsActivity extends BaseActivity {
     @BindView(R.id.detailedinformation)
     LinearLayout detailedinformation;
     private ParticularsAdapder particularsAdapder;
-    private int i;
+    private int id;
     private List<MevaResultBean> result;
 
 
@@ -104,9 +104,10 @@ public class ParticularsActivity extends BaseActivity {
 
     public void getPopup(View v) {
         View view = View.inflate(ParticularsActivity.this, R.layout.detailedinformation_popu, null);
-        final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ImageView mdowm_detaildin = view.findViewById(R.id.dowm_detaildin);
-        popupWindow.showAsDropDown(v, 150, 150);
+        int height = getWindowManager().getDefaultDisplay().getHeight();
+        popupWindow.showAsDropDown(v, 0, height/2-800);
         RadioButton mevaluate_detaildin = view.findViewById(R.id.evaluate_detaildin);
         RadioButton mdetails_detaildin = view.findViewById(R.id.details_detaildin);
         final LinearLayout mdetails_layout = view.findViewById(R.id.details_layout);
@@ -184,7 +185,7 @@ public class ParticularsActivity extends BaseActivity {
                 @Override
                 public void onDataSuccess(GoodBean goodBean) {
                     Toast.makeText(ParticularsActivity.this, goodBean.getMessage(), Toast.LENGTH_SHORT).show();
-                    if (goodBean.getMessage().contains("成功")){
+                    if (goodBean.getMessage().contains("成功")) {
                         goodEvent.getmCheckBox().setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
                     }
                 }
@@ -239,7 +240,7 @@ public class ParticularsActivity extends BaseActivity {
             public void onHideLoading() {
 
             }
-        }).getMevaluate(i, 1, 5);
+        }).getMevaluate(id, 1, 5);
     }
 
     @Override
@@ -250,13 +251,13 @@ public class ParticularsActivity extends BaseActivity {
         String paricularstaddress = intent.getStringExtra(Constant.ADDRESS);
         String stringExtra = intent.getStringExtra(Constant.TUIJIANID);
 
-        i = Integer.valueOf(stringExtra);
+        id = Integer.valueOf(stringExtra);
 
         partimage.setImageURI(Uri.parse(paricularstlogo));
         partname.setText(paricularstname);
         partaddress.setText(paricularstaddress);
         getData();
-        particularsAdapder.setCinema(i);
+        particularsAdapder.setCinema(id);
 
 
     }
@@ -264,7 +265,7 @@ public class ParticularsActivity extends BaseActivity {
 
     public void getData() {
 
-        if (i < 6) {
+        if (id < 6) {
             new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
@@ -285,7 +286,7 @@ public class ParticularsActivity extends BaseActivity {
                 @Override
                 public void onHideLoading() {
                 }
-            }).getMovieByBean(i);
+            }).getMovieByBean(id);
         } else {
             new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
                 @Override
@@ -321,7 +322,9 @@ public class ParticularsActivity extends BaseActivity {
 
                 String vehicleRoute = mdetailsBean.getResult().getVehicleRoute();
                 String[] split = vehicleRoute.split("。");
-                if (split.length == 1) {
+                if (split.length == 0) {
+                    split = null;
+                } else if (split.length == 1) {
                     textViewBus.setText(split[0]);
                     telephone.setText(mdetailsBean.getResult().getPhone());
                     address.setText(mdetailsBean.getResult().getAddress());
@@ -352,7 +355,7 @@ public class ParticularsActivity extends BaseActivity {
             public void onHideLoading() {
 
             }
-        }).getMdetails(i);
+        }).getMdetails(id);
     }
 
     @Override

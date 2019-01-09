@@ -17,7 +17,6 @@
     <TextView
         android:id="@+id/tv_customtv"
         android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
         android:text="热门电影"
         android:layout_marginRight="@dimen/dp_3"
         android:layout_marginLeft="@dimen/dp_3"

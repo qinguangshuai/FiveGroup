@@ -17,15 +17,24 @@
         android:layout_marginRight="@dimen/dp_30"
         android:textColor="#333333"/>
 
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/soundrecycle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sounSwipeRefreshLayout"
         android:layout_below="@id/soundtext"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_30"
-        android:layout_marginRight="@dimen/dp_30"
-        android:layout_marginBottom="@dimen/dp_5"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/soundrecycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_5"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
     <ImageView
         android:id="@+id/soundimage"
         android:layout_width="@dimen/dp_60"

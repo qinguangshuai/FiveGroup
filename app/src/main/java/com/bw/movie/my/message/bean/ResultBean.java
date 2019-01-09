@@ -1,6 +1,8 @@
 package com.bw.movie.my.message.bean;
 
-public class ResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class ResultBean extends BaseEntity {
     private long birthday;
     private String email;
     private String headPic;

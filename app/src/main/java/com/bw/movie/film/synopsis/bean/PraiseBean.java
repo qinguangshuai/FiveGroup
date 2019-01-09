@@ -1,5 +1,7 @@
 package com.bw.movie.film.synopsis.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 
 /*
@@ -7,7 +9,7 @@ import java.io.Serializable;
  *TODO:
  *
  */
-public class PraiseBean implements Serializable {
+public class PraiseBean extends BaseEntity {
     private String message;
     private String status;
 

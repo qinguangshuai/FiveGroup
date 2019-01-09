@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.bw.movie.R;
 
+import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
 import com.bw.movie.util.NetWorkChangeEvent;
 
@@ -39,6 +40,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             EventBus.getDefault().register(this);
             setContentView(initLayoutId());
             setStatusBarColor(R.color.themColor);
+            AppManager.getAppManager().addActivity(this);
             initView();
             initListener();
             initData();

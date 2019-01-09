@@ -1,5 +1,7 @@
 package com.bw.movie.my.attention.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * author:Therefore(Lenovo)
  * fileName:MyAttFilmUser
  */
-public class MyAttFilmUser {
+public class MyAttFilmUser extends BaseEntity {
 
 
 

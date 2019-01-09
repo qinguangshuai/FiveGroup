@@ -1,12 +1,14 @@
 package com.bw.movie.film.details.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.io.Serializable;
 
 /*
  *作者:ash
  *TODO:
  *
- */public class FollowBean implements Serializable {
+ */public class FollowBean extends BaseEntity {
 
     private String message;
     private String status;

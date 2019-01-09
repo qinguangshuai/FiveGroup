@@ -1,6 +1,8 @@
 package com.bw.movie.my.mysound;
 
-public class ResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class ResultBean extends BaseEntity {
     private String content;
     private int id;
     private long pushTime;

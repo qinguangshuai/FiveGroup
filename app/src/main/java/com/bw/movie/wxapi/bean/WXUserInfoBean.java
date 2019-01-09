@@ -1,11 +1,13 @@
 package com.bw.movie.wxapi.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2019/1/7    21:00
  * author:Therefore(Lenovo)
  * fileName:WXUserInfoBean
  */
-public class WXUserInfoBean {
+public class WXUserInfoBean extends BaseEntity {
 
     private long birthday;
     private int id;

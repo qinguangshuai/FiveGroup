@@ -1,6 +1,8 @@
 package com.bw.movie.my.attcinema.bean;
 
-public class ResultBean {
+import com.bw.movie.base.BaseEntity;
+
+public class ResultBean  extends BaseEntity {
     private String address;
     private int id;
     private String logo;

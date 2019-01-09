@@ -31,6 +31,8 @@ import com.bw.movie.my.updatehaed.bean.UpdateHeadEntity;
 import com.bw.movie.my.updatehaed.presenter.UpdateHeadPresenter;
 import com.bw.movie.my.updatehaed.view.UpdateHeadView;
 import com.bw.movie.util.ImageUtil;
+import com.bw.movie.util.LunBanUtil;
+import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.File;
@@ -134,25 +136,27 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
             //相机
             case 0:
                 if (data.getParcelableExtra("data") == null) {
-                    throw new NullPointerException("请选择图片");
+                    ToastUtil.Toast("请选择图片");
                 } else {
                     Bitmap data2 = data.getParcelableExtra("data");
                     Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getApplication().getContentResolver(), data2, null, null));
                     String data1 = ImageUtil.getPath(getApplicationContext(), uri);
                     File file = new File(data1);
                     xj(file);
-
                 }
                 break;
             //相册
             case 1:
                 if (data.getData() == null) {
-                    throw new NullPointerException("请选择图片");
+                    ToastUtil.Toast("请选择图片");
                 } else {
                     String path = ImageUtil.getPath(getApplicationContext(), data.getData());
-                    File file1 = new File(path);
-                    xj(file1);
-
+                    LunBanUtil.getImage(UpdataInfoActivity.this, path, new LunBanUtil.OnFile() {
+                        @Override
+                        public void Success(File file) {
+                            xj(file);
+                        }
+                    });
                 }
                 break;
         }
@@ -176,7 +180,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
 
     public void xj(File file) {
         new UpdateHeadPresenter(new UpdateHeadView<UpdateHeadEntity>() {
-
 
             @Override
             public void onDataSuccess(UpdateHeadEntity updateHeadEntity) {
@@ -211,7 +214,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         String nickname = mMnicheng.getText().toString().trim();
 
         String sex = mMxingbie.getText().toString();
-        //Integer sex1 = Integer.valueOf(sex);
         String email = mMyouxiang.getText().toString();
 
         switch (v.getId()) {

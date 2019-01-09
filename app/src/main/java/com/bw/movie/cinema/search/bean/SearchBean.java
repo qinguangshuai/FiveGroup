@@ -1,10 +1,12 @@
 package com.bw.movie.cinema.search.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 /*
 * SearchBean
 * */
-public class SearchBean {
+public class SearchBean  extends BaseEntity {
     private String message;
     private String status;
     private List<ResultBean> result;
