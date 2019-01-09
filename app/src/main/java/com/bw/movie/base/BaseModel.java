@@ -1,7 +1,6 @@
 package com.bw.movie.base;
 
 import com.bw.movie.util.OkHttpUtil;
-
 import retrofit2.Retrofit;
 
 /*

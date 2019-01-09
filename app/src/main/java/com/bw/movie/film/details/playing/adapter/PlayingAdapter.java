@@ -25,17 +25,14 @@ import java.util.List;
  */
 public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //非空判断工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
-    //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
     // 即将上映 || 正在上映 数据 list
     private List<PlayingBean.ResultBean> playresult = new ArrayList<>();
 
     //即将上映 || 正在上映  数据 set 方法
     public void setPlayResult(List<PlayingBean.ResultBean> playresult) {
-        if (emptyUtil.isNull(this.playresult) == false) {
+        if (EmptyUtil.isNull(this.playresult) == false) {
             this.playresult.clear();
         }
         this.playresult.addAll(playresult);
@@ -43,8 +40,8 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //即将上映 || 正在上映 数据 add 方法
     public void addPlayResult(List<PlayingBean.ResultBean> playresult) {
-        if (emptyUtil.isNull(playresult)) {
-            toast.Toast("没有更多了");
+        if (EmptyUtil.isNull(playresult)) {
+            ToastUtil.Toast("没有更多了");
         }
         this.playresult.addAll(playresult);
     }
@@ -65,7 +62,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //查找文字控件
         TextView tv = holder.itemView.findViewById(R.id.moviename_item_popular_item);
         //判断是否为空
-        if (emptyUtil.isNull(playresult) == false) {
+        if (EmptyUtil.isNull(playresult) == false) {
             PlayingBean.ResultBean resultBean = playresult.get(i);
             //取出图片
             String imageUrl = resultBean.getImageUrl();
@@ -74,7 +71,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //取出文字并赋值
             tv.setText(resultBean.getName());
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
 
@@ -94,7 +91,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         //非空判断
-        if (emptyUtil.isNull(playresult) == false) {
+        if (EmptyUtil.isNull(playresult) == false) {
             return playresult.size();
         }
         return 0;

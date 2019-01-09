@@ -28,7 +28,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
  */
 public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     private CinemaBean cinemaBean = new CinemaBean();
 
@@ -154,7 +153,7 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if (emptyUtil.isNull(cinemaBean.getResult()) == false) {
+        if (EmptyUtil.isNull(cinemaBean.getResult()) == false) {
             return cinemaBean.getResult().size();
         } else {
             return 0;

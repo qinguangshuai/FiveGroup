@@ -9,7 +9,8 @@ import com.bw.movie.MyApp;
  *TODO:
  *
  */public class ToastUtil {
-
+    private ToastUtil() {
+    }
 
     public static void Toast(int a) {
         Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();

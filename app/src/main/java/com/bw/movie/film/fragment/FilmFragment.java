@@ -4,13 +4,10 @@ package com.bw.movie.film.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bw.movie.MainActivity;
 import com.bw.movie.R;
-import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
@@ -39,8 +36,6 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -64,19 +59,15 @@ public class FilmFragment extends BaseFragment {
     ImageView fileCarouse;
     @BindView(R.id.file_text)
     TextView fileText;
-    Unbinder unbinder1;
     //根布局的adapter 适配器
     private RootAdapter mRootAdapter = new RootAdapter();
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
     //判空工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
 
     Unbinder unbinder;
     @BindView(R.id.RecyclerView_filefragment)
     RecyclerView mRecyclerViewFilefragment;
     private Intent intent;
-    private int a = 0;
 
     //初始化控件
     @Override
@@ -84,7 +75,6 @@ public class FilmFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, rootView);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
-            //BaseEvent.register(this);
         }
 
         setRootRecyclerViewData();
@@ -104,12 +94,6 @@ public class FilmFragment extends BaseFragment {
     //点击事件
     @Override
     public void initListener() {
-        /*fileCarouse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-            }
-        });*/
     }
 
     //加载数据
@@ -143,7 +127,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -206,7 +190,7 @@ public class FilmFragment extends BaseFragment {
         new FollowPresenter(new FollowView<FollowBean>() {
             @Override
             public void onDataSuccess(FollowBean followBean) {
-                toast.Toast("关注成功");
+                ToastUtil.Toast("关注成功");
             }
 
             @Override
@@ -228,7 +212,7 @@ public class FilmFragment extends BaseFragment {
         new CancelFollowPresenter(new CancelFollowMovieView<CancelFollowMovieBean>() {
             @Override
             public void onDataSuccess(CancelFollowMovieBean cancelFollowMovieBean) {
-                toast.Toast("取消关注");
+                ToastUtil.Toast("取消关注");
             }
 
             @Override
@@ -263,7 +247,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -294,7 +278,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -327,7 +311,7 @@ public class FilmFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override
@@ -357,7 +341,6 @@ public class FilmFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
-        //BaseEvent.unregister(this);
     }
 
 

@@ -25,9 +25,7 @@ import recycler.coverflow.RecyclerCoverFlow;
  */
 public class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow.ViewHolder> {
     //非空判断工具类
-    private EmptyUtil emptyUtil = new EmptyUtil();
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
     //轮播数据
     private CarouselBean mCarouselBean = new CarouselBean();
 
@@ -60,7 +58,7 @@ public class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow
         //查找文字控件
         TextView tv = holder.itemView.findViewById(R.id.moviename_item_carouse_item);
         //判断是否为空
-        if (emptyUtil.isNull(mCarouselBean.getResult()) == false) {
+        if (EmptyUtil.isNull(mCarouselBean.getResult()) == false) {
             //计算循环下标
             int i1 = i % mCarouselBean.getResult().size();
             //获取集合
@@ -73,7 +71,7 @@ public class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow
             tv.setText(resultBean.getName());
 
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
 
