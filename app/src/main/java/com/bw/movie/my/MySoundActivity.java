@@ -25,6 +25,8 @@ import com.bw.movie.my.mysound.XiSoundPresenter;
 import com.bw.movie.my.mysound.XiSoundUser;
 import com.bw.movie.my.mysound.XiSoundView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
+import com.bw.movie.util.ToastUtil;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +49,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     SwipeRefreshLayout mSounSwipeRefreshLayout;
     private MySoundPresenter mMySoundPresenter;
     private int mCount;
-    private int mId;
+    //private int mId;
     private int page = 1;
     private MySoundAdapter mMySoundAdapter;
     private List<ResultBean> mList;
@@ -122,7 +124,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     }
 
     @Override
-    public void onDataSuccess(MySoundUser mySoundUser) {
+    public void onDataSuccess(final MySoundUser mySoundUser) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mSoundrecycle.setLayoutManager(linearLayoutManager);
@@ -130,19 +132,28 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
         mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
         mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
             @Override
-            public void getClick(View view, int position) {
-                mId = mList.get(position).getId();
+            public void getClick(View view, final int position) {
                 new UpdateSoundPresenter(new UpdateSoundView<UpdateSoundUser>() {
 
                     @Override
                     public void onDataSuccess(UpdateSoundUser updateSoundUser) {
                         String message = updateSoundUser.getMessage();
-
-                        if (message.equals("状态改变成功")) {
-                            mCount--;
-                            soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
+                        int status = mList.get(position).getStatus();
+                        if (status == 1){
+                            ToastUtil.Toast("状态已修改完");
+                            return;
+                        }else {
+                            if (message.equals("状态改变成功")) {
+                                if (mCount>0){
+                                    mCount--;
+                                    soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
+                                    return;
+                                }else{
+                                    soundtext.setText("系统消息  (" + 0 + "条未读" + ")");
+                                    return;
+                                }
+                            }
                         }
-                        Toast.makeText(MySoundActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -159,9 +170,10 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
                     public void onHideLoading() {
 
                     }
-                }).getSound(mId);
+                }).getSound(mList.get(position).getId());
             }
         });
+        mMySoundAdapter.notifyDataSetChanged();
         mSoundrecycle.setAdapter(mMySoundAdapter);
     }
 
@@ -185,13 +197,4 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     public void onViewClicked() {
         finish();
     }
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
-
 }

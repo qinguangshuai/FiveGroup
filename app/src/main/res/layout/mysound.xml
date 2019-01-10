@@ -35,6 +35,9 @@
         android:layout_alignParentRight="true"
         android:checked="true"
         android:button="@null"
+        android:gravity="center"
+        android:focusable="true"
+        android:visibility="gone"
         android:textColor="@drawable/cinema_text_color"
         android:background="@drawable/attenrutton1"/>
     <View
