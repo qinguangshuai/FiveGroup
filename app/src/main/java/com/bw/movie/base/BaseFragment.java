@@ -55,7 +55,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         statusView = initStatuView(rootView);
         initVarisble();
         initView();
-
         return statusView;
     }
 

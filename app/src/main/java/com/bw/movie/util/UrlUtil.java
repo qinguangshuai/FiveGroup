@@ -43,9 +43,7 @@ public interface UrlUtil {
     String COMMENTREPLY = "movie/v1/verify/commentReply";
     //点赞
     String MOVIECOMMENTGREAT = "movie/v1/verify/movieCommentGreat";
-
     String FINDCINEMAPAGELIST = "cinema/v1/verify/findCinemaPageList?count=10";
-
     String FINDMOVIEPAGELIST = "movie/v1/verify/findMoviePageList?count=5";
     //.根据用户ID查询用户信息
     String USERINFOBYID = "user/v1/verify/getUserInfoByUserId";
@@ -83,4 +81,6 @@ public interface UrlUtil {
     String COMINGSOONMOVIE="movie/v1/findComingSoonMovieList";
     //附近影院
     String RECOMMEN="cinema/v1/findNearbyCinemas";
+    //购票下单
+    String SHOPPAY = "movie/v1/verify/buyMovieTicket";
 }

@@ -222,12 +222,6 @@ public class ShowActivity extends BaseActivity {
         aa.setDuration(300);
         aa.start();
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 1000);
     }
 
 

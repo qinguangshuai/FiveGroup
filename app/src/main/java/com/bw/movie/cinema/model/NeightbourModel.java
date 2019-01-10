@@ -8,7 +8,6 @@ import com.bw.movie.cinema.service.NeighbourService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -19,5 +18,4 @@ public class NeightbourModel extends BaseModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<NeightbourBean>(httpCallBack));
     }
-
 }
