@@ -97,7 +97,7 @@ public class BaseObserver<T> implements Observer<T> {
             //很多的错误都是extends RuntimeException
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "运行时错误" + e.toString();
-        }else {
+        } else {
             errorCode = ERROR.UNKNOWN;
             errorMsg = "未知错误";
         }
