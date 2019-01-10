@@ -532,18 +532,22 @@ public class SynopsisActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
                 popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow2.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow3.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow4.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }

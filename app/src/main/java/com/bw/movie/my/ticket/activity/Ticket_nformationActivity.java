@@ -48,20 +48,30 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
         presenter = new TicketformationPresenter(this);
         presenter.getTicet(page, 5);
         ButterKnife.bind(this);
+        showloading();
     }
 
     @Override
     public void initListener() {
 
-        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+//        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+//            @Override
+//            public void info() {
+//                showloading();
+//                presenter.getTicet(page, 5);
+//            }
+//        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void info() {
+            public void onRefresh() {
+                showloading();
                 presenter.getTicet(page, 5);
             }
         });
         RecyclerViewScrollUtil.Scroll(mTicketRecycler, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
+                showloading();
                 presenter.getTicet(page++, 5);
 
             }
@@ -99,39 +109,46 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
     @Override
     public void onDataSuccess(final TicketFoemationEntity ticketFoemationEntity) {
+        showContent();
+        mSwipeRefreshLayout.setRefreshing(false);
         result = ticketFoemationEntity.getResult();
-        mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
-        TicketInforAdapter inforAdapter = new TicketInforAdapter(result, this);
-        inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
-            @Override
-            public void click(View view, int position) {
-                new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
+        if (result!=null && result.size()>0){
+            mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
+            TicketInforAdapter inforAdapter = new TicketInforAdapter(result, this);
+            inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
+                @Override
+                public void click(View view, int position) {
+                    new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
 
-                    @Override
-                    public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
-                        Toast.makeText(Ticket_nformationActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
-                        WeiXinUtil.weiXinPay(orderSuccessBean);
+                        @Override
+                        public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
+                            Toast.makeText(Ticket_nformationActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
+                            WeiXinUtil.weiXinPay(orderSuccessBean);
 
-                    }
+                        }
 
-                    @Override
-                    public void onDataFailer(String msg) {
+                        @Override
+                        public void onDataFailer(String msg) {
+                             
+                        }
 
-                    }
+                        @Override
+                        public void onShowLoading() {
 
-                    @Override
-                    public void onShowLoading() {
+                        }
 
-                    }
+                        @Override
+                        public void onHideLoading() {
 
-                    @Override
-                    public void onHideLoading() {
+                        }
+                    }).getOeder(1, ticketFoemationEntity.getResult().get(0).getOrderId());
+                }
+            });
+            mTicketRecycler.setAdapter(inforAdapter);
+        }else{
+            showEmpty();
+        }
 
-                    }
-                }).getOeder(1, ticketFoemationEntity.getResult().get(0).getOrderId());
-            }
-        });
-        mTicketRecycler.setAdapter(inforAdapter);
     }
 
     @Override

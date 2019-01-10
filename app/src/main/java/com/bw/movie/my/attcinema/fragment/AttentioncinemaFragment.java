@@ -22,6 +22,7 @@ import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
+import com.bw.movie.util.ToastUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -51,22 +52,32 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+        showloading();
     }
 
     @Override
     public void initListener() {
         mAttCinemaPresenter.getCinema(page);
 
-        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+//        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+//            @Override
+//            public void info() {
+//             showloading();
+//                mAttCinemaPresenter.getCinema(page);
+//
+//            }
+//        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void info() {
-                mAttCinemaPresenter.getCinema(page);
+            public void onRefresh() {
+                showloading();
+              mAttCinemaPresenter.getCinema(page);
             }
         });
-
         RecyclerViewScrollUtil.Scroll(mAttenrecycle1, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
+                showloading();
                 mAttCinemaPresenter.getCinema(page++);
 
             }
@@ -103,18 +114,25 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
 
     @Override
     public void onDataSuccess(AttCinemaUser attCinemaUser) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        mAttenrecycle1.setLayoutManager(linearLayoutManager);
+        showContent();
+        mSwipeRefreshLayout.setRefreshing(false);
         mList = attCinemaUser.getResult();
-        AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
-        attCinemaAdapter.setHttpClick(new AttCinemaAdapter.HttpClick() {
-            @Override
-            public void getClick(View view, int position) {
-                startActivity(new Intent(getActivity(),WXEntryActivity.class));
-                getActivity().finish();
-            }
-        });
-        mAttenrecycle1.setAdapter(attCinemaAdapter);
+        if (mList!=null && mList.size()>0){
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            mAttenrecycle1.setLayoutManager(linearLayoutManager);
+            AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
+            attCinemaAdapter.setHttpClick(new AttCinemaAdapter.HttpClick() {
+                @Override
+                public void getClick(View view, int position) {
+                    startActivity(new Intent(getActivity(), WXEntryActivity.class));
+                    getActivity().finish();
+                }
+            });
+            mAttenrecycle1.setAdapter(attCinemaAdapter);
+        }else{
+            showEmpty();
+        }
+
     }
 
     @Override
