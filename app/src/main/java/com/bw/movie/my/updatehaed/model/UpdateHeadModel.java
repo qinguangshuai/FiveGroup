@@ -1,9 +1,17 @@
 package com.bw.movie.my.updatehaed.model;
 
+import android.content.Intent;
+import android.os.Handler;
+
+import com.bw.movie.MyApp;
+import com.bw.movie.base.BaseObserver;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.updatehaed.bean.UpdateHeadEntity;
 import com.bw.movie.my.updatehaed.service.UpdateHeadService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.util.ToastUtil;
 
 import java.io.File;
 
@@ -30,25 +38,21 @@ public class UpdateHeadModel {
                 .getHead(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UpdateHeadEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+                .subscribe(new BaseObserver<UpdateHeadEntity>(httpCallBack){
                     @Override
                     public void onNext(UpdateHeadEntity updateHeadEntity) {
-                        httpCallBack.onSuccess(updateHeadEntity);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                        if (updateHeadEntity.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
+                                    AppManager.getAppManager().finishAllActivity();
+                                }
+                            }, 1000);
+                        } else {
+                            super.onNext(updateHeadEntity);
+                        }
                     }
                 });
     }

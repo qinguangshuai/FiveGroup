@@ -1,7 +1,12 @@
 package com.bw.movie.cinema.findmovieschedulelist.model;
 
+import android.content.Intent;
+
+import com.bw.movie.MyApp;
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.service.FindMovieScheduleListService;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
@@ -21,27 +26,6 @@ public class FindMovieScheduleListModel {
         OkHttpUtil.get().createa(FindMovieScheduleListService.class).getFindMovieScheduleList(cinemasId, movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<FindMovieScheduleListBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(FindMovieScheduleListBean findMovieScheduleListBean) {
-                        httpCallBack.onSuccess(findMovieScheduleListBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<FindMovieScheduleListBean>(httpCallBack));
     }
-
 }

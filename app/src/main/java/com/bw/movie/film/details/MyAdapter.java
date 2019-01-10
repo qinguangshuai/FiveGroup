@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class MyAdapter extends FragmentPagerAdapter {
 
 
+
     private ArrayList<Fragment> list = new ArrayList<>();
 
     public void setList(ArrayList<Fragment> list) {

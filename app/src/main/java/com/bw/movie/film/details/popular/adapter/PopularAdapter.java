@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.bw.movie.R;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.synopsis.activity.SynopsisActivity;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +27,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //非空判断工具类
 
-
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
 
     //热门电影数据 list
@@ -70,7 +70,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //取出文字并赋值
             tv.setText(resultBean.getName());
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
 

@@ -24,8 +24,8 @@ import recycler.coverflow.RecyclerCoverFlow;
  *   自定义轮播图的适配器
  */
 public class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow.ViewHolder> {
+    //非空判断工具类
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
     //轮播数据
     private CarouselBean mCarouselBean = new CarouselBean();
 
@@ -71,7 +71,7 @@ public class CarouselAdapter extends RecyclerCoverFlow.Adapter<RecyclerCoverFlow
             tv.setText(resultBean.getName());
 
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
 

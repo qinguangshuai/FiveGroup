@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bw.movie.Constant;
+import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.login.LoginActivity;
@@ -127,7 +128,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             switch (msg.what) {
                 case 1:
                     Toast.makeText(WXEntryActivity.this, mWxUser1.getMessage(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WXEntryActivity.this, ShowActivity.class));
+                    startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
 //                    LoginActivity().finish();
                     EventBus.getDefault().post(new FinishEvent(Constant.LOGINFNISH));
                     break;

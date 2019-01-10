@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.util.NetWorkChangeEvent;
@@ -22,7 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class ErrorView extends LinearLayout {
 
     private View view;
-    private ImageView image;
+    private TextView image;
 
     public ErrorView(Context context) {
         this(context, null);
@@ -43,7 +44,9 @@ public class ErrorView extends LinearLayout {
         boolean aTrue = event.isConnected;
         //有网络
         if (aTrue) {
+
             view.setVisibility(View.GONE);
+
         } else {
             view.setVisibility(View.VISIBLE);
         }

@@ -25,6 +25,8 @@ import com.bw.movie.my.mysound.XiSoundPresenter;
 import com.bw.movie.my.mysound.XiSoundUser;
 import com.bw.movie.my.mysound.XiSoundView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
+import com.bw.movie.util.ToastUtil;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +49,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     SwipeRefreshLayout mSounSwipeRefreshLayout;
     private MySoundPresenter mMySoundPresenter;
     private int mCount;
-    private int mId;
+    //private int mId;
     private int page = 1;
     private MySoundAdapter mMySoundAdapter;
     private List<ResultBean> mList;
@@ -56,7 +58,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @Override
     public void initView() {
         ButterKnife.bind(this);
-
+        showloading();
         mMySoundPresenter = new MySoundPresenter(this);
     }
 
@@ -64,19 +66,31 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     public void initListener() {
         mMySoundPresenter.getSound(page);
 
-       RecyclerViewScrollUtil.Refresh(mSounSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+      /* RecyclerViewScrollUtil.Refresh(mSounSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
            @Override
            public void info() {
+               showloading();
                mMySoundPresenter.getSound(page);
+
+
            }
-       });
+       });*/
+        mSounSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showloading();
+                mMySoundPresenter.getSound(page);
+            }
+        });
 
        RecyclerViewScrollUtil.Scroll(mSoundrecycle, true, new RecyclerViewScrollUtil.onEvent() {
            @Override
            public void info() {
+               showloading();
                mMySoundPresenter.getSound(page++);
            }
        });
+
 
     }
 
@@ -85,6 +99,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
         new XiSoundPresenter(new XiSoundView<XiSoundUser>() {
             @Override
             public void onDataSuccess(XiSoundUser xiSoundUser) {
+
                 mCount = xiSoundUser.getCount();
                 soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
             }
@@ -122,47 +137,65 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     }
 
     @Override
-    public void onDataSuccess(MySoundUser mySoundUser) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mSoundrecycle.setLayoutManager(linearLayoutManager);
+    public void onDataSuccess(final MySoundUser mySoundUser) {
+        showContent();
+        mSounSwipeRefreshLayout.setRefreshing(false);
         mList = mySoundUser.getResult();
-        mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
-        mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
-            @Override
-            public void getClick(View view, int position) {
-                mId = mList.get(position).getId();
-                new UpdateSoundPresenter(new UpdateSoundView<UpdateSoundUser>() {
+        if(mList!=null && mList.size()>0){
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mSoundrecycle.setLayoutManager(linearLayoutManager);
+            mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
+            mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
+                @Override
+                public void getClick(View view, final int position) {
+                    new UpdateSoundPresenter(new UpdateSoundView<UpdateSoundUser>() {
 
-                    @Override
-                    public void onDataSuccess(UpdateSoundUser updateSoundUser) {
-                        String message = updateSoundUser.getMessage();
-
-                        if (message.equals("状态改变成功")) {
-                            mCount--;
-                            soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
+                        @Override
+                        public void onDataSuccess(UpdateSoundUser updateSoundUser) {
+                            String message = updateSoundUser.getMessage();
+                            int status = mList.get(position).getStatus();
+                            if (status == 1){
+                                ToastUtil.Toast("状态已修改完");
+                                return;
+                            }else {
+                                if (message.equals("状态改变成功")) {
+                                    if (mCount>0){
+                                        mCount--;
+                                        soundtext.setText("系统消息  (" + mCount + "条未读" + ")");
+                                        return;
+                                    }else{
+                                        soundtext.setText("系统消息  (" + 0 + "条未读" + ")");
+                                        return;
+                                    }
+                                }
+                            }
                         }
-                        Toast.makeText(MySoundActivity.this, message, Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onDataFailer(String msg) {
+                        @Override
+                        public void onDataFailer(String msg) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onShowLoading() {
+                        @Override
+                        public void onShowLoading() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onHideLoading() {
+                        @Override
+                        public void onHideLoading() {
 
-                    }
-                }).getSound(mId);
-            }
-        });
-        mSoundrecycle.setAdapter(mMySoundAdapter);
+                        }
+                    }).getSound(mList.get(position).getId());
+                }
+            });
+            mMySoundAdapter.notifyDataSetChanged();
+            mSoundrecycle.setAdapter(mMySoundAdapter);
+        }else{
+            showEmpty();
+        }
+
+
     }
 
     @Override
@@ -185,13 +218,4 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     public void onViewClicked() {
         finish();
     }
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
-
-
 }

@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -15,19 +16,26 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
+import com.bw.movie.film.event.NetEvent;
 import com.bw.movie.film.fragment.FilmFragment;
 import com.bw.movie.my.MyFragment;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -50,15 +58,15 @@ public class ShowActivity extends BaseActivity {
 
     //权限
     private String[] permissions = {Manifest.permission.CAMERA,                     //相机
-                                    Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
-                                    Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
-                                   };
-
+            Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
+            Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
+    };
 
 
     @Override
     public void initData() {
+
         film_show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -144,6 +152,7 @@ public class ShowActivity extends BaseActivity {
     public BasePresenter initPresenter() {
         return null;
     }
+
     @Override
     public void initListener() {
 
@@ -186,9 +195,10 @@ public class ShowActivity extends BaseActivity {
             }
         });
     }
+
     @Override
     public void initView() {
-
+        EventBus.getDefault().register(this);
         vp_show = findViewById(R.id.vp_show);
         rg_show = (RadioGroup) findViewById(R.id.rg_show);
         film_show = (RadioButton) findViewById(R.id.film_show);
@@ -214,8 +224,22 @@ public class ShowActivity extends BaseActivity {
 
     }
 
+
+
+    @Subscribe
+    public void getNet(NetEvent netEvent){
+        if (Constant.GETNET==netEvent.getId()) {
+            showContent();
+        }else {
+            showloading();
+        }
+
+    }
+
+
+
     //权限申请
-    public void doPermission(){
+    public void doPermission() {
         //版本判断。当手机系统大于 23 时，才有必要去判断权限是否获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //检查相机
@@ -223,7 +247,7 @@ public class ShowActivity extends BaseActivity {
             //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
             if (i != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this,permissions,100);
+                ActivityCompat.requestPermissions(this, permissions, 100);
 
             }
             //检查GPS
@@ -231,7 +255,7 @@ public class ShowActivity extends BaseActivity {
             //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
             if (i2 != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this,permissions,101);
+                ActivityCompat.requestPermissions(this, permissions, 101);
 
             }
 
@@ -240,7 +264,7 @@ public class ShowActivity extends BaseActivity {
             //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
             if (i3 != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
-                ActivityCompat.requestPermissions(this,permissions,102);
+                ActivityCompat.requestPermissions(this, permissions, 102);
 
             }
 
@@ -287,5 +311,11 @@ public class ShowActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

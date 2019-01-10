@@ -24,9 +24,8 @@ import java.util.List;
  *   正在上映 adapter
  */
 public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    //非空判断工具类
 
-    //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
     // 即将上映 || 正在上映 数据 list
     private List<PlayingBean.ResultBean> playresult = new ArrayList<>();
@@ -42,7 +41,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     //即将上映 || 正在上映 数据 add 方法
     public void addPlayResult(List<PlayingBean.ResultBean> playresult) {
         if (EmptyUtil.isNull(playresult)) {
-            toast.Toast("没有更多了");
+            ToastUtil.Toast("没有更多了");
         }
         this.playresult.addAll(playresult);
     }
@@ -72,7 +71,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //取出文字并赋值
             tv.setText(resultBean.getName());
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
 

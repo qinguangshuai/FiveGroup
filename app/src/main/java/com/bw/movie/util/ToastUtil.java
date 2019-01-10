@@ -9,54 +9,55 @@ import com.bw.movie.MyApp;
  *TODO:
  *
  */public class ToastUtil {
-
+    private ToastUtil() {
+    }
 
     public static void Toast(int a) {
-        Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
     }
 
     public static void Toast(String a) {
-        Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
     }
 
     public static void Toast(double a) {
-        Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
     }
 
     public  static void Toast(boolean a) {
-        Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
     }
 
     public static void Toast(int a, boolean islong) {
         if (islong) {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
         }
     }
 
     public  static void Toast(String a, boolean islong) {
         if (islong) {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     public  static void Toast(double a, boolean islong) {
         if (islong) {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
         }
     }
 
     public static void Toast(boolean a, boolean islong) {
         if (islong) {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_LONG).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(MyApp.context, a + "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApp.sContext, a + "", Toast.LENGTH_SHORT).show();
         }
     }
 

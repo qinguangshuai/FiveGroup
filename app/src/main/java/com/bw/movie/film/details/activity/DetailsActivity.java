@@ -40,7 +40,6 @@ public class DetailsActivity extends BaseActivity {
     @BindView(R.id.vp_datails)
     CustomViewpager mVpDatails;
 
-    private ToastUtil toast = new ToastUtil();
     //viewpager 适配器
     private MyAdapter myAdapter = new MyAdapter(getSupportFragmentManager());
     private HotFragment hotFragment;

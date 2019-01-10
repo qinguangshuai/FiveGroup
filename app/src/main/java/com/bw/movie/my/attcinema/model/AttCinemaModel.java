@@ -1,5 +1,6 @@
 package com.bw.movie.my.attcinema.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.service.AttCinemaService;
 import com.bw.movie.util.HttpCallBack;
@@ -21,27 +22,7 @@ public class AttCinemaModel {
         OkHttpUtil.get().createa(AttCinemaService.class).getCinema(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<AttCinemaUser>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(AttCinemaUser attCinemaUser) {
-                        httpCallBack.onSuccess(attCinemaUser);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                       httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<AttCinemaUser>(httpCallBack));
     }
 
 }

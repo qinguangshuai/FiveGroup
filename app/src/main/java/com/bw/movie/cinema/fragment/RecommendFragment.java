@@ -52,16 +52,19 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     @BindView(R.id.swiperecomment)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+    private RecommendPresenter mRecommendPresenter;
 
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+        mRecommendPresenter = new RecommendPresenter(this);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        showloading();
     }
 
-//    @Subscribe
+    //    @Subscribe
 //    public void getFollowId(FollowEvent followEvent) {
 //        if (followEvent.getId() == Constant.FOLLOWID) {
 //            RecommendPresenter recommendPresenter = new RecommendPresenter(this);
@@ -69,21 +72,32 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 //        }
 //    }
     @Subscribe
-    public void getlongitude(RecommendEvent recommendEvent){
-        RecommendPresenter recommendPresenter = new RecommendPresenter(this);
-        recommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+    public void getlongitude(final RecommendEvent recommendEvent) {
+
+        mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                showloading();
+                mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+
+
+
+            }
+        });
     }
 
 
     //点赞
     @Subscribe
-    public void great(final GreatEvent greatEvent){
-        if(greatEvent.isB()){
+    public void great(final GreatEvent greatEvent) {
+        if (greatEvent.isB()) {
             new FollowProsenter(new FollowView<FollowBean>() {
                 @Override
                 public void onDataSuccess(FollowBean followBean) {
 
-                    if (followBean.getMessage().equals("关注成功")){
+                    if (followBean.getMessage().equals("关注成功")) {
                         ToastUtil.Toast(followBean.getMessage());
                         greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
 
@@ -106,23 +120,26 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
                 }
             }).getFollow(greatEvent.getId());
-        }else {
+        } else {
             new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
                 @Override
                 public void onDataSuccess(FollowBean followBean) {
-                    if (followBean.getMessage().equals("取消关注成功")){
+                    if (followBean.getMessage().equals("取消关注成功")) {
                         ToastUtil.Toast(followBean.getMessage());
                         greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
 
                     }
 
                 }
+
                 @Override
                 public void onDataFailer(String msg) {
                 }
+
                 @Override
                 public void onShowLoading() {
                 }
+
                 @Override
                 public void onHideLoading() {
                 }
@@ -133,17 +150,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
     @Override
     public void initListener() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }, 2000);
-            }
-        });
+
     }
 
     @Override
@@ -173,8 +180,11 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public void onDataSuccess(RecommendBean recommendBean) {
+        showContent();
+        swipeRefreshLayout.setRefreshing(false);
         final List<RecommendBean.ResultBean> nearbyCinemaList = recommendBean.getResult();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyRecommend.setLayoutManager(linearLayoutManager);

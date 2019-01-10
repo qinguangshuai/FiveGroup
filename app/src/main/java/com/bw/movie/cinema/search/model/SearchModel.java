@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.search.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.search.bean.SearchBean;
 import com.bw.movie.cinema.search.service.SearchService;
 import com.bw.movie.util.HttpCallBack;
@@ -19,30 +20,6 @@ public class SearchModel {
         OkHttpUtil.get().createa(SearchService.class).getSearch(page, count, cinemaName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<SearchBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(SearchBean searchBean) {
-                        httpCallBack.onSuccess(searchBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
-    public interface getSreach {
-        void getSreachs(SearchBean searchBean);
+                .subscribe(new BaseObserver<SearchBean>(httpCallBack));
     }
 }

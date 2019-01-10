@@ -27,8 +27,8 @@ import butterknife.Unbinder;
  *      热门电影
  */
 public class HotFragment extends BaseFragment {
+    //判空工具类
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
     //适配器
     private HotAdapter hotAdapter = new HotAdapter();
 
@@ -85,13 +85,13 @@ public class HotFragment extends BaseFragment {
         RecyclerViewScrollUtil.Refresh(mSwipeDetailsfragment, 2000, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                toast.Toast("刷新~");
+                ToastUtil.Toast("刷新~");
             }
         });
         RecyclerViewScrollUtil.Scroll(mRecyclerViewDetailsfragment, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                toast.Toast("加载.....没有更多了");
+                ToastUtil.Toast("加载.....没有更多了");
             }
         });
     }
@@ -108,7 +108,7 @@ public class HotFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg + "sorry");
+                ToastUtil.Toast(msg + "sorry");
             }
 
             @Override

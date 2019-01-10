@@ -103,8 +103,6 @@ public class SynopsisActivity extends BaseActivity {
     private View mDatail;
     private int a = 1;
     private int id;
-    private ToastUtil toast;
-    private ArrayList<ResultBean> list = new ArrayList<>();
     private PopupWindow popupWindow;
     private PopupWindow popupWindow2;
     private PopupWindow popupWindow3;
@@ -122,7 +120,6 @@ public class SynopsisActivity extends BaseActivity {
         mTrail = View.inflate(this, R.layout.popupwindow_trail, null);        //预告
         mStills = View.inflate(this, R.layout.popupwindow_stills, null);      //剧照
         mReview = View.inflate(this, R.layout.popupwindow_synopsis, null);    //影评
-        toast = new ToastUtil();
         Intent intent = getIntent();
         id = intent.getIntExtra("详情id", -1);
         setCardSynopsis();
@@ -167,19 +164,19 @@ public class SynopsisActivity extends BaseActivity {
         new SynopsisPresenter(new PraiseView<PraiseBean>() {
             @Override
             public void onDataSuccess(PraiseBean praiseBean) {
-                toast.Toast(praiseBean.getMessage());
+                ToastUtil.Toast(praiseBean.getMessage());
                 if (praiseBean.getMessage().equals("点赞成功")) {
                     praiseEvent.getRadioButton().setText((praiseEvent.getNum() + 1) + "");
                 } else if (praiseBean.getMessage().equals("不能重复点赞")) {
 
                 } else {
-
+                    praiseEvent.getRadioButton().setChecked(false);
                 }
             }
 
             @Override
             public void onDataFailer(String msg) {
-                toast.Toast(msg);
+                ToastUtil.Toast(msg);
             }
 
             @Override
@@ -238,9 +235,9 @@ public class SynopsisActivity extends BaseActivity {
                 if (EmptyUtil.isNull(result) == false) {
                     mPopupWindow4Adapter.addResult(commentBean.getResult());
                     mPopupWindow4Adapter.notifyDataSetChanged();
-                    toast.Toast("加载更多");
+                    ToastUtil.Toast("加载更多");
                 } else {
-                    toast.Toast("没有更多了");
+                    ToastUtil.Toast("没有更多了");
                 }
             }
 
@@ -444,7 +441,7 @@ public class SynopsisActivity extends BaseActivity {
                     imageView.setVisibility(View.VISIBLE);
                     flag = true;
                 }
-            
+
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -535,18 +532,22 @@ public class SynopsisActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
                 popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
                 popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow2.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Stills_synopsis:
                 popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow3.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 3 / 5);
+                popupWindow4.setAnimationStyle(R.style.popwin_anim_style);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }

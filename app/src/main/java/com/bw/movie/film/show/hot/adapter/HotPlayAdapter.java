@@ -25,9 +25,9 @@ import java.util.List;
  */
 public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    //非空判断工具类
 
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
 
     //正在热映 数据 List
@@ -45,7 +45,7 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     //正在热映 add 方法
     public void addHotResult(List<HotPlayBean.ResultBean> hotresult) {
         if (EmptyUtil.isNull(hotresult)) {
-            toast.Toast("没有更多了");
+            ToastUtil.Toast("没有更多了");
         }
         this.hotresult.addAll(hotresult);
     }
@@ -75,7 +75,7 @@ public class HotPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             //取出文字并赋值
             tv.setText(resultBean.getName());
         } else {
-            toast.Toast("请求数据有误");
+            ToastUtil.Toast("请求数据有误");
         }
 
         //点击事件

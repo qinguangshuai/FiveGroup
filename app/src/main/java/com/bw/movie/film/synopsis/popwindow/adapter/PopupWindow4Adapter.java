@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ToastUtil toast = new ToastUtil();
+
 
     private List<ResultBean> result = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void addResult(List<ResultBean> result) {
         if (EmptyUtil.isNull(result)) {
-            toast.Toast("没更多了,官人明天来~");
+            ToastUtil.Toast("没更多了,官人明天来~");
         } else {
             this.result.addAll(result);
         }

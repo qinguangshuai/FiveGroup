@@ -30,7 +30,7 @@ import java.util.List;
 
 public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
+    //判空工具类
     //正在热映 数据 List
     private List<HotPlayBean.ResultBean> hotresult = new ArrayList<>();
     //正在热映 数据 set 方法

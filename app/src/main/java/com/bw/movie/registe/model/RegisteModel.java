@@ -1,5 +1,6 @@
 package com.bw.movie.registe.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.registe.bean.RegisteUser;
 import com.bw.movie.registe.service.RegisteSrevice;
 import com.bw.movie.util.HttpCallBack;
@@ -21,27 +22,7 @@ public class RegisteModel {
         OkHttpUtil.get().createa(RegisteSrevice.class).postRegiste(nickName, phone, pwd, pwd2, sex, birthday, imei, ua, screenSize, os, email)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<RegisteUser>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(RegisteUser registeUser) {
-                        httpCallBack.onSuccess(registeUser);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<RegisteUser>(httpCallBack));
     }
 
 }

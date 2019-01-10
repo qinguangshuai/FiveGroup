@@ -49,6 +49,9 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
     private final PlayingAdapter playingAdapter= new PlayingAdapter();
     private final HotPlayAdapter hotPlayAdapter = new HotPlayAdapter();
 
+
+    //非空判断工具类
+
     //轮播数据
     private CarouselBean mCarouselBean = new CarouselBean();
 
@@ -60,7 +63,6 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
     }
 
     //吐司工具类
-    private ToastUtil toast = new ToastUtil();
 
     //热门电影数据 list
     private List<PopularBean.ResultBean> result = new ArrayList<>();
@@ -77,7 +79,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
     //热门电影 add 方法
     public void addResult(List<PopularBean.ResultBean> result) {
         if (EmptyUtil.isNull(result)) {
-            toast.Toast("没有更多了");
+            ToastUtil.Toast("没有更多了");
         } else {
             this.result.addAll(result);
             popularAdapter.notifyDataSetChanged();
@@ -100,7 +102,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
     //正在热映 add 方法
     public void addHotResult(List<HotPlayBean.ResultBean> hotresult) {
         if (EmptyUtil.isNull(hotresult)) {
-            toast.Toast("没有更多了");
+            ToastUtil.Toast("没有更多了");
         } else {
             this.hotresult.addAll(hotresult);
             hotPlayAdapter.notifyDataSetChanged();
@@ -122,7 +124,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
     //即将上映 || 正在上映 数据 add 方法
     public void addPlayResult(List<PlayingBean.ResultBean> playresult) {
         if (EmptyUtil.isNull(playresult)) {
-            toast.Toast("没有更多了");
+            ToastUtil.Toast("没有更多了");
         } else {
             this.playresult.addAll(playresult);
             playingAdapter.notifyDataSetChanged();
@@ -264,7 +266,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             mSearch.setClick(new SearchView.Click() {
                 @Override
                 public void onClickListener(View v, String s) {
-                 toast.Toast(s);
+                    ToastUtil.Toast(s);
 
 
 

@@ -36,27 +36,25 @@ public class LoadingActivity extends BaseActivity {
     @BindView(R.id.loadimage)
     ImageView loadimage;
     private int i = 2;
-    private ToastUtil mToastUtil;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        final NewThread newThread = new NewThread();
+        final NewThread newThread = NewThread.getmNewThread();
         boolean netWork = newThread.isNetWork(this);
-        mToastUtil = new ToastUtil();
         if (netWork){
-            mToastUtil.Toast("连接成功");
+             ToastUtil.Toast("连接成功");
             loadimage.setImageResource(R.mipmap.load);
             mTimer.schedule(mTask,1000,1000);
         }else {
-            mToastUtil.Toast("连接失败");
+            ToastUtil.Toast("连接失败");
             loadimage.setImageResource(R.mipmap.fail);
             loadimage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     boolean wifi = newThread.isWifi(LoadingActivity.this);
                     if (wifi){
-                        mToastUtil.Toast("连接成功");
+                        ToastUtil   .Toast("连接成功");
                     }else{
                         startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
                         finish();

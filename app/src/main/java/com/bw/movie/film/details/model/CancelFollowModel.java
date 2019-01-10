@@ -1,5 +1,6 @@
 package com.bw.movie.film.details.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.service.CanceFollowService;
 import com.bw.movie.util.HttpCallBack;
@@ -24,30 +25,9 @@ public class CancelFollowModel {
                 .createa(CanceFollowService.class)
                 .getCancelFollowMovieBeanObservable(can)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CancelFollowMovieBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CancelFollowMovieBean cancelFollowMovieBean) {
-                        httpCallBack.onSuccess(cancelFollowMovieBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                      httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .observeOn(AndroidSchedulers.mainThread())//CancelFollowMovieBean
+                .subscribe(new BaseObserver<CancelFollowMovieBean>(httpCallBack));
     }
-
 }
 
 

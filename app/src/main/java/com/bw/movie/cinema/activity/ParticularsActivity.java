@@ -81,7 +81,7 @@ public class ParticularsActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recylerviewPart.setLayoutManager(linearLayoutManager);
 
-
+        showloading();
     }
 
     @Override
@@ -105,9 +105,10 @@ public class ParticularsActivity extends BaseActivity {
     public void getPopup(View v) {
         View view = View.inflate(ParticularsActivity.this, R.layout.detailedinformation_popu, null);
         final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
         ImageView mdowm_detaildin = view.findViewById(R.id.dowm_detaildin);
         int height = getWindowManager().getDefaultDisplay().getHeight();
-        popupWindow.showAsDropDown(v, 0, height/2-800);
+        popupWindow.showAsDropDown(v, 0, height / 2 - 800);
         RadioButton mevaluate_detaildin = view.findViewById(R.id.evaluate_detaildin);
         RadioButton mdetails_detaildin = view.findViewById(R.id.details_detaildin);
         final LinearLayout mdetails_layout = view.findViewById(R.id.details_layout);
@@ -211,7 +212,6 @@ public class ParticularsActivity extends BaseActivity {
 
     public void getMevaluate(final RecyclerView recyclerView) {
         new MevaluatePresenter(new MevaluateView<MevaluateBean>() {
-
             @Override
             public void onDataSuccess(final MevaluateBean mevaluateBean) {
                 if (mevaluateBean.getMessage().contains("成功")) {
@@ -220,11 +220,7 @@ public class ParticularsActivity extends BaseActivity {
                     recyclerView.setLayoutManager(linearLayoutManager);
                     MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
                     recyclerView.setAdapter(mevaluateAdapder);
-
-
                 }
-
-
             }
 
             @Override
@@ -270,7 +266,7 @@ public class ParticularsActivity extends BaseActivity {
             new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
-
+                  showContent();
                     List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();
@@ -292,7 +288,7 @@ public class ParticularsActivity extends BaseActivity {
             new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
-
+                    showContent();
                     List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();

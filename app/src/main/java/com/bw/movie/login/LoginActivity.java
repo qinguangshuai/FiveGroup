@@ -3,6 +3,7 @@ package com.bw.movie.login;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,8 +19,8 @@ import android.widget.Toast;
 import com.bw.movie.Constant;
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
-import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.bean.LoginUserInfoBean;
 import com.bw.movie.login.bean.XinUser;
@@ -73,6 +74,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     ImageView loginimg;
     @BindView(R.id.remeberbox)
     CheckBox mRemeberbox;
+    @BindView(R.id.login_fan)
+    TextView loginFan;
     private String mEdit1;
     private String mEdit2;
     private LoginPresenter presenter;
@@ -90,6 +93,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private Unbinder mUnbinder;
     private NotifyUtil currentNotify;
     private int requestCode = (int) SystemClock.uptimeMillis();
+    private String mMessage;
 
     @Override
     public void initView() {
@@ -101,7 +105,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Subscribe
     public void getFinishLogin(FinishEvent finishEvent) {
-        if (finishEvent.getFinishlogin()==Constant.LOGINFNISH) {
+        if (finishEvent.getFinishlogin() == Constant.LOGINFNISH) {
             finish();
         }
     }
@@ -255,7 +259,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         String s = loginUser.getMessage();
         if (s.contains("成功")) {
             Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-
+            mMessage = loginUser.getMessage();
             mSessionId = loginUser.getResult().getSessionId();
             mUserId = loginUser.getResult().getUserId();
             LoginUserInfoBean userInfo = loginUser.getResult().getUserInfo();
@@ -295,6 +299,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     public void getSp() {
         SpUtil.put("sessionId", mSessionId);
+        SpUtil.put("session", mSessionId);
         SpUtil.put("userId", mUserId);
         SpUtil.put("birthday", mBirthday);
         SpUtil.put(Constant.HEADPIC, mHeadPic);
@@ -303,6 +308,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         SpUtil.put(Constant.PHONE, mPhone);
         SpUtil.put("id", mId);
         SpUtil.put("sex", mSex);
+        SpUtil.put("message", mMessage);
 
         if (loginbox.isChecked()) {
             SharedPreferences.Editor edit = sp.edit();
@@ -344,5 +350,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 loginbox.setChecked(mRemeberbox.isChecked());
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.login_fan)
+    public void onViewClicked() {
+        AppManager.getAppManager().finishActivity(this);
     }
 }

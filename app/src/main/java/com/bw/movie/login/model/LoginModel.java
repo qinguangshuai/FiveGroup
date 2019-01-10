@@ -1,12 +1,11 @@
 package com.bw.movie.login.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.service.LoginService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
-
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -22,26 +21,6 @@ public class LoginModel {
         OkHttpUtil.get().createa(LoginService.class).getLogn(phone, pwd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<LoginUser>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(LoginUser loginUser) {
-                        httpCallBack.onSuccess(loginUser);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<LoginUser>(httpCallBack));
     }
 }

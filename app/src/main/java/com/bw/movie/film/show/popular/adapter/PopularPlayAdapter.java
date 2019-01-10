@@ -27,6 +27,7 @@ import java.util.List;
 *   正在上映
 */
 public class PopularPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    //判空工具类
 
     //热门电影数据 list
     private List<PopularBean.ResultBean> result = new ArrayList<>();
@@ -108,5 +109,6 @@ public class PopularPlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
         }
+
     }
 }

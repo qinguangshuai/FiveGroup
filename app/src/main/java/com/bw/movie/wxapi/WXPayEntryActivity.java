@@ -28,7 +28,7 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mIwxapi = WXAPIFactory.createWXAPI(MyApp.context, WeiXinUtil.APP_ID);
+        mIwxapi = WXAPIFactory.createWXAPI(MyApp.sContext, WeiXinUtil.APP_ID);
         mIwxapi.handleIntent(getIntent(), this);
 
     }
@@ -43,11 +43,11 @@ public class WXPayEntryActivity extends AppCompatActivity implements IWXAPIEvent
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             int errCord = baseResp.errCode;
             if (errCord == 0) {
-                new ToastUtil().Toast("支付成功！");
+              ToastUtil.Toast("支付成功！");
             } else if (errCord == -1) {
-                new ToastUtil().Toast("支付失败！");
+                ToastUtil.Toast("支付失败！");
             } else {
-                new ToastUtil().Toast("用户取消了！");
+                ToastUtil.Toast("用户取消了！");
             }
             //这里接收到了返回的状态码可以进行相应的操作，如果不想在这个页面操作可以把状态码存在本地然后finish掉这个页面，这样就回到了你调起支付的那个页面
             //获取到你刚刚存到本地的状态码进行相应的操作就可以了

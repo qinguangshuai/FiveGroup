@@ -3,6 +3,7 @@ package com.bw.movie.base;
   basepresenter
 * */
 public class BasePresenter<T extends IBaseView> {
+
     private T iBaseView;
 
     public BasePresenter(T iBaseView) {

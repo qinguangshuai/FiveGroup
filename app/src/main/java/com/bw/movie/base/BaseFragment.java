@@ -52,9 +52,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(initLayoutId(), container, false);
+        statusView = initStatuView(rootView);
         initVarisble();
         initView();
-        return rootView;
+        return statusView;
     }
 
     //onActivityCreate方法
@@ -63,12 +64,25 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initListener();
         if (!isinitData && getUserVisibleHint()) {
-            initData();
-            isinitData = true;
+            if (statusView != null) {
+                initData();
+                isinitData = true;
+            }
+
         } else {
             onVisiable();
         }
 
+    }
+
+    private StatusView initStatuView(View content) {
+        StatusView.Builder builder = new StatusView.Builder(mActivity);
+        statusView = builder.contentView(content)
+                .emptyId(R.layout.layout_empity2)
+                .erroryId(R.layout.layout_error)
+                .loadingId(R.layout.layout_loading)
+                .build();
+        return statusView;
     }
 
     public abstract void initView();
@@ -105,6 +119,21 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     protected void onVisiable() {
 
+    }
+
+    //显示内容
+    public void showContent() {
+        statusView.showContent();
+    }
+
+    //显示加载布局
+    public void showloading() {
+        statusView.showLoading();
+    }
+
+    //显示空白布局
+    public void showEmpty(){
+        statusView.showEmpty();
     }
 
     @Override
