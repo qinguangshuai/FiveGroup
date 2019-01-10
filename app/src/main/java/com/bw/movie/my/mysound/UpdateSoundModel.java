@@ -21,5 +21,4 @@ public class UpdateSoundModel {
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseObserver<UpdateSoundUser>(httpCallBack));
     }
-
 }

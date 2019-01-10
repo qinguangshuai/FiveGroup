@@ -53,7 +53,12 @@ public class MySoundAdapter extends RecyclerView.Adapter<MySoundAdapter.MyViewHo
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         myViewHolder.text3.setText(df.format(gc.getTime()));
-        myViewHolder.text4.setText("1");
+        if (bean.getStatus()==0){
+            myViewHolder.text4.setVisibility(View.VISIBLE);
+            myViewHolder.text4.setText("1");
+        }else {
+            myViewHolder.text4.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -75,9 +80,8 @@ public class MySoundAdapter extends RecyclerView.Adapter<MySoundAdapter.MyViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    httpClick.getClick(v,getAdapterPosition()-1);
+                    httpClick.getClick(v,getAdapterPosition());
                     text4.setVisibility(View.GONE);
-                    text4.setBackgroundColor(Color.WHITE);
                 }
             });
         }

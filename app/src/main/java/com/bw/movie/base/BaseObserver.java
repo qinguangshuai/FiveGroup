@@ -1,17 +1,21 @@
 package com.bw.movie.base;
 
 import android.os.NetworkOnMainThreadException;
+import android.view.InflateException;
 
 import com.bw.movie.MyApp;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.NewThread;
 import com.bw.movie.util.ToastUtil;
+import com.google.gson.JsonIOException;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
+
+import javax.net.ssl.SSLHandshakeException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -99,12 +103,36 @@ public class BaseObserver<T> implements Observer<T> {
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "主线程不能网络请求";
             mCallback.onFailer(errorMsg);
+        } else if (e instanceof NullPointerException){
+            errorCode = ERROR.NULL_POINTER_EXCEPTION;
+            errorMsg = "空指针错误" + e.toString();
+            mCallback.onFailer(errorMsg);
         } else if (e instanceof RuntimeException) {
             //很多的错误都是extends RuntimeException
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "运行时错误" + e.toString();
             mCallback.onFailer(errorMsg);
-        } else {
+        }else if (e instanceof SSLHandshakeException) {
+            //很多的错误都是extends RuntimeException
+            errorCode = ERROR.SSL_ERROR;
+            errorMsg = "证书出错";
+            mCallback.onFailer(errorMsg);
+        }else if (e instanceof ClassCastException) {
+            //很多的错误都是extends RuntimeException
+            errorCode = ERROR.CAST_ERROR;
+            errorMsg = "类转换错误";
+            mCallback.onFailer(errorMsg);
+        }else if (e instanceof InflateException) {
+            //很多的错误都是extends RuntimeException
+            errorCode = ERROR.PARSE_ERROR;
+            errorMsg = "解析错误";
+            mCallback.onFailer(errorMsg);
+        } else if (e instanceof IllegalAccessException) {
+            //很多的错误都是extends RuntimeException
+            errorCode = ERROR.ILLEGAL_STATE_ERROR;
+            errorMsg = "非法数据异常";
+            mCallback.onFailer(errorMsg);
+        }  else {
             errorCode = ERROR.UNKNOWN;
             errorMsg = "未知错误";
             mCallback.onFailer(errorMsg);
