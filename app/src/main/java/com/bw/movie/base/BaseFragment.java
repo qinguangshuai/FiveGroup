@@ -85,6 +85,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
                 .build();
         return statusView;
     }
+
     public abstract void initView();
 
     public abstract void initListener();
@@ -125,9 +126,15 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public void showContent() {
         statusView.showContent();
     }
-    //显示内容
+
+    //显示加载布局
     public void showloading() {
         statusView.showLoading();
+    }
+
+    //显示空白布局
+    public void showEmpty(){
+        statusView.showEmpty();
     }
 
     @Override

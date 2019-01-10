@@ -72,9 +72,20 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 //        }
 //    }
     @Subscribe
-    public void getlongitude(RecommendEvent recommendEvent) {
+    public void getlongitude(final RecommendEvent recommendEvent) {
 
         mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                showloading();
+                mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+
+
+
+            }
+        });
     }
 
 
@@ -139,20 +150,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
     @Override
     public void initListener() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRecommendPresenter.getRecommend("116.30551391385724", "40.04571807462411", 1, 10);
-                        showloading();
-                        swipeRefreshLayout.setRefreshing(false);
 
-                    }
-                }, 1000);
-            }
-        });
     }
 
     @Override
@@ -186,7 +184,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     @Override
     public void onDataSuccess(RecommendBean recommendBean) {
         showContent();
-
+        swipeRefreshLayout.setRefreshing(false);
         final List<RecommendBean.ResultBean> nearbyCinemaList = recommendBean.getResult();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyRecommend.setLayoutManager(linearLayoutManager);
