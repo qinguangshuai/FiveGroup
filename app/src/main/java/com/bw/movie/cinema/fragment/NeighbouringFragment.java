@@ -45,15 +45,17 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+    private NeightbourPresenter neightbourPresenter;
 
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
+        neightbourPresenter = new NeightbourPresenter(this);
         neightbourPresenter.getNeightbour(1, 10);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        showloading();
     }
 
     @Subscribe
@@ -69,12 +71,11 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }, 2000);
+
+                        showloading();
+                        neightbourPresenter.getNeightbour(1, 10);
+
+
             }
         });
     }
@@ -152,7 +153,8 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void onDataSuccess(NeightbourBean neightbourBean) {
-
+        showContent();
+        swipeRefreshLayout.setRefreshing(false);
         final List<NeightBourResultBean> nearbyCinemaList = neightbourBean.getResult();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyNeightbor.setLayoutManager(linearLayoutManager);

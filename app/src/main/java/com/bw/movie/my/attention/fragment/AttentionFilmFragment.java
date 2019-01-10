@@ -49,6 +49,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+        showloading();
     }
 
     @Override
@@ -59,16 +60,24 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void initData() {
         mAttFilmPresenter.getFilm(page);
-        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+//        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
+//            @Override
+//            public void info() {
+//                showloading();
+//                mAttFilmPresenter.getFilm(page);
+//            }
+//        });
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void info() {
+            public void onRefresh() {
+                showloading();
                 mAttFilmPresenter.getFilm(page);
             }
         });
-
         RecyclerViewScrollUtil.Scroll(mAttenrecycle2, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
+                showloading();
                 mAttFilmPresenter.getFilm(page++);
 
             }
@@ -100,18 +109,26 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
 
     @Override
     public void onDataSuccess(MyAttFilmUser myAttFilmUser) {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        mAttenrecycle2.setLayoutManager(linearLayoutManager);
+        showContent();
+        mSwipeRefreshLayout.setRefreshing(false);
         mList = myAttFilmUser.getResult();
-        AttFilmAdapter attFilmAdapter = new AttFilmAdapter(getContext(), mList);
-        attFilmAdapter.setHttpClick(new AttFilmAdapter.HttpClick() {
-            @Override
-            public void getClick(View view, int position) {
-                startActivity(new Intent(getActivity(),WXEntryActivity.class));
-                getActivity().finish();
-            }
-        });
-        mAttenrecycle2.setAdapter(attFilmAdapter);
+        if (mList!=null && mList.size()>0){
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            mAttenrecycle2.setLayoutManager(linearLayoutManager);
+
+            AttFilmAdapter attFilmAdapter = new AttFilmAdapter(getContext(), mList);
+            attFilmAdapter.setHttpClick(new AttFilmAdapter.HttpClick() {
+                @Override
+                public void getClick(View view, int position) {
+                    startActivity(new Intent(getActivity(),WXEntryActivity.class));
+                    getActivity().finish();
+                }
+            });
+            mAttenrecycle2.setAdapter(attFilmAdapter);
+        }else{
+            showEmpty();
+        }
+
     }
 
     @Override

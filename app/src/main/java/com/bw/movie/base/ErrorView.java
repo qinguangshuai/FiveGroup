@@ -44,7 +44,9 @@ public class ErrorView extends LinearLayout {
         boolean aTrue = event.isConnected;
         //有网络
         if (aTrue) {
+
             view.setVisibility(View.GONE);
+
         } else {
             view.setVisibility(View.VISIBLE);
         }
