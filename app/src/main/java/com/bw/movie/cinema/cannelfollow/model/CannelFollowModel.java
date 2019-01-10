@@ -24,6 +24,4 @@ public class CannelFollowModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<FollowBean>(httpCallBack));
     }
-
-
 }

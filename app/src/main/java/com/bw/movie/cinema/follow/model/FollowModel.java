@@ -40,7 +40,7 @@ public class FollowModel {
                                     MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
                                     AppManager.getAppManager().finishAllActivity();
                                 }
-                            }, 2000);
+                            }, 1000);
                         } else {
                             super.onNext(followBean);
                         }
