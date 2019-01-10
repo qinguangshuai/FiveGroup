@@ -38,6 +38,7 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -122,13 +123,11 @@ public class FilmFragment extends BaseFragment {
     //请求回调 轮播图 数据
     public void getCarouselBeanObservable(int page, int count) {
         EventBus.getDefault().post(new NetEvent(0x0001));
-
         new CarouserlPresenter(new CarousemView<CarouselBean>() {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
                 mRootAdapter.setCarouselBean(carouselBean);
                 EventBus.getDefault().post(new NetEvent(Constant.GETNET));
-
             }
 
             @Override

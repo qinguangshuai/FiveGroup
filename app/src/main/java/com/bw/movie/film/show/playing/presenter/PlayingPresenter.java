@@ -5,6 +5,7 @@ import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
 import com.bw.movie.film.show.playing.callback.PlayingCallBack;
 import com.bw.movie.film.show.playing.model.PlayingModel;
+import com.bw.movie.util.HttpCallBack;
 
 /*
  *作者:ash
@@ -23,15 +24,15 @@ public class PlayingPresenter extends BasePresenter {
 
     //正在上映 || 即将上映 请求 回调
     public void getPlayingBeanObservable(int page, int count){
-        playingModel.getPlayingBeanObservable(page, count, new PlayingCallBack() {
+        playingModel.getPlayingBeanObservable(page, count, new HttpCallBack<PlayingBean>() {
             @Override
-            public void success(PlayingBean playingBean) {
-                getiBaseView().onDataSuccess(playingBean);
+            public void onSuccess(PlayingBean name) {
+                getiBaseView().onDataSuccess(name);
             }
 
             @Override
-            public void error(String message) {
-                getiBaseView().onDataFailer(message);
+            public void onFailer(String result) {
+
             }
         });
     }

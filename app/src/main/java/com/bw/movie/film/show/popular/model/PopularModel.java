@@ -1,8 +1,10 @@
 package com.bw.movie.film.show.popular.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.callback.PopularCallBack;
 import com.bw.movie.film.show.popular.service.PopularService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
@@ -19,34 +21,14 @@ public class PopularModel {
 
 
     //热门电影 请求数据回调
-    public void getPopularBeanObservable(int page, int count, final PopularCallBack popularCallBack) {
+    public void getPopularBeanObservable(int page, int count, final HttpCallBack httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(PopularService.class)
                 .getPopularBeanObservable(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<PopularBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(PopularBean popularBean) {
-                        popularCallBack.success(popularBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        popularCallBack.error(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<PopularBean>(httpCallBack));
 
     }
 

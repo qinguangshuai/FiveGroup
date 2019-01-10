@@ -78,6 +78,7 @@ public class HotFragment extends BaseFragment {
 
     //set recyclerview 数据
     public void setRecyclerViewData() {
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewDetailsfragment.setAdapter(hotAdapter);
@@ -88,12 +89,14 @@ public class HotFragment extends BaseFragment {
                 ToastUtil.Toast("刷新~");
             }
         });
+
         RecyclerViewScrollUtil.Scroll(mRecyclerViewDetailsfragment, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
                 ToastUtil.Toast("加载.....没有更多了");
             }
         });
+
     }
 
     //set数据

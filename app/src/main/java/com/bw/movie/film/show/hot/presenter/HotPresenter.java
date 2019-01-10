@@ -5,6 +5,7 @@ import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.show.hot.bean.HotPlayBean;
 import com.bw.movie.film.show.hot.callback.HotPlayCallBack;
 import com.bw.movie.film.show.hot.model.HotModel;
+import com.bw.movie.util.HttpCallBack;
 
 /*
  *作者:ash
@@ -24,15 +25,15 @@ public class HotPresenter extends BasePresenter {
 
     //正在热映 请求回调
     public void getHotPlayBeanObservable(int page, int count){
-        hotModel.getHotPlayBeanObservable(page, count, new HotPlayCallBack() {
+        hotModel.getHotPlayBeanObservable(page, count, new HttpCallBack<HotPlayBean>() {
             @Override
-            public void success(HotPlayBean hotPlayBean) {
-                getiBaseView().onDataSuccess(hotPlayBean);
+            public void onSuccess(HotPlayBean name) {
+                getiBaseView().onDataSuccess(name);
             }
 
             @Override
-            public void error(String message) {
-                getiBaseView().onDataFailer(message);
+            public void onFailer(String result) {
+
             }
         });
     }
