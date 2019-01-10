@@ -33,4 +33,5 @@ public interface Constant {
     String PHONE1 = "phone";
     //登录销毁
     int LOGINFNISH=0x0000;
+    int GETNET=0x0000;
 }

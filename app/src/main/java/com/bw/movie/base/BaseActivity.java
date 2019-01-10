@@ -129,6 +129,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void showContent() {
         statusView.showContent();
     }
+    //显示内容
+    public void showloading() {
+        statusView.showLoading();
+    }
+
 
     /**
      * 设置网络监听

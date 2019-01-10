@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -16,6 +17,7 @@ import com.bw.movie.film.adapter.RootAdapter;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.presenter.CancelFollowPresenter;
 import com.bw.movie.film.details.presenter.FollowPresenter;
+import com.bw.movie.film.event.NetEvent;
 import com.bw.movie.film.show.carousel.bean.CarouselBean;
 import com.bw.movie.film.details.bean.FollowBean;
 import com.bw.movie.film.show.carousel.presenter.CarouserlPresenter;
@@ -119,10 +121,14 @@ public class FilmFragment extends BaseFragment {
 
     //请求回调 轮播图 数据
     public void getCarouselBeanObservable(int page, int count) {
+        EventBus.getDefault().post(new NetEvent(0x0001));
+
         new CarouserlPresenter(new CarousemView<CarouselBean>() {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
                 mRootAdapter.setCarouselBean(carouselBean);
+                EventBus.getDefault().post(new NetEvent(Constant.GETNET));
+
             }
 
             @Override
