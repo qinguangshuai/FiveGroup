@@ -186,28 +186,33 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
         showContent();
         swipeRefreshLayout.setRefreshing(false);
         final List<RecommendBean.ResultBean> nearbyCinemaList = recommendBean.getResult();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyRecommend.setLayoutManager(linearLayoutManager);
-        RecommendAdapder recommendAdapder = new RecommendAdapder(nearbyCinemaList, getActivity());
-        recyRecommend.setAdapter(recommendAdapder);
-        recommendAdapder.setGetListener(new RecommendAdapder.getListener() {
-            @Override
-            public void getList(View view, int position) {
-                Intent intent = new Intent(getActivity(), ParticularsActivity.class);
-                //获取推荐的logo的
-                String logo = nearbyCinemaList.get(position).getLogo();
-                //获取推荐姓名
-                String name = nearbyCinemaList.get(position).getName();
-                //获取推荐的地址
-                String address = nearbyCinemaList.get(position).getAddress();
-                int id = nearbyCinemaList.get(position).getId();
-                intent.putExtra(Constant.TUIJIANID, id + "");
-                intent.putExtra(Constant.LOGO, logo);
-                intent.putExtra(Constant.NAME, name);
-                intent.putExtra(Constant.ADDRESS, address);
-                startActivity(intent);
-            }
-        });
+        if (nearbyCinemaList!=null && nearbyCinemaList.size()>0){
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            recyRecommend.setLayoutManager(linearLayoutManager);
+            RecommendAdapder recommendAdapder = new RecommendAdapder(nearbyCinemaList, getActivity());
+            recyRecommend.setAdapter(recommendAdapder);
+            recommendAdapder.setGetListener(new RecommendAdapder.getListener() {
+                @Override
+                public void getList(View view, int position) {
+                    Intent intent = new Intent(getActivity(), ParticularsActivity.class);
+                    //获取推荐的logo的
+                    String logo = nearbyCinemaList.get(position).getLogo();
+                    //获取推荐姓名
+                    String name = nearbyCinemaList.get(position).getName();
+                    //获取推荐的地址
+                    String address = nearbyCinemaList.get(position).getAddress();
+                    int id = nearbyCinemaList.get(position).getId();
+                    intent.putExtra(Constant.TUIJIANID, id + "");
+                    intent.putExtra(Constant.LOGO, logo);
+                    intent.putExtra(Constant.NAME, name);
+                    intent.putExtra(Constant.ADDRESS, address);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            showEmpty();
+        }
+
     }
 
     @Override

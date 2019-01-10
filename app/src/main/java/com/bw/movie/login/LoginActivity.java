@@ -92,6 +92,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private int requestCode = (int) SystemClock.uptimeMillis();
     private String mMessage;
 
+    private boolean isClick=true;
+
     @Override
     public void initView() {
         mUnbinder = ButterKnife.bind(this);
@@ -121,7 +123,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             loginedit1.setText(sp.getString("phone", mEdit1));
             loginedit2.setText(sp.getString("pwd", mEdit2));
             loginbox.setChecked(true);
+            if (mRemeberbox.isChecked()){
+                mRemeberbox.setChecked(true);
+                loginbox.setChecked(true);
+            }else {
+                mRemeberbox.setChecked(false);
+            }
+
         }
+        if (sp.getBoolean("mRemeberbox",false)){
+            startActivity(new Intent(this,ShowActivity.class));
+            finish();
+            return;
+        }
+
 
     }
 
@@ -171,60 +186,66 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.loginbox:
                 break;
             case R.id.loginbtn:
-                if (!ButtonUtils.isFastDoubleClick(R.id.loginbtn)) {
-                    //写你相关操作即可
-                    ButtonUtils.isFastDoubleClick(1, 2000);
-                }
-                String encrypt = EncryptUtil.encrypt(mEdit2);
-                if (TextUtils.isEmpty(mEdit1) && TextUtils.isEmpty(mEdit2)) {
-                    Toast.makeText(this, "用户名或者密码不能为空", Toast.LENGTH_LONG).show();
-                    return;
-                }
+//                if (!ButtonUtils.isFastDoubleClick(R.id.loginbtn,2000)) {
+//                    //写你相关操作即可
+//                    ButtonUtils.isFastDoubleClick(1, 2000);
+//                }
 
-                if (loginedit1.equals(mEdit1)) {
-                    isChinaPhoneLegal(mEdit1);
-                    Toast.makeText(this, "手机号错误", Toast.LENGTH_LONG).show();
-                    return;
-                } else {
-                    presenter.getLogin(mEdit1, encrypt);
-                }
+                if(isClick){
+                    isClick=false;
 
-                XGPushManager.registerPush(this, new XGIOperateCallback() {
-                    @Override
-                    public void onSuccess(Object data, int flag) {
-                        //token在设备卸载重装的时候有可能会变
-                        Log.d("TPush", "注册成功，设备token为：" + data);
-                        String da = String.valueOf(data);
-                        new XinPresenter(new XinView<XinUser>() {
-
-                            @Override
-                            public void onDataSuccess(XinUser xinUser) {
-                                String message = xinUser.getMessage();
-                                Toast.makeText(LoginActivity.this, message + "", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onDataFailer(String msg) {
-
-                            }
-
-                            @Override
-                            public void onShowLoading() {
-
-                            }
-
-                            @Override
-                            public void onHideLoading() {
-
-                            }
-                        }).getLogin(da, 1);
+                    String encrypt = EncryptUtil.encrypt(mEdit2);
+                    if (TextUtils.isEmpty(mEdit1) && TextUtils.isEmpty(mEdit2)) {
+                        Toast.makeText(this, "用户名或者密码不能为空", Toast.LENGTH_LONG).show();
+                        return;
                     }
 
-                    @Override
-                    public void onFail(Object data, int errCode, String msg) {
-                        Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+                    if (loginedit1.equals(mEdit1)) {
+                        isChinaPhoneLegal(mEdit1);
+                        Toast.makeText(this, "手机号错误", Toast.LENGTH_LONG).show();
+                        return;
+                    } else {
+                        presenter.getLogin(mEdit1, encrypt);
                     }
-                });
+
+                    XGPushManager.registerPush(this, new XGIOperateCallback() {
+                        @Override
+                        public void onSuccess(Object data, int flag) {
+                            //token在设备卸载重装的时候有可能会变
+                            String da = String.valueOf(data);
+                            new XinPresenter(new XinView<XinUser>() {
+
+                                @Override
+                                public void onDataSuccess(XinUser xinUser) {
+                                    String message = xinUser.getMessage();
+                                    Toast.makeText(LoginActivity.this, message + "", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onDataFailer(String msg) {
+
+                                }
+
+                                @Override
+                                public void onShowLoading() {
+
+                                }
+
+                                @Override
+                                public void onHideLoading() {
+
+                                }
+                            }).getLogin(da, 1);
+                        }
+
+                        @Override
+                        public void onFail(Object data, int errCode, String msg) {
+                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+                        }
+                    });
+
+                }
+
                 break;
             case R.id.loginimg:
                 wxLogin();
@@ -313,6 +334,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             edit.putString("pwd", mEdit2);
             edit.putString("nickName", mNickName);
             edit.putBoolean("loginbox", loginbox.isChecked());
+            edit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
             edit.commit();
         } else {
             edit.putString("phone", "");
@@ -320,6 +342,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             edit.putString("headPic", mHeadPic);
             edit.putString("nickName", mNickName);
             edit.putBoolean("loginbox", loginbox.isChecked());
+            edit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
             edit.commit();
         }
     }
