@@ -1,5 +1,6 @@
 package com.bw.movie.my.message.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.service.MyMessageService;
 import com.bw.movie.util.HttpCallBack;
@@ -17,27 +18,7 @@ public class MyMessageModel {
         OkHttpUtil.get().createa(MyMessageService.class).getMessage()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MyMessageEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MyMessageEntity myMessageEntity) {
-                      httpCallBack.onSuccess(myMessageEntity);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                       httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<MyMessageEntity>(httpCallBack));
 
     }
 

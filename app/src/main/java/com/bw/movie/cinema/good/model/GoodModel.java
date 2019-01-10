@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.good.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.service.GoodService;
 import com.bw.movie.util.HttpCallBack;
@@ -19,28 +20,7 @@ public class GoodModel {
         OkHttpUtil.get().createa(GoodService.class).getGoods(commentId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<GoodBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(GoodBean goodBean) {
-                       httpCallBack.onSuccess(goodBean);
-                    }
-
-
-                    @Override
-                    public void onError(Throwable e) {
-                       httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<GoodBean>(httpCallBack));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.bw.movie.film.synopsis.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.synopsis.bean.InputcommentsBean;
 import com.bw.movie.film.synopsis.bean.PraiseBean;
@@ -27,27 +28,7 @@ public class SynopsisModel {
                 .getCommentBeanObservable(id, page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CommentBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CommentBean commentBean) {
-                        httpCallBack.onSuccess(commentBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<CommentBean>(httpCallBack));
     }
 
 

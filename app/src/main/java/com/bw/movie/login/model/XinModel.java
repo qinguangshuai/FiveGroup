@@ -1,5 +1,6 @@
 package com.bw.movie.login.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.XinUser;
 import com.bw.movie.login.service.XinService;
 import com.bw.movie.util.HttpCallBack;
@@ -20,27 +21,7 @@ public class XinModel {
         OkHttpUtil.get().createa(XinService.class).getXinGe(token, os)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<XinUser>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(XinUser xinUser) {
-                        httpCallBack.onSuccess(xinUser);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<XinUser>(httpCallBack));
     }
 
 

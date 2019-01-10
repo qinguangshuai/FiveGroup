@@ -17,12 +17,7 @@ public class NeightbourModel extends BaseModel {
         OkHttpUtil.get().createa(NeighbourService.class).getNeightbour(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<NeightbourBean>(httpCallBack){
-                    @Override
-                    public void onNext(NeightbourBean neightbourBean) {
-                        httpCallBack.onSuccess(neightbourBean);
-                    }
-                });
+                .subscribe(new BaseObserver<NeightbourBean>(httpCallBack));
     }
 
 }

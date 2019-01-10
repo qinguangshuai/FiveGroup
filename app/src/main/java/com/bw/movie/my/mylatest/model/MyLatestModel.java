@@ -1,5 +1,6 @@
 package com.bw.movie.my.mylatest.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.my.mylatest.bean.MyLatestUser;
 import com.bw.movie.my.mylatest.service.MyLatestService;
 import com.bw.movie.util.HttpCallBack;
@@ -20,27 +21,7 @@ public class MyLatestModel {
         OkHttpUtil.get().createa(MyLatestService.class).getVersion()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MyLatestUser>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MyLatestUser myLatestUser) {
-                        httpCallBack.onSuccess(myLatestUser);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<MyLatestUser>(httpCallBack));
     }
 
 }

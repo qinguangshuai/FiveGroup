@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.mevaluate.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.service.MevaluateService;
 import com.bw.movie.util.HttpCallBack;
@@ -21,27 +22,7 @@ public class MevaluateModel {
                 .getMevaluate(cinemaId, page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MevaluateBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MevaluateBean mevaluateBean) {
-                        httpCallBack.onSuccess(mevaluateBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<MevaluateBean>(httpCallBack));
     }
 
 
