@@ -5,7 +5,7 @@ import com.bw.movie.util.OkHttpUtil;
 import retrofit2.Retrofit;
 
 /*
-*  baseModel的封装
+*  baseModel的封装+
 * */
 public class BaseModel {
     //retrofit请求数据的管理类
@@ -13,4 +13,5 @@ public class BaseModel {
     public BaseModel(){
          retrofit = OkHttpUtil.retrofit;
     }
+
 }

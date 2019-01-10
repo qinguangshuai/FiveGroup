@@ -40,7 +40,7 @@ public class LoadingActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        final NewThread newThread = new NewThread();
+        final NewThread newThread = NewThread.getmNewThread();
         boolean netWork = newThread.isNetWork(this);
         if (netWork){
              ToastUtil.Toast("连接成功");
