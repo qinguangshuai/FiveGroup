@@ -10,7 +10,6 @@ import com.bw.movie.util.OkHttpUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class NeightbourModel extends BaseModel {

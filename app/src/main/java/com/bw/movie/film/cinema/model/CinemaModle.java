@@ -1,5 +1,6 @@
 package com.bw.movie.film.cinema.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.film.cinema.bean.CinemaBean;
 import com.bw.movie.film.cinema.service.CinemaService;
 import com.bw.movie.util.HttpCallBack;
@@ -15,13 +16,11 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class CinemaModle {
+public class CinemaModle extends BaseModel {
 
     //查询影院
     public void getCinemaBeanObservable(int id, final HttpCallBack<CinemaBean> httpCallBack){
-
-
-
+        
         OkHttpUtil
                 .get()
                 .createa(CinemaService.class)
