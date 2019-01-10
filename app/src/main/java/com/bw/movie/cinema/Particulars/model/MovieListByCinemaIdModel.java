@@ -2,6 +2,7 @@ package com.bw.movie.cinema.Particulars.model;
 
 import android.util.Log;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.service.MovieListByCinemaIdService;
 import com.bw.movie.util.HttpCallBack;
@@ -24,27 +25,7 @@ public class MovieListByCinemaIdModel {
         OkHttpUtil.get().createa(MovieListByCinemaIdService.class).getMovieByBean(cinemaId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MovieListByCinemaIdBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MovieListByCinemaIdBean movieListByCinemaIdBean) {
-                       httpCallBack.onSuccess(movieListByCinemaIdBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                       httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<MovieListByCinemaIdBean>(httpCallBack));
     }
 
 }

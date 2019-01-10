@@ -41,26 +41,26 @@ public class BaseObserver<T> implements Observer<T> {
 
     }
 
-
     //优先执行此方法
     @Override
     public void onSubscribe(Disposable d) {
         //如果没有网络!
         if (!NewThread.getmNewThread().isNetWork(MyApp.sContext)) {
-            try {
+            ToastUtil.Toast("网络错误,请检查网络!");
+            /*try {
                 throw new Exception("网络错误,请检查网络!");
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
     //成功回调方法
     /*
-    *
-    * <T> 参数 为 bean 类
-    *
-    * */
+     *
+     * <T> 参数 为 bean 类
+     *
+     * */
     @Override
     public void onNext(T t) {
         mCallback.onSuccess(t);
@@ -69,41 +69,48 @@ public class BaseObserver<T> implements Observer<T> {
     //失败回调方法
     @Override
     public void onError(Throwable e) {
-        if (e instanceof HttpException){
+        if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
             errorCode = httpException.code();
             errorMsg = httpException.getMessage();
-            return;
-        }else if (e instanceof SocketTimeoutException){
+            mCallback.onFailer(errorMsg);
+        } else if (e instanceof SocketTimeoutException) {
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "服务器响应超时";
-        }else if (e instanceof ConnectException) {
+            mCallback.onFailer(errorMsg);
+        } else if (e instanceof ConnectException) {
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "网络连接异常，请检查网络";
+            mCallback.onFailer(errorMsg);
         } else if (e instanceof UnknownHostException) {
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "无法解析主机，请检查网络连接";
+            mCallback.onFailer(errorMsg);
         } else if (e instanceof UnknownServiceException) {
             errorCode = ERROR.UNKNOWN;
             errorMsg = "未知的服务器错误";
+            mCallback.onFailer(errorMsg);
         } else if (e instanceof IOException) {   //飞行模式等
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "读取网络数据失败";
+            mCallback.onFailer(errorMsg);
         } else if (e instanceof NetworkOnMainThreadException) {
             //主线程不能网络请求，这个很容易发现
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "主线程不能网络请求";
+            mCallback.onFailer(errorMsg);
         } else if (e instanceof RuntimeException) {
             //很多的错误都是extends RuntimeException
             errorCode = ERROR.TIMEOUT_ERROR;
             errorMsg = "运行时错误" + e.toString();
+            mCallback.onFailer(errorMsg);
         } else {
             errorCode = ERROR.UNKNOWN;
             errorMsg = "未知错误";
+            mCallback.onFailer(errorMsg);
         }
         ToastUtil.Toast(errorMsg);
     }
-
 
     //数据成功完成后会调用该方法
     @Override
@@ -111,41 +118,25 @@ public class BaseObserver<T> implements Observer<T> {
 
     }
 
-    /**
-     * 约定异常
-     */
+    //异常信息
     public static class ERROR {
-        /**
-         * 未知错误
-         */
+        //未知错误
         public static final int UNKNOWN = 1000;
-        /**
-         * 连接超时
-         */
+        //连接超时
         public static final int TIMEOUT_ERROR = 1001;
-        /**
-         * 空指针错误
-         */
+        //空指针错误
         public static final int NULL_POINTER_EXCEPTION = 1002;
 
-        /**
-         * 证书出错
-         */
+        //证书出错
         public static final int SSL_ERROR = 1003;
 
-        /**
-         * 类转换错误
-         */
+        //类转换错误
         public static final int CAST_ERROR = 1004;
 
-        /**
-         * 解析错误
-         */
+        //解析错误
         public static final int PARSE_ERROR = 1005;
 
-        /**
-         * 非法数据异常
-         */
+        //非法数据异常
         public static final int ILLEGAL_STATE_ERROR = 1006;
 
     }

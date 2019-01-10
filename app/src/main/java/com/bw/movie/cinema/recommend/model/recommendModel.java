@@ -15,12 +15,6 @@ public class recommendModel extends BaseModel {
         OkHttpUtil.get().createa(RecommendService.class).getRecommned(longitude, latitude, page, count)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new BaseObserver<RecommendBean>(httpCallBack){
-                    @Override
-                    public void onNext(RecommendBean recommendBean) {
-                        httpCallBack.onSuccess(recommendBean);
-                    }
-                });
-
+                .subscribe(new BaseObserver<RecommendBean>(httpCallBack));
     }
 }

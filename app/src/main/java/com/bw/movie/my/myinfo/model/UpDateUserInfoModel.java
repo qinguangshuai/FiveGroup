@@ -1,5 +1,6 @@
 package com.bw.movie.my.myinfo.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.my.myinfo.bean.UpDateUserInfoEntity;
 import com.bw.movie.my.myinfo.service.UpDateUserInfoService;
 import com.bw.movie.util.HttpCallBack;
@@ -19,27 +20,7 @@ public class UpDateUserInfoModel  {
         OkHttpUtil.get().createa(UpDateUserInfoService.class).getUserInfo(nickName,sex,email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UpDateUserInfoEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(UpDateUserInfoEntity upDateUserInfoEntity) {
-                       httpCallBack.onSuccess(upDateUserInfoEntity);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<UpDateUserInfoEntity>(httpCallBack));
     }
 
 

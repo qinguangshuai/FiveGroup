@@ -2,6 +2,7 @@ package com.bw.movie.cinema.mdetails.model;
 
 import android.os.Message;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 import com.bw.movie.cinema.mdetails.service.MdetailsService;
 import com.bw.movie.util.HttpCallBack;
@@ -22,27 +23,7 @@ public class MdetailsModel {
         OkHttpUtil.get().createa(MdetailsService.class).getMdtails(cinemaId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MdetailsBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MdetailsBean mdetailsBean) {
-                        httpCallBack.onSuccess(mdetailsBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<MdetailsBean>(httpCallBack));
     }
 
 }

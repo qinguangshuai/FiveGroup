@@ -1,6 +1,7 @@
 package com.bw.movie.my.ticket.model;
 
 import com.bw.movie.base.BaseModel;
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.service.TicketFormationService;
@@ -23,26 +24,6 @@ public class TicketformationModel extends BaseModel {
                 .getTicket(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<TicketFoemationEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(TicketFoemationEntity ticketFoemationEntity) {
-                        httpCallBack.onSuccess(ticketFoemationEntity);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<TicketFoemationEntity>(httpCallBack));
     }
 }

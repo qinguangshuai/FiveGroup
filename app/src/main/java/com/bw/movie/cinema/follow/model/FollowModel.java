@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.follow.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.service.FollowService;
 import com.bw.movie.util.HttpCallBack;
@@ -21,27 +22,7 @@ public class FollowModel {
         OkHttpUtil.get().createa(FollowService.class).getFollow(cinemaId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<FollowBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(FollowBean followBean) {
-                        httpCallBack.onSuccess(followBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<FollowBean>(httpCallBack));
     }
 
 }

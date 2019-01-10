@@ -1,5 +1,7 @@
 package com.bw.movie.wxapi.model;
 
+import com.bw.movie.base.BaseObserver;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 import com.bw.movie.util.WeiXinUtil;
@@ -12,36 +14,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class OrderSuccessModel {
-    public void getOrder(int payType, String orderId, final getOrder getOrder) {
+    public void getOrder(int payType, String orderId, final HttpCallBack<OrderSuccessBean> httpCallBack) {
         OkHttpUtil.get().createa(OrderSuccessService.class).getOrderSuccess(payType, orderId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<OrderSuccessBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                .subscribe(new BaseObserver<OrderSuccessBean>(httpCallBack));
 
-                    }
-
-                    @Override
-                    public void onNext(OrderSuccessBean orderSuccessBean) {
-
-                        getOrder.getOreders(orderSuccessBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtil.d(e+"");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }
-
-    public interface getOrder {
-        void getOreders(OrderSuccessBean orderSuccessBean);
     }
 }

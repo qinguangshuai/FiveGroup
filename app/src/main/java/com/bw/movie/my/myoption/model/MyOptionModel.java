@@ -1,5 +1,6 @@
 package com.bw.movie.my.myoption.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.my.myoption.bean.MyOptionEntity;
 import com.bw.movie.my.myoption.service.MyOptionService;
 import com.bw.movie.util.HttpCallBack;
@@ -17,28 +18,7 @@ public class MyOptionModel {
         OkHttpUtil.get().createa(MyOptionService.class).getOption(content)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MyOptionEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MyOptionEntity myOptionEntity) {
-                        //onNext方法中回调接口
-                        httpCallBack.onSuccess(myOptionEntity);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<MyOptionEntity>(httpCallBack));
 
     }
 

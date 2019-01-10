@@ -1,6 +1,7 @@
 package com.bw.movie.film.cinema.model;
 
 import com.bw.movie.base.BaseModel;
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.cinema.bean.CinemaBean;
 import com.bw.movie.film.cinema.service.CinemaService;
 import com.bw.movie.util.HttpCallBack;
@@ -20,39 +21,15 @@ public class CinemaModle extends BaseModel {
 
     //查询影院
     public void getCinemaBeanObservable(int id, final HttpCallBack<CinemaBean> httpCallBack){
-        
+
         OkHttpUtil
                 .get()
                 .createa(CinemaService.class)
                 .getCinemaBeanObservable(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CinemaBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CinemaBean cinemaBean) {
-                      httpCallBack.onSuccess(cinemaBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                      httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<CinemaBean>(httpCallBack));
     }
-
-
-
-
 }
 
 

@@ -1,5 +1,6 @@
 package com.bw.movie.my.updatehaed.model;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.my.updatehaed.bean.UpdateHeadEntity;
 import com.bw.movie.my.updatehaed.service.UpdateHeadService;
 import com.bw.movie.util.HttpCallBack;
@@ -30,27 +31,7 @@ public class UpdateHeadModel {
                 .getHead(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<UpdateHeadEntity>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(UpdateHeadEntity updateHeadEntity) {
-                        httpCallBack.onSuccess(updateHeadEntity);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<UpdateHeadEntity>(httpCallBack));
     }
 
 }
