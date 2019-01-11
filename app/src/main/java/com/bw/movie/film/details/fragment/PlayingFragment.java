@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.film.show.playing.adapter.PlayAdapter;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
@@ -16,6 +17,8 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -137,12 +140,14 @@ public class PlayingFragment extends BaseFragment {
 
     //set数据
     public void setData() {
+        EventBus.getDefault().post(new JumpLgoinEvent(true));
         new PlayingPresenter(new PlayingView<PlayingBean>() {
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
                 List<PlayingBean.ResultBean> result = playingBean.getResult();
                 mPlayAdapter.setPlayResult(playingBean.getResult());
                 mPlayAdapter.notifyDataSetChanged();
+                EventBus.getDefault().post(new JumpLgoinEvent(false));
             }
 
             @Override
