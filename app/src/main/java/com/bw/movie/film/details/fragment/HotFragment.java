@@ -9,6 +9,7 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.film.details.hot.adapter.HotAdapter;
+import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.film.show.hot.bean.HotPlayBean;
 import com.bw.movie.film.show.hot.presenter.HotPresenter;
@@ -18,6 +19,8 @@ import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -144,12 +147,15 @@ public class HotFragment extends BaseFragment {
 
     //set数据
     public void setData() {
+        EventBus.getDefault().post(new JumpLgoinEvent(true));
         new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 mHotAdapter.setHotResult(result);
                 mHotAdapter.notifyDataSetChanged();
+                EventBus.getDefault().post(new JumpLgoinEvent(false));
+
             }
 
             @Override

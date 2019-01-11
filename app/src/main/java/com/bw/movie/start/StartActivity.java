@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.start.fragment.LeadFourFragment;
 import com.bw.movie.start.fragment.LeadOneFragment;
 import com.bw.movie.start.fragment.LeadThreeFragment;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 public class StartActivity extends BaseActivity {
 
-    private static ViewPager pager;
+    private static CustomViewpager pager;
     private RadioGroup rg;
 
     public static void Tiaozhuan2(){

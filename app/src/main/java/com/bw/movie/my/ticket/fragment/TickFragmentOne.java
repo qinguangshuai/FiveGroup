@@ -1,12 +1,9 @@
 package com.bw.movie.my.ticket.fragment;
 
-import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -101,6 +98,13 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
 
             TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list, getContext());
             ticketOneRecycler.setAdapter(attFilmAdapter);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mScrollWindow.dismissPop();
+                }
+            },1000);
+            ticketSwipeRefreshLayout.setRefreshing(false);
         } else {
             showEmpty();
         }
@@ -121,11 +125,4 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 }

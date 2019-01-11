@@ -21,19 +21,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RadioButton
+            android:clickable="false"
             android:id="@+id/startrb1"
             android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:clickable="false"
             android:id="@+id/startrb2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:clickable="false"
             android:id="@+id/startrb3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <RadioButton
+            android:clickable="false"
             android:id="@+id/startrb4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
