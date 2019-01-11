@@ -20,7 +20,7 @@ public class PopularModel {
 
 
     //热门电影 请求数据回调
-    public void getPopularBeanObservable(int page, int count, final HttpCallBack httpCallBack) {
+    public void getPopularBeanObservable(int page, int count, HttpCallBack<PopularBean> httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(PopularService.class)
@@ -28,9 +28,7 @@ public class PopularModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<PopularBean>(httpCallBack));
-
     }
-
 }
 
 

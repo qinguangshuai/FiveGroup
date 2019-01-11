@@ -1,90 +1,82 @@
 package com.bw.movie.my.ticket.activity;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
-import com.bw.movie.base.BaseRecyclerAdapter;
-import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
-import com.bw.movie.my.ticket.bean.ResultBean;
-import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
-import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
-import com.bw.movie.my.ticket.view.TicketformationView;
-import com.bw.movie.util.RecyclerViewScrollUtil;
-import com.bw.movie.util.WeiXinUtil;
-import com.bw.movie.wxapi.bean.OrderSuccessBean;
-import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
-import com.bw.movie.wxapi.view.OrderSuccessView;
-
-import java.util.List;
+import com.bw.movie.base.BasePresenter;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.my.ticket.fragment.TickFragmentOne;
+import com.bw.movie.my.ticket.fragment.TicketFragmentTwo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Ticket_nformationActivity extends BaseActivity<TicketformationPresenter> implements TicketformationView<TicketFoemationEntity> {
-
-
-    @BindView(R.id.ticketRecycler)
-    RecyclerView mTicketRecycler;
-    @BindView(R.id.my_ticket)
-    ImageView myTicket;
-    @BindView(R.id.ticketSwipeRefreshLayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    private TicketformationPresenter presenter;
-    private int page = 1;
-    private List<ResultBean> result;
+public class Ticket_nformationActivity extends BaseActivity {
+    @BindView(R.id.ticket_rb1)
+    RadioButton ticketRb1;
+    @BindView(R.id.ticket_rb2)
+    RadioButton ticketRb2;
+    @BindView(R.id.ticket_rg)
+    RadioGroup ticketRg;
+    @BindView(R.id.ticket_fragment)
+    FrameLayout ticketFragment;
+    @BindView(R.id.ticket_pager)
+    ViewPager ticketPager;
+    @BindView(R.id.ticket_image)
+    ImageView ticketImage;
+    private FragmentManager mManager;
+    private FragmentTransaction mTransaction;
 
     @Override
     public void initView() {
-        presenter = new TicketformationPresenter(this);
-        presenter.getTicet(page, 5);
         ButterKnife.bind(this);
-        showloading();
     }
 
     @Override
     public void initListener() {
+        mManager = getSupportFragmentManager();
+        mTransaction = mManager.beginTransaction();
 
-//        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
-//            @Override
-//            public void info() {
-//                showloading();
-//                presenter.getTicet(page, 5);
-//            }
-//        });
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        final TickFragmentOne tickFragmentOne = new TickFragmentOne();
+        final TicketFragmentTwo ticketFragmentTwo = new TicketFragmentTwo();
+
+        mTransaction.add(R.id.ticket_fragment,tickFragmentOne);
+        mTransaction.add(R.id.ticket_fragment,ticketFragmentTwo);
+
+        mTransaction.show(tickFragmentOne);
+        mTransaction.hide(ticketFragmentTwo);
+
+        mTransaction.commit();
+
+        ticketRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onRefresh() {
-                showloading();
-                presenter.getTicet(page, 5);
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                FragmentTransaction fragmentTransaction = mManager.beginTransaction();
+                switch (checkedId){
+                    case R.id.ticket_rb1:
+                        fragmentTransaction.show(tickFragmentOne);
+                        fragmentTransaction.hide(ticketFragmentTwo);
+                        break;
+                    case R.id.ticket_rb2:
+                        fragmentTransaction.show(ticketFragmentTwo);
+                        fragmentTransaction.hide(tickFragmentOne);
+                        break;
+                }
+                fragmentTransaction.commit();
             }
         });
-        RecyclerViewScrollUtil.Scroll(mTicketRecycler, true, new RecyclerViewScrollUtil.onEvent() {
-            @Override
-            public void info() {
-                showloading();
-                presenter.getTicet(page++, 5);
-
-            }
-        });
-
     }
-
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
 
     @Override
     public void initData() {
@@ -102,85 +94,12 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
     }
 
     @Override
-    public TicketformationPresenter initPresenter() {
+    public BasePresenter initPresenter() {
         return null;
     }
 
-
-    @Override
-    public void onDataSuccess(final TicketFoemationEntity ticketFoemationEntity) {
-        showContent();
-        mSwipeRefreshLayout.setRefreshing(false);
-        result = ticketFoemationEntity.getResult();
-        if (result!=null && result.size()>0){
-            mTicketRecycler.setLayoutManager(new LinearLayoutManager(this));
-            TicketInforAdapter inforAdapter = new TicketInforAdapter(result, this);
-            inforAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
-                @Override
-                public void click(View view, int position) {
-                    new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
-
-                        @Override
-                        public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
-                            Toast.makeText(Ticket_nformationActivity.this, orderSuccessBean.getMessage(), Toast.LENGTH_SHORT).show();
-                            WeiXinUtil.weiXinPay(orderSuccessBean);
-
-                        }
-
-                        @Override
-                        public void onDataFailer(String msg) {
-
-                        }
-
-                        @Override
-                        public void onShowLoading() {
-
-                        }
-
-                        @Override
-                        public void onHideLoading() {
-
-                        }
-                    }).getOeder(1, ticketFoemationEntity.getResult().get(0).getOrderId());
-                }
-            });
-            mTicketRecycler.setAdapter(inforAdapter);
-        }else{
-            showEmpty();
-        }
-
-    }
-
-    @Override
-    public void onDataFailer(String msg) {
-
-    }
-
-    @Override
-    public void onShowLoading() {
-
-    }
-
-    @Override
-    public void onHideLoading() {
-
-    }
-
-
-    @OnClick(R.id.ticketRecycler)
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.ticketRecycler:
-                break;
-        }
-    }
-
-    @OnClick(R.id.my_ticket)
+    @OnClick(R.id.ticket_image)
     public void onViewClicked() {
-        finish();
+        AppManager.getAppManager().finishActivity(this);
     }
-
-
 }

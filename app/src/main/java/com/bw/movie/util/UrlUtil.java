@@ -6,9 +6,8 @@ package com.bw.movie.util;
  * fileName:UrlUtil
  */
 public interface UrlUtil {
-  String TOTAL = "http://172.17.8.100/movieApi/";
+     String TOTAL = "http://172.17.8.100/movieApi/";
     //public String TOTAL = "http://mobile.bwstudent.com/movieApi/";
-
     //取消点赞
     String NFOLLOWCINEMA = "cinema/v1/verify/cancelFollowCinema";
     //电影列表

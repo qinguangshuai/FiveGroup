@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.my.mysound.MySoundAdapter;
 import com.bw.movie.my.mysound.MySoundPresenter;
 import com.bw.movie.my.mysound.MySoundUser;
@@ -53,7 +54,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     private int page = 1;
     private MySoundAdapter mMySoundAdapter;
     private List<ResultBean> mList;
-
+    private ScrollWindow mScrollWindow = new ScrollWindow(this);
 
     @Override
     public void initView() {
@@ -87,12 +88,17 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
            @Override
            public void info() {
                showloading();
+               mScrollWindow.showPop(mSoundrecycle);
                mMySoundPresenter.getSound(page++);
            }
        });
 
 
     }
+
+
+
+
 
     @Override
     public void initData() {
@@ -195,6 +201,14 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             showEmpty();
         }
 
+
+        mSounSwipeRefreshLayout.setRefreshing(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScrollWindow.dismissPop();
+            }
+        },1000);
 
     }
 

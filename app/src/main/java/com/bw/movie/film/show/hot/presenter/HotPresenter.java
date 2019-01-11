@@ -32,7 +32,7 @@ public class HotPresenter extends BasePresenter {
 
             @Override
             public void onFailer(String result) {
-
+                getiBaseView().onDataFailer(result);
             }
         });
     }

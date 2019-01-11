@@ -31,7 +31,7 @@ public class PlayingPresenter extends BasePresenter {
 
             @Override
             public void onFailer(String result) {
-
+                getiBaseView().onDataFailer(result);
             }
         });
     }

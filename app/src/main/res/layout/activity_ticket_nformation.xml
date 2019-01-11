@@ -6,39 +6,54 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/dp_10"
     android:layout_marginBottom="@dimen/dp_15">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/ticketSwipeRefreshLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/ticket_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/ticketRecycler">
-
-            </android.support.v7.widget.RecyclerView>
-        </LinearLayout>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
-
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp_40"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/ticket_rb1"
+                android:layout_width="@dimen/dp_83"
+                android:layout_height="@dimen/dp_25"
+                android:button="@null"
+                android:gravity="center"
+                android:checked="true"
+                android:background="@drawable/attenrutton"
+                android:layout_marginRight="@dimen/dp_30"
+                android:textColor="@drawable/cinema_text_color"
+                android:text="待付款"/>
+            <RadioButton
+                android:id="@+id/ticket_rb2"
+                android:layout_width="@dimen/dp_83"
+                android:layout_height="@dimen/dp_25"
+                android:button="@null"
+                android:gravity="center"
+                android:checked="false"
+                android:background="@drawable/attenrutton1"
+                android:textColor="@drawable/cinema_text_color"
+                android:text="已付款"/>
+        </RadioGroup>
+        <FrameLayout
+            android:id="@+id/ticket_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/ticket_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
     <ImageView
+        android:id="@+id/ticket_image"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_60"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_200"
-        android:src="@drawable/idea_activity_back"
         android:layout_alignParentBottom="true"
-        android:id="@+id/my_ticket"/>
-
-
-
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginBottom="@dimen/dp_17"
+        android:background="@drawable/idea_activity_back"/>
 </RelativeLayout>
