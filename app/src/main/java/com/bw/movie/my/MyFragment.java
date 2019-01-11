@@ -2,15 +2,11 @@ package com.bw.movie.my;
 
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -22,10 +18,8 @@ import com.bw.movie.my.myoption.activity.MyOpitionActivity;
 import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
 import com.bw.movie.util.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -54,6 +48,7 @@ public class MyFragment extends BaseFragment {
     ImageView mMyNew;
     private View view;
     private Unbinder unbinder;
+    private Uri uri;
 
     @Override
     public void initView() {
@@ -98,7 +93,7 @@ public class MyFragment extends BaseFragment {
 
     @Subscribe
     public void setXiang(Portrait portrait){
-        Uri uri=Uri.parse(portrait.getImage());
+        uri = Uri.parse(portrait.getImage());
         mMyTouxiang.setImageURI(uri);
     }
 
@@ -117,6 +112,16 @@ public class MyFragment extends BaseFragment {
                 startActivity(new Intent(getContext(),MySoundActivity.class));
                 break;
             case R.id.my_touxiang:
+               Intent intent=new Intent(getContext(),ScaleImageActivity.class);
+               //创建一个Rect,报错当前imageview的位置信息
+                Rect rect=new Rect();
+                //将位置信息赋给rect
+                mMyTouxiang.getGlobalVisibleRect(rect);
+                intent.setSourceBounds(rect);
+                //跳转
+                startActivity(intent);
+              //屏蔽activity跳转的默认专场效果
+               getActivity().overridePendingTransition(0,0);
                 break;
             case R.id.my_name:
                 break;
@@ -137,4 +142,8 @@ public class MyFragment extends BaseFragment {
                 break;
         }
     }
+
+
+
+
 }
