@@ -40,23 +40,25 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
         if (holder instanceof MyTicketViewHolder) {
-            //填充布局
-            ((MyTicketViewHolder) holder).addresstext.setText(list.get(i).getCinemaName());
-            ((MyTicketViewHolder) holder).datetext.setText(list.get(i).getBeginTime() + "");
-            ((MyTicketViewHolder) holder).dingdantext.setText(list.get(i).getOrderId() + "");
-            ((MyTicketViewHolder) holder).moneytext.setText(list.get(i).getPrice() + "");
-            ((MyTicketViewHolder) holder).numtext.setText(list.get(i).getAmount() + "");
-            ((MyTicketViewHolder) holder).nametext.setText(list.get(i).getCinemaName());
-            //时间转换
-            String createTime = list.get(i).getCreateTime();
-            GregorianCalendar gc = new GregorianCalendar();
-            gc.setTimeInMillis(Long.parseLong(createTime));
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            ((MyTicketViewHolder) holder).longText.setText(df.format(gc.getTime()));
-            if (list.get(i).getStatus() == 1){
-                ((MyTicketViewHolder) holder).nopay.setText("待付款");
-            }else  if (list.get(i).getStatus() == 2){
-                ((MyTicketViewHolder) holder).nopay.setText("已付款");
+            if (list.get(i).getStatus() != 2){
+                //填充布局
+                ((MyTicketViewHolder) holder).addresstext.setText(list.get(i).getCinemaName());
+                ((MyTicketViewHolder) holder).datetext.setText(list.get(i).getBeginTime() + "");
+                ((MyTicketViewHolder) holder).dingdantext.setText(list.get(i).getOrderId() + "");
+                ((MyTicketViewHolder) holder).moneytext.setText(list.get(i).getPrice() + "");
+                ((MyTicketViewHolder) holder).numtext.setText(list.get(i).getAmount() + "");
+                ((MyTicketViewHolder) holder).nametext.setText(list.get(i).getCinemaName());
+                //时间转换
+                String createTime = list.get(i).getCreateTime();
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTimeInMillis(Long.parseLong(createTime));
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                ((MyTicketViewHolder) holder).longText.setText(df.format(gc.getTime()));
+                if (list.get(i).getStatus() == 1){
+                    ((MyTicketViewHolder) holder).nopay.setText("待付款");
+                }else  if (list.get(i).getStatus() == 2){
+                    ((MyTicketViewHolder) holder).nopay.setText("已付款");
+                }
             }
         }
     }

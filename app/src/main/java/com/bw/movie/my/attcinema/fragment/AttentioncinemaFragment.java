@@ -2,16 +2,11 @@ package com.bw.movie.my.attcinema.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -23,16 +18,12 @@ import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
-import com.bw.movie.util.ToastUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -60,14 +51,6 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     public void initListener() {
         mAttCinemaPresenter.getCinema(page);
 
-//        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
-//            @Override
-//            public void info() {
-//             showloading();
-//                mAttCinemaPresenter.getCinema(page);
-//
-//            }
-//        });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

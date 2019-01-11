@@ -35,7 +35,7 @@ public class MyMessageModel {
                                     MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
                                     AppManager.getAppManager().finishAllActivity();
                                 }
-                            }, 1000);
+                            },100);
                         } else {
                             super.onNext(myMessageEntity);
                         }

@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.Particulars;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
@@ -16,27 +17,7 @@ public class ParticularsModel {
         OkHttpUtil.get().createa(ParticularsService.class).getParticulars(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ParticularsBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ParticularsBean particularsBean) {
-                        httpCallBack.onSuccess(particularsBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<ParticularsBean>(httpCallBack));
     }
 
 }

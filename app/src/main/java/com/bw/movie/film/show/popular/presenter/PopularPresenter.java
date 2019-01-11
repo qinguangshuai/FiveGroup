@@ -32,7 +32,7 @@ public class PopularPresenter extends BasePresenter {
 
             @Override
             public void onFailer(String result) {
-
+                getiBaseView().onDataFailer(result);
             }
         });
     }
