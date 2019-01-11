@@ -71,7 +71,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
             @Override
             public void onRefresh() {
                 showloading();
-              mAttCinemaPresenter.getCinema(page);
+                mAttCinemaPresenter.getCinema(page);
             }
         });
         RecyclerViewScrollUtil.Scroll(mAttenrecycle1, true, new RecyclerViewScrollUtil.onEvent() {
@@ -117,7 +117,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         showContent();
         mSwipeRefreshLayout.setRefreshing(false);
         mList = attCinemaUser.getResult();
-        if (mList!=null && mList.size()>0){
+        if (mList != null && mList.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mAttenrecycle1.setLayoutManager(linearLayoutManager);
             AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
@@ -129,7 +129,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
                 }
             });
             mAttenrecycle1.setAdapter(attCinemaAdapter);
-        }else{
+        } else {
             showEmpty();
         }
 

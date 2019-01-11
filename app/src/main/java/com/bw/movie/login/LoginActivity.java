@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bw.movie.Constant;
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
+import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.login.bean.LoginUser;

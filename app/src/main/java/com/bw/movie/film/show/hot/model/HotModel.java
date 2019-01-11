@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class HotModel {
 
     //正在热映 请求数据回调
-    public void getHotPlayBeanObservable(int page, int count, HttpCallBack<HotPlayBean> httpCallBack) {
+    public void getHotPlayBeanObservable(int page, int count, final HttpCallBack httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(HotService.class)
