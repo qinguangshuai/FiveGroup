@@ -75,6 +75,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
             mMxingbie.setText("男");
         } else if ("2".equals(sex1)) {
             mMxingbie.setText("女");
+            
         }
 
         String email = intent.getStringExtra("email");
