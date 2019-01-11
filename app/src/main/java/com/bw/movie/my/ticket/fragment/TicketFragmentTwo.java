@@ -36,6 +36,7 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
     private TicketformationPresenter mTicketformationPresenter;
     private List<ResultBean> list;
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
+
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
@@ -96,7 +97,7 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
                 public void run() {
                     mScrollWindow.dismissPop();
                 }
-            },1000);
+            }, 1000);
         } else {
             showEmpty();
         }
