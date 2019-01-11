@@ -130,6 +130,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mRemeberbox.setChecked(false);
             }
 
+
+
         }
         if (sp.getBoolean("mRemeberbox",false)){
             startActivity(new Intent(this,ShowActivity.class));
