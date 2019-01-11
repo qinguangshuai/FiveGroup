@@ -2,6 +2,7 @@ package com.bw.movie.my;
 
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -118,7 +119,16 @@ public class MyFragment extends BaseFragment {
                 startActivity(new Intent(getContext(),MySoundActivity.class));
                 break;
             case R.id.my_touxiang:
-                startActivity(new Intent(getContext(),LoginActivity.class));
+                Intent intent=new Intent(getContext(),ScaleImageActivity.class);
+                //创建一个Rect,报错当前imageview的位置信息
+                Rect rect=new Rect();
+                //将位置信息赋给rect
+                mMyTouxiang.getGlobalVisibleRect(rect);
+                intent.setSourceBounds(rect);
+                //跳转
+                startActivity(intent);
+                //屏蔽activity跳转的默认专场效果
+                getActivity().overridePendingTransition(0,0);
                 break;
             case R.id.my_name:
                 break;
