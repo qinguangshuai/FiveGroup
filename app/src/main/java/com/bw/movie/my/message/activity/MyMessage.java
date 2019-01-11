@@ -131,19 +131,14 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
-
-
         Uri uri = Uri.parse(headPic);
         mMyHeadimage.setImageURI(uri);
-
         EventBus.getDefault().post(new Portrait(headPic));
     }
-
     @Override
     public void onDataFailer(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
     @Override
     public void onShowLoading() {
 

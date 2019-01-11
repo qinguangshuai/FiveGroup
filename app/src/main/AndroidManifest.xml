@@ -91,7 +91,7 @@
                 <data android:scheme="wxb3852e6a6b7d9516" />
             </intent-filter>
         </activity>
-        <activity android:name=".film.synopsis.activity.SynopsisActivity" />
+        <activity android:name=".film.synopsis.activity.SynopsisActivity" android:windowSoftInputMode="adjustPan|adjustResize|stateHidden" />
         <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity" />
         <activity android:name=".base.BaseRecyclerListActivity"></activity>
     </application>
