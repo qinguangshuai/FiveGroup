@@ -22,6 +22,7 @@ import com.bw.movie.cinema.bean.AddressUser;
 import com.bw.movie.cinema.recommend.RecommendEvent;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.login.LoginActivity;
+import com.bw.movie.util.SpUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -155,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getStreetNum();//街道门牌号信息
                 aMapLocation.getCityCode();//城市编码
                 aMapLocation.getAdCode();//地区编码
+                SpUtil.put("longitude1",longitude1);
+                SpUtil.put("latitude",latitude);
                 BaseEvent.post(new RecommendEvent(longitude1+"",latitude+""));
                 Log.e("==1111", mCity + mDis);
             } else {

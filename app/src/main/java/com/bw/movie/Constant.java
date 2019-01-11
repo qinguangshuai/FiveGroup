@@ -34,4 +34,6 @@ public interface Constant {
     //登录销毁
     int LOGINFNISH=0x0000;
     int GETNET=0x0000;
+    String IMAGE="image_url_extra";
+    String VIEW="VIEW_INFO_EXTRA";
 }

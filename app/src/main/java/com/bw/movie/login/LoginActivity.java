@@ -133,9 +133,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             }else {
                 mRemeberbox.setChecked(false);
             }
-
-
-
         }
         if (sp.getBoolean("mRemeberbox",false)){
             startActivity(new Intent(this,ShowActivity.class));
@@ -322,18 +319,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     public void getSp() {
-        SpUtil.put("sessionId", mSessionId);
-        SpUtil.put("session", mSessionId);
-        SpUtil.put("userId", mUserId);
-        SpUtil.put("birthday", mBirthday);
-        SpUtil.put(Constant.HEADPIC, mHeadPic);
-        SpUtil.put("lastLoginTime", mLastLoginTime);
-        SpUtil.put(Constant.NICKNAME, mNickName);
-        SpUtil.put(Constant.PHONE, mPhone);
-        SpUtil.put("id", mId);
-        SpUtil.put("sex", mSex);
-        SpUtil.put("message", mMessage);
-
         if (loginbox.isChecked()) {
             SharedPreferences.Editor edit = sp.edit();
             edit.putString("phone", mEdit1);
