@@ -41,6 +41,10 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.hotresult.addAll(hotresult);
     }
 
+
+
+
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

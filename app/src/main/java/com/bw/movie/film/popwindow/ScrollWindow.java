@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
@@ -36,42 +37,39 @@ public class ScrollWindow {
     public ScrollWindow(Context context) {
         this.mContext = context;
         doScroll();
-        setPopupWindowView();
+    }
 
+    public PopupWindow getmPopupWindow() {
+        return mPopupWindow;
     }
 
     private PopupWindow  mPopupWindow ;
 
-    private View view ;
 
-    public View getView() {
-        return view;
-    }
 
     public void doScroll(){
-        view = View.inflate(mContext, R.layout.popwindowscroll,null);
-        SimpleDraweeView mSimpleDraweeView =  view.findViewById(R.id.PopScrollSimple);
-        Uri uri1 = Uri.parse("res://drawable/" + R.drawable.scrolling);
+        View view = View.inflate(MyApp.sContext, R.layout.popwindowscroll,null);
+        SimpleDraweeView mSimpleDraweeView =  view.findViewById(R.id.simpscroll);
+        Uri uri1 = Uri.parse("res://drawable/" + R.mipmap.chilun);
         //不多解释
         AbstractDraweeController build = Fresco.newDraweeControllerBuilder()
                 .setUri(uri1)
                 .setAutoPlayAnimations(true)
                 .build();
         mSimpleDraweeView.setController(build);
-    }
-
-
-    public void setPopupWindowView(){
         mPopupWindow = new PopupWindow(view,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+
     }
+
+
+
 
 
     public void showPop(View v){
 //        Resources resources = mContext.getResources();
 //        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
 //        int h = displayMetrics.heightPixels;
-
-
+        mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
         mPopupWindow.showAtLocation(v.getRootView(),Gravity.BOTTOM,0,0);
 
     }

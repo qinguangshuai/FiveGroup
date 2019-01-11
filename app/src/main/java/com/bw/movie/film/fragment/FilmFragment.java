@@ -79,7 +79,6 @@ public class FilmFragment extends BaseFragment {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
         setRootRecyclerViewData();
         getCarouselBeanObservable(1, 10);
         getPopularBeanObservable(1, 10, false);
@@ -332,13 +331,14 @@ public class FilmFragment extends BaseFragment {
     }
 
 
-    //todo:根布局的recyclerview 相关操作
+    //根布局
     public void setRootRecyclerViewData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewFilefragment.setLayoutManager(linearLayoutManager);
         mRecyclerViewFilefragment.setAdapter(mRootAdapter);
     }
+
 
     //销毁
     @Override

@@ -2,7 +2,6 @@ package com.bw.movie.film.show.playing.model;
 
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
-import com.bw.movie.film.show.playing.callback.PlayingCallBack;
 import com.bw.movie.film.show.playing.service.PlayingService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;

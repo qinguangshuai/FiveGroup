@@ -2,7 +2,6 @@ package com.bw.movie.film.show.popular.model;
 
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.popular.bean.PopularBean;
-import com.bw.movie.film.show.popular.callback.PopularCallBack;
 import com.bw.movie.film.show.popular.service.PopularService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
