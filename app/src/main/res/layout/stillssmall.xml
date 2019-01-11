@@ -8,7 +8,6 @@
     <ImageView
         android:id="@+id/imagesmall_one"
         android:layout_width="match_parent"
-        android:background="#ff0"
         android:scaleType="fitXY"
         android:layout_height="@dimen/dp_95" />
 
@@ -16,7 +15,6 @@
         android:id="@+id/imagesmall_two"
         android:layout_width="match_parent"
         android:scaleType="fitXY"
-        android:background="#00f"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_height="@dimen/dp_95" />
 

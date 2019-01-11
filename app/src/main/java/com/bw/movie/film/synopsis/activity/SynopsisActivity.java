@@ -3,6 +3,7 @@ package com.bw.movie.film.synopsis.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.film.cinema.activity.AffiliatedTheaterActivity;
 import com.bw.movie.film.details.presenter.DetailPresenter;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.film.synopsis.bean.ResultBean;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow2Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow4Adapter;
@@ -109,7 +111,7 @@ public class SynopsisActivity extends BaseActivity {
     private PopupWindow popupWindow4;
     private boolean flag;
     private PopupWindow4Adapter mPopupWindow4Adapter = new PopupWindow4Adapter();
-
+    private ScrollWindow mScrollWindow = new ScrollWindow(this);
     @Override
     public void initView() {
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -235,8 +237,9 @@ public class SynopsisActivity extends BaseActivity {
                 if (EmptyUtil.isNull(result) == false) {
                     mPopupWindow4Adapter.addResult(commentBean.getResult());
                     mPopupWindow4Adapter.notifyDataSetChanged();
-                    ToastUtil.Toast("加载更多");
+
                 } else {
+                    mScrollWindow.dismissPop();
                     ToastUtil.Toast("没有更多了");
                 }
             }
@@ -416,7 +419,7 @@ public class SynopsisActivity extends BaseActivity {
 
     //第四个pop
     public void setmReview() {
-        RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
+        final RecyclerView mRecyclerView = mReview.findViewById(R.id.Recyclerview_pop_synopsis);
         final ImageView imageView = mReview.findViewById(R.id.writemessage);
         ImageView back = mReview.findViewById(R.id.back_pop_synopsis);
         //取消 pop

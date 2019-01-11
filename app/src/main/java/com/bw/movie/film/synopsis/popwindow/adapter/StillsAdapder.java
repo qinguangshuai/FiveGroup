@@ -29,7 +29,6 @@ public class StillsAdapder extends BaseMultiItemQuickAdapter<StillsItem, BaseVie
         if (position<5){
             switch (item.getItemType()) {
                 case StillsItem.IMGBIG:
-
                     Glide.with(mContext).load(posterList.get(position)).into((ImageView) helper.getView(R.id.imagebig));
                     break;
                 case StillsItem.IMGSMALL:

@@ -15,6 +15,7 @@ import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.details.fragment.HotFragment;
 import com.bw.movie.film.details.fragment.PlayingFragment;
 import com.bw.movie.film.details.fragment.PopularFragment;
+import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.synopsis.activity.SynopsisActivity;
 import com.bw.movie.util.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
@@ -96,6 +97,17 @@ public class DetailsActivity extends BaseActivity {
         Intent intent = new Intent(this,SynopsisActivity.class);
         intent.putExtra("详情id",jumpForThreeActivityBean.getId());
         startActivity(intent);
+    }
+
+
+    //加载页面
+    @Subscribe
+    public void login(JumpLgoinEvent jumpLgoinEvent){
+        if(jumpLgoinEvent.isB()){
+            showloading();
+        }else {
+            showContent();
+        }
     }
 
 

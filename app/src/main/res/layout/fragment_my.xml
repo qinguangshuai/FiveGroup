@@ -23,6 +23,7 @@
             android:layout_width="@dimen/dp_72"
             android:layout_height="@dimen/dp_72"
             android:layout_centerInParent="true"
+            fresco:failureImage="@mipmap/ic_launcher"
             android:src="@drawable/touxiang" />
 
         <TextView
@@ -42,9 +43,7 @@
         android:layout_height="@dimen/dp_90"
         android:layout_margin="@dimen/dp_10"
         android:background="@drawable/my_shape"
-        android:orientation="vertical"
-
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"

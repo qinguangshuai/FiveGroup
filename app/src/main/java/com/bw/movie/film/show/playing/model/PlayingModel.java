@@ -20,7 +20,7 @@ public class PlayingModel {
 
 
     //正在上映  请求数据回调
-    public void getPlayingBeanObservable(int page, int count, final HttpCallBack httpCallBack) {
+    public void getPlayingBeanObservable(int page, int count, HttpCallBack<PlayingBean> httpCallBack) {
         OkHttpUtil
                 .get()
                 .createa(PlayingService.class)

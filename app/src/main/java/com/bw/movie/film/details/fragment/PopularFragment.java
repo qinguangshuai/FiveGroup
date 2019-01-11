@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.film.show.popular.adapter.PopularPlayAdapter;
 import com.bw.movie.film.show.popular.bean.PopularBean;
@@ -16,6 +17,8 @@ import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,11 +143,13 @@ public class PopularFragment extends BaseFragment {
 
     //set数据
     public void setData() {
+        EventBus.getDefault().post(new JumpLgoinEvent(true));
         new PopularPresenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
                 mPopularPlayAdapter.setResult(popularBean.getResult());
                 mPopularPlayAdapter.notifyDataSetChanged();
+                EventBus.getDefault().post(new JumpLgoinEvent(false));
             }
 
             @Override
@@ -153,6 +158,7 @@ public class PopularFragment extends BaseFragment {
             }
 
             @Override
+
             public void onShowLoading() {
 
             }

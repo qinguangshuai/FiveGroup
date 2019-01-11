@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.attention.activity.MyattentionActivity;
 import com.bw.movie.my.message.activity.MyMessage;
 import com.bw.movie.my.message.bean.Portrait;
@@ -117,6 +118,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(new Intent(getContext(),MySoundActivity.class));
                 break;
             case R.id.my_touxiang:
+                startActivity(new Intent(getContext(),LoginActivity.class));
                 break;
             case R.id.my_name:
                 break;
