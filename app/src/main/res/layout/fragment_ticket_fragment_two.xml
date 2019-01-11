@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".my.ticket.fragment.TicketFragmentTwo">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/ticketSwipeRefreshLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ticket_oneRecycler">
+        android:id="@+id/ticket_twoRecycler">
 
     </android.support.v7.widget.RecyclerView>
 
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

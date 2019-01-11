@@ -1,21 +1,21 @@
 package com.bw.movie.my.ticket.fragment;
 
 
-import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
 import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
+import com.bw.movie.util.RecyclerViewScrollUtil;
 
 import java.util.List;
 
@@ -25,13 +25,17 @@ import butterknife.Unbinder;
 
 public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketFoemationEntity> {
 
-    @BindView(R.id.ticket_oneRecycler)
-    RecyclerView ticketOneRecycler;
+
     Unbinder unbinder;
     int page = 1;
+    @BindView(R.id.ticket_twoRecycler)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.ticketSwipeRefreshLayout2)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    Unbinder unbinder1;
     private TicketformationPresenter mTicketformationPresenter;
     private List<ResultBean> list;
-
+    private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
@@ -39,12 +43,26 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
 
     @Override
     public void initListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mTicketformationPresenter.getTicet(page, 5);
+            }
+        });
+
+        RecyclerViewScrollUtil.Scroll(mRecyclerView, true, new RecyclerViewScrollUtil.onEvent() {
+            @Override
+            public void info() {
+                mScrollWindow.showPop(mRecyclerView);
+                mTicketformationPresenter.getTicet(page++, 5);
+            }
+        });
 
     }
 
     @Override
     public void initData() {
-        mTicketformationPresenter.getTicet(page,5);
+        mTicketformationPresenter.getTicet(page, 5);
     }
 
     @Override
@@ -66,13 +84,20 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
     @Override
     public void onDataSuccess(TicketFoemationEntity ticketFoemationEntity) {
         list = ticketFoemationEntity.getResult();
-        if (list !=null && list.size()>0){
+        if (list != null && list.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            ticketOneRecycler.setLayoutManager(linearLayoutManager);
+            mRecyclerView.setLayoutManager(linearLayoutManager);
 
-            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list,getContext());
-            ticketOneRecycler.setAdapter(attFilmAdapter);
-        }else{
+            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list, getContext());
+            mRecyclerView.setAdapter(attFilmAdapter);
+            mSwipeRefreshLayout.setRefreshing(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mScrollWindow.dismissPop();
+                }
+            },1000);
+        } else {
             showEmpty();
         }
     }
@@ -92,12 +117,6 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        return rootView;
-    }
 
     @Override
     public void onDestroyView() {
