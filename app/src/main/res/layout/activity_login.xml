@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context=".login.LoginActivity">
 
+    <TextView
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:id="@+id/login_fan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ffanhui"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -38,6 +38,7 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -78,7 +79,6 @@ public class FilmFragment extends BaseFragment {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-
         setRootRecyclerViewData();
         getCarouselBeanObservable(1, 10);
         getPopularBeanObservable(1, 10, false);
@@ -122,13 +122,11 @@ public class FilmFragment extends BaseFragment {
     //请求回调 轮播图 数据
     public void getCarouselBeanObservable(int page, int count) {
         EventBus.getDefault().post(new NetEvent(0x0001));
-
         new CarouserlPresenter(new CarousemView<CarouselBean>() {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
                 mRootAdapter.setCarouselBean(carouselBean);
                 EventBus.getDefault().post(new NetEvent(Constant.GETNET));
-
             }
 
             @Override
@@ -333,13 +331,14 @@ public class FilmFragment extends BaseFragment {
     }
 
 
-    //todo:根布局的recyclerview 相关操作
+    //根布局
     public void setRootRecyclerViewData() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewFilefragment.setLayoutManager(linearLayoutManager);
         mRecyclerViewFilefragment.setAdapter(mRootAdapter);
     }
+
 
     //销毁
     @Override

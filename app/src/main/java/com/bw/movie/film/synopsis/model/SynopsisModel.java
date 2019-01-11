@@ -1,12 +1,19 @@
 package com.bw.movie.film.synopsis.model;
 
+import android.content.Intent;
+import android.os.Handler;
+
+import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseObserver;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.synopsis.bean.InputcommentsBean;
 import com.bw.movie.film.synopsis.bean.PraiseBean;
 import com.bw.movie.film.synopsis.service.SynopsisService;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.util.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,25 +47,21 @@ public class SynopsisModel {
                 .getPraiseBeanObservable(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<PraiseBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+                .subscribe(new BaseObserver<PraiseBean>(httpCallBack){
                     @Override
                     public void onNext(PraiseBean praiseBean) {
-                        httpCallBack.onSuccess(praiseBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                        if (praiseBean.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
+                                    AppManager.getAppManager().finishAllActivity();
+                                }
+                            }, 1000);
+                        } else {
+                            super.onNext(praiseBean);
+                        }
                     }
                 });
     }
@@ -71,25 +74,21 @@ public class SynopsisModel {
                 .getInputcomments(commentId, replyContent)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<InputcommentsBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+                .subscribe(new BaseObserver<InputcommentsBean>(inputcommentsBeanHttpCallBack){
                     @Override
                     public void onNext(InputcommentsBean inputcommentsBean) {
-                        inputcommentsBeanHttpCallBack.onSuccess(inputcommentsBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        inputcommentsBeanHttpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                        if (inputcommentsBean.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
+                                    AppManager.getAppManager().finishAllActivity();
+                                }
+                            }, 1000);
+                        } else {
+                            super.onNext(inputcommentsBean);
+                        }
                     }
                 });
     }

@@ -18,6 +18,6 @@ public class NeightbourModel extends BaseModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<NeightbourBean>(httpCallBack));
-    } 
+    }
 
 }

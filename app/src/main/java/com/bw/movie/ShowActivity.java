@@ -222,12 +222,6 @@ public class ShowActivity extends BaseActivity {
         aa.setDuration(300);
         aa.start();
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 1000);
     }
 
 
@@ -235,7 +229,12 @@ public class ShowActivity extends BaseActivity {
     @Subscribe
     public void getNet(NetEvent netEvent){
         if (Constant.GETNET==netEvent.getId()) {
-            showContent();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showContent();
+                }
+            },1000);
         }else {
             showloading();
         }

@@ -3,6 +3,7 @@ package com.bw.movie.base;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,9 @@ import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
 
 import com.bw.movie.util.StatusBarUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.AbstractDraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /*
  *  baseactivity
@@ -55,6 +59,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public abstract void initData();
 
     public abstract int initLayoutId();
+
+
+
+
 
     //初始化变量
     public abstract void initVariable();
@@ -131,6 +139,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
     //显示内容
     public void showloading() {
+
         statusView.showLoading();
     }
     //显示空白布局

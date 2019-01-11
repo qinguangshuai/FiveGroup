@@ -1,9 +1,18 @@
 package com.bw.movie.my.ticket.ticketnet.model;
 
+import android.content.Intent;
+import android.os.Handler;
+
+import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseModel;
+import com.bw.movie.base.BaseObserver;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.service.TicketService;
+import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.util.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,33 +20,26 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class TicketModel extends BaseModel {
-    public void getTicket(int scheduleId, int amount, String sign, final getTicket getTicket){
+    public void getTicket(int scheduleId, int amount, String sign, HttpCallBack<TicketBean> httpCallBack){
         OkHttpUtil.get().createa(TicketService.class).getTicket(scheduleId, amount, sign)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<TicketBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
+                .subscribe(new BaseObserver<TicketBean>(httpCallBack){
                     @Override
                     public void onNext(TicketBean ticketBean) {
-                        getTicket.getTickets(ticketBean);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                        if (ticketBean.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
+                                    AppManager.getAppManager().finishAllActivity();
+                                }
+                            }, 2000);
+                        } else {
+                            super.onNext(ticketBean);
+                        }
                     }
                 });
-    }
-    public interface getTicket{
-        void getTickets(TicketBean ticketBean);
     }
 }
