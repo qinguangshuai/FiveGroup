@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bw.movie.MainActivity;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.login.LoginActivity;
@@ -27,7 +28,7 @@ public class LeadFourFragment extends Fragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ShowActivity.class));
+                startActivity(new Intent(getActivity(),MainActivity.class));
                 getActivity().finish();
             }
         });
