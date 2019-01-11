@@ -127,9 +127,11 @@ public class Ticket_nformationActivity extends BaseActivity<TicketformationPrese
 
                         }
 
+
+
                         @Override
                         public void onDataFailer(String msg) {
-                             
+
                         }
 
                         @Override

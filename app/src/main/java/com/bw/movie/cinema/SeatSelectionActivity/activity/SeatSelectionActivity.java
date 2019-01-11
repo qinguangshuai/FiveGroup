@@ -120,6 +120,7 @@ public class SeatSelectionActivity extends BaseActivity {
         WindowManager windowManager = getWindowManager();
         int height = windowManager.getDefaultDisplay().getHeight();
         final PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
         popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
         RadioButton radioButton = view.findViewById(R.id.weixinfu);
         RadioButton radioButton1 = view.findViewById(R.id.zhufubaofu);

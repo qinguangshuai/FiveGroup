@@ -10,16 +10,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
-import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
-import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
-import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
-import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
-import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
-import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.event.NeighbourEvent;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
