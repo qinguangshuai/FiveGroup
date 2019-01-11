@@ -41,7 +41,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     Unbinder unbinder;
     @BindView(R.id.attenSwipeRefreshLayout2)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    Unbinder unbinder1;
     private AttFilmPresenter mAttFilmPresenter;
     int page = 1;
     private List<ResultBean> mList;
@@ -128,7 +127,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
         }else{
             showEmpty();
         }
-
     }
 
     @Override
@@ -150,7 +148,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
         return rootView;
     }
 }

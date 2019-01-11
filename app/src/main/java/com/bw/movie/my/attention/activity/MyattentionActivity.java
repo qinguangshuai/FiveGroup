@@ -44,12 +44,11 @@ public class MyattentionActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
-
     }
 
     @Override
     public void initListener() {
-//开启事务
+        //开启事务
         mManager = getSupportFragmentManager();
         mTransaction = mManager.beginTransaction();
         final AttentioncinemaFragment fragment1 = new AttentioncinemaFragment();

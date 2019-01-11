@@ -125,9 +125,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             loginedit2.setText(sp.getString("pwd", mEdit2));
             loginbox.setChecked(true);
         }
-
     }
-
 
     @Override
     public void initData() {
