@@ -17,6 +17,7 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.my.attention.adapter.AttFilmAdapter;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.bean.ResultBean;
@@ -45,7 +46,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     private AttFilmPresenter mAttFilmPresenter;
     int page = 1;
     private List<ResultBean> mList;
-
+    private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
@@ -60,13 +61,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void initData() {
         mAttFilmPresenter.getFilm(page);
-//        RecyclerViewScrollUtil.Refresh(mSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
-//            @Override
-//            public void info() {
-//                showloading();
-//                mAttFilmPresenter.getFilm(page);
-//            }
-//        });
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -129,6 +124,13 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
             showEmpty();
         }
 
+        mSwipeRefreshLayout.setRefreshing(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScrollWindow.dismissPop();
+            }
+        },1000);
     }
 
     @Override

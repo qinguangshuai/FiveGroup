@@ -17,6 +17,7 @@ import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.my.attcinema.adapter.AttCinemaAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
@@ -48,7 +49,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     private AttCinemaPresenter mAttCinemaPresenter;
     int page = 1;
     private List<ResultBean> mList;
-
+    private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
@@ -72,12 +73,14 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
             public void onRefresh() {
                 showloading();
               mAttCinemaPresenter.getCinema(page);
+
             }
         });
         RecyclerViewScrollUtil.Scroll(mAttenrecycle1, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
                 showloading();
+                mScrollWindow.showPop(mAttenrecycle1);
                 mAttCinemaPresenter.getCinema(page++);
 
             }
@@ -132,6 +135,15 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         }else{
             showEmpty();
         }
+
+
+        mSwipeRefreshLayout.setRefreshing(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScrollWindow.dismissPop();
+            }
+        },1000);
 
     }
 
