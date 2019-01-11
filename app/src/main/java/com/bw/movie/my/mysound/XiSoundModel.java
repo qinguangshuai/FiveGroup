@@ -1,5 +1,6 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.base.BaseObserver;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
@@ -18,27 +19,7 @@ public class XiSoundModel {
         OkHttpUtil.get().createa(XiSoundService.class).getXi()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<XiSoundUser>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(XiSoundUser xiSoundUser) {
-                        httpCallBack.onSuccess(xiSoundUser);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        httpCallBack.onFailer("失败");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(new BaseObserver<XiSoundUser>(httpCallBack));
     }
 
 }

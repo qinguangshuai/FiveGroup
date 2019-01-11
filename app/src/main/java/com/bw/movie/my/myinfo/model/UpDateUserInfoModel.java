@@ -1,10 +1,17 @@
 package com.bw.movie.my.myinfo.model;
 
+import android.content.Intent;
+import android.os.Handler;
+
+import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseObserver;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.myinfo.bean.UpDateUserInfoEntity;
 import com.bw.movie.my.myinfo.service.UpDateUserInfoService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.util.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,7 +27,23 @@ public class UpDateUserInfoModel  {
         OkHttpUtil.get().createa(UpDateUserInfoService.class).getUserInfo(nickName,sex,email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<UpDateUserInfoEntity>(httpCallBack));
+                .subscribe(new BaseObserver<UpDateUserInfoEntity>(httpCallBack){
+                    @Override
+                    public void onNext(UpDateUserInfoEntity upDateUserInfoEntity) {
+                        if (upDateUserInfoEntity.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
+                                    AppManager.getAppManager().finishAllActivity();
+                                }
+                            }, 1000);
+                        } else {
+                            super.onNext(upDateUserInfoEntity);
+                        }
+                    }
+                });
     }
 
 

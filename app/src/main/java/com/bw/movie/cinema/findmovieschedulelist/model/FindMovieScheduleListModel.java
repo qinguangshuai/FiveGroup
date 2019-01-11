@@ -1,8 +1,12 @@
 package com.bw.movie.cinema.findmovieschedulelist.model;
 
+import android.content.Intent;
+
+import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.service.FindMovieScheduleListService;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 
@@ -24,5 +28,4 @@ public class FindMovieScheduleListModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<FindMovieScheduleListBean>(httpCallBack));
     }
-
 }

@@ -26,6 +26,4 @@ public class AttFilmModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<MyAttFilmUser>(httpCallBack));
     }
-
-
 }
