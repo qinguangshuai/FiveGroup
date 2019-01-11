@@ -24,7 +24,7 @@
             android:layout_height="@dimen/dp_72"
             android:layout_centerInParent="true"
             fresco:failureImage="@mipmap/ic_launcher"
-            android:src="@drawable/touxiang" />
+            android:src="@mipmap/dl" />
 
         <TextView
             android:id="@+id/my_name"

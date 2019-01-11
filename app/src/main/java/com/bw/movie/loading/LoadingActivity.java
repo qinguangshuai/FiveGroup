@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
+import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.login.LoginActivity;
@@ -133,7 +134,7 @@ public class LoadingActivity extends BaseActivity {
             finish();
         }else {
             //第二次或更多进入
-            Intent intent=new Intent(LoadingActivity.this,LoginActivity.class);
+            Intent intent=new Intent(LoadingActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         }
