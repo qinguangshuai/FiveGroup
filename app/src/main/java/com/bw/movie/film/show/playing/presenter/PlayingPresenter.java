@@ -3,7 +3,6 @@ package com.bw.movie.film.show.playing.presenter;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
-import com.bw.movie.film.show.playing.callback.PlayingCallBack;
 import com.bw.movie.film.show.playing.model.PlayingModel;
 import com.bw.movie.util.HttpCallBack;
 

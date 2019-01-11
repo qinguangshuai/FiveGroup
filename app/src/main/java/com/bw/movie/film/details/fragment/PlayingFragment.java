@@ -1,5 +1,6 @@
 package com.bw.movie.film.details.fragment;
 
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.film.show.playing.adapter.PlayAdapter;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
 import com.bw.movie.film.show.playing.presenter.PlayingPresenter;
@@ -31,7 +33,7 @@ public class PlayingFragment extends BaseFragment {
     //吐司工具类
     //适配器
     private PlayAdapter mPlayAdapter = new PlayAdapter();
-
+    private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @BindView(R.id.swipe_detailsfragment)
     SwipeRefreshLayout mSwipeDetailsfragment;
     @BindView(R.id.RecyclerView_detailsfragment)
@@ -82,19 +84,56 @@ public class PlayingFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewDetailsfragment.setAdapter(mPlayAdapter);
         mRecyclerViewDetailsfragment.setLayoutManager(linearLayoutManager);
-        RecyclerViewScrollUtil.Refresh(mSwipeDetailsfragment, 2000, new RecyclerViewScrollUtil.onEvent() {
+
+
+        mSwipeDetailsfragment.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void info() {
-                ToastUtil.Toast("刷新~");
+            public void onRefresh() {
+                getPlayingBeanObservable(1,10,true);
             }
         });
+
         RecyclerViewScrollUtil.Scroll(mRecyclerViewDetailsfragment, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                ToastUtil.Toast("加载.....没有更多了");
+                mScrollWindow.showPop(mRecyclerViewDetailsfragment);
+                getPlayingBeanObservable(1,10,true);
             }
         });
     }
+
+    //请求正在上映 || 即将上映  回调数据
+    public void getPlayingBeanObservable(int page, int count, final boolean isLoad) {
+        new PlayingPresenter(new PlayingView<PlayingBean>() {
+            @Override
+            public void onDataSuccess(PlayingBean playingBean) {
+                mSwipeDetailsfragment.setRefreshing(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mScrollWindow.dismissPop();
+                    }
+                },1000);
+            }
+
+            @Override
+            public void onDataFailer(String msg) {
+                ToastUtil.Toast(msg + "sorry");
+            }
+
+            @Override
+            public void onShowLoading() {
+
+            }
+
+            @Override
+            public void onHideLoading() {
+
+            }
+        }).getPlayingBeanObservable(page, count);
+    }
+
+
 
     //set数据
     public void setData() {

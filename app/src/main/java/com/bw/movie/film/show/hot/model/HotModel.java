@@ -2,7 +2,6 @@ package com.bw.movie.film.show.hot.model;
 
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.hot.bean.HotPlayBean;
-import com.bw.movie.film.show.hot.callback.HotPlayCallBack;
 import com.bw.movie.film.show.hot.service.HotService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;

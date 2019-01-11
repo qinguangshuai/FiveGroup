@@ -132,7 +132,7 @@ public class BaseObserver<T> implements Observer<T> {
             errorCode = ERROR.ILLEGAL_STATE_ERROR;
             errorMsg = "非法数据异常";
             mCallback.onFailer(errorMsg);
-        }  else {
+        } else {
             errorCode = ERROR.UNKNOWN;
             errorMsg = "未知错误";
             mCallback.onFailer(errorMsg);

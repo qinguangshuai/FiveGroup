@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:padding="@dimen/dp_5"
+    android:gravity="center"
+    android:background="@drawable/shapeyuan"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+
+   <com.facebook.drawee.view.SimpleDraweeView
+       android:id="@+id/simpscroll"
+       android:background="@drawable/shapeyuan"
+       fresco:roundAsCircle="true"
+       android:layout_width="@dimen/dp_50"
+       android:layout_height="@dimen/dp_50" />
+
+
+</LinearLayout>

@@ -3,7 +3,6 @@ package com.bw.movie.film.show.hot.presenter;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.show.hot.bean.HotPlayBean;
-import com.bw.movie.film.show.hot.callback.HotPlayCallBack;
 import com.bw.movie.film.show.hot.model.HotModel;
 import com.bw.movie.util.HttpCallBack;
 

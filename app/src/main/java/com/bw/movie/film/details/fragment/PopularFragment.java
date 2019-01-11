@@ -1,5 +1,6 @@
 package com.bw.movie.film.details.fragment;
 
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.film.show.popular.adapter.PopularPlayAdapter;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.presenter.PopularPresenter;
@@ -32,6 +34,7 @@ public class PopularFragment extends BaseFragment {
     //吐司工具类
     //适配器
     private PopularPlayAdapter mPopularPlayAdapter = new PopularPlayAdapter();
+    private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
 
 
     @BindView(R.id.RecyclerView_detailsfragment)
@@ -82,19 +85,58 @@ public class PopularFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewDetailsfragment.setAdapter(mPopularPlayAdapter);
         mRecyclerViewDetailsfragment.setLayoutManager(linearLayoutManager);
-        RecyclerViewScrollUtil.Refresh(mSwipeDetailsfragment, 2000, new RecyclerViewScrollUtil.onEvent() {
+
+        mSwipeDetailsfragment.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void info() {
-                ToastUtil.Toast("刷新~");
+            public void onRefresh() {
+                getPopularBeanObservable(1,10,true);
             }
         });
+
+
         RecyclerViewScrollUtil.Scroll(mRecyclerViewDetailsfragment, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                ToastUtil.Toast("加载.....没有更多了");
+                mScrollWindow.showPop(mRecyclerViewDetailsfragment);
+                getPopularBeanObservable(1,10,true);
             }
         });
     }
+
+
+
+    //请求回调 热门电影数据  第三个布尔值的参数 决定 是否执行 add 方法
+    public void getPopularBeanObservable(int page, int count, final boolean isLoad) {
+        new PopularPresenter(new PopularmView<PopularBean>() {
+            @Override
+            public void onDataSuccess(PopularBean popularBean) {
+                mSwipeDetailsfragment.setRefreshing(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mScrollWindow.dismissPop();
+                    }
+                },1000);
+            }
+
+            @Override
+            public void onDataFailer(String msg) {
+                ToastUtil.Toast(msg + "sorry");
+            }
+
+            @Override
+            public void onShowLoading() {
+
+            }
+
+            @Override
+            public void onHideLoading() {
+
+            }
+        }).getPopularBeanObservable(page, count);
+    }
+
+
 
     //set数据
     public void setData() {

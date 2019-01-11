@@ -3,7 +3,6 @@ package com.bw.movie.film.show.popular.presenter;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.show.popular.bean.PopularBean;
-import com.bw.movie.film.show.popular.callback.PopularCallBack;
 import com.bw.movie.film.show.popular.model.PopularModel;
 import com.bw.movie.util.HttpCallBack;
 
