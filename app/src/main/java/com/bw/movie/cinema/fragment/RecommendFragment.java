@@ -212,7 +212,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
         swipeRefreshLayout.setRefreshing(false);
         final List<RecommendBean.ResultBean> nearbyCinemaList = recommendBean.getResult();
 
-        if (nearbyCinemaList.size() > 0 || nearbyCinemaList != null) {
+
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             recyRecommend.setLayoutManager(linearLayoutManager);
             RecommendAdapder recommendAdapder = new RecommendAdapder(nearbyCinemaList, getActivity());
@@ -238,25 +238,26 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
                 }
             });
 
-        } else {
-            for (int i = 0; i < nearbyCinemaList.size(); i++) {
-                GreenDaoBean greenDaoBean = new GreenDaoBean(nearbyCinemaList.get(i).getName(), nearbyCinemaList.get(i).getAddress(), nearbyCinemaList.get(i).getLogo());
-                greenDaoBeanDao.insert(greenDaoBean);
-            }
-            List<GreenDaoBean> users = queryList();
-            ToastUtil.Toast(users.get(2).getTitle());
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            recyRecommend.setLayoutManager(linearLayoutManager);
-            RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
-            recyRecommend.setAdapter(recommendErrorAdapder);
-        }
+
+//            for (int i = 0; i < nearbyCinemaList.size(); i++) {
+//                GreenDaoBean greenDaoBean = new GreenDaoBean(nearbyCinemaList.get(i).getName(), nearbyCinemaList.get(i).getAddress(), nearbyCinemaList.get(i).getLogo());
+//                greenDaoBeanDao.insert(greenDaoBean);
+//
+//            }
+
+
 
 
     }
 
     @Override
     public void onDataFailer(String msg) {
-
+//        List<GreenDaoBean> users = queryList();
+//        ToastUtil.Toast(users.get(2).getTitle());
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+//        recyRecommend.setLayoutManager(linearLayoutManager);
+//        RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
+//        recyRecommend.setAdapter(recommendErrorAdapder);
 
      showEmpty();
 
