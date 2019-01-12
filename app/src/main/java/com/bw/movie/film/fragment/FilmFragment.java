@@ -15,6 +15,8 @@ import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.film.adapter.RootAdapter;
 import com.bw.movie.film.details.activity.DetailsActivity;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
@@ -39,6 +41,7 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.ToastUtil;
 import com.lljjcoder.citypickerview.widget.CityPicker;
 
@@ -92,12 +95,12 @@ public class FilmFragment extends BaseFragment {
         intent = new Intent(getActivity(), DetailsActivity.class);
 
         //滚轮文字的大小
-//滚轮文字的颜色
-//省份滚轮是否循环显示
-//城市滚轮是否循环显示
-//地区（县）滚轮是否循环显示
-//滚轮显示的item个数
-//滚轮item间距
+        //滚轮文字的颜色
+        //省份滚轮是否循环显示
+        //城市滚轮是否循环显示
+        //地区（县）滚轮是否循环显示
+        //滚轮显示的item个数
+        //滚轮item间距
         mCityPicker = new CityPicker.Builder(getActivity())
                 .textSize(20)//滚轮文字的大小
                 .title("城市选择")
@@ -142,8 +145,8 @@ public class FilmFragment extends BaseFragment {
                         String cid = strings[2];
                         //邮编
                         String code = strings[3];
-                        fileText.setText(city+" "+cid);
-                        BaseEvent.post(new AddressUser(city,cid));
+                        fileText.setText(city + " " + cid);
+                        BaseEvent.post(new AddressUser(city, cid));
                     }
 
                     @Override
@@ -266,6 +269,13 @@ public class FilmFragment extends BaseFragment {
             public void onHideLoading() {
             }
         }).getFollowBeanObservable(a);
+    }
+
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        getActivity().startActivity(intent);
+        getActivity().finish();
     }
 
     //请求取消关注

@@ -30,6 +30,8 @@ import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.bw.movie.cinema.recommend.presenter.RecommendPresenter;
 import com.bw.movie.cinema.recommend.view.RecommentView;
 import com.bw.movie.cinema.view.NeightbourView;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,11 +85,16 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
                 mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
 
 
-
             }
         });
     }
 
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        getActivity().startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+    }
 
     //点赞
     @Subscribe
@@ -100,7 +107,6 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
                     if (followBean.getMessage().equals("关注成功")) {
                         ToastUtil.Toast(followBean.getMessage());
                         greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
-
                     }
 
                 }
@@ -173,8 +179,6 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     public void initVarisble() {
 
 
-
-
     }
 
     @Override
@@ -189,7 +193,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
         showContent();
         swipeRefreshLayout.setRefreshing(false);
         final List<RecommendBean.ResultBean> nearbyCinemaList = recommendBean.getResult();
-        if (nearbyCinemaList!=null && nearbyCinemaList.size()>0){
+        if (nearbyCinemaList != null && nearbyCinemaList.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             recyRecommend.setLayoutManager(linearLayoutManager);
             RecommendAdapder recommendAdapder = new RecommendAdapder(nearbyCinemaList, getActivity());
@@ -212,7 +216,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
                     startActivity(intent);
                 }
             });
-        }else{
+        } else {
             showEmpty();
         }
 

@@ -21,6 +21,7 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
+import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
@@ -33,6 +34,8 @@ import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -149,6 +152,12 @@ public class ParticularsActivity extends BaseActivity {
         });
     }
 
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(ParticularsActivity.this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+    }
 
     //点赞
     @Subscribe
