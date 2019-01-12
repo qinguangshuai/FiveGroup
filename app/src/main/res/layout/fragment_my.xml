@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="冬天来了"
+            android:text="登录/注册"
             android:textColor="#fff"
             android:textSize="@dimen/dp_20" />
 
