@@ -21,7 +21,9 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
-import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
+import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
+import com.bw.movie.cinema.findmovieschedulelist.view.FindMovieScheduleListView;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
@@ -34,8 +36,6 @@ import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
-import com.bw.movie.error.AppManager;
-import com.bw.movie.login.LoginActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,6 +71,7 @@ public class ParticularsActivity extends BaseActivity {
     private List<MevaResultBean> result;
 
 
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -83,7 +84,7 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setAdapter(particularsAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recylerviewPart.setLayoutManager(linearLayoutManager);
-
+        particularsAdapder.setId(id);
         showloading();
     }
 
@@ -152,12 +153,6 @@ public class ParticularsActivity extends BaseActivity {
         });
     }
 
-    @Subscribe
-    public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(ParticularsActivity.this,LoginActivity.class);
-        startActivity(intent);
-        AppManager.getAppManager().finishAllActivity();
-    }
 
     //点赞
     @Subscribe
@@ -362,6 +357,10 @@ public class ParticularsActivity extends BaseActivity {
 
             }
         }).getMdetails(id);
+
+
+
+
     }
 
     @Override

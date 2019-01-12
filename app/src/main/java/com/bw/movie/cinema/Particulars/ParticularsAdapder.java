@@ -29,12 +29,16 @@ import recycler.coverflow.RecyclerCoverFlow;
 
 
 public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+    private int id;
     private Context mContext;
     private List<String> list;
     private ParticularsViewHolder particularsViewHolder;
     private FindMovieScheduleListAdapder findMovieScheduleListAdapder = new FindMovieScheduleListAdapder();
     private int cinema;
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setCinema(int cinema) {
         cinema = cinema;
@@ -50,9 +54,9 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View inflate = LayoutInflater.from(mContext).inflate(R.layout.particularadapderitem, viewGroup, false);
-            particularsViewHolder = new ParticularsViewHolder(inflate);
-            return particularsViewHolder;
+        View inflate = LayoutInflater.from(mContext).inflate(R.layout.particularadapderitem, viewGroup, false);
+        particularsViewHolder = new ParticularsViewHolder(inflate);
+        return particularsViewHolder;
     }
 
     @Override
@@ -66,10 +70,10 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onItemSelected(int position) {
                 final int i1 = position % result.size();
+
                 new FindMovieScheduleListProsenter(new FindMovieScheduleListView<FindMovieScheduleListBean>() {
                     @Override
                     public void onDataSuccess(final FindMovieScheduleListBean findMovieScheduleListBean) {
-
                         findMovieScheduleListAdapder.setResultBeans(findMovieScheduleListBean.getResult());
                         //列表数据  适配器
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
@@ -80,11 +84,11 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
                         findMovieScheduleListAdapder.setIsSeatSelection(new FindMovieScheduleListAdapder.IsSeatSelection() {
                             @Override
                             public void getSeatSelection(View view, int posiiton) {
-                               Intent intent = new Intent(mContext,SeatSelectionActivity.class);
-                               intent.putExtra(Constant.PARTID,findMovieScheduleListBean.getResult().get(i).getPrice()+"");
-                                intent.putExtra(Constant.PARTNAME,findMovieScheduleListBean.getResult().get(i).getScreeningHall());
-                                intent.putExtra(Constant.CINEMAID,findMovieScheduleListBean.getResult().get(i).getId());
-                               mContext.startActivity(intent);
+                                Intent intent = new Intent(mContext, SeatSelectionActivity.class);
+                                intent.putExtra(Constant.PARTID, findMovieScheduleListBean.getResult().get(i).getPrice() + "");
+                                intent.putExtra(Constant.PARTNAME, findMovieScheduleListBean.getResult().get(i).getScreeningHall());
+                                intent.putExtra(Constant.CINEMAID, findMovieScheduleListBean.getResult().get(i).getId());
+                                mContext.startActivity(intent);
                             }
                         });
 
@@ -118,6 +122,7 @@ public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.result = result;
         }
     }
+
 
     class ParticularsViewHolder extends RecyclerView.ViewHolder {
         RecyclerCoverFlow recyclerCoverFlow;

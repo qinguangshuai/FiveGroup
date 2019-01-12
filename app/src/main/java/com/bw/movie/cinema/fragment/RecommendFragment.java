@@ -6,13 +6,17 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bw.movie.Constant;
+import com.bw.movie.MainActivity;
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
+import com.bw.movie.cinema.adapter.RecommendErrorAdapder;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
@@ -30,12 +34,14 @@ import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.bw.movie.cinema.recommend.presenter.RecommendPresenter;
 import com.bw.movie.cinema.recommend.view.RecommentView;
 import com.bw.movie.cinema.view.NeightbourView;
-import com.bw.movie.error.AppManager;
-import com.bw.movie.login.LoginActivity;
+import com.bw.movie.greenbean.DaoSession;
+import com.bw.movie.greenbean.GreenDaoBean;
+import com.bw.movie.greenbean.GreenDaoBeanDao;
 import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
 
@@ -55,34 +61,37 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
     private RecommendPresenter mRecommendPresenter;
+    private Query<GreenDaoBean> userQuery;
+    private GreenDaoBeanDao greenDaoBeanDao;
+    private int page = 1;
 
+    //    UserDao userDao;
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+
+    /*    insertUser();
+        List<GreenDaoBean> users = queryList();
+        Toast.makeText(getContext(), users.get(0).getTitle(), Toast.LENGTH_SHORT).show();*/
+
         mRecommendPresenter = new RecommendPresenter(this);
+
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
+        DaoSession daoSession = ((MyApp) getActivity().getApplication()).getDaoSession();
+        greenDaoBeanDao = daoSession.getGreenDaoBeanDao();
+        userQuery = greenDaoBeanDao.queryBuilder().orderAsc(GreenDaoBeanDao.Properties.MId).build();
+
+
         showloading();
-    }
-
-    //    @Subscribe
-//    public void getFollowId(FollowEvent followEvent) {
-//        if (followEvent.getId() == Constant.FOLLOWID) {
-//            RecommendPresenter recommendPresenter = new RecommendPresenter(this);
-//            recommendPresenter.getRecommend("116.30551391385724", "40.04571807462411", 1, 10);
-//        }
-//    }
-    @Subscribe
-    public void getlongitude(final RecommendEvent recommendEvent) {
-
-        mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
                 showloading();
-                mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+                mRecommendPresenter.getRecommend(MainActivity.latitude + "", MainActivity.longitude1 + "", 1, 10);
 
 
             }
@@ -90,12 +99,20 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     }
 
     @Subscribe
-    public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(getActivity(),LoginActivity.class);
-        getActivity().startActivity(intent);
-        AppManager.getAppManager().finishAllActivity();
+    public void getlongitude(final RecommendEvent recommendEvent) {
+
+        mRecommendPresenter.getRecommend(recommendEvent.getLongitude(), recommendEvent.getLatitude(), 1, 10);
+
     }
 
+    /*  private void insertUser(){
+          GreenDaoBean user = new GreenDaoBean(1l,"ash", "男","26");
+          greenDaoBeanDao.insert(user);
+      }
+      private List<GreenDaoBean> queryList(){
+          List<GreenDaoBean> users = userQuery.list();
+          return users;
+      }*/
     //点赞
     @Subscribe
     public void great(final GreatEvent greatEvent) {
@@ -107,6 +124,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
                     if (followBean.getMessage().equals("关注成功")) {
                         ToastUtil.Toast(followBean.getMessage());
                         greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+
                     }
 
                 }
@@ -161,7 +179,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
     @Override
     public void initData() {
-
+        mRecommendPresenter.getRecommend(MainActivity.latitude + "", MainActivity.longitude1 + "", page++, 10);
     }
 
     @Override
@@ -193,13 +211,15 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
         showContent();
         swipeRefreshLayout.setRefreshing(false);
         final List<RecommendBean.ResultBean> nearbyCinemaList = recommendBean.getResult();
-        if (nearbyCinemaList != null && nearbyCinemaList.size() > 0) {
+
+
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             recyRecommend.setLayoutManager(linearLayoutManager);
             RecommendAdapder recommendAdapder = new RecommendAdapder(nearbyCinemaList, getActivity());
             recyRecommend.setAdapter(recommendAdapder);
             recommendAdapder.setGetListener(new RecommendAdapder.getListener() {
                 @Override
+
                 public void getList(View view, int position) {
                     Intent intent = new Intent(getActivity(), ParticularsActivity.class);
                     //获取推荐的logo的
@@ -214,17 +234,38 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
                     intent.putExtra(Constant.NAME, name);
                     intent.putExtra(Constant.ADDRESS, address);
                     startActivity(intent);
+
                 }
             });
-        } else {
-            showEmpty();
-        }
+
+
+//            for (int i = 0; i < nearbyCinemaList.size(); i++) {
+//                GreenDaoBean greenDaoBean = new GreenDaoBean(nearbyCinemaList.get(i).getName(), nearbyCinemaList.get(i).getAddress(), nearbyCinemaList.get(i).getLogo());
+//                greenDaoBeanDao.insert(greenDaoBean);
+//
+//            }
+
+
+
 
     }
 
     @Override
     public void onDataFailer(String msg) {
+//        List<GreenDaoBean> users = queryList();
+//        ToastUtil.Toast(users.get(2).getTitle());
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+//        recyRecommend.setLayoutManager(linearLayoutManager);
+//        RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
+//        recyRecommend.setAdapter(recommendErrorAdapder);
 
+     showEmpty();
+
+    }
+
+    private List<GreenDaoBean> queryList() {
+        List<GreenDaoBean> users = userQuery.list();
+        return users;
     }
 
     @Override

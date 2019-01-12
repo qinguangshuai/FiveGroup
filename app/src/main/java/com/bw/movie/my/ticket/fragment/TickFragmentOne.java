@@ -113,6 +113,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     @Override
     public void onDataFailer(String msg) {
         ToastUtil.Toast(msg);
+        showEmpty();
     }
 
     @Override

@@ -105,7 +105,7 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
 
     @Override
     public void onDataFailer(String msg) {
-
+        showEmpty();
     }
 
     @Override
