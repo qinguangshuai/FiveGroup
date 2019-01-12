@@ -132,7 +132,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
 
     @Override
     public void onDataFailer(String msg) {
-
+        showEmpty();
     }
 
     @Override
