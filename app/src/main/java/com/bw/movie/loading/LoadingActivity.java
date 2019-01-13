@@ -10,16 +10,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.MainActivity;
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
+import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.greenbean.DaoSession;
+import com.bw.movie.greenbean.GreenDaoBean;
+import com.bw.movie.greenbean.GreenDaoBeanDao;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.start.StartActivity;
 import com.bw.movie.util.NewThread;
 import com.bw.movie.util.ToastUtil;
 
+import org.greenrobot.greendao.query.Query;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,7 +73,10 @@ public class LoadingActivity extends BaseActivity {
             });
         }
         loadtext.setVisibility(View.GONE);
+
     }
+
+
 
     @Override
     public void initListener() {
@@ -133,7 +145,7 @@ public class LoadingActivity extends BaseActivity {
             finish();
         }else {
             //第二次或更多进入
-            Intent intent=new Intent(LoadingActivity.this,LoginActivity.class);
+            Intent intent=new Intent(LoadingActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         }

@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.bean.Portrait;
 import com.bw.movie.my.message.bean.ResultBean;
@@ -20,6 +23,7 @@ import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
@@ -66,6 +70,13 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         presenter = new MyMessagePresenter(this);
         presenter.getMessage();
         ButterKnife.bind(this);
+    }
+
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity(this);
     }
 
     @Override
@@ -131,19 +142,14 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
-
-
         Uri uri = Uri.parse(headPic);
         mMyHeadimage.setImageURI(uri);
-
         EventBus.getDefault().post(new Portrait(headPic));
     }
-
     @Override
     public void onDataFailer(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
     @Override
     public void onShowLoading() {
 

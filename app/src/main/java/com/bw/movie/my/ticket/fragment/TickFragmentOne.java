@@ -46,6 +46,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
         ticketSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                showloading();
                 mTicketformationPresenter.getTicet(page++,5);
             }
         });
@@ -53,6 +54,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
         RecyclerViewScrollUtil.Scroll(ticketOneRecycler, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
+                showloading();
                 mScrollWindow.showPop(ticketOneRecycler);
                 mTicketformationPresenter.getTicet(page++,5);
             }
@@ -111,6 +113,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     @Override
     public void onDataFailer(String msg) {
         ToastUtil.Toast(msg);
+        showEmpty();
     }
 
     @Override

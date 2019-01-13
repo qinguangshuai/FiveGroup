@@ -3,7 +3,10 @@ package com.bw.movie;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+
 import com.bw.movie.error.UnCatchExceptionHandler;
+import com.bw.movie.greenbean.DaoMaster;
+import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.OkHttpUtil;
 import com.facebook.cache.disk.DiskCacheConfig;
@@ -13,6 +16,8 @@ import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.greendao.database.Database;
+
 /*
  *作者:ash
  *TODO:
@@ -21,6 +26,10 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
     public static Context sContext;
     private IWXAPI wxApi;
+    public static final boolean ENCRYPTED = true;
+
+    private DaoSession daoSession;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +53,15 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
         LogUtil.init();
         initXG();
         initWX();
+        //第一个String 是 数据库名字 //第二个String 是 数据库名-db 文件类型
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "GreenBean" : "GreenBean-db");
+        Database db = helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
+
+    }
+
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 
     private void initXG() {
