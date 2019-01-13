@@ -189,6 +189,7 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
+                EventBus.getDefault().post(new NetEvent(0x0002));
             }
 
             @Override

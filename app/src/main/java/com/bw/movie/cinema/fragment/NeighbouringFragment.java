@@ -8,11 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.bw.movie.Constant;
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
+import com.bw.movie.cinema.adapter.RecommendErrorAdapder;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
@@ -25,9 +28,14 @@ import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
+import com.bw.movie.greenbean.DaoSession;
+import com.bw.movie.greenbean.GreenDaoBean;
+import com.bw.movie.greenbean.GreenDaoBeanDao;
+import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
 
@@ -46,15 +54,19 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
     private NeightbourPresenter neightbourPresenter;
-
+    private Query<GreenDaoBean> userQuery;
+    private GreenDaoBeanDao greenDaoBeanDao;
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         neightbourPresenter = new NeightbourPresenter(this);
-        neightbourPresenter.getNeightbour(1, 10);
+
         if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
+           BaseEvent.register(this);
         }
+        DaoSession daoSession = ((MyApp) getActivity().getApplication()).getDaoSession();
+        greenDaoBeanDao = daoSession.getGreenDaoBeanDao();
+        userQuery = greenDaoBeanDao.queryBuilder().orderAsc(GreenDaoBeanDao.Properties.MId).build();
         showloading();
     }
 
@@ -82,7 +94,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void initData() {
-
+        neightbourPresenter.getNeightbour(1, 10);
     }
 
     @Subscribe
@@ -185,9 +197,20 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void onDataFailer(String msg) {
-      showEmpty();
-    }
+        showContent();
+        swipeRefreshLayout.setRefreshing(false);
+        List<GreenDaoBean> users = queryList();
+        ToastUtil.Toast(users.get(2).getTitle());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyNeightbor.setLayoutManager(linearLayoutManager);
+        RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
+        recyNeightbor.setAdapter(recommendErrorAdapder);
 
+    }
+    private List<GreenDaoBean> queryList() {
+        List<GreenDaoBean> users = userQuery.list();
+        return users;
+    }
     @Override
     public void onShowLoading() {
 
@@ -202,6 +225,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        EventBus.getDefault().unregister(this);
+        BaseEvent.unregister(this);
     }
 }

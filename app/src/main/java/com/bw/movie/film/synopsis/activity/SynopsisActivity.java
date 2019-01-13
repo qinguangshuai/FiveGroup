@@ -551,6 +551,7 @@ public class SynopsisActivity extends BaseActivity {
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
                 popupWindow4.setAnimationStyle(R.style.popwin_anim_style);
+                popupWindow4.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }

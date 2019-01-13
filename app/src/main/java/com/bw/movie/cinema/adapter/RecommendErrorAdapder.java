@@ -34,9 +34,10 @@ public class RecommendErrorAdapder extends RecyclerView.Adapter<RecommendErrorAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-           myViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getImage()));
-           myViewHolder.textViewaddress.setText(list.get(i).getKile());
-           myViewHolder.textViewname.setText(list.get(i).getTitle());
+        myViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getImage()));
+        myViewHolder.textViewname.setText(list.get(i).getTitle());
+          myViewHolder.textViewaddress.setText(list.get(i).getKile());
+
     }
 
     @Override
