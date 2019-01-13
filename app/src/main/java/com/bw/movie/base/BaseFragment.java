@@ -1,10 +1,6 @@
 package com.bw.movie.base;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,28 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bw.movie.R;
-import com.bw.movie.util.NetStateBroadReciver;
-import com.bw.movie.util.NetWorkChangeEvent;
-
-import org.greenrobot.eventbus.Subscribe;
 
 /*
  *  basefragment
  * */
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
-    public AppCompatActivity mActivity;
+    public AppCompatActivity mActivity;    //提供一个全局化的context
+
     protected String TAG = "";
-    protected boolean isinitData = false;
+
+    protected boolean isinitData = false; //是否加载了数据
+
     public View rootView;
+
     private T mBasePresenter;
+
     private StatusView statusView;
 
     //oncreate方法
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TAG = getClass().getSimpleName();
+        TAG = getClass().getSimpleName();     //getName ----“实体名称”      getSimpleName ---- “底层类简称” ---- Main
     }
 
     //onAttach方法
@@ -51,25 +48,35 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(initLayoutId(), container, false);
-        statusView = initStatuView(rootView);
-        initVarisble();
-        initView();
+        rootView = inflater.inflate(initLayoutId(), container, false);  //为fragment 添加核心布局
+        statusView = initStatuView(rootView);    //调用加载布局
+        initVarisble();  //初始化变量
+        initView();      //初始化布局
         return statusView;
     }
+
 
     //onActivityCreate方法
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initListener();
-        if (!isinitData && getUserVisibleHint()) {
-            if (statusView != null) {
-                initData();
-                isinitData = true;
+
+        initListener();    //事件监听
+
+         /* 界面变为可见时，调用setUserVisibleHint(true)
+            界面变为不可见时，调用setUserVisibleHint(false)
+            */
+        if (!isinitData && getUserVisibleHint()) {   //isinitDat取非只有变为了 ture and 当前页面可见   第一次会执行这个
+
+
+            if (statusView != null) {  //如果 startusView 不为空
+
+                initData();          //加载数据
+
+                isinitData = true;   //并且 将isinitData 变为true
             }
 
-        } else {
+        } else {    //否则
             onVisiable();
         }
 
@@ -102,12 +109,15 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         return mBasePresenter;
     }
 
+
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        //参数: 如果是 true 即代表fragment 变为可见   反之 false 代表fragment 变得不可见
         if (isVisibleToUser) {
-            if (rootView != null) {
-                if (!isinitData) {
+            if (rootView != null) { //如果当前的 fragment 变得可见 而且有不为空
+                if (!isinitData) {  //如果当前的
                     initData();
                     isinitData = true;
                 } else {
@@ -132,7 +142,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     }
 
     //显示空白布局
-    public void showEmpty(){
+    public void showEmpty() {
         statusView.showEmpty();
     }
 

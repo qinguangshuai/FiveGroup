@@ -2,6 +2,7 @@ package com.bw.movie.film.fragment;
 
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -56,7 +57,7 @@ import butterknife.Unbinder;
  * 正在热映 具备加载功能   √
  * 正在上映 具备加载功能   √
  */
-public class FilmFragment extends BaseFragment {
+public class FilmFragment extends BaseFragment  {
     @BindView(R.id.file_carouse)
     ImageView fileCarouse;
     @BindView(R.id.file_text)
@@ -131,6 +132,12 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
+                    }
+                },1000);
             }
 
             @Override

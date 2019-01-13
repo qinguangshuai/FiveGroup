@@ -57,7 +57,6 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        mRecommendPresenter = new RecommendPresenter(this);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -155,7 +154,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
     @Override
     public void initData() {
-
+        mRecommendPresenter = new RecommendPresenter(this);
     }
 
     @Override

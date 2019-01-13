@@ -50,8 +50,6 @@ public class HotFragment extends BaseFragment {
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        setRecyclerViewData();
-        setData();
     }
 
     @Override
@@ -61,6 +59,8 @@ public class HotFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        setRecyclerViewData();
+        setData();
 
     }
 

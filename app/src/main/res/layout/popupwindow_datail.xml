@@ -6,9 +6,6 @@
     android:clipChildren="false"
     android:orientation="vertical">
 
-
-
-
     <LinearLayout
         android:background="#fff"
         android:layout_marginTop="@dimen/dp_40"
