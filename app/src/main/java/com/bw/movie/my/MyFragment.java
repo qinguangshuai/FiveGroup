@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bw.movie.R;
@@ -45,15 +46,15 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.my_name)
     TextView mMyName;
     @BindView(R.id.my_info)
-    ImageView mMyInfo;
+    LinearLayout mMyInfo;
     @BindView(R.id.my_love)
-    ImageView mMyLove;
+    LinearLayout mMyLove;
     @BindView(R.id.my_message)
-    ImageView mMyMessage;
+    LinearLayout mMyMessage;
     @BindView(R.id.my_opinion)
-    ImageView mMyOpinion;
+    LinearLayout mMyOpinion;
     @BindView(R.id.my_new)
-    ImageView mMyNew;
+    LinearLayout mMyNew;
     private View view;
     private Unbinder unbinder;
 

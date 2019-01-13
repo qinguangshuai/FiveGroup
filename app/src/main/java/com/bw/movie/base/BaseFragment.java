@@ -68,11 +68,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
                 initData();
                 isinitData = true;
             }
-
         } else {
             onVisiable();
         }
-
     }
 
     private StatusView initStatuView(View content) {
