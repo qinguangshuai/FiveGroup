@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -148,4 +148,9 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.8'
     //城市三级联动
     implementation 'liji.library.dev:citypickerview:1.1.0'
+
+    implementation 'org.greenrobot:greendao:3.2.0'
+    implementation 'org.greenrobot:greendao-generator:3.2.0'
+
+
 }

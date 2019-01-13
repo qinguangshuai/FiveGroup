@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -25,11 +26,15 @@ import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
 import com.bw.movie.film.event.NetEvent;
 import com.bw.movie.film.fragment.FilmFragment;
+import com.bw.movie.greenbean.DaoSession;
+import com.bw.movie.greenbean.GreenDaoBean;
+import com.bw.movie.greenbean.GreenDaoBeanDao;
 import com.bw.movie.my.MyFragment;
 import com.bw.movie.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.greendao.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +60,15 @@ public class ShowActivity extends BaseActivity {
     private RadioButton my_show;
     private ImageView image_populer;
     private ImageView lingdai;
-
+ //   private Query<GreenDaoBean> userQuery;
+    //    UserDao userDao;
     //权限
     private String[] permissions = {Manifest.permission.CAMERA,                     //相机
             Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
             Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
             Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
     };
+  //  private GreenDaoBeanDao greenDaoBeanDao;
 
 
     @Override
@@ -221,26 +228,37 @@ public class ShowActivity extends BaseActivity {
         aa.playTogether(ra1);
         aa.setDuration(300);
         aa.start();
+//        DaoSession daoSession = ((MyApp) getApplication()).getDaoSession();
+//        greenDaoBeanDao = daoSession.getGreenDaoBeanDao();
+//        userQuery = greenDaoBeanDao.queryBuilder().orderAsc(GreenDaoBeanDao.Properties.Id).build();
+//        insertUser();
+//        List<GreenDaoBean> users = queryList();
+//        Toast.makeText(this, users.get(0).toString(), Toast.LENGTH_SHORT).show();
 
     }
 
-
-
+//    private void insertUser() {
+//        GreenDaoBean user = new GreenDaoBean(1l, "nihao", "12", "sdasdas");
+//        greenDaoBeanDao.insert(user);
+//    }
+//    private List<GreenDaoBean> queryList(){
+//        List<GreenDaoBean> users = userQuery.list();
+//        return users;
+//    }
     @Subscribe
-    public void getNet(NetEvent netEvent){
-        if (Constant.GETNET==netEvent.getId()) {
+    public void getNet(NetEvent netEvent) {
+        if (Constant.GETNET == netEvent.getId()) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     showContent();
                 }
-            },1000);
-        }else {
+            }, 1000);
+        } else {
             showloading();
         }
 
     }
-
 
 
     //权限申请

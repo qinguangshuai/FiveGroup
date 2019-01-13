@@ -21,6 +21,9 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
+import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
+import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
+import com.bw.movie.cinema.findmovieschedulelist.view.FindMovieScheduleListView;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
@@ -68,6 +71,7 @@ public class ParticularsActivity extends BaseActivity {
     private List<MevaResultBean> result;
 
 
+
     @Override
     public void initView() {
         ButterKnife.bind(this);
@@ -80,7 +84,7 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setAdapter(particularsAdapder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recylerviewPart.setLayoutManager(linearLayoutManager);
-
+        particularsAdapder.setId(id);
         showloading();
     }
 
@@ -353,6 +357,10 @@ public class ParticularsActivity extends BaseActivity {
 
             }
         }).getMdetails(id);
+
+
+
+
     }
 
     @Override

@@ -185,7 +185,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void onDataFailer(String msg) {
-
+      showEmpty();
     }
 
     @Override

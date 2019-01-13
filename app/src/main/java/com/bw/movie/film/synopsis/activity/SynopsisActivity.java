@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.film.cinema.activity.AffiliatedTheaterActivity;
 import com.bw.movie.film.details.presenter.DetailPresenter;
 import com.bw.movie.film.popwindow.ScrollWindow;
@@ -45,6 +47,7 @@ import com.bw.movie.film.synopsis.view.CommentView;
 import com.bw.movie.film.details.view.DetailView;
 import com.bw.movie.film.synopsis.view.InputcommentsView;
 import com.bw.movie.film.synopsis.view.PraiseView;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
@@ -502,6 +505,12 @@ public class SynopsisActivity extends BaseActivity {
         });
     }
 
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+    }
 
     //暂停
     @Override
