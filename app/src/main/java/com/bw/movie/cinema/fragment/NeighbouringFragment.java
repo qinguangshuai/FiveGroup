@@ -80,8 +80,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
                 showloading();
                 neightbourPresenter.getNeightbour(1, 10);
-
-
             }
         });
     }

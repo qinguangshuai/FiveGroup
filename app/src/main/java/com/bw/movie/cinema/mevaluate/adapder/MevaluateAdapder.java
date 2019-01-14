@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.event.GoodEvent;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
@@ -32,14 +33,17 @@ import java.util.List;
  * author:张文龙(张文龙)
  * fileName:MevaluateAdapder
  */
-public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.MevaulateteViewHolder> {
+public class MevaluateAdapder extends BaseRecyclerAdapter<MevaluateAdapder.MevaulateteViewHolder,MevaResultBean> {
     private List<MevaResultBean> list;
     private Context mContext;
 
-    public MevaluateAdapder(List<MevaResultBean> list, Context mContext) {
+    public MevaluateAdapder(List<MevaResultBean> listData, Context context) {
+        super(listData, context);
         this.list = list;
         this.mContext = mContext;
     }
+
+
 
     @NonNull
     @Override
@@ -49,29 +53,29 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MevaulateteViewHolder mevaulateteViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int i) {
         if (list.get(i).getIsGreat() == 1) {
-            mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
-            mevaulateteViewHolder.checkBox.setChecked(true);
+            ((MevaulateteViewHolder)holder).checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
+            ((MevaulateteViewHolder)holder).checkBox.setChecked(true);
         } else {
-            mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_default_hdpi);
-            mevaulateteViewHolder.checkBox.setChecked(false);
+            ((MevaulateteViewHolder)holder).checkBox.setButtonDrawable(R.drawable.com_icon_praise_default_hdpi);
+            ((MevaulateteViewHolder)holder).checkBox.setChecked(false);
         }
-        mevaulateteViewHolder.textViewname.setText(list.get(i).getCommentUserName());
-        mevaulateteViewHolder.textViewconnect.setText(list.get(i).getCommentContent());
-        mevaulateteViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getCommentHeadPic()));
+        ((MevaulateteViewHolder)holder).textViewname.setText(list.get(i).getCommentUserName());
+        ((MevaulateteViewHolder)holder).textViewconnect.setText(list.get(i).getCommentContent());
+        ((MevaulateteViewHolder)holder).simpleDraweeView.setImageURI(Uri.parse(list.get(i).getCommentHeadPic()));
         long commentTime = list.get(i).getCommentTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(commentTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        mevaulateteViewHolder.textViewtime.setText(df.format(gc.getTime()));
-        mevaulateteViewHolder.textViewmevalue.setText(list.get(i).getGreatNum() + "");
+        ((MevaulateteViewHolder)holder).textViewtime.setText(df.format(gc.getTime()));
+        ((MevaulateteViewHolder)holder).textViewmevalue.setText(list.get(i).getGreatNum() + "");
 
-       mevaulateteViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((MevaulateteViewHolder)holder).checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                EventBus.getDefault().post(new GoodEvent(isChecked,mevaulateteViewHolder.checkBox,i));
+                EventBus.getDefault().post(new GoodEvent(isChecked,((MevaulateteViewHolder)holder).checkBox,i));
             }
         });
     }

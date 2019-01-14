@@ -1,8 +1,10 @@
 package com.bw.movie.cinema.Particulars;
 
+import com.bw.movie.base.BaseEntity;
+
 import java.util.List;
 
-public class ParticularsBean {
+public class ParticularsBean extends BaseEntity {
 
     private String message;
     private String status;

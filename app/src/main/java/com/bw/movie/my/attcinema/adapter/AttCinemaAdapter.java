@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attention.adapter.AttFilmAdapter;
@@ -23,15 +24,18 @@ import java.util.List;
  * author:Therefore(Lenovo)
  * fileName:AttCinemaAdapter
  */
-public class AttCinemaAdapter extends RecyclerView.Adapter<AttCinemaAdapter.MyViewHolder> {
+public class AttCinemaAdapter extends BaseRecyclerAdapter<AttCinemaAdapter.MyViewHolder,ResultBean> {
 
     private Context mContext;
     private List<ResultBean> mList;;
 
-    public AttCinemaAdapter(Context context, List<ResultBean> list) {
+    public AttCinemaAdapter(List<ResultBean> listData, Context context) {
+        super(listData, context);
         mContext = context;
-        mList = list;
+        mList = listData;
     }
+
+
 
     @NonNull
     @Override
@@ -42,22 +46,24 @@ public class AttCinemaAdapter extends RecyclerView.Adapter<AttCinemaAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-         ResultBean bean = mList.get(i);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
+        ResultBean bean = mList.get(i);
 
         String logo = bean.getLogo();
         if (logo==null){
             int launcher = R.mipmap.ic_launcher;
             String s = String.valueOf(launcher);
-            myViewHolder.simple.setImageURI(s);
+            ((MyViewHolder)holder).simple.setImageURI(s);
         }else {
             Uri uri = Uri.parse(logo);
-            myViewHolder.simple.setImageURI(uri);
+            ((MyViewHolder)holder).simple.setImageURI(uri);
         }
 
-        myViewHolder.text1.setText(bean.getName());
-        myViewHolder.text2.setText(bean.getAddress());
+        ((MyViewHolder)holder).text1.setText(bean.getName());
+        ((MyViewHolder)holder).text2.setText(bean.getAddress());
     }
+
+
 
     @Override
     public int getItemCount() {

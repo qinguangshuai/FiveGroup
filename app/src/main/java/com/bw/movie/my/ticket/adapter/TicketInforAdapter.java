@@ -94,7 +94,7 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
             nopay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    httpClick.click(v,getAdapterPosition());
+                    mHttpClick.click(v,getAdapterPosition());
                 }
             });
 

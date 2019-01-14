@@ -1,8 +1,11 @@
 package com.bw.movie.my.myinfo.updatepwd.bean;
+
+import com.bw.movie.base.BaseEntity;
+
 /*
    修改密码bean类
 * */
-public class UpdatePwdEntity {
+public class UpdatePwdEntity extends BaseEntity {
 
 
     private String message;

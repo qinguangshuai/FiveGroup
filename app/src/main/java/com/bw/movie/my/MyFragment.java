@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -25,10 +24,8 @@ import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
 import com.bw.movie.util.NewThread;
 import com.bw.movie.util.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

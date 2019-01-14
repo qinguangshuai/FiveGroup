@@ -122,7 +122,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         if (mList!=null && mList.size()>0){
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mAttenrecycle1.setLayoutManager(linearLayoutManager);
-            AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
+            AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter( mList,getContext());
             attCinemaAdapter.setHttpClick(new AttCinemaAdapter.HttpClick() {
                 @Override
                 public void getClick(View view, int position) {

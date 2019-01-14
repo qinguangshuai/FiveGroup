@@ -1,5 +1,6 @@
 package com.bw.movie.film.cinema.adapter;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
 import com.bw.movie.cinema.follow.bean.FollowBean;
@@ -21,15 +23,21 @@ import com.bw.movie.film.cinema.bean.CinemaResultBean;
 import com.bw.movie.util.EmptyUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.List;
+
 /*
  *作者:ash
  *TODO:
  *
  */
-public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AffililaterdAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder,CinemaBean> {
 
 
     private CinemaBean cinemaBean = new CinemaBean();
+
+    public AffililaterdAdapter(List<CinemaBean> listData, Context context) {
+        super(listData, context);
+    }
 
     public void setCinemaBean(CinemaBean cinemaBean) {
         this.cinemaBean = cinemaBean;

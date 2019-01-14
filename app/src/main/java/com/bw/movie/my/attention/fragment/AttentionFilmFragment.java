@@ -119,7 +119,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mAttenrecycle2.setLayoutManager(linearLayoutManager);
 
-            AttFilmAdapter attFilmAdapter = new AttFilmAdapter(getContext(), mList);
+            AttFilmAdapter attFilmAdapter = new AttFilmAdapter(mList,getContext());
             attFilmAdapter.setHttpClick(new AttFilmAdapter.HttpClick() {
                 @Override
                 public void getClick(View view, int position) {

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -23,20 +24,22 @@ import java.util.List;
  * author:张文龙(张文龙)
  * fileName:PartCoverFlowAdapder
  */
-public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdapder.CoverFlowViewHolder> {
+public class PartCoverFlowAdapder extends BaseRecyclerAdapter<PartCoverFlowAdapder.CoverFlowViewHolder,MovieResultBean> {
     private List<MovieResultBean> list;
     private Context mContext;
     private  int p;
+
+    public PartCoverFlowAdapder(List<MovieResultBean> listData, Context context) {
+        super(listData, context);
+        this.list = list;
+        this.mContext = mContext;
+    }
 
 
     public int getP() {
         return p;
     }
 
-    public PartCoverFlowAdapder(List<MovieResultBean> list, Context mContext) {
-        this.list = list;
-        this.mContext = mContext;
-    }
 
     @NonNull
     @Override
@@ -46,18 +49,20 @@ public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoverFlowViewHolder coverFlowViewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
         int i1 = i % list.size();
         p = i1;
-        coverFlowViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i1).getImageUrl()));
+        ((CoverFlowViewHolder)holder).simpleDraweeView.setImageURI(Uri.parse(list.get(i1).getImageUrl()));
         long releaseTime = list.get(i1).getReleaseTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(releaseTime);
-         gc.setTimeInMillis(Long.parseLong(s));
+        gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        coverFlowViewHolder.moviename_item_coveflow.setText(list.get(i1).getName()+"    "+df.format(gc.getTime()));
+        ((CoverFlowViewHolder)holder).moviename_item_coveflow.setText(list.get(i1).getName()+"    "+df.format(gc.getTime()));
     }
+
+
 
     @Override
     public int getItemCount() {

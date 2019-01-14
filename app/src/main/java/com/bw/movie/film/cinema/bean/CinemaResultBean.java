@@ -1,11 +1,13 @@
 package com.bw.movie.film.cinema.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2019/1/7    20:35
  * author:Therefore(Lenovo)
  * fileName:CinemaResultBean
  */
-public class CinemaResultBean {
+public class CinemaResultBean extends BaseEntity {
     private String address;
     private int commentTotal;
     private int distance;

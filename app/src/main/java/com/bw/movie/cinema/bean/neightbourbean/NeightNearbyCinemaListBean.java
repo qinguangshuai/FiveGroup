@@ -1,6 +1,10 @@
 package com.bw.movie.cinema.bean.neightbourbean;
 
-public class NeightNearbyCinemaListBean {
+import com.bw.movie.base.BaseEntity;
+/*
+*  NeightNearbyCinemaListBean
+* */
+public class NeightNearbyCinemaListBean extends BaseEntity {
     private String address;
     private int commentTotal;
     private int distance;
