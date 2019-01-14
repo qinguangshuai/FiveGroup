@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.model.GoodModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 public class GoodPresenter extends BasePresenter {
     private GoodModel goodModel;

@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.model.MyMessageModel;
 import com.bw.movie.my.message.view.MyMessageView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  * MyMessagePresenter

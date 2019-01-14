@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.myinfo.bean.UpDateUserInfoEntity;
 import com.bw.movie.my.myinfo.model.UpDateUserInfoModel;
 import com.bw.movie.my.myinfo.view.UpDateUserInfoView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  *  修改用户信息presenter层

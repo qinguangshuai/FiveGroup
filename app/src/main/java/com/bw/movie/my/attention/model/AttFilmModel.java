@@ -5,18 +5,13 @@ import android.os.Handler;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.my.attcinema.bean.AttCinemaUser;
-import com.bw.movie.my.attcinema.service.AttCinemaService;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.service.AttFilmService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.LogUtil;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import com.bw.movie.util.ToastUtil;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**

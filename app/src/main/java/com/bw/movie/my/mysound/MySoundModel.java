@@ -1,16 +1,15 @@
 package com.bw.movie.my.mysound;
 
+import android.os.Handler;
+
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.my.attention.bean.MyAttFilmUser;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
+import com.bw.movie.util.ToastUtil;
 
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -26,8 +25,17 @@ public class MySoundModel {
                 .subscribe(new BaseObserver<MySoundUser>(httpCallBack){
                     @Override
                     public void onNext(MySoundUser mySoundUser) {
-                        super.onNext(mySoundUser);
-                        BaseEvent.post(new ChuanUser());
+                        if (mySoundUser.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    BaseEvent.post(new ChuanUser());
+                                }
+                            }, 100);
+                        } else {
+                            super.onNext(mySoundUser);
+                        }
                     }
                 });
     }

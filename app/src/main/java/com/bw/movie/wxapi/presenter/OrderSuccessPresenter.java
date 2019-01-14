@@ -2,7 +2,7 @@ package com.bw.movie.wxapi.presenter;
 
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.model.OrderSuccessModel;
 

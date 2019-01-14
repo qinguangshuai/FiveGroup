@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.model.TicketModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 public class TiketPresenter extends BasePresenter {
     private TicketModel ticketModel;

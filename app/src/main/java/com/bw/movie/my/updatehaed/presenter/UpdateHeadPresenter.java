@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.updatehaed.bean.UpdateHeadEntity;
 import com.bw.movie.my.updatehaed.model.UpdateHeadModel;
 import com.bw.movie.my.updatehaed.view.UpdateHeadView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 import java.io.File;
 
 /*

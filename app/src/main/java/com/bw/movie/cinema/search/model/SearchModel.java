@@ -3,13 +3,10 @@ package com.bw.movie.cinema.search.model;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.search.bean.SearchBean;
 import com.bw.movie.cinema.search.service.SearchService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /*

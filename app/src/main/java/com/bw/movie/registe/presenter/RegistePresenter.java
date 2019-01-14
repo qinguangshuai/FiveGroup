@@ -4,12 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.registe.bean.RegisteUser;
 import com.bw.movie.registe.model.RegisteModel;
 import com.bw.movie.registe.view.RegisteView;
-import com.bw.movie.util.HttpCallBack;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import com.bw.movie.net.HttpCallBack;
 
 /**
  * date:2018/12/26    18:49
