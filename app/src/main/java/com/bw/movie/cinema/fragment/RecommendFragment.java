@@ -145,29 +145,31 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
                 }
             }).getFollow(greatEvent.getId());
-        } else new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
-            @Override
-            public void onDataSuccess(FollowBean followBean) {
-                if (followBean.getMessage().equals("取消关注成功")) {
-                    ToastUtil.Toast(followBean.getMessage());
-                    greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+        } else {
+            new CannelFollowPresenter(new CannelFollowView<FollowBean>() {
+                @Override
+                public void onDataSuccess(FollowBean followBean) {
+                    if (followBean.getMessage().equals("取消关注成功")) {
+                        ToastUtil.Toast(followBean.getMessage());
+                        greatEvent.getCheckBox().setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+
+                    }
 
                 }
 
-            }
+                @Override
+                public void onDataFailer(String msg) {
+                }
 
-            @Override
-            public void onDataFailer(String msg) {
-            }
+                @Override
+                public void onShowLoading() {
+                }
 
-            @Override
-            public void onShowLoading() {
-            }
-
-            @Override
-            public void onHideLoading() {
-            }
-        }).getCannelFollow(greatEvent.getId());
+                @Override
+                public void onHideLoading() {
+                }
+            }).getCannelFollow(greatEvent.getId());
+        }
     }
 
 
@@ -179,12 +181,6 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     @Override
     public void initData() {
         mRecommendPresenter.getRecommend(MainActivity.latitude + "", MainActivity.longitude1 + "", page++, 10);
-//        List<GreenDaoBean> users = queryList();
-//        ToastUtil.Toast(users.get(2).getTitle());
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//        recyRecommend.setLayoutManager(linearLayoutManager);
-//        RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
-//        recyRecommend.setAdapter(recommendErrorAdapder);
     }
 
     @Override
