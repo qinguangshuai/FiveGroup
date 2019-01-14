@@ -46,7 +46,6 @@ import butterknife.OnClick;
  * */
 public class MySoundActivity extends BaseActivity implements MySoundView<MySoundUser> {
 
-
     @BindView(R.id.soundtext)
     TextView soundtext;
     @BindView(R.id.soundrecycle)
@@ -100,13 +99,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
                mMySoundPresenter.getSound(page++);
            }
        });
-
-
     }
-
-
-
-
 
     @Override
     public void initData() {

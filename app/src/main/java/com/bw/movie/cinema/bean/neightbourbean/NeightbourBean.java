@@ -1,13 +1,10 @@
 package com.bw.movie.cinema.bean.neightbourbean;
 
 
-import com.bw.movie.base.BaseEntity;
+import java.io.Serializable;
 import java.util.List;
 
-/*
-*   NeightbourBean
-* */
-public class NeightbourBean extends BaseEntity {
+public class NeightbourBean implements Serializable {
 
     private String message;
     private String status;
@@ -36,6 +33,4 @@ public class NeightbourBean extends BaseEntity {
     public void setResult(List<NeightBourResultBean> result) {
         this.result = result;
     }
-
-
 }

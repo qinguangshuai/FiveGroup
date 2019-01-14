@@ -6,12 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, E> extends RecyclerView.Adapter {
+public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, T> extends RecyclerView.Adapter {
 
-    private List<E> listData;
+    private List<T> mListdata;
     private Context mContext;
     private final LayoutInflater mLayoutInflater;
     private boolean isShowFootView = false;
@@ -19,8 +18,8 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, E>
     protected int FOOT_TYPE = 0430;
     private OnLoadMoreListener mLoadMoreListener;
 
-    public BaseRecyclerAdapter(List<E> listData, Context context) {
-        this.listData = listData;
+    public BaseRecyclerAdapter(List<T> listData, Context context) {
+        this.mListdata = listData;
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -30,9 +29,13 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, E>
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public void setListData(List<E> listData) {
-        this.listData = listData;
+    public void setListdata(List<T> listdata) {
+        this.mListdata = listdata;
         notifyDataSetChanged();
+    }
+
+    public List<T> getListdata() {
+        return mListdata;
     }
 
     public void setLoadMore(boolean loadMore) {
@@ -66,20 +69,34 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, E>
     @Override
     public int getItemCount() {
         if ((isShowFootView || isLoadMore))
-            return listData == null ? 0 : listData.size() + 1;
-        return listData == null ? 0 : listData.size();
+            return mListdata == null ? 0 : mListdata.size() + 1;
+        return mListdata == null ? 0 : mListdata.size();
     }
 
+    //添加集合
     public void addList(List list) {
         if (list != null && list.size() > 0) {
-            listData.addAll(list);
+            mListdata.addAll(list);
         }
     }
 
-    public void deleteList(List list) {
+    //指定位置添加item
+    public void addData(int position,T data){
+        mListdata.add(position,data);
+        notifyItemChanged(position);
+    }
+
+    //删除集合
+    public void removeList(List list) {
         if (list != null && list.size() > 0) {
-            listData.removeAll(list);
+            mListdata.removeAll(list);
         }
+    }
+
+    //指定位置删除item
+    public void removeData(int position){
+        mListdata.remove(position);
+        notifyItemChanged(position);
     }
 
     /**
@@ -101,20 +118,15 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, E>
     }
 
     public void clearList() {
-        listData.clear();
+        mListdata.clear();
     }
 
-    public E getItem(int posito) {
-        return listData.get(posito);
+    public T getItem(int posito) {
+        return mListdata.get(posito);
     }
 
-    public void append(E o) {
-        listData.add(o);
-        notifyItemInserted(listData.size() - 2);
-    }
-
-    public void appendHead(E o) {
-        listData.add(0, o);
-        notifyItemInserted(0);
+    public void append(T t) {
+        mListdata.add(t);
+        notifyItemInserted(mListdata.size() - 2);
     }
 }

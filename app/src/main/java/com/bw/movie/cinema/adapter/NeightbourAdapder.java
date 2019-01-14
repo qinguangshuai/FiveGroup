@@ -19,6 +19,7 @@ import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
+import com.bw.movie.my.ticket.bean.ResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,16 +29,15 @@ import java.util.List;
 /*
 * NeightbourAdapder
 * */
-public class NeightbourAdapder extends BaseRecyclerAdapter<NeightbourAdapder.NeightbourViewHolder,NeightBourResultBean> {
-    List<NeightBourResultBean> listBeans;
+public class NeightbourAdapder extends BaseRecyclerAdapter<RecyclerView.ViewHolder,NeightBourResultBean> {
+    private List<NeightBourResultBean> listBeans;
     private Context mContext;
 
-    public NeightbourAdapder(List<NeightBourResultBean> listData, Context context) {
-        super(listData, context);
-        this.listBeans=listData;
-        this.mContext=context;
+    public NeightbourAdapder(List<NeightBourResultBean> list, Context context) {
+        super(context);
+        this.listBeans = list;
+        this.mContext = context;
     }
-
 
     @NonNull
     @Override
@@ -97,8 +97,6 @@ public class NeightbourAdapder extends BaseRecyclerAdapter<NeightbourAdapder.Nei
             });
         }
     }
-
-
 
     private getListener getListener;
 
