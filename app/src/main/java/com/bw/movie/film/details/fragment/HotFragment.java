@@ -95,7 +95,7 @@ public class HotFragment extends BaseFragment {
         mSwipeDetailsfragment.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPopularBeanObservable(1,10,true);
+                getPopularBeanObservable(1, 10, true);
             }
         });
 
@@ -103,7 +103,7 @@ public class HotFragment extends BaseFragment {
             @Override
             public void info() {
                 mScrollWindow.showPop(mRecyclerViewDetailsfragment);
-                getPopularBeanObservable(1,10,true);
+                getPopularBeanObservable(1, 10, true);
             }
         });
 
@@ -122,7 +122,7 @@ public class HotFragment extends BaseFragment {
                     public void run() {
                         mScrollWindow.dismissPop();
                     }
-                },1000);
+                }, 1000);
             }
 
             @Override
@@ -141,8 +141,6 @@ public class HotFragment extends BaseFragment {
             }
         }).getPopularBeanObservable(page, count);
     }
-
-
 
 
     //set数据
