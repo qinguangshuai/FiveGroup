@@ -1,6 +1,7 @@
 package com.bw.movie.my.myinfo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -75,7 +76,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
             mMxingbie.setText("男");
         } else if ("2".equals(sex1)) {
             mMxingbie.setText("女");
-            
         }
 
         String email = intent.getStringExtra("email");

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.login.LoginActivity;
@@ -17,7 +16,6 @@ import com.bw.movie.my.myinfo.updatepwd.bean.UpdatePwdEntity;
 import com.bw.movie.my.myinfo.updatepwd.presenter.UpdatePwdPresenter;
 import com.bw.movie.my.myinfo.updatepwd.view.UpdatePwdView;
 import com.bw.movie.util.SpUtil;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
