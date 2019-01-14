@@ -7,6 +7,7 @@ import com.bw.movie.login.service.LoginService;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
 import com.bw.movie.util.SpUtil;
+import com.bw.movie.util.ToastUtil;
 
 import java.lang.reflect.Method;
 
@@ -29,7 +30,20 @@ public class LoginModel {
                     @Override
                     public void onNext(LoginUser loginUser) {
                         super.onNext(loginUser);
-
+                        if (loginUser.getStatus().equals("0000")) {
+                            SpUtil.put("userId", String.valueOf(loginUser.getResult().getUserId()));
+                            SpUtil.put("birthday", loginUser.getResult().getUserInfo().getBirthday());
+                            SpUtil.put(Constant.HEADPIC, loginUser.getResult().getUserInfo().getHeadPic());
+                            SpUtil.put("lastLoginTime", loginUser.getResult().getUserInfo().getLastLoginTime());
+                            SpUtil.put(Constant.NICKNAME, loginUser.getResult().getUserInfo().getNickName());
+                            SpUtil.put(Constant.PHONE, loginUser.getResult().getUserInfo().getPhone());
+                            SpUtil.put("id", loginUser.getResult().getUserInfo().getId());
+                            SpUtil.put("sex", loginUser.getResult().getUserInfo().getSex());
+                            SpUtil.put("message",loginUser.getMessage());
+                            SpUtil.put(Constant.SESSIONId, loginUser.getResult().getSessionId());
+                        }else {
+                            ToastUtil.Toast("没数据");
+                        }
                     }
                 });
     }
