@@ -43,7 +43,7 @@
         android:layout_height="@dimen/dp_90"
         android:layout_margin="@dimen/dp_10"
         android:background="@drawable/my_shape"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/my_info"

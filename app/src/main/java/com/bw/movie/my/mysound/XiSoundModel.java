@@ -21,5 +21,4 @@ public class XiSoundModel {
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseObserver<XiSoundUser>(httpCallBack));
     }
-
 }

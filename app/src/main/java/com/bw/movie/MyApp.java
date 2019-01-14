@@ -2,7 +2,10 @@ package com.bw.movie;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 
 import com.bw.movie.error.UnCatchExceptionHandler;
 import com.bw.movie.greenbean.DaoMaster;
@@ -57,7 +60,6 @@ import org.greenrobot.greendao.database.Database;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "GreenBean" : "GreenBean-db");
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
-
     }
 
     public DaoSession getDaoSession() {

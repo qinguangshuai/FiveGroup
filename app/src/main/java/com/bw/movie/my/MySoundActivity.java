@@ -1,5 +1,6 @@
 package com.bw.movie.my;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,8 +13,12 @@ import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.film.popwindow.ScrollWindow;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.mysound.MySoundAdapter;
 import com.bw.movie.my.mysound.MySoundPresenter;
 import com.bw.movie.my.mysound.MySoundUser;
@@ -27,6 +32,8 @@ import com.bw.movie.my.mysound.XiSoundUser;
 import com.bw.movie.my.mysound.XiSoundView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 import butterknife.BindView;
@@ -61,6 +68,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
         ButterKnife.bind(this);
         showloading();
         mMySoundPresenter = new MySoundPresenter(this);
+        BaseEvent.register(this);
     }
 
     @Override
@@ -135,6 +143,13 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @Override
     public void initVariable() {
 
+    }
+
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity(this);
     }
 
     @Override
@@ -231,5 +246,11 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     @OnClick(R.id.soundimage)
     public void onViewClicked() {
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseEvent.unregister(this);
     }
 }

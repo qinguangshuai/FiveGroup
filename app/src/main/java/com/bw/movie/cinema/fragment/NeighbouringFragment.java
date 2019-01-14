@@ -1,11 +1,15 @@
 package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
@@ -14,7 +18,6 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
-import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
@@ -45,6 +48,9 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     @BindView(R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.ying)
+    ImageView ying;
+    Unbinder unbinder1;
     private NeightbourPresenter neightbourPresenter;
 
     @Override
@@ -72,8 +78,8 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
             @Override
             public void onRefresh() {
 
-                        showloading();
-                        neightbourPresenter.getNeightbour(1, 10);
+                showloading();
+                neightbourPresenter.getNeightbour(1, 10);
 
 
             }
@@ -156,9 +162,35 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         showContent();
         swipeRefreshLayout.setRefreshing(false);
         final List<NeightBourResultBean> nearbyCinemaList = neightbourBean.getResult();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyNeightbor.setLayoutManager(linearLayoutManager);
         NeightbourAdapder neightbourAdapder = new NeightbourAdapder(nearbyCinemaList, getContext());
+        recyNeightbor.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                ying.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int childCount = linearLayoutManager.getChildCount();
+                    int itemCount = linearLayoutManager.getItemCount();
+                    int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                    if ((childCount + firstVisibleItemPosition) >= itemCount) {
+                        ying.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                recyNeightbor.scrollToPosition(0);
+                                ying.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+                }
+            }
+        });
         recyNeightbor.setAdapter(neightbourAdapder);
 
         neightbourAdapder.setGetListener(new NeightbourAdapder.getListener() {
@@ -185,7 +217,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
     @Override
     public void onDataFailer(String msg) {
-      showEmpty();
+        showEmpty();
     }
 
     @Override
@@ -203,5 +235,13 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

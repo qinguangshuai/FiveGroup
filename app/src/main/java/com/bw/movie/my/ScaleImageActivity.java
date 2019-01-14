@@ -28,7 +28,7 @@ public class ScaleImageActivity extends AppCompatActivity {
     private float mScaleWidth, mScaleHeight;
     //前后两个图片的位移距离
     private float mTransitionX, mTransitionY;
-   //动画时间
+    //动画时间
     public static final int DURATION = 300;
     //动画插值器
     private static final AccelerateDecelerateInterpolator DEFAULT_INTERPOLATOR = new AccelerateDecelerateInterpolator();
@@ -114,7 +114,7 @@ public class ScaleImageActivity extends AppCompatActivity {
         mScaleWidth = (float) targetWidth / mSourceWidth;
         mScaleHeight = (float) targetHeight / mSourceHeigth;
 //x,y上的位移
-        mTransitionX = (mTargetRect.left+(mTargetRect.right - mTargetRect.left) / 2)
+        mTransitionX = (mTargetRect.left + (mTargetRect.right - mTargetRect.left) / 2)
                 - (mSourceBounds.left + (mSourceBounds.right - mSourceBounds.left) / 2);
         mTransitionY = (mTargetRect.top + (mTargetRect.bottom - mTargetRect.top) / 2)
                 - (mSourceBounds.top + (mSourceBounds.bottom - mSourceBounds.top) / 2);
@@ -163,6 +163,4 @@ public class ScaleImageActivity extends AppCompatActivity {
 // 使用退场动画
         chuExitAnim();
     }
-
-
 }

@@ -1,7 +1,9 @@
 package com.bw.movie.my.attcinema.model;
 
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
+import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.service.AttCinemaService;
 import com.bw.movie.util.HttpCallBack;
@@ -23,7 +25,13 @@ public class AttCinemaModel extends BaseModel {
         OkHttpUtil.get().createa(AttCinemaService.class).getCinema(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<AttCinemaUser>(httpCallBack));
+                .subscribe(new BaseObserver<AttCinemaUser>(httpCallBack){
+                    @Override
+                    public void onNext(AttCinemaUser attCinemaUser) {
+                        super.onNext(attCinemaUser);
+                        BaseEvent.post(new ChuanUser());
+                    }
+                });
     }
 
 }

@@ -6,8 +6,10 @@ import android.os.SystemClock;
 import android.widget.Toast;
 
 import com.bw.movie.MyApp;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
+import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.login.bean.LoginUser;
@@ -33,6 +35,12 @@ public class TicketformationModel extends BaseModel {
                 .getTicket(page, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<TicketFoemationEntity>(httpCallBack));
+                .subscribe(new BaseObserver<TicketFoemationEntity>(httpCallBack){
+                    @Override
+                    public void onNext(TicketFoemationEntity ticketFoemationEntity) {
+                        super.onNext(ticketFoemationEntity);
+                        BaseEvent.post(new ChuanUser());
+                    }
+                });
     }
 }

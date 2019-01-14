@@ -1,5 +1,6 @@
 package com.bw.movie.my.myoption.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,9 +14,15 @@ import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BaseEvent;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.myoption.bean.MyOptionEntity;
 import com.bw.movie.my.myoption.prosenter.MyOptionPresenter;
 import com.bw.movie.my.myoption.view.MyOpitionView;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,16 +46,16 @@ public class MyOpitionActivity extends BaseActivity<MyOptionPresenter> implement
     private boolean isSuccess = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initView() {
         ButterKnife.bind(this);
-
-
+        BaseEvent.register(this);
     }
 
-    @Override
-    public void initView() {
-
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity(this);
     }
 
     @Override
@@ -123,5 +130,11 @@ public class MyOpitionActivity extends BaseActivity<MyOptionPresenter> implement
     @Override
     public void onHideLoading() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseEvent.unregister(this);
     }
 }

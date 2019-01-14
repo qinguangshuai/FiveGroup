@@ -1,6 +1,8 @@
 package com.bw.movie.my.mysound;
 
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseObserver;
+import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.util.HttpCallBack;
 import com.bw.movie.util.OkHttpUtil;
@@ -21,7 +23,13 @@ public class MySoundModel {
         OkHttpUtil.get().createa(MySoundService.class).getSound(page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new BaseObserver<MySoundUser>(httpCallBack));
+                .subscribe(new BaseObserver<MySoundUser>(httpCallBack){
+                    @Override
+                    public void onNext(MySoundUser mySoundUser) {
+                        super.onNext(mySoundUser);
+                        BaseEvent.post(new ChuanUser());
+                    }
+                });
     }
 
 }

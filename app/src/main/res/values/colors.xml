@@ -6,4 +6,8 @@
     <color name="colorRed">#ffffff</color>
     <color name="white">#ffffff</color>
     <color name="themColor">#D81B60</color>
+
+    <color name="bg">#DDDDDD</color>
+    <!--文字颜色-->
+    <color name="color_txt">#9C9C9C</color>
 </resources>
