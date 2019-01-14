@@ -2,21 +2,17 @@ package com.bw.movie.film.fragment;
 
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.Constant;
 import com.bw.movie.R;
-import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
-import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.error.AppManager;
 import com.bw.movie.film.adapter.RootAdapter;
 import com.bw.movie.film.details.activity.DetailsActivity;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
@@ -41,9 +37,7 @@ import com.bw.movie.film.show.playing.view.PlayingView;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
-import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.ToastUtil;
-import com.lljjcoder.citypickerview.widget.CityPicker;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,7 +57,7 @@ import butterknife.Unbinder;
  * 正在热映 具备加载功能   √
  * 正在上映 具备加载功能   √
  */
-public class FilmFragment extends BaseFragment {
+public class FilmFragment extends BaseFragment  {
     @BindView(R.id.file_carouse)
     ImageView fileCarouse;
     @BindView(R.id.file_text)
@@ -77,7 +71,6 @@ public class FilmFragment extends BaseFragment {
     @BindView(R.id.RecyclerView_filefragment)
     RecyclerView mRecyclerViewFilefragment;
     private Intent intent;
-    private CityPicker mCityPicker;
 
     //初始化控件
     @Override
@@ -93,34 +86,6 @@ public class FilmFragment extends BaseFragment {
         getPlayingBeanObservable(1, 10, false);
         //intent 传值 准备
         intent = new Intent(getActivity(), DetailsActivity.class);
-
-        //滚轮文字的大小
-        //滚轮文字的颜色
-        //省份滚轮是否循环显示
-        //城市滚轮是否循环显示
-        //地区（县）滚轮是否循环显示
-        //滚轮显示的item个数
-        //滚轮item间距
-        mCityPicker = new CityPicker.Builder(getActivity())
-                .textSize(20)//滚轮文字的大小
-                .title("城市选择")
-                .backgroundPop(0xa0000000)
-                .titleBackgroundColor("#0CB6CA")
-                .titleTextColor("#000000")
-                .backgroundPop(0xa0000000)
-                .confirTextColor("#000000")
-                .cancelTextColor("#000000")
-                .province("xx省")
-                .city("xx市")
-                .district("xx区")
-                .textColor(Color.parseColor("#000000"))//滚轮文字的颜色
-                .provinceCyclic(true)//省份滚轮是否循环显示
-                .cityCyclic(false)//城市滚轮是否循环显示
-                .districtCyclic(false)//地区（县）滚轮是否循环显示
-                .visibleItemsCount(7)//滚轮显示的item个数
-                .itemPadding(10)//滚轮item间距
-                .onlyShowProvinceAndCity(false)
-                .build();
     }
 
     @Subscribe
@@ -131,31 +96,6 @@ public class FilmFragment extends BaseFragment {
     //点击事件
     @Override
     public void initListener() {
-        fileCarouse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCityPicker.show();
-                mCityPicker.setOnCityItemClickListener(new CityPicker.OnCityItemClickListener() {
-                    @Override
-                    public void onSelected(String... strings) {
-                        String province = strings[0];
-                        //城市
-                        String city = strings[1];
-                        //区县
-                        String cid = strings[2];
-                        //邮编
-                        String code = strings[3];
-                        fileText.setText(city + " " + cid);
-                        BaseEvent.post(new AddressUser(city, cid));
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                });
-            }
-        });
     }
 
     //加载数据
@@ -192,7 +132,13 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
-                EventBus.getDefault().post(new NetEvent(0x0002));
+//                EventBus.getDefault().post(new NetEvent(0x0002));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
+                    }
+                },1000);
             }
 
             @Override
@@ -270,13 +216,6 @@ public class FilmFragment extends BaseFragment {
             public void onHideLoading() {
             }
         }).getFollowBeanObservable(a);
-    }
-
-    @Subscribe
-    public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(getActivity(),LoginActivity.class);
-        getActivity().startActivity(intent);
-        getActivity().finish();
     }
 
     //请求取消关注

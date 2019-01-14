@@ -14,7 +14,6 @@ import com.bw.movie.film.show.playing.adapter.PlayAdapter;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
 import com.bw.movie.film.show.playing.presenter.PlayingPresenter;
 import com.bw.movie.film.show.playing.view.PlayingView;
-import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 
@@ -46,8 +45,7 @@ public class PlayingFragment extends BaseFragment {
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        setRecyclerViewData();
-        setData();
+
     }
 
     @Override
@@ -57,7 +55,8 @@ public class PlayingFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        setRecyclerViewData();
+        setData();
     }
 
     @Override

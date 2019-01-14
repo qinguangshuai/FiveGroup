@@ -14,7 +14,6 @@ import com.bw.movie.film.show.popular.adapter.PopularPlayAdapter;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
-import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 
@@ -47,8 +46,7 @@ public class PopularFragment extends BaseFragment {
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        setRecyclerViewData();
-        setData();
+
     }
 
     @Override
@@ -58,7 +56,8 @@ public class PopularFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        setRecyclerViewData();
+        setData();
     }
 
     @Override
