@@ -131,9 +131,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onDestroy() {
         super.onDestroy();
         mErrorView.unRegister();
-        if (receiver!=null){
+        if (receiver != null) {
             unregisterReceiver(receiver);
         }
+
     }
 
     //显示内容

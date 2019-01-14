@@ -367,6 +367,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @OnClick(R.id.login_fan)
     public void onViewClicked() {
-        AppManager.getAppManager().finishActivity(this);
+        AppManager.getAppManager().finishAllActivity();
     }
 }
