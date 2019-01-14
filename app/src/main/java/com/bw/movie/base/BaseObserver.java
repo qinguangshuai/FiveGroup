@@ -39,6 +39,8 @@ public class BaseObserver<T> implements Observer<T> {
     private HttpCallBack<T> mCallback;
     private int errorCode = -1111;
     private String errorMsg = "未知的错误！";
+    private int a = 0;
+
 
     public BaseObserver(HttpCallBack<T> httpCallBack) {
         this.mCallback = httpCallBack;
@@ -50,12 +52,17 @@ public class BaseObserver<T> implements Observer<T> {
     public void onSubscribe(Disposable d) {
         //如果没有网络!
         if (!NewThread.getmNewThread().isNetWork(MyApp.sContext)) {
-            ToastUtil.Toast("网络错误,请检查网络!");
+            if(a==0){
+                ToastUtil.Toast("网络错误,请检查网络!");
+            }
+            a++;
             /*try {
                 throw new Exception("网络错误,请检查网络!");
             } catch (Exception e) {
                 e.printStackTrace();
             }*/
+        }else {
+            a=0;
         }
     }
 

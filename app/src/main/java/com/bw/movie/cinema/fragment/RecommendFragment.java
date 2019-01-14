@@ -197,6 +197,8 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     public void initVarisble() {
 
 
+
+
     }
 
     @Override
