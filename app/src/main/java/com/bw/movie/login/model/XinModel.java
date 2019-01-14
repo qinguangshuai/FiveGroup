@@ -3,12 +3,10 @@ package com.bw.movie.login.model;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.XinUser;
 import com.bw.movie.login.service.XinService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**

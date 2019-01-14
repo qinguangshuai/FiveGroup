@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.bw.movie.cinema.recommend.model.recommendModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 public class RecommendPresenter extends BasePresenter {
     private recommendModel recommendModel;

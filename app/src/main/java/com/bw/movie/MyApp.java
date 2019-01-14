@@ -8,7 +8,7 @@ import com.bw.movie.error.UnCatchExceptionHandler;
 import com.bw.movie.greenbean.DaoMaster;
 import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.util.LogUtil;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.OkHttpUtil;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -57,7 +57,6 @@ import org.greenrobot.greendao.database.Database;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "GreenBean" : "GreenBean-db");
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
-
     }
 
     public DaoSession getDaoSession() {

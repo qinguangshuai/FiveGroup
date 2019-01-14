@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.fragment.CinemaFragment;
 import com.bw.movie.custom.CustomViewpager;
@@ -50,9 +51,6 @@ import butterknife.ButterKnife;
  */
 public class ShowActivity extends BaseActivity {
 
-    @BindView(R.id.showMap)
-    MapView showMap;
-    AMap aMap;
     private RadioGroup rg_show;
     private CustomViewpager vp_show;
     private RadioButton film_show;
@@ -205,7 +203,7 @@ public class ShowActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+        BaseEvent.register(this);
         vp_show = findViewById(R.id.vp_show);
         rg_show = (RadioGroup) findViewById(R.id.rg_show);
         film_show = (RadioButton) findViewById(R.id.film_show);
@@ -339,6 +337,6 @@ public class ShowActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        BaseEvent.unregister(this);
     }
 }

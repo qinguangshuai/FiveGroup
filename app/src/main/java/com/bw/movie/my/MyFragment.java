@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
-import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.attention.activity.MyattentionActivity;
 import com.bw.movie.my.message.activity.MyMessage;
 import com.bw.movie.my.message.bean.Portrait;
 import com.bw.movie.my.mylatest.activity.MyLatestVersionActivity;
 import com.bw.movie.my.myoption.activity.MyOpitionActivity;
 import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
+import com.bw.movie.util.NewThread;
 import com.bw.movie.util.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -55,6 +55,7 @@ public class MyFragment extends BaseFragment {
     LinearLayout mMyOpinion;
     @BindView(R.id.my_new)
     LinearLayout mMyNew;
+    Unbinder unbinder1;
     private View view;
     private Unbinder unbinder;
 
@@ -66,7 +67,7 @@ public class MyFragment extends BaseFragment {
     @Override
     public void initListener() {
         String headPic = SpUtil.getString("headPic", "");
-        Uri uri=Uri.parse(headPic);
+        Uri uri = Uri.parse(headPic);
         mMyTouxiang.setImageURI(uri);
         String name = SpUtil.getString("nickName", "");
         mMyName.setText(name);
@@ -100,8 +101,8 @@ public class MyFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void setXiang(Portrait portrait){
-        Uri uri=Uri.parse(portrait.getImage());
+    public void setXiang(Portrait portrait) {
+        Uri uri = Uri.parse(portrait.getImage());
         mMyTouxiang.setImageURI(uri);
     }
 
@@ -117,37 +118,50 @@ public class MyFragment extends BaseFragment {
             default:
                 break;
             case R.id.my_sound:
-                startActivity(new Intent(getContext(),MySoundActivity.class));
+                startActivity(new Intent(getContext(), MySoundActivity.class));
                 break;
             case R.id.my_touxiang:
-                Intent intent=new Intent(getContext(),ScaleImageActivity.class);
-                //创建一个Rect,报错当前imageview的位置信息
-                Rect rect=new Rect();
-                //将位置信息赋给rect
-                mMyTouxiang.getGlobalVisibleRect(rect);
-                intent.setSourceBounds(rect);
-                //跳转
-                startActivity(intent);
-                //屏蔽activity跳转的默认专场效果
-                getActivity().overridePendingTransition(0,0);
+                boolean netWork = NewThread.getmNewThread().isNetWork(MyApp.sContext);
+                if (netWork) {
+                    Intent intent = new Intent(getContext(), ScaleImageActivity.class);
+                    //创建一个Rect,报错当前imageview的位置信息
+                    Rect rect = new Rect();
+                    //将位置信息赋给rect
+                    mMyTouxiang.getGlobalVisibleRect(rect);
+                    intent.setSourceBounds(rect);
+                    //跳转
+                    startActivity(intent);
+                    //屏蔽activity跳转的默认专场效果
+                    getActivity().overridePendingTransition(0, 0);
+                } else {
+                    showEmpty();
+                }
                 break;
             case R.id.my_name:
                 break;
             case R.id.my_info:
-                startActivity(new Intent(getContext(),MyMessage.class));
+                startActivity(new Intent(getContext(), MyMessage.class));
                 break;
             case R.id.my_love:
-                startActivity(new Intent(getContext(),MyattentionActivity.class));
+                startActivity(new Intent(getContext(), MyattentionActivity.class));
                 break;
             case R.id.my_message:
-                startActivity(new Intent(getContext(),Ticket_nformationActivity.class));
+                startActivity(new Intent(getContext(), Ticket_nformationActivity.class));
                 break;
             case R.id.my_opinion:
-                startActivity(new Intent(getContext(),MyOpitionActivity.class));
+                startActivity(new Intent(getContext(), MyOpitionActivity.class));
                 break;
             case R.id.my_new:
-                startActivity(new Intent(getContext(),MyLatestVersionActivity.class));
+                startActivity(new Intent(getContext(), MyLatestVersionActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

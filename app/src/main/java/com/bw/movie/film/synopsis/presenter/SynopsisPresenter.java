@@ -6,7 +6,7 @@ import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.synopsis.bean.InputcommentsBean;
 import com.bw.movie.film.synopsis.bean.PraiseBean;
 import com.bw.movie.film.synopsis.model.SynopsisModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  *作者:ash

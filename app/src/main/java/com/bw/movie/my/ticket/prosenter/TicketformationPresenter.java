@@ -4,8 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.model.TicketformationModel;
-import com.bw.movie.my.ticket.view.TicketformationView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  * 购票记录p层

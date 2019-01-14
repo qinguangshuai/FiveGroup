@@ -42,6 +42,7 @@ public interface UrlUtil {
     String COMMENTREPLY = "movie/v1/verify/commentReply";
     //点赞
     String MOVIECOMMENTGREAT = "movie/v1/verify/movieCommentGreat";
+    //关注影片
     String FINDCINEMAPAGELIST = "cinema/v1/verify/findCinemaPageList?count=10";
     String FINDMOVIEPAGELIST = "movie/v1/verify/findMoviePageList?count=5";
     //.根据用户ID查询用户信息

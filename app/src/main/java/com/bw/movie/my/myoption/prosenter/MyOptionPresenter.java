@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.myoption.bean.MyOptionEntity;
 import com.bw.movie.my.myoption.model.MyOptionModel;
 import com.bw.movie.my.myoption.view.MyOpitionView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
   我的意见presenter层
