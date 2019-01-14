@@ -1,7 +1,5 @@
 package com.bw.movie.net;
 
-import com.bw.movie.util.OKHeaderInterceptor;
-import com.bw.movie.util.OkLogInterceptor;
 import com.bw.movie.util.UrlUtil;
 
 import okhttp3.OkHttpClient;
