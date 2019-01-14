@@ -296,7 +296,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             getSp();
 
             Intent intent = new Intent(this, MainActivity.class);
-            finish();
             startActivity(intent);
             PendingIntent pIntent = PendingIntent.getActivity(this,
                     requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -362,8 +361,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             }
         });
     }
-
-
 
     @OnClick(R.id.login_fan)
     public void onViewClicked() {

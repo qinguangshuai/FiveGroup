@@ -191,11 +191,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="八维移动通信学院优秀作品"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="#222"/>
 </LinearLayout>

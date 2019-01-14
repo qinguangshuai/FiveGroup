@@ -83,6 +83,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         Intent intent = new Intent(getActivity(),LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+        AppManager.getAppManager().finishAllActivity();
     }
 
     @Override

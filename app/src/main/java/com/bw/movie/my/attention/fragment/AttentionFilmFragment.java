@@ -61,7 +61,9 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
         Intent intent = new Intent(getActivity(),LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+//        AppManager.getAppManager().finishAllActivity();
     }
+
 
     @Override
     public void initData() {
@@ -153,6 +155,4 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     public void onHideLoading() {
 
     }
-
-
 }
