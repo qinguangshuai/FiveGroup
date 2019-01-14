@@ -29,16 +29,7 @@ public class LoginModel {
                     @Override
                     public void onNext(LoginUser loginUser) {
                         super.onNext(loginUser);
-                        SpUtil.put("sessionId", loginUser.getResult().getSessionId());
-                        SpUtil.put("userId", loginUser.getResult().getUserId());
-                        SpUtil.put("birthday", loginUser.getResult().getUserInfo().getBirthday());
-                        SpUtil.put(Constant.HEADPIC, loginUser.getResult().getUserInfo().getHeadPic());
-                        SpUtil.put("lastLoginTime", loginUser.getResult().getUserInfo().getLastLoginTime());
-                        SpUtil.put(Constant.NICKNAME, loginUser.getResult().getUserInfo().getNickName());
-                        SpUtil.put(Constant.PHONE, loginUser.getResult().getUserInfo().getPhone());
-                        SpUtil.put("id", loginUser.getResult().getUserInfo().getId());
-                        SpUtil.put("sex", loginUser.getResult().getUserInfo().getSex());
-                        SpUtil.put("message",loginUser.getMessage());
+
                     }
                 });
     }

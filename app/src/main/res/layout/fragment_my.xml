@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="260dp"
         android:background="@drawable/my_background">
 
         <ImageView
@@ -34,7 +34,8 @@
             android:layout_centerHorizontal="true"
             android:text="冬天来了"
             android:textColor="#fff"
-            android:textSize="@dimen/dp_20" />
+            android:textSize="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"/>
 
     </RelativeLayout>
 

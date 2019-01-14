@@ -278,7 +278,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void onDataSuccess(LoginUser loginUser) {
         String s = loginUser.getMessage();
+
         if (s.contains("成功")) {
+
+            SpUtil.put("sessionId", loginUser.getResult().getSessionId());
+            SpUtil.put("userId", loginUser.getResult().getUserId());
+            SpUtil.put("birthday", loginUser.getResult().getUserInfo().getBirthday());
+            SpUtil.put(Constant.HEADPIC, loginUser.getResult().getUserInfo().getHeadPic());
+            SpUtil.put("lastLoginTime", loginUser.getResult().getUserInfo().getLastLoginTime());
+            SpUtil.put(Constant.NICKNAME, loginUser.getResult().getUserInfo().getNickName());
+            SpUtil.put(Constant.PHONE, loginUser.getResult().getUserInfo().getPhone());
+            SpUtil.put("id", loginUser.getResult().getUserInfo().getId());
+            SpUtil.put("sex", loginUser.getResult().getUserInfo().getSex());
+            SpUtil.put("message",loginUser.getMessage());
+
             Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
             mMessage = loginUser.getMessage();
             mSessionId = loginUser.getResult().getSessionId();
@@ -296,7 +309,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             getSp();
 
             Intent intent = new Intent(this, MainActivity.class);
-            finish();
+
             startActivity(intent);
             PendingIntent pIntent = PendingIntent.getActivity(this,
                     requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
