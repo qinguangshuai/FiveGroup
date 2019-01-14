@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.model.FollowModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /**
  * date:2018/12/27    17:29

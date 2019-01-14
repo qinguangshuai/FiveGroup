@@ -4,12 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.model.LoginModel;
 import com.bw.movie.login.view.LoginView;
-import com.bw.movie.util.HttpCallBack;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import com.bw.movie.net.HttpCallBack;
 
 /**
  * date:2018/12/26    8:25

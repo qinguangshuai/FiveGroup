@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="冬天来了"
+            android:text="登录/注册"
             android:textColor="#fff"
             android:textSize="@dimen/dp_20" />
 
@@ -43,7 +43,7 @@
         android:layout_height="@dimen/dp_90"
         android:layout_margin="@dimen/dp_10"
         android:background="@drawable/my_shape"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/my_info"
@@ -191,11 +191,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="八维移动通信学院优秀作品"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="#222"/>
 </LinearLayout>

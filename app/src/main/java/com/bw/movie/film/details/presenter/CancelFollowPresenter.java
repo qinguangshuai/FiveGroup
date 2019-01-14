@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.model.CancelFollowModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  *作者:ash

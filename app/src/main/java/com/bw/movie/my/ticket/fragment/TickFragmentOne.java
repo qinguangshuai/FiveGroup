@@ -1,21 +1,28 @@
 package com.bw.movie.my.ticket.fragment;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
 import com.bw.movie.film.popwindow.ScrollWindow;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
 import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -39,6 +46,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+        BaseEvent.register(this);
     }
 
     @Override
@@ -59,7 +67,14 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
                 mTicketformationPresenter.getTicet(page++,5);
             }
         });
+    }
 
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+        AppManager.getAppManager().finishAllActivity();
     }
 
     @Override
@@ -87,6 +102,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        BaseEvent.unregister(this);
     }
 
     @Override

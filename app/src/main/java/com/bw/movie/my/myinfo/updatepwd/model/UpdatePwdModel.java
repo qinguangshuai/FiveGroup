@@ -9,13 +9,11 @@ import com.bw.movie.error.AppManager;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.myinfo.updatepwd.bean.UpdatePwdEntity;
 import com.bw.movie.my.myinfo.updatepwd.service.UpdatePwdService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import com.bw.movie.util.ToastUtil;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /*

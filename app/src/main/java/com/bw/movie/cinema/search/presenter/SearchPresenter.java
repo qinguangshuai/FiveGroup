@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.search.bean.SearchBean;
 import com.bw.movie.cinema.search.model.SearchModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  *影院搜索页面(presenter)

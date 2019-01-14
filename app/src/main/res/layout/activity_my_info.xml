@@ -227,8 +227,7 @@
             android:id="@+id/my_update"
             android:layout_marginTop="@dimen/dp_8"
             android:background="@drawable/cinema_shape_5"
-            android:text="修改信息"
-            />
+            android:text="修改信息" />
     </LinearLayout>
 
     <!--返回键，悬在展示页面的上面，每个界面都是这样做-->

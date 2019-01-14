@@ -3,11 +3,10 @@ package com.bw.movie.cinema.cannelfollow.model;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.cannelfollow.service.CannelFollowService;
 import com.bw.movie.cinema.follow.bean.FollowBean;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
-import io.reactivex.Observer;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**

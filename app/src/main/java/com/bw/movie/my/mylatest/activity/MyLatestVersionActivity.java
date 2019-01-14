@@ -12,10 +12,16 @@ import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.fragment.ChuanUser;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.mylatest.bean.MyLatestUser;
 import com.bw.movie.my.mylatest.prosenter.MyLatestPresenter;
 import com.bw.movie.my.mylatest.view.MyLatestView;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -30,15 +36,10 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
     private String mDownloadUrl;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initView() {
         mMyLatestPresenter = new MyLatestPresenter(this);
         mMyLatestPresenter.getVersion();
-    }
-
-    @Override
-    public void initView() {
-
+        BaseEvent.register(this);
     }
 
     @Override
@@ -84,6 +85,19 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
     @Override
     public void onDataFailer(String msg) {
 
+    }
+
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseEvent.unregister(this);
     }
 
     protected void showUpdataDialog() {

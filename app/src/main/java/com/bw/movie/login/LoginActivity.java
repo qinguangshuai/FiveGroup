@@ -296,7 +296,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             getSp();
 
             Intent intent = new Intent(this, MainActivity.class);
-            finish();
             startActivity(intent);
             PendingIntent pIntent = PendingIntent.getActivity(this,
                     requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -319,6 +318,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     public void getSp() {
+
+        SpUtil.put("sessionId", mSessionId);
+        SpUtil.put("userId", mUserId);
+        SpUtil.put("birthday", mBirthday);
+        SpUtil.put(Constant.HEADPIC, mHeadPic);
+        SpUtil.put("lastLoginTime", mLastLoginTime);
+        SpUtil.put(Constant.NICKNAME, mNickName);
+        SpUtil.put(Constant.PHONE, mPhone);
+        SpUtil.put("id", mId);
+        SpUtil.put("sex", mSex);
+        SpUtil.put("message",mMessage);
+
         if (loginbox.isChecked()) {
             SharedPreferences.Editor edit = sp.edit();
             edit.putString("phone", mEdit1);
@@ -363,10 +374,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         });
     }
 
-
-
     @OnClick(R.id.login_fan)
     public void onViewClicked() {
-        AppManager.getAppManager().finishActivity(this);
+        AppManager.getAppManager().finishAllActivity();
     }
 }

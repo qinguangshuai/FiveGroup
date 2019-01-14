@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.myinfo.updatepwd.bean.UpdatePwdEntity;
 import com.bw.movie.my.myinfo.updatepwd.model.UpdatePwdModel;
 import com.bw.movie.my.myinfo.updatepwd.view.UpdatePwdView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
    修改密码presenter

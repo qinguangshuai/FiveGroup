@@ -200,7 +200,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         showContent();
         swipeRefreshLayout.setRefreshing(false);
         List<GreenDaoBean> users = queryList();
-        ToastUtil.Toast(users.get(2).getTitle());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyNeightbor.setLayoutManager(linearLayoutManager);
         RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
