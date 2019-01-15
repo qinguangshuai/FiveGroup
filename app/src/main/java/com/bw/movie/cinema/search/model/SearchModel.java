@@ -5,7 +5,6 @@ import com.bw.movie.cinema.search.bean.SearchBean;
 import com.bw.movie.cinema.search.service.SearchService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

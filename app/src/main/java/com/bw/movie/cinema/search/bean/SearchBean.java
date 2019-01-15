@@ -1,7 +1,6 @@
 package com.bw.movie.cinema.search.bean;
 
 import com.bw.movie.base.BaseEntity;
-
 import java.util.List;
 /*
 * SearchBean

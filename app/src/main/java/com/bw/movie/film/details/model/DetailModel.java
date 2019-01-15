@@ -5,7 +5,6 @@ import com.bw.movie.film.details.bean.DetailBean;
 import com.bw.movie.film.details.service.DetailService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

@@ -45,7 +45,6 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
     RecyclerView mRecyclerView;
     @BindView(R.id.ticketSwipeRefreshLayout2)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    Unbinder unbinder1;
     private TicketformationPresenter mTicketformationPresenter;
     private List<ResultBean> list;
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());

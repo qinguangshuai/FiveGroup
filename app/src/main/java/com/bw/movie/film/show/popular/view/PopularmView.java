@@ -1,7 +1,6 @@
 package com.bw.movie.film.show.popular.view;
 
 import com.bw.movie.base.IBaseView;
-import com.bw.movie.film.show.popular.bean.PopularBean;
 
 /*
  *作者:ash

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
@@ -22,7 +21,6 @@ import com.bw.movie.film.cinema.bean.CinemaBean;
 import com.bw.movie.film.cinema.bean.CinemaResultBean;
 import com.bw.movie.util.EmptyUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import java.util.List;
 
 /*

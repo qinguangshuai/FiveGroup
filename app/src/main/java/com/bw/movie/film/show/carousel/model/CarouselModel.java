@@ -5,7 +5,6 @@ import com.bw.movie.film.show.carousel.bean.CarouselBean;
 import com.bw.movie.film.show.carousel.service.CarouserlService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

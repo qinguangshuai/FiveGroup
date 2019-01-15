@@ -1,7 +1,6 @@
 package com.bw.movie.cinema.mdetails.view;
 
 import com.bw.movie.base.IBaseView;
-import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
 
 /**
  * date:2018/12/28    18:32

@@ -9,16 +9,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.film.event.PraiseEvent;
 import com.bw.movie.film.synopsis.bean.ResultBean;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

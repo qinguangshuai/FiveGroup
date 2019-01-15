@@ -1,7 +1,6 @@
 package com.bw.movie.film.details.bean;
 
 import com.bw.movie.film.synopsis.popwindow.adapter.StillsItem;
-
 import java.io.Serializable;
 import java.util.List;
 

@@ -1,13 +1,10 @@
 package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
-
 import com.bw.movie.Constant;
 import com.bw.movie.MainActivity;
 import com.bw.movie.MyApp;
@@ -16,34 +13,27 @@ import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
-import com.bw.movie.cinema.adapter.NeightbourAdapder;
 import com.bw.movie.cinema.adapter.RecommendErrorAdapder;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
-import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.event.GreatEvent;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
-import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.recommend.RecommendEvent;
 import com.bw.movie.cinema.recommend.adapder.RecommendAdapder;
 import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.bw.movie.cinema.recommend.bean.ResultBean;
 import com.bw.movie.cinema.recommend.presenter.RecommendPresenter;
 import com.bw.movie.cinema.recommend.view.RecommentView;
-import com.bw.movie.cinema.view.NeightbourView;
 import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.greenbean.GreenDaoBean;
 import com.bw.movie.greenbean.GreenDaoBeanDao;
 import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.greendao.query.Query;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

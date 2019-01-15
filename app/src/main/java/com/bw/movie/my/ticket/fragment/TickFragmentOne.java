@@ -123,7 +123,6 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
             attFilmAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
                 @Override
                 public void click(View view, int position) {
-                 //  WeiXinUtil.weiXinPay(ticketFoemationEntity);
                     new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
                         @Override
                         public void onDataSuccess(OrderSuccessBean orderSuccessBean) {

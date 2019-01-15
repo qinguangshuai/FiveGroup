@@ -3,35 +3,19 @@ package com.bw.movie.loading;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bw.movie.MainActivity;
-import com.bw.movie.MyApp;
 import com.bw.movie.R;
-import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
-import com.bw.movie.greenbean.DaoSession;
-import com.bw.movie.greenbean.GreenDaoBean;
-import com.bw.movie.greenbean.GreenDaoBeanDao;
-import com.bw.movie.login.LoginActivity;
 import com.bw.movie.start.StartActivity;
-import com.bw.movie.util.NewThread;
 import com.bw.movie.util.ToastUtil;
-
-import org.greenrobot.greendao.query.Query;
-
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

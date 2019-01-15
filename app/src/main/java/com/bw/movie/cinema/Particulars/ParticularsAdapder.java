@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
@@ -24,19 +23,19 @@ import recycler.coverflow.RecyclerCoverFlow;
 
 
 public class ParticularsAdapder extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private int id;
+    private int mId;
     private Context mContext;
     private List<String> mList;
     private ParticularsViewHolder mParticularsViewHolder;
     private FindMovieScheduleListAdapder mFindMovieScheduleListAdapder = new FindMovieScheduleListAdapder();
-    private int cinema;
+    private int mCinema;
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public void setCinema(int cinema) {
-        cinema = cinema;
+        mCinema = cinema;
     }
 
     private List<FindResultBean> resultBeans;

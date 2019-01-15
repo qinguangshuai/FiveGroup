@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
@@ -23,11 +22,8 @@ import com.bw.movie.my.attention.presenter.AttFilmPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
-
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -60,7 +56,6 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
         Intent intent = new Intent(getActivity(),LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
-//        AppManager.getAppManager().finishAllActivity();
     }
 
 

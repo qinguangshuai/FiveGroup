@@ -1,12 +1,10 @@
 package com.bw.movie.film.synopsis.popwindow.adapter;
 
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.bw.movie.R;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-
 import java.util.List;
 
 public class StillsAdapder extends BaseMultiItemQuickAdapter<StillsItem, BaseViewHolder> {

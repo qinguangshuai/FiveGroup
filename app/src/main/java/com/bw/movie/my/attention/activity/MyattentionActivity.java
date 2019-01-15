@@ -7,14 +7,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.my.attention.fragment.AttentionFilmFragment;
 import com.bw.movie.my.attcinema.fragment.AttentioncinemaFragment;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

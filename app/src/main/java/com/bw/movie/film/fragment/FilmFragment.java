@@ -2,14 +2,12 @@ package com.bw.movie.film.fragment;
 
 
 import android.content.Intent;
-import android.os.Handler;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
@@ -44,12 +42,9 @@ import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.ToastUtil;
 import com.lljjcoder.citypickerview.widget.CityPicker;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -193,12 +188,6 @@ public class FilmFragment extends BaseFragment {
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
                 EventBus.getDefault().post(new NetEvent(0x0002));
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
-//                    }
-//                },1000);
             }
 
             @Override

@@ -2,7 +2,6 @@ package com.bw.movie.film.details.service;
 
 import com.bw.movie.film.details.bean.DetailBean;
 import com.bw.movie.util.UrlUtil;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

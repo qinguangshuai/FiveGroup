@@ -1,15 +1,11 @@
 package com.bw.movie.my.ticket.model;
 
-import android.content.Intent;
 import android.os.Handler;
 
-import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.error.AppManager;
-import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.service.TicketFormationService;
 import com.bw.movie.net.HttpCallBack;
@@ -37,8 +33,6 @@ public class TicketformationModel extends BaseModel {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    /*MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
-                                    AppManager.getAppManager().finishAllActivity();*/
                                     BaseEvent.post(new ChuanUser());
                                 }
                             }, 100);

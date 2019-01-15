@@ -4,7 +4,6 @@ import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.synopsis.bean.InputcommentsBean;
 import com.bw.movie.film.synopsis.bean.PraiseBean;
 import com.bw.movie.util.UrlUtil;
-
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

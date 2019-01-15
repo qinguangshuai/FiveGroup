@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseRecyclerAdapter;
-import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
-import com.bw.movie.my.attention.adapter.AttFilmAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;

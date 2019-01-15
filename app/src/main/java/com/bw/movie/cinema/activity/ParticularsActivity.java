@@ -371,7 +371,6 @@ public class ParticularsActivity extends BaseActivity {
         return null;
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

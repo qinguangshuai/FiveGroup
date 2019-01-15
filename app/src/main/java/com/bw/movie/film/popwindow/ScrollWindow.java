@@ -1,15 +1,11 @@
 package com.bw.movie.film.popwindow;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -66,9 +62,6 @@ public class ScrollWindow {
 
 
     public void showPop(View v){
-//        Resources resources = mContext.getResources();
-//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-//        int h = displayMetrics.heightPixels;
         mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
         mPopupWindow.showAtLocation(v.getRootView(),Gravity.BOTTOM,0,0);
 

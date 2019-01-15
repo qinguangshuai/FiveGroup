@@ -1,7 +1,6 @@
 package com.bw.movie.cinema.Particulars;
 
 import com.bw.movie.base.BaseEntity;
-
 import java.util.List;
 
 public class ParticularsBean extends BaseEntity {

@@ -10,15 +10,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.event.GoodEvent;
 import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -75,17 +72,6 @@ public class MevaluateAdapder extends BaseRecyclerAdapter<MevaluateAdapder.Mevau
         });
     }
 
- /*   @Override
-    public void onBindViewHolder(@NonNull final MevaulateteViewHolder mevaulateteViewHolder, final int i) {
-
-    }*/
-
-    public void good(){
-
-    }
-
-
-
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
@@ -110,6 +96,5 @@ public class MevaluateAdapder extends BaseRecyclerAdapter<MevaluateAdapder.Mevau
             checkBox = itemView.findViewById(R.id.mevalchaeckbox);
         }
     }
-
 
 }
