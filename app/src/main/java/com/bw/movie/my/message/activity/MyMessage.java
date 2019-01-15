@@ -204,6 +204,8 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         SpUtil.remove("loginbox");
         SpUtil.remove("headPic");
         SpUtil.remove("nickName");
+        SpUtil.remove("sessionId");
+        SpUtil.remove("userId");
 
         startActivity(new Intent(this, LoginActivity.class));
         AppManager.getAppManager().finishAllActivity();
