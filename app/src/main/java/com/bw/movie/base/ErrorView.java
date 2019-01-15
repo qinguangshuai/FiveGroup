@@ -6,13 +6,10 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.util.NetWorkChangeEvent;
-
 import org.greenrobot.eventbus.Subscribe;
 
 /**

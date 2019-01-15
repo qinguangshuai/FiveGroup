@@ -3,23 +3,16 @@ package com.bw.movie.base;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.bw.movie.R;
-
 import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
-
 import com.bw.movie.util.StatusBarUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.AbstractDraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 /*
  *  baseactivity

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
-import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
@@ -33,18 +32,16 @@ import java.util.List;
 /*
 * NeightbourAdapder
 * */
-public class RecommendAdapder extends BaseRecyclerAdapter<RecommendAdapder.NeightbourViewHolder,RecommendBean.ResultBean> {
+public class RecommendAdapder extends RecyclerView.Adapter<RecommendAdapder.NeightbourViewHolder> {
     List<RecommendBean.ResultBean> listBeans;
     private Context mContext;
 
-    public RecommendAdapder(List<RecommendBean.ResultBean> listData, Context context) {
-        super(listData, context);
+
+
+    public RecommendAdapder(List< RecommendBean.ResultBean> listBeans, Context mContext) {
         this.listBeans = listBeans;
         this.mContext = mContext;
     }
-
-
-
 
     @NonNull
     @Override
@@ -54,29 +51,28 @@ public class RecommendAdapder extends BaseRecyclerAdapter<RecommendAdapder.Neigh
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int i) {
+    public void onBindViewHolder(@NonNull final NeightbourViewHolder neightbourViewHolder, final int i) {
         if (listBeans.get(i).getFollowCinema() == 1) {
-            ((NeightbourViewHolder)holder).checkBox.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
-            ((NeightbourViewHolder)holder).checkBox.setChecked(true);
+            neightbourViewHolder.checkBox.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
+            neightbourViewHolder.checkBox.setChecked(true);
 
         } else {
-            ((NeightbourViewHolder)holder).checkBox.setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
-            ((NeightbourViewHolder)holder).checkBox.setChecked(false);
+            neightbourViewHolder.checkBox.setButtonDrawable(R.mipmap.com_icon_collection_default_hdpi);
+            neightbourViewHolder.checkBox.setChecked(false);
 
         }
-        ((NeightbourViewHolder)holder).textViewname.setText(listBeans.get(i).getName());
-        ((NeightbourViewHolder)holder).textViewaddress.setText(listBeans.get(i).getAddress());
-        ((NeightbourViewHolder)holder).textViewk.setText(listBeans.get(i).getCommentTotal() + "km");
-        ((NeightbourViewHolder)holder).simpleDraweeView.setImageURI(Uri.parse(listBeans.get(i).getLogo()));
-        ((NeightbourViewHolder)holder).checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        neightbourViewHolder.textViewname.setText(listBeans.get(i).getName());
+        neightbourViewHolder.textViewaddress.setText(listBeans.get(i).getAddress());
+        neightbourViewHolder.textViewk.setText(listBeans.get(i).getCommentTotal() + "km");
+        neightbourViewHolder.simpleDraweeView.setImageURI(Uri.parse(listBeans.get(i).getLogo()));
+        neightbourViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 //                    EventBus.getDefault().post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
-                BaseEvent.post(new GreatEvent(isChecked,((NeightbourViewHolder)holder).checkBox,listBeans.get(i).getId()));
+                BaseEvent.post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

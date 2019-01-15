@@ -3,7 +3,6 @@ package com.bw.movie.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-
 import com.bw.movie.MyApp;
 /*
 *  spUtil 工具类

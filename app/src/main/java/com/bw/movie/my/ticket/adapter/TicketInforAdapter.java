@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
-
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;

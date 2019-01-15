@@ -1,14 +1,10 @@
 package com.bw.movie.base;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import com.bw.movie.R;
 import com.bw.movie.util.RecyclerViewScrollUtil;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
 import java.util.List;
 
 public abstract class BaseRecyclerListActivity<T extends BaseRecyclerAdapter, E extends BasePresenter> extends BaseActivity<E> {

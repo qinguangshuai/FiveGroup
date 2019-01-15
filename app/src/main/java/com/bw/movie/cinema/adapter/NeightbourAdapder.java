@@ -15,15 +15,7 @@ import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.event.NeighbourEvent;
-import com.bw.movie.cinema.follow.bean.FollowBean;
-import com.bw.movie.cinema.follow.presenter.FollowProsenter;
-import com.bw.movie.cinema.follow.view.FollowView;
-import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
-import com.bw.movie.my.ticket.bean.ResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
 
 /*

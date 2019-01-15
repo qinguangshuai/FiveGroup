@@ -1,11 +1,9 @@
 package com.bw.movie.base;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
-
 import com.bw.movie.R;
 /*
 * StatusView

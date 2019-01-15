@@ -21,9 +21,7 @@ import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindResultBean;
 import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
 import com.bw.movie.cinema.findmovieschedulelist.view.FindMovieScheduleListView;
-
 import java.util.List;
-
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 

@@ -1,6 +1,5 @@
 package com.bw.movie.cinema.findmovieschedulelist.adapder;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,12 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bw.movie.MyApp;
 import com.bw.movie.R;
-import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindResultBean;
-
 import java.util.ArrayList;
 import java.util.List;
 

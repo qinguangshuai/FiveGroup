@@ -11,7 +11,6 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
@@ -21,11 +20,7 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
-import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
-import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
-import com.bw.movie.cinema.findmovieschedulelist.view.FindMovieScheduleListView;
 import com.bw.movie.cinema.good.bean.GoodBean;
-import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
 import com.bw.movie.cinema.good.view.GoodView;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
@@ -37,13 +32,10 @@ import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -59,7 +51,6 @@ public class ParticularsActivity extends BaseActivity {
     TextView partaddress;
     @BindView(R.id.partimage)
     SimpleDraweeView partimage;
-
     @BindView(R.id.recylerview_part)
     RecyclerView recylerviewPart;
     @BindView(R.id.finnishback)
@@ -86,6 +77,7 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setLayoutManager(linearLayoutManager);
         particularsAdapder.setId(id);
         showloading();
+        
     }
 
     @Override
