@@ -112,9 +112,8 @@ public class SeatSelectionActivity extends BaseActivity {
     @Override
     public void initListener() {
 
-
     }
-
+    
     public void getIsPopup(View v) {
         View view = View.inflate(SeatSelectionActivity.this, R.layout.seatpopuitem, null);
         WindowManager windowManager = getWindowManager();
