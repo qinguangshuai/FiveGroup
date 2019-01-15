@@ -18,7 +18,10 @@ import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.custom.SeatTable;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.presenter.TiketPresenter;
 import com.bw.movie.my.ticket.ticketnet.view.TicketView;
@@ -28,6 +31,9 @@ import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
 import com.bw.movie.wxapi.view.OrderSuccessView;
+
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -81,6 +87,13 @@ public class SeatSelectionActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
     }
 
     //订单

@@ -7,7 +7,9 @@ import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.model.OrderSuccessModel;
 
 public class OrderSuccessPresenter extends BasePresenter {
+
  private OrderSuccessModel mOrderSuccessModel;
+
     public OrderSuccessPresenter(IBaseView iBaseView) {
         super(iBaseView);
         mOrderSuccessModel = new OrderSuccessModel();

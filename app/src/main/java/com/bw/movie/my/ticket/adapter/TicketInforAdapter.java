@@ -100,7 +100,6 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
         }
     }
 
-
     private HttpClick mHttpClick;
 
     public void setHttpClick(HttpClick httpClick) {
