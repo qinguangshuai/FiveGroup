@@ -23,6 +23,7 @@ import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.presenter.TiketPresenter;
 import com.bw.movie.my.ticket.ticketnet.view.TicketView;
 import com.bw.movie.util.MDSUtil;
+import com.bw.movie.util.ToastUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
@@ -63,8 +64,13 @@ public class SeatSelectionActivity extends BaseActivity {
                 sure.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getZhiFu(sizes);
-                        getIsPopup(v);
+                        if (sizes==0){
+                            ToastUtil.Toast("请选择作为后下单");
+                        }else{
+                            getZhiFu(sizes);
+                            getIsPopup(v);
+                        }
+
                     }
                 });
             }

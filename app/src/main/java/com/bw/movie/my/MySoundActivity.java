@@ -74,19 +74,11 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     public void initListener() {
         mMySoundPresenter.getSound(page);
 
-      /* RecyclerViewScrollUtil.Refresh(mSounSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
-           @Override
-           public void info() {
-               showloading();
-               mMySoundPresenter.getSound(page);
 
-
-           }
-       });*/
         mSounSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showloading();
+
                 mMySoundPresenter.getSound(page);
             }
         });
@@ -94,7 +86,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
        RecyclerViewScrollUtil.Scroll(mSoundrecycle, true, new RecyclerViewScrollUtil.onEvent() {
            @Override
            public void info() {
-               showloading();
+
                mScrollWindow.showPop(mSoundrecycle);
                mMySoundPresenter.getSound(page++);
            }
@@ -188,7 +180,8 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
 
                         @Override
                         public void onDataFailer(String msg) {
-
+                           showContent();
+                           showEmpty();
                         }
 
                         @Override
@@ -206,7 +199,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             mMySoundAdapter.notifyDataSetChanged();
             mSoundrecycle.setAdapter(mMySoundAdapter);
         }else{
-            showEmpty();
+           ToastUtil.Toast("sorry,没有更多数据了");
         }
 
 

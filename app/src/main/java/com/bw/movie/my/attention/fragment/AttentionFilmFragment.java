@@ -21,6 +21,7 @@ import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.bean.ResultBean;
 import com.bw.movie.my.attention.presenter.AttFilmPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
+import com.bw.movie.util.ToastUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -127,7 +128,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
             });
             mAttenrecycle2.setAdapter(attFilmAdapter);
         }else{
-            showEmpty();
+            ToastUtil.Toast("sorry,没有更多数据了");
         }
 
         mSwipeRefreshLayout.setRefreshing(false);
@@ -141,6 +142,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
 
     @Override
     public void onDataFailer(String msg) {
+        showContent();
          showEmpty();
     }
 

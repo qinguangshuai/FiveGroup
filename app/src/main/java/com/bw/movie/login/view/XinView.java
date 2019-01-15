@@ -9,6 +9,6 @@ import com.bw.movie.login.bean.XinUser;
  * author:Therefore(Lenovo)
  * fileName:LoginView
  */
-public interface XinView<T> extends IBaseView<XinUser> {
+public interface XinView<T> extends IBaseView<T> {
 
 }

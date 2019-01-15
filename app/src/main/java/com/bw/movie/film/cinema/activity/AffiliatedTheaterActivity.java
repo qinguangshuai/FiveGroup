@@ -51,7 +51,7 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
         neightbourPresenter.getNeightbour(1, 10);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
-        }
+    }
         setmRecyAffiliated();
     }
 

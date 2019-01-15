@@ -40,12 +40,12 @@ public class PlayingFragment extends BaseFragment {
     SwipeRefreshLayout mSwipeDetailsfragment;
     @BindView(R.id.RecyclerView_detailsfragment)
     RecyclerView mRecyclerViewDetailsfragment;
-    Unbinder mUnbinder;
+    Unbinder unbinder;
 
     @Override
     public void initView() {
-        mUnbinder = ButterKnife.bind(this, rootView);
-
+        unbinder = ButterKnife.bind(this, rootView);
+        showloading();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class PlayingFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
     //set recyclerview 数据
@@ -91,7 +91,7 @@ public class PlayingFragment extends BaseFragment {
         mSwipeDetailsfragment.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPlayingBeanObservable(1,10,true);
+                getPlayingBeanObservable(1, 10, true);
             }
         });
 
@@ -99,7 +99,7 @@ public class PlayingFragment extends BaseFragment {
             @Override
             public void info() {
                 mScrollWindow.showPop(mRecyclerViewDetailsfragment);
-                getPlayingBeanObservable(1,10,true);
+                getPlayingBeanObservable(1, 10, true);
             }
         });
     }
@@ -109,18 +109,21 @@ public class PlayingFragment extends BaseFragment {
         new PlayingPresenter(new PlayingView<PlayingBean>() {
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
+
                 mSwipeDetailsfragment.setRefreshing(false);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mScrollWindow.dismissPop();
                     }
-                },1000);
+                }, 1000);
             }
 
             @Override
             public void onDataFailer(String msg) {
-                ToastUtil.Toast(msg + "sorry");
+                showContent();
+                mSwipeDetailsfragment.setRefreshing(false);
+                showEmpty();
             }
 
             @Override
@@ -136,22 +139,24 @@ public class PlayingFragment extends BaseFragment {
     }
 
 
-
     //set数据
     public void setData() {
-        EventBus.getDefault().post(new JumpLgoinEvent(true));
+        EventBus.getDefault().post(new JumpLgoinEvent(0x0002));
         new PlayingPresenter(new PlayingView<PlayingBean>() {
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
+                showContent();
                 List<PlayingBean.ResultBean> result = playingBean.getResult();
                 mPlayAdapter.setPlayResult(playingBean.getResult());
                 mPlayAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(false));
+                EventBus.getDefault().post(new JumpLgoinEvent(0x0001));
             }
 
             @Override
             public void onDataFailer(String msg) {
-                ToastUtil.Toast(msg + "sorry");
+                EventBus.getDefault().post(new JumpLgoinEvent(0x0000));
+                showContent();
+                showEmpty();
             }
 
             @Override

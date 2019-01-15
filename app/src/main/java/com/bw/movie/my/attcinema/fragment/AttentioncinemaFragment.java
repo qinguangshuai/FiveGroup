@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
@@ -22,6 +23,7 @@ import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.bean.ResultBean;
 import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
+import com.bw.movie.util.ToastUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -61,7 +63,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showloading();
+//                showloading();
               mAttCinemaPresenter.getCinema(page);
 
             }
@@ -132,7 +134,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
             });
             mAttenrecycle1.setAdapter(attCinemaAdapter);
         }else{
-            showEmpty();
+            ToastUtil.Toast("sorry:没有数据了");
         }
 
 
@@ -148,6 +150,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
 
     @Override
     public void onDataFailer(String msg) {
+        showContent();
         showEmpty();
     }
 

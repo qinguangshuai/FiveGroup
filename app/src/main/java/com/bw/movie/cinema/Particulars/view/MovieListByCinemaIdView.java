@@ -8,5 +8,5 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
  * author:张文龙(张文龙)
  * fileName:MovieListByCinemaIdView
  */
-public interface MovieListByCinemaIdView<T> extends IBaseView<MovieListByCinemaIdBean> {
+public interface MovieListByCinemaIdView<T> extends IBaseView<T> {
 }

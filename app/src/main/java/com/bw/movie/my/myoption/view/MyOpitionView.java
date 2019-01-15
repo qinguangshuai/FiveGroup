@@ -6,5 +6,5 @@ import com.bw.movie.my.myoption.bean.MyOptionEntity;
 /*
    我的意见view层
 * */
-public interface MyOpitionView<T> extends IBaseView<MyOptionEntity> {
+public interface MyOpitionView<T> extends IBaseView<T> {
 }

@@ -105,9 +105,12 @@ public class DetailsActivity extends BaseActivity {
     //加载页面
     @Subscribe
     public void login(JumpLgoinEvent jumpLgoinEvent){
-        if(jumpLgoinEvent.isB()){
+        if(jumpLgoinEvent.getA()==0x0002){
             showloading();
-        }else {
+        }else if (jumpLgoinEvent.getA()==0x0000){
+            showContent();
+            showEmpty();
+        }else{
             showContent();
         }
     }

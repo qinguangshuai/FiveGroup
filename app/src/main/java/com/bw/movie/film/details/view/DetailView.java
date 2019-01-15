@@ -8,6 +8,6 @@ import com.bw.movie.film.details.bean.DetailBean;
  *TODO:
  *
  */
-public interface DetailView<T> extends IBaseView<DetailBean> {
+public interface DetailView<T> extends IBaseView<T> {
 
 }

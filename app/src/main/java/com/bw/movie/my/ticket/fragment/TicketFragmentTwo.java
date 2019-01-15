@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
@@ -21,6 +22,11 @@ import com.bw.movie.my.ticket.bean.ResultBean;
 import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
+import com.bw.movie.util.ToastUtil;
+import com.bw.movie.util.WeiXinUtil;
+import com.bw.movie.wxapi.bean.OrderSuccessBean;
+import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
+import com.bw.movie.wxapi.view.OrderSuccessView;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -32,20 +38,23 @@ import butterknife.Unbinder;
 
 public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketFoemationEntity> {
 
+
     Unbinder unbinder;
     int page = 1;
     @BindView(R.id.ticket_twoRecycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.ticketSwipeRefreshLayout2)
     SwipeRefreshLayout mSwipeRefreshLayout;
+    Unbinder unbinder1;
     private TicketformationPresenter mTicketformationPresenter;
-    private List<ResultBean> mList;
+    private List<ResultBean> list;
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
 
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         BaseEvent.register(this);
+        showloading();
     }
 
     @Override
@@ -98,12 +107,37 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
 
     @Override
     public void onDataSuccess(TicketFoemationEntity ticketFoemationEntity) {
-        mList = ticketFoemationEntity.getResult();
-        if (mList != null && mList.size() > 0) {
+        showContent();
+        list = ticketFoemationEntity.getResult();
+        if (list != null && list.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mRecyclerView.setLayoutManager(linearLayoutManager);
+            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list, getContext());
+            attFilmAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
+                @Override
+                public void click(View view, int position) {
+                    new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
+                        @Override
+                        public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
+                            WeiXinUtil.weiXinPay(orderSuccessBean);
 
-            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(mList, getContext());
+                        }
+
+                        @Override
+                        public void onDataFailer(String msg) {
+                        }
+
+                        @Override
+                        public void onShowLoading() {
+                        }
+
+                        @Override
+                        public void onHideLoading() {
+
+                        }
+                    }).getOeder(1, list.get(position).getOrderId());
+                }
+            });
             mRecyclerView.setAdapter(attFilmAdapter);
             mSwipeRefreshLayout.setRefreshing(false);
             new Handler().postDelayed(new Runnable() {
@@ -113,12 +147,13 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
                 }
             }, 1000);
         } else {
-            showEmpty();
+            ToastUtil.Toast("sorry,数据暂无更新");
         }
     }
 
     @Override
     public void onDataFailer(String msg) {
+        showContent();
         showEmpty();
     }
 

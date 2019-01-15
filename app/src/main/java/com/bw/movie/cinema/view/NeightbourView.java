@@ -8,5 +8,5 @@ import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
  * author:Therefore(Lenovo)
  * fileName:NeightbourView
  */
-public interface NeightbourView<T> extends IBaseView<NeightbourBean> {
+public interface NeightbourView<T> extends IBaseView<T> {
 }

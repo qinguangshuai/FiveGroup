@@ -6,5 +6,5 @@ import com.bw.movie.my.message.bean.MyMessageEntity;
 /*
 *   MyMessageView
 * */
-public interface MyMessageView<T> extends IBaseView<MyMessageEntity> {
+public interface MyMessageView<T> extends IBaseView<T> {
 }

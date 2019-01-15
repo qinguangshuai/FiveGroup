@@ -8,6 +8,6 @@ import com.bw.movie.film.show.popular.bean.PopularBean;
  *TODO:
  *   热映
  */
-public interface PopularmView<T>  extends IBaseView<PopularBean> {
+public interface PopularmView<T>  extends IBaseView<T> {
 
 }

@@ -7,5 +7,5 @@ import com.bw.movie.film.show.hot.bean.HotPlayBean;
  *作者:ash
  *TODO:
  *   热门
- */public interface HotPlayView<T> extends IBaseView<HotPlayBean> {
+ */public interface HotPlayView<T> extends IBaseView<T> {
 }

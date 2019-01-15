@@ -14,10 +14,23 @@ package com.bw.movie.film.event;
  *
  */
 public class JumpLgoinEvent {
-    private boolean  b ;
+    private boolean b;
+    private int resher;
+
+    public void setA(int resher) {
+        this.resher = resher;
+    }
+
+    public int getA() {
+        return resher;
+    }
 
     public JumpLgoinEvent(boolean b) {
         this.b = b;
+    }
+
+    public JumpLgoinEvent(int resher) {
+        this.resher = resher;
     }
 
     public boolean isB() {

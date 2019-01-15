@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
@@ -55,6 +56,8 @@ public class MyFragment extends BaseFragment {
     LinearLayout mMyOpinion;
     @BindView(R.id.my_new)
     LinearLayout mMyNew;
+    @BindView(R.id.my_yao)
+    LinearLayout mMyYao;
     Unbinder unbinder1;
     private Unbinder mUnbinder;
 
@@ -71,6 +74,12 @@ public class MyFragment extends BaseFragment {
         String name = SpUtil.getString("nickName", "");
         mMyName.setText(name);
         EventBus.getDefault().register(this);
+        mMyYao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            startActivity(new Intent(getActivity(),ShakeActivity.class));
+            }
+        });
     }
 
     @Override

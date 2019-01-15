@@ -3,6 +3,7 @@ package com.bw.movie.film.synopsis.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -100,17 +101,17 @@ public class SynopsisActivity extends BaseActivity {
     Button mBuySynopsis;
     @BindView(R.id.imagereturnsynopsis)
     ImageView imagereturnsynopsis;
-    private WeakCurrencyAdapter<String> mAdapter;
+    private WeakCurrencyAdapter<String> adapter;
     private View mTrail;
     private View mStills;
     private View mReview;
     private View mDatail;
     private int a = 1;
     private int id;
-    private PopupWindow mPopupWindow;
-    private PopupWindow mPopupWindow2;
-    private PopupWindow mPopupWindow3;
-    private PopupWindow mPopupWindow4;
+    private PopupWindow popupWindow;
+    private PopupWindow popupWindow2;
+    private PopupWindow popupWindow3;
+    private PopupWindow popupWindow4;
     private boolean flag;
     private PopupWindow4Adapter mPopupWindow4Adapter = new PopupWindow4Adapter();
     private ScrollWindow mScrollWindow = new ScrollWindow(this);
@@ -131,6 +132,7 @@ public class SynopsisActivity extends BaseActivity {
         setmReview();
         getCommentData(id, a, 10);
         mPopupWindow4Adapter.notifyDataSetChanged();
+        showloading();
     }
 
     @Override
@@ -198,7 +200,7 @@ public class SynopsisActivity extends BaseActivity {
 
     //判断并销毁视频 的 播放
     public void isPlay() {
-        if (mPopupWindow2.isShowing()) {
+        if (popupWindow2.isShowing()) {
 
         } else {
             if (JCVideoPlayer.backPress()) {
@@ -218,7 +220,7 @@ public class SynopsisActivity extends BaseActivity {
             }
         });
 
-        mAdapter = new WeakCurrencyAdapter<String>(this, R.layout.item_diycard) {
+        adapter = new WeakCurrencyAdapter<String>(this, R.layout.item_diycard) {
             @Override
             public void notifyItemView(WeakCurrencyViewHold holder, String item, int position) {
                 Uri uri = Uri.parse(item);
@@ -227,7 +229,7 @@ public class SynopsisActivity extends BaseActivity {
                 img.setImageURI(uri);
             }
         };
-        mCardSynopsis.setAdapter(mAdapter);
+        mCardSynopsis.setAdapter(adapter);
     }
 
     //请求评论数据
@@ -268,12 +270,13 @@ public class SynopsisActivity extends BaseActivity {
         new DetailPresenter(new DetailView<DetailBean>() {
             @Override
             public void onDataSuccess(final DetailBean detailBean) {
+                showContent();
                 //拆装
                 DetailBean.ResultBean result = detailBean.getResult();
                 //获取图片集合
                 List<String> posterList = result.getPosterList();
                 //将数据装进适配器
-                mAdapter.refreshData(posterList);
+                adapter.refreshData(posterList);
                 //给tv 赋值
                 mTitleSynopsis.setText(result.getName());
                 //红心
@@ -307,6 +310,8 @@ public class SynopsisActivity extends BaseActivity {
 
             @Override
             public void onDataFailer(String msg) {
+                showContent();
+                showEmpty();
             }
 
             @Override
@@ -343,7 +348,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPopupWindow.dismiss();
+                popupWindow.dismiss();
             }
         });
         //查找控件
@@ -380,7 +385,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPopupWindow2.dismiss();
+                popupWindow2.dismiss();
                 isPlay();
 
             }
@@ -402,7 +407,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPopupWindow3.dismiss();
+                popupWindow3.dismiss();
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -428,7 +433,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPopupWindow4.dismiss();
+                popupWindow4.dismiss();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -542,24 +547,25 @@ public class SynopsisActivity extends BaseActivity {
         int height = windowManager.getDefaultDisplay().getHeight();
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
-                mPopupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
-                mPopupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                popupWindow.setAnimationStyle(R.style.popwin_anim_style);
+                popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
-                mPopupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                mPopupWindow2.setAnimationStyle(R.style.popwin_anim_style);
-                mPopupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                popupWindow2.setAnimationStyle(R.style.popwin_anim_style);
+                popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Stills_synopsis:
-                mPopupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                mPopupWindow3.setAnimationStyle(R.style.popwin_anim_style);
-                mPopupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                popupWindow3.setAnimationStyle(R.style.popwin_anim_style);
+                popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
-                mPopupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                mPopupWindow4.setAnimationStyle(R.style.popwin_anim_style);
-                mPopupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                popupWindow4.setAnimationStyle(R.style.popwin_anim_style);
+                popupWindow4.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
     }

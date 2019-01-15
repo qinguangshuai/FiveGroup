@@ -8,5 +8,5 @@ import com.bw.movie.my.mylatest.bean.MyLatestUser;
  * author:Therefore(Lenovo)
  * fileName:MyLatestView
  */
-public interface MyLatestView<T> extends IBaseView<MyLatestUser> {
+public interface MyLatestView<T> extends IBaseView<T> {
 }
