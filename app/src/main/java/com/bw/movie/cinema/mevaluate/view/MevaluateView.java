@@ -8,5 +8,5 @@ import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
  * author:张文龙(张文龙)
  * fileName:MevaluateView
  */
-public interface MevaluateView<T>  extends IBaseView<MevaluateBean> {
+public interface MevaluateView<T>  extends IBaseView<T> {
 }

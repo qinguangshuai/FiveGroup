@@ -16,24 +16,17 @@ import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.os.Message;
-import android.text.Layout;
-import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.SearchEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.bw.movie.R;
-import com.bw.movie.cinema.event.SeatEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,8 +39,8 @@ public class SeatTable extends View {
     private final boolean DBG = false;
     Paint paint = new Paint();
     Paint overviewPaint = new Paint();
-    Paint lineNumberPaint;
-    float lineNumberTxtHeight;
+    Paint mLineNumberPaint;
+    float mLineNumberTxtHeight;
 
     /**
      * 设置行号 默认显示 1,2,3....数字
@@ -371,12 +364,12 @@ public class SeatTable extends View {
         rectH = row * rectHeight + (row - 1) * overviewVerSpacing + overviewVerSpacing * 2;
         overviewBitmap = Bitmap.createBitmap((int) rectW, (int) rectH, Bitmap.Config.ARGB_4444);
 
-        lineNumberPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        lineNumberPaint.setColor(bacColor);
-        lineNumberPaint.setTextSize(getResources().getDisplayMetrics().density * 16);
-        lineNumberTxtHeight = lineNumberPaint.measureText("4");
-        lineNumberPaintFontMetrics = lineNumberPaint.getFontMetrics();
-        lineNumberPaint.setTextAlign(Paint.Align.CENTER);
+        mLineNumberPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mLineNumberPaint.setColor(bacColor);
+        mLineNumberPaint.setTextSize(getResources().getDisplayMetrics().density * 16);
+        mLineNumberTxtHeight = mLineNumberPaint.measureText("4");
+        lineNumberPaintFontMetrics = mLineNumberPaint.getFontMetrics();
+        mLineNumberPaint.setTextAlign(Paint.Align.CENTER);
 
         if (lineNumbers == null) {
             lineNumbers = new ArrayList<>();
@@ -689,17 +682,17 @@ public class SeatTable extends View {
      */
     void drawNumber(Canvas canvas) {
         long startTime = System.currentTimeMillis();
-        lineNumberPaint.setColor(Color.parseColor("#E20ECA"));
+        mLineNumberPaint.setColor(Color.parseColor("#E20ECA"));
         int translateY = (int) getTranslateY();
         float scaleY = getMatrixScaleY();
 
-        rectF.top = translateY - lineNumberTxtHeight / 2;
-        rectF.bottom = translateY + (seatBitmapHeight * scaleY) + lineNumberTxtHeight / 2;
+        rectF.top = translateY - mLineNumberTxtHeight / 2;
+        rectF.bottom = translateY + (seatBitmapHeight * scaleY) + mLineNumberTxtHeight / 2;
         rectF.left = 0;
         rectF.right = numberWidth;
-        canvas.drawRoundRect(rectF, numberWidth / 2, numberWidth / 2, lineNumberPaint);
+        canvas.drawRoundRect(rectF, numberWidth / 2, numberWidth / 2, mLineNumberPaint);
 
-        lineNumberPaint.setColor(Color.WHITE);
+        mLineNumberPaint.setColor(Color.WHITE);
 
         for (int i = 0; i < row; i++) {
 
@@ -707,7 +700,7 @@ public class SeatTable extends View {
             float bottom = (i * seatHeight + i * verSpacing + seatHeight) * scaleY + translateY;
             float baseline = (bottom + top - lineNumberPaintFontMetrics.bottom - lineNumberPaintFontMetrics.top) / 2;
 
-            canvas.drawText(lineNumbers.get(i), numberWidth / 2, baseline, lineNumberPaint);
+            canvas.drawText(lineNumbers.get(i), numberWidth / 2, baseline, mLineNumberPaint);
         }
 
         if (DBG) {

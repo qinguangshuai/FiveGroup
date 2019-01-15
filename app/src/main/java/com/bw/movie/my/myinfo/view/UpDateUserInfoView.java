@@ -6,6 +6,5 @@ import com.bw.movie.my.myinfo.bean.UpDateUserInfoEntity;
 /*
  *  修改用户信息view层
  * */
-public interface UpDateUserInfoView<T> extends IBaseView<UpDateUserInfoEntity> {
-
+public interface UpDateUserInfoView<T> extends IBaseView<T> {
 }

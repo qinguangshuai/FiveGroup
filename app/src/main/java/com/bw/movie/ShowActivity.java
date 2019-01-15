@@ -226,23 +226,11 @@ public class ShowActivity extends BaseActivity {
         aa.playTogether(ra1);
         aa.setDuration(300);
         aa.start();
-//        DaoSession daoSession = ((MyApp) getApplication()).getDaoSession();
-//        greenDaoBeanDao = daoSession.getGreenDaoBeanDao();
-//        userQuery = greenDaoBeanDao.queryBuilder().orderAsc(GreenDaoBeanDao.Properties.Id).build();
-//        insertUser();
-//        List<GreenDaoBean> users = queryList();
-//        Toast.makeText(this, users.get(0).toString(), Toast.LENGTH_SHORT).show();
+
 
     }
 
-//    private void insertUser() {
-//        GreenDaoBean user = new GreenDaoBean(1l, "nihao", "12", "sdasdas");
-//        greenDaoBeanDao.insert(user);
-//    }
-//    private List<GreenDaoBean> queryList(){
-//        List<GreenDaoBean> users = userQuery.list();
-//        return users;
-//    }
+
     @Subscribe
     public void getNet(NetEvent netEvent) {
         if (Constant.GETNET == netEvent.getId()) {
@@ -252,8 +240,11 @@ public class ShowActivity extends BaseActivity {
                     showContent();
                 }
             }, 1000);
-        } else {
+        } else if (netEvent.getId()==0x0001){
             showloading();
+        }else{
+            showContent();
+            showEmpty();
         }
 
     }

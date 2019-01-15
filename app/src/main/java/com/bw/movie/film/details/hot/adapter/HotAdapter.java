@@ -15,7 +15,6 @@ import com.bw.movie.film.show.hot.bean.HotPlayBean;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.util.EmptyUtil;
-import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,13 +31,13 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //吐司工具类
     //判空工具类
     //正在热映 数据 List
-    private List<HotPlayBean.ResultBean> hotresult = new ArrayList<>();
+    private List<HotPlayBean.ResultBean> mHotresult = new ArrayList<>();
     //正在热映 数据 set 方法
     public void setHotResult(List<HotPlayBean.ResultBean> hotresult) {
-        if (EmptyUtil.isNull(this.hotresult) == false) {
-            this.hotresult.clear();
+        if (EmptyUtil.isNull(this.mHotresult) == false) {
+            this.mHotresult.clear();
         }
-        this.hotresult.addAll(hotresult);
+        this.mHotresult.addAll(hotresult);
     }
 
 
@@ -54,7 +53,7 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        final HotPlayBean.ResultBean resultBean = hotresult.get(i);
+        final HotPlayBean.ResultBean resultBean = mHotresult.get(i);
         HotAdapter.Holder holder = (HotAdapter.Holder) viewHolder;
         holder.setData(resultBean);
 
@@ -71,8 +70,8 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (EmptyUtil.isNull(hotresult) == false) {
-            return hotresult.size();
+        if (EmptyUtil.isNull(mHotresult) == false) {
+            return mHotresult.size();
         }
         return 0;
     }

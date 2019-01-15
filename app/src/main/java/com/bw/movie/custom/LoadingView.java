@@ -18,7 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
  */
 public class LoadingView extends LinearLayout {
 
-    private SimpleDraweeView img;
+    private SimpleDraweeView mImg;
 
     public LoadingView(Context context) {
         this(context, null);
@@ -31,7 +31,7 @@ public class LoadingView extends LinearLayout {
     public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customlaoding, this);
-        img = view.findViewById(R.id.img_loading);
+        mImg = view.findViewById(R.id.img_loading);
         //路径
         Uri uri1 = Uri.parse("res://drawable/" + R.drawable.woman);
         //不多解释
@@ -39,7 +39,7 @@ public class LoadingView extends LinearLayout {
                 .setUri(uri1)
                 .setAutoPlayAnimations(true)
                 .build();
-        img.setController(build);
+        mImg.setController(build);
     }
 
     @Override

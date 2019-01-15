@@ -7,13 +7,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.my.message.activity.MyMessage;
@@ -59,33 +58,31 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
     TextView mMshoujihao;
     @BindView(R.id.myouxiang)
     TextView mMyouxiang;
-    Button mUpdateMyinfo;
     @BindView(R.id.mriqi)
     TextView mMriqi;
     @BindView(R.id.chongzhimima)
     ImageView mChongzhimima;
-    private UpDateUserInfoPresenter presenter;
-    private UpdateHeadPresenter headPresenter;
+    private UpDateUserInfoPresenter mPresenter;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        int sex1 = intent.getIntExtra("sex1", 0);
+        int sex1 = intent.getIntExtra(Constant.SEX, 0);
         if ("1".equals(sex1)) {
             mMxingbie.setText("男");
         } else if ("2".equals(sex1)) {
             mMxingbie.setText("女");
         }
 
-        String email = intent.getStringExtra("email");
+        String email = intent.getStringExtra("mEmail");
         mMyouxiang.setText(email);
-        String headPic = intent.getStringExtra("headPic");
+        String headPic = intent.getStringExtra(Constant.HEADPIC);
         Uri uri = Uri.parse(headPic);
         mMtouxiang.setImageURI(uri);
-        String nickName = intent.getStringExtra("nickName");
+        String nickName = intent.getStringExtra(Constant.NICKNAME);
         mMnicheng.setText(nickName);
-        String phone1 = intent.getStringExtra("phone1");
+        String phone1 = intent.getStringExtra(Constant.PHONE);
         mMshoujihao.setText(phone1);
         String s = intent.getStringExtra("s");
         GregorianCalendar gc = new GregorianCalendar();
@@ -105,7 +102,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
 
     }
 
-
     @Override
     public int initLayoutId() {
         return R.layout.activity_updata_info;
@@ -121,11 +117,9 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         return null;
     }
 
-
     @Override
     public void onDataSuccess(UpDateUserInfoEntity upDateUserInfoEntity) {
     }
-
 
     //上传
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -161,7 +155,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 }
                 break;
         }
-
     }
 
     @Override
@@ -222,7 +215,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 mMtouxiang.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         View view = View.inflate(getApplication(), R.layout.item_head, null);
                         final PopupWindow popupWindow = new PopupWindow(view, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
                         popupWindow.setOutsideTouchable(true);
@@ -283,13 +275,12 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     Toast.makeText(this, "请输入修改内容", Toast.LENGTH_SHORT).show();
                 } else {
                     mMxingbie.setText(q + "");
-                    presenter = new UpDateUserInfoPresenter(this);
-                    presenter.getUserInfo(nickname, q, email);
+                    mPresenter = new UpDateUserInfoPresenter(this);
+                    mPresenter.getUserInfo(nickname, q, email);
                     startActivity(new Intent(this, MyMessage.class));
 
                     finish();
                 }
-
 
                 break;
 
@@ -299,7 +290,4 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 break;
         }
     }
-
-
-
 }

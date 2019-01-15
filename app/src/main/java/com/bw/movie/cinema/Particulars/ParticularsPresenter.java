@@ -8,15 +8,15 @@ import com.bw.movie.net.HttpCallBack;
  * 影院内容轮播Presenter
  */
 public class ParticularsPresenter extends BasePresenter {
-    private ParticularsModel particularsModel;
+    private ParticularsModel mParticularsModel;
 
     public ParticularsPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        particularsModel = new ParticularsModel();
+        mParticularsModel = new ParticularsModel();
     }
 
     public void getParticulars(int page, int count) {
-        particularsModel.getParticulars(page, count, new HttpCallBack<ParticularsBean>() {
+        mParticularsModel.getParticulars(page, count, new HttpCallBack<ParticularsBean>() {
             @Override
             public void onSuccess(ParticularsBean name) {
                 getiBaseView().onDataSuccess(name);

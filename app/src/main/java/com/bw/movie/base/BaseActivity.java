@@ -134,7 +134,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void showContent() {
         statusView.showContent();
     }
-    //显示内容
+    //加载数据
     public void showloading() {
 
         statusView.showLoading();
@@ -142,6 +142,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     //显示空白布局
     public void showEmpty(){
         statusView.showEmpty();
+        statusView.findViewById(R.id.textresheh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusView.showLoading();
+            }
+        });
+
     }
 
     /**

@@ -59,7 +59,7 @@ public class ParticularsActivity extends BaseActivity {
     LinearLayout detailedinformation;
     private ParticularsAdapder particularsAdapder;
     private int id;
-    private List<MevaResultBean> result;
+    private List<MevaResultBean> mResult;
 
 
 
@@ -175,7 +175,7 @@ public class ParticularsActivity extends BaseActivity {
                 public void onHideLoading() {
 
                 }
-            }).getGodos(result.get(goodEvent.getIndex()).getCommentId());
+            }).getGodos(mResult.get(goodEvent.getIndex()).getCommentId());
         } else {
             new GoodPresenter(new GoodView<GoodBean>() {
 
@@ -201,7 +201,7 @@ public class ParticularsActivity extends BaseActivity {
                 public void onHideLoading() {
 
                 }
-            }).getGodos(result.get(goodEvent.getIndex()).getCommentId());
+            }).getGodos(mResult.get(goodEvent.getIndex()).getCommentId());
         }
     }
 
@@ -211,10 +211,10 @@ public class ParticularsActivity extends BaseActivity {
             @Override
             public void onDataSuccess(final MevaluateBean mevaluateBean) {
                 if (mevaluateBean.getMessage().contains("成功")) {
-                    result = mevaluateBean.getResult();
+                    mResult = mevaluateBean.getResult();
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
+                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(mResult, ParticularsActivity.this);
                     recyclerView.setAdapter(mevaluateAdapder);
                 }
             }

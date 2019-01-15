@@ -8,5 +8,5 @@ import com.bw.movie.film.synopsis.bean.PraiseBean;
  *TODO:
  *
  */
-public interface PraiseView<t> extends IBaseView<PraiseBean> {
+public interface PraiseView<T> extends IBaseView<T> {
 }

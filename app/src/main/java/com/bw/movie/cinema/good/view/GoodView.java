@@ -6,5 +6,5 @@ import com.bw.movie.cinema.good.bean.GoodBean;
 /**
  * 评论点赞（view）
  */
-public interface GoodView<T>  extends IBaseView<GoodBean> {
+public interface GoodView<T>  extends IBaseView<T> {
 }

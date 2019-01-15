@@ -33,14 +33,14 @@ import java.util.List;
 public class AffililaterdAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder,CinemaBean> {
 
 
-    private CinemaBean cinemaBean = new CinemaBean();
+    private CinemaBean mCinemaBean = new CinemaBean();
 
     public AffililaterdAdapter(List<CinemaBean> listData, Context context) {
         super(listData, context);
     }
 
     public void setCinemaBean(CinemaBean cinemaBean) {
-        this.cinemaBean = cinemaBean;
+        this.mCinemaBean = cinemaBean;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -80,7 +80,7 @@ public class AffililaterdAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
 
 
-        final CinemaResultBean resultBean = cinemaBean.getResult().get(i);
+        final CinemaResultBean resultBean = mCinemaBean.getResult().get(i);
         final Holder holder = (Holder) viewHolder;
 
         if (resultBean.getFollowCinema() == 1) {
@@ -161,8 +161,8 @@ public class AffililaterdAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        if (EmptyUtil.isNull(cinemaBean.getResult()) == false) {
-            return cinemaBean.getResult().size();
+        if (EmptyUtil.isNull(mCinemaBean.getResult()) == false) {
+            return mCinemaBean.getResult().size();
         } else {
             return 0;
         }

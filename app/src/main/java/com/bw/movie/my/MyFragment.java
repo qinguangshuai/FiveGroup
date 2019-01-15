@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
@@ -24,8 +26,10 @@ import com.bw.movie.my.ticket.activity.Ticket_nformationActivity;
 import com.bw.movie.util.NewThread;
 import com.bw.movie.util.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -52,13 +56,14 @@ public class MyFragment extends BaseFragment {
     LinearLayout mMyOpinion;
     @BindView(R.id.my_new)
     LinearLayout mMyNew;
+    @BindView(R.id.my_yao)
+    LinearLayout mMyYao;
     Unbinder unbinder1;
-    private View view;
-    private Unbinder unbinder;
+    private Unbinder mUnbinder;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
     }
 
     @Override
@@ -69,6 +74,12 @@ public class MyFragment extends BaseFragment {
         String name = SpUtil.getString("nickName", "");
         mMyName.setText(name);
         EventBus.getDefault().register(this);
+        mMyYao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            startActivity(new Intent(getActivity(),ShakeActivity.class));
+            }
+        });
     }
 
     @Override
@@ -106,7 +117,7 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
 
     @OnClick({R.id.my_sound, R.id.my_touxiang, R.id.my_name, R.id.my_info, R.id.my_love, R.id.my_message, R.id.my_opinion, R.id.my_new})

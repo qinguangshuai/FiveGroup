@@ -50,6 +50,7 @@ public class HotFragment extends BaseFragment {
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+        showloading();
     }
 
     @Override
@@ -116,6 +117,7 @@ public class HotFragment extends BaseFragment {
         new PopularPresenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
+
                 mSwipeDetailsfragment.setRefreshing(false);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -127,7 +129,7 @@ public class HotFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                ToastUtil.Toast(msg + "sorry");
+
             }
 
             @Override
@@ -145,19 +147,23 @@ public class HotFragment extends BaseFragment {
 
     //set数据
     public void setData() {
-        EventBus.getDefault().post(new JumpLgoinEvent(true));
+        showContent();
+        EventBus.getDefault().post(new JumpLgoinEvent(0x0002));
         new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 mHotAdapter.setHotResult(result);
                 mHotAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(false));
+                EventBus.getDefault().post(new JumpLgoinEvent(0x0001));
 
             }
 
             @Override
             public void onDataFailer(String msg) {
+                EventBus.getDefault().post(new JumpLgoinEvent(0x0000));
+               showContent();
+               showEmpty();
                 ToastUtil.Toast(msg + "sorry");
             }
 

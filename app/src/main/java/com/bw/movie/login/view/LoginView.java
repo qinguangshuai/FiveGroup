@@ -8,6 +8,6 @@ import com.bw.movie.login.bean.LoginUser;
  * author:Therefore(Lenovo)
  * fileName:LoginView
  */
-public interface LoginView<T> extends IBaseView<LoginUser> {
+public interface LoginView<T> extends IBaseView<T> {
 
 }

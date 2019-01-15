@@ -3,6 +3,7 @@ package com.bw.movie.cinema.event;
 import android.widget.CheckBox;
 
 public class GoodEvent {
+
     private boolean isChecked;
     private CheckBox mCheckBox;
     private int index ;
@@ -11,13 +12,11 @@ public class GoodEvent {
         return index;
     }
 
-
     public GoodEvent(boolean isChecked,  CheckBox mCheckBox, int index) {
         this.isChecked = isChecked;
         this.mCheckBox = mCheckBox;
         this.index = index;
     }
-
 
     public CheckBox getmCheckBox() {
         return mCheckBox;
@@ -35,5 +34,4 @@ public class GoodEvent {
     public boolean isChecked() {
         return isChecked;
     }
-
 }

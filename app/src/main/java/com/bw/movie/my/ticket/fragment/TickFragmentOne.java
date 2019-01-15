@@ -5,12 +5,15 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
+import com.bw.movie.cinema.SeatSelectionActivity.activity.SeatSelectionActivity;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.film.popwindow.ScrollWindow;
@@ -21,6 +24,10 @@ import com.bw.movie.my.ticket.bean.TicketFoemationEntity;
 import com.bw.movie.my.ticket.prosenter.TicketformationPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+import com.bw.movie.util.WeiXinUtil;
+import com.bw.movie.wxapi.bean.OrderSuccessBean;
+import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
+import com.bw.movie.wxapi.view.OrderSuccessView;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -47,6 +54,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         BaseEvent.register(this);
+        showloading();
     }
 
     @Override
@@ -54,7 +62,6 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
         ticketSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showloading();
                 mTicketformationPresenter.getTicet(page++,5);
             }
         });
@@ -62,7 +69,6 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
         RecyclerViewScrollUtil.Scroll(ticketOneRecycler, true, new RecyclerViewScrollUtil.onEvent() {
             @Override
             public void info() {
-                showloading();
                 mScrollWindow.showPop(ticketOneRecycler);
                 mTicketformationPresenter.getTicet(page++,5);
             }
@@ -106,13 +112,40 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     }
 
     @Override
-    public void onDataSuccess(TicketFoemationEntity ticketFoemationEntity) {
+    public void onDataSuccess(final TicketFoemationEntity ticketFoemationEntity) {
+        showContent();
         list = ticketFoemationEntity.getResult();
         if (list != null && list.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             ticketOneRecycler.setLayoutManager(linearLayoutManager);
 
             TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list, getContext());
+            attFilmAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
+                @Override
+                public void click(View view, int position) {
+                 //  WeiXinUtil.weiXinPay(ticketFoemationEntity);
+                    new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
+                        @Override
+                        public void onDataSuccess(OrderSuccessBean orderSuccessBean) {
+                            WeiXinUtil.weiXinPay(orderSuccessBean);
+
+                        }
+
+                        @Override
+                        public void onDataFailer(String msg) {
+                        }
+
+                        @Override
+                        public void onShowLoading() {
+                        }
+
+                        @Override
+                        public void onHideLoading() {
+
+                        }
+                    }).getOeder(1, list.get(position).getOrderId());
+                }
+            });
             ticketOneRecycler.setAdapter(attFilmAdapter);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -122,13 +155,13 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
             },1000);
             ticketSwipeRefreshLayout.setRefreshing(false);
         } else {
-            showEmpty();
+           ToastUtil.Toast("sorry,数据为空");
         }
     }
 
     @Override
     public void onDataFailer(String msg) {
-        ToastUtil.Toast(msg);
+       showContent();
         showEmpty();
     }
 

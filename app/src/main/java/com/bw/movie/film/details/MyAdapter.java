@@ -16,13 +16,13 @@ public class MyAdapter extends FragmentPagerAdapter {
 
 
 
-    private ArrayList<Fragment> list = new ArrayList<>();
+    private ArrayList<Fragment> mList = new ArrayList<>();
 
     public void setList(ArrayList<Fragment> list) {
-        if (this.list != null && this.list.size() > 0) {
-            this.list.clear();
+        if (this.mList != null && this.mList.size() > 0) {
+            this.mList.clear();
         }
-        this.list.addAll(list);
+        this.mList.addAll(list);
     }
 
     public MyAdapter(FragmentManager fm) {
@@ -31,13 +31,13 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return list.get(i);
+        return mList.get(i);
     }
 
     @Override
     public int getCount() {
-        if (EmptyUtil.isNull(list) == false) {
-            return list.size();
+        if (EmptyUtil.isNull(mList) == false) {
+            return mList.size();
         }
         return 0;
     }

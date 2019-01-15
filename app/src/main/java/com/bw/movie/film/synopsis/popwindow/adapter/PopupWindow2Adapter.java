@@ -24,7 +24,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  */
 public class PopupWindow2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context ;
+    private Context mContext;
 
     private List<DetailBean.ResultBean.ShortFilmListBean> shortFilmList = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class PopupWindow2Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public PopupWindow2Adapter(Context context) {
-        this.context = context;
+        this.mContext = context;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -56,7 +56,7 @@ public class PopupWindow2Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         Holder holder = (Holder) viewHolder;
         holder.mJcVideoPlayerStandard.setUp(shortFilmList.get(i).getVideoUrl(), JCVideoPlayer.SCREEN_LAYOUT_NORMAL);
-        Picasso.with(context)
+        Picasso.with(mContext)
                 .load(shortFilmList.get(i).getImageUrl())
                 .into(holder.mJcVideoPlayerStandard.thumbImageView);
     }

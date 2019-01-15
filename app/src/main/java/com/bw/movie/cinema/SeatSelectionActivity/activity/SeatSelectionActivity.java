@@ -18,15 +18,22 @@ import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.custom.SeatTable;
+import com.bw.movie.error.AppManager;
+import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.ticket.ticketnet.bean.TicketBean;
 import com.bw.movie.my.ticket.ticketnet.presenter.TiketPresenter;
 import com.bw.movie.my.ticket.ticketnet.view.TicketView;
 import com.bw.movie.util.MDSUtil;
+import com.bw.movie.util.ToastUtil;
 import com.bw.movie.util.WeiXinUtil;
 import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.presenter.OrderSuccessPresenter;
 import com.bw.movie.wxapi.view.OrderSuccessView;
+
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -40,11 +47,11 @@ public class SeatSelectionActivity extends BaseActivity {
     ImageView sure;
     @BindView(R.id.seyno)
     ImageView seyno;
-    private String paerprice;
-    private String paername;
-    private double price;
-    private int cinemaids;
-    private String orderId;
+    private String mPaerprice;
+    private String mPaername;
+    private double mPrice;
+    private int mCinemaids;
+    private String mOrderId;
 
     @Override
     public void initView() {
@@ -57,14 +64,19 @@ public class SeatSelectionActivity extends BaseActivity {
 
 
             public void getPopup(final int sizes) {
-                double v = Double.parseDouble(paerprice);
-                price = v * sizes;
-                cinemaprice.setText(price + "");
+                double v = Double.parseDouble(mPaerprice);
+                mPrice = v * sizes;
+                cinemaprice.setText(mPrice + "");
                 sure.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getZhiFu(sizes);
-                        getIsPopup(v);
+                        if (sizes==0){
+                            ToastUtil.Toast("请选择作为后下单");
+                        }else{
+                            getZhiFu(sizes);
+                            getIsPopup(v);
+                        }
+
                     }
                 });
             }
@@ -77,17 +89,24 @@ public class SeatSelectionActivity extends BaseActivity {
         });
     }
 
+    @Subscribe
+    public void getChuan(ChuanUser chuanUser) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishAllActivity();
+    }
+
     //订单
     public void getZhiFu(int sizes) {
         SharedPreferences login = getSharedPreferences("login", Context.MODE_PRIVATE);
         int userId = login.getInt("userId", -1);
-        String s = userId + "" + cinemaids + "" + sizes + "" + "movie";
+        String s = userId + "" + mCinemaids + "" + sizes + "" + "movie";
         String encrypt = MDSUtil.MD5(s);
         new TiketPresenter(new TicketView<TicketBean>() {
             @Override
             public void onDataSuccess(TicketBean ticketBean) {
                 Toast.makeText(SeatSelectionActivity.this, ticketBean.getMessage(), Toast.LENGTH_SHORT).show();
-                orderId = ticketBean.getOrderId();
+                mOrderId = ticketBean.getOrderId();
             }
 
             @Override
@@ -104,7 +123,7 @@ public class SeatSelectionActivity extends BaseActivity {
             public void onHideLoading() {
 
             }
-        }).getTicket(cinemaids, sizes, encrypt);
+        }).getTicket(mCinemaids, sizes, encrypt);
 
     }
 
@@ -130,7 +149,7 @@ public class SeatSelectionActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    button.setText("微信支付" + price);
+                    button.setText("微信支付" + mPrice);
                 }
             }
         });
@@ -144,7 +163,7 @@ public class SeatSelectionActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    button.setText("支付宝支付" + price);
+                    button.setText("支付宝支付" + mPrice);
                 }
             }
         });
@@ -180,17 +199,17 @@ public class SeatSelectionActivity extends BaseActivity {
             public void onHideLoading() {
 
             }
-        }).getOeder(1, orderId);
+        }).getOeder(1, mOrderId);
     }
 
     @Override
     public void initData() {
         final Intent intent = getIntent();
-        paername = intent.getStringExtra(Constant.PARTNAME);
-        paerprice = intent.getStringExtra(Constant.PARTID);
-        cinemaids = intent.getIntExtra(Constant.CINEMAID, -1);
+        mPaername = intent.getStringExtra(Constant.PARTNAME);
+        mPaerprice = intent.getStringExtra(Constant.PARTID);
+        mCinemaids = intent.getIntExtra(Constant.CINEMAID, -1);
         seatTableView = (SeatTable) findViewById(R.id.seatView);
-        seatTableView.setScreenName(paername);//设置屏幕名称
+        seatTableView.setScreenName(mPaername);//设置屏幕名称
         seatTableView.setMaxSelected(4);//设置最多选中
 
         seatTableView.setSeatChecker(new SeatTable.SeatChecker() {

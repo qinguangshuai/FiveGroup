@@ -13,15 +13,15 @@ import com.bw.movie.net.HttpCallBack;
  */
 public class LoginPresenter extends BasePresenter<LoginView> {
 
-    private LoginModel loginModel;
+    private LoginModel mLoginModel;
 
     public LoginPresenter(LoginView iBaseView) {
         super(iBaseView);
-        loginModel = new LoginModel();
+        mLoginModel = new LoginModel();
     }
 
     public void getLogin(String phone, String pwd) {
-        loginModel.getLogin(phone, pwd, new HttpCallBack<LoginUser>() {
+        mLoginModel.getLogin(phone, pwd, new HttpCallBack<LoginUser>() {
             @Override
             public void onSuccess(LoginUser name) {
                 getiBaseView().onDataSuccess(name);

@@ -8,6 +8,6 @@ import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
  * author:张文龙(张文龙)
  * fileName:FindMovieScheduleListView
  */
-public interface  FindMovieScheduleListView<T> extends IBaseView<FindMovieScheduleListBean> {
+public interface  FindMovieScheduleListView<T> extends IBaseView<T> {
 
 }

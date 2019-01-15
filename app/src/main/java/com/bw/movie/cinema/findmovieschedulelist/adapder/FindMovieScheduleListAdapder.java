@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bw.movie.R;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindResultBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +21,14 @@ import java.util.List;
  */
 public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovieScheduleListAdapder.FindMovieScheduleListViewHolder> {
 
-    private List<FindResultBean> resultBeans = new ArrayList<>();
+    private List<FindResultBean> mResultBeans = new ArrayList<>();
 
     public void setResultBeans(List<FindResultBean> resultBeans) {
 
-        if (this.resultBeans != null && this.resultBeans.size() > 0) {
-            this.resultBeans.clear();
+        if (this.mResultBeans != null && this.mResultBeans.size() > 0) {
+            this.mResultBeans.clear();
         }
-        this.resultBeans.addAll(resultBeans);
+        this.mResultBeans.addAll(resultBeans);
     }
 
     @NonNull
@@ -38,16 +40,16 @@ public class FindMovieScheduleListAdapder extends RecyclerView.Adapter<FindMovie
 
     @Override
     public void onBindViewHolder(@NonNull FindMovieScheduleListViewHolder findMovieScheduleListViewHolder, int i) {
-        findMovieScheduleListViewHolder.textViewstart.setText(resultBeans.get(i).getBeginTime());
-        findMovieScheduleListViewHolder.textViewmovepull.setText(resultBeans.get(i).getScreeningHall());
-        findMovieScheduleListViewHolder.textViewovetime.setText(resultBeans.get(i).getEndTime());
-        findMovieScheduleListViewHolder.textViewprice.setText(resultBeans.get(i).getPrice() + "");
+        findMovieScheduleListViewHolder.textViewstart.setText(mResultBeans.get(i).getBeginTime());
+        findMovieScheduleListViewHolder.textViewmovepull.setText(mResultBeans.get(i).getScreeningHall());
+        findMovieScheduleListViewHolder.textViewovetime.setText(mResultBeans.get(i).getEndTime());
+        findMovieScheduleListViewHolder.textViewprice.setText(mResultBeans.get(i).getPrice() + "");
     }
 
     @Override
     public int getItemCount() {
-        if (resultBeans != null && resultBeans.size() > 0) {
-            return resultBeans.size();
+        if (mResultBeans != null && mResultBeans.size() > 0) {
+            return mResultBeans.size();
         }
         return 0;
     }

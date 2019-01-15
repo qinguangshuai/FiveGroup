@@ -13,16 +13,16 @@ import com.bw.movie.net.HttpCallBack;
  */
 public class CarouserlPresenter extends BasePresenter {
 
-    private CarouselModel carouselModel;
+    private CarouselModel mCarouselModel;
 
     public CarouserlPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        carouselModel = new CarouselModel();
+        mCarouselModel = new CarouselModel();
     }
 
     //轮播图请求回调
     public void getCarouselBeanObservable(int page, int count) {
-        carouselModel.getCarouselBeanObservable(page, count, new HttpCallBack<CarouselBean>() {
+        mCarouselModel.getCarouselBeanObservable(page, count, new HttpCallBack<CarouselBean>() {
             @Override
             public void onSuccess(CarouselBean name) {
                 getiBaseView().onDataSuccess(name);
