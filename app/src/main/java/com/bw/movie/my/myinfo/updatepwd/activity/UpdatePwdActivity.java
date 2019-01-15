@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.login.LoginActivity;
@@ -17,7 +16,6 @@ import com.bw.movie.my.myinfo.updatepwd.bean.UpdatePwdEntity;
 import com.bw.movie.my.myinfo.updatepwd.presenter.UpdatePwdPresenter;
 import com.bw.movie.my.myinfo.updatepwd.view.UpdatePwdView;
 import com.bw.movie.util.SpUtil;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,14 +34,14 @@ public class UpdatePwdActivity extends BaseActivity<UpdatePwdPresenter> implemen
     Button mUpdatePwdback;
     @BindView(R.id.miMaBack)
     ImageView mMiMaBack;
-    private UpdatePwdPresenter pwdPresenter;
+    private UpdatePwdPresenter mPwdPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        pwdPresenter = new UpdatePwdPresenter(this);
+        mPwdPresenter = new UpdatePwdPresenter(this);
         String pwd = SpUtil.getString("pwd", "");
         mUpdateOldpwd.setText(pwd);
 
@@ -123,7 +121,7 @@ public class UpdatePwdActivity extends BaseActivity<UpdatePwdPresenter> implemen
                     Toast.makeText(this,"新密码为空",Toast.LENGTH_SHORT).show();
                     return;
                 }else {
-                    pwdPresenter.getPwd(oldPwd1, newPwd1, copyPwd1);
+                    mPwdPresenter.getPwd(oldPwd1, newPwd1, copyPwd1);
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 }

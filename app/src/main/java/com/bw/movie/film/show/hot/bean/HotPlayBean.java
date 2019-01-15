@@ -2,7 +2,6 @@ package com.bw.movie.film.show.hot.bean;
 
 import com.bw.movie.base.BaseEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /*

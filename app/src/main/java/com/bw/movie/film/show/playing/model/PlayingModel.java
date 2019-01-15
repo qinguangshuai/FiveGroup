@@ -1,5 +1,6 @@
 package com.bw.movie.film.show.playing.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.playing.playing.PlayingBean;
 import com.bw.movie.film.show.playing.service.PlayingService;
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class PlayingModel {
+public class PlayingModel extends BaseModel {
 
 
     //正在上映  请求数据回调

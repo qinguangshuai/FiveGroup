@@ -3,6 +3,7 @@ package com.bw.movie.my.attention.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:Therefore(Lenovo)
  * fileName:AttCinemaModel
  */
-public class AttFilmModel {
+public class AttFilmModel extends BaseModel {
     public void getFilm(int page, final HttpCallBack<MyAttFilmUser> httpCallBack){
         OkHttpUtil.get().createa(AttFilmService.class).getFilm(page)
                 .subscribeOn(Schedulers.io())
@@ -32,8 +33,6 @@ public class AttFilmModel {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    /*MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
-                                    AppManager.getAppManager().finishAllActivity();*/
                                     BaseEvent.post(new ChuanUser());
                                 }
                             },100);

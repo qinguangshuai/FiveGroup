@@ -1,7 +1,6 @@
 package com.bw.movie.cinema.Particulars.bean;
 
 import com.bw.movie.base.BaseEntity;
-
 import java.util.List;
 
 /**
@@ -10,9 +9,6 @@ import java.util.List;
  * fileName:MovieListByCinemaIdBean
  */
 public class MovieListByCinemaIdBean  extends BaseEntity {
-
-
-
 
     private String message;
     private String status;

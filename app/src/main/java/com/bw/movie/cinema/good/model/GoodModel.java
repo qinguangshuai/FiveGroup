@@ -3,6 +3,7 @@ package com.bw.movie.cinema.good.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.cinema.good.bean.GoodBean;
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * 评论点赞(model)
  */
-public class GoodModel {
+public class GoodModel extends BaseModel {
     public void getGood(int commentId, final HttpCallBack<GoodBean> httpCallBack){
         OkHttpUtil.get().createa(GoodService.class).getGoods(commentId)
                 .subscribeOn(Schedulers.io())

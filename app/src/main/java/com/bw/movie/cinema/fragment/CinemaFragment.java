@@ -27,7 +27,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -49,7 +48,7 @@ public class CinemaFragment extends BaseFragment {
     ImageView zuoBiaoImage;
     @BindView(R.id.zuoBiaoText)
     TextView zuoBiaoText;
-    private SearchView searchView;
+    private SearchView mSearchView;
 
     //初始化控件
     @Override
@@ -59,8 +58,8 @@ public class CinemaFragment extends BaseFragment {
         if (!EventBus.getDefault().isRegistered(this)) {
             BaseEvent.register(this);
         }
-        searchView = rootView.findViewById(R.id.serch);
-        searchView.setClick(new SearchView.Click() {
+        mSearchView = rootView.findViewById(R.id.serch);
+        mSearchView.setClick(new SearchView.Click() {
             @Override
             public void onClickListener(View v, String s) {
 

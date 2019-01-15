@@ -8,13 +8,11 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.R;
 
 /*
@@ -24,17 +22,17 @@ import com.bw.movie.R;
  */public class SearchView extends LinearLayout {
 
     private boolean isShow = false;
-    private EditText editText;
-    private Click click;
+    private EditText mEditText;
+    private Click mClick;
 
-    //click set方法
+    //mClick set方法
     public void setClick(Click click) {
-        this.click = click;
+        this.mClick = click;
     }
 
     //获取输入的值
     public String getEditText() {
-        return editText.getText().toString();
+        return mEditText.getText().toString();
     }
 
     public SearchView(Context context) {
@@ -51,7 +49,7 @@ import com.bw.movie.R;
         final LinearLayout linearLayout = view.findViewById(R.id.cumtomlinear);
         TextView cumtomsearch = view.findViewById(R.id.cumtomsearch);
         TextView cumtomresult = view.findViewById(R.id.cumtomresult);
-        editText = view.findViewById(R.id.cumtomedittext);
+        mEditText = view.findViewById(R.id.cumtomedittext);
 
         //放大镜 点击事件
         cumtomsearch.setOnClickListener(new OnClickListener() {
@@ -78,18 +76,18 @@ import com.bw.movie.R;
         cumtomresult.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                click.onClickListener(v,editText.getText().toString());
+                mClick.onClickListener(v, mEditText.getText().toString());
 
             }
         });
 
-        editText.setOnKeyListener(new OnKeyListener() {
+        mEditText.setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER&& event.getAction() == KeyEvent.ACTION_DOWN) {
                     InputMethodManager imm = (InputMethodManager) v.getContext()
                             .getSystemService(Context.INPUT_METHOD_SERVICE);
-                    String text = editText.getText().toString();
+                    String text = mEditText.getText().toString();
                     if(imm.isActive()) {
                         imm.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
                     }
@@ -98,7 +96,7 @@ import com.bw.movie.R;
                         Toast.makeText(context,"请输入您想要搜索的地址",Toast.LENGTH_SHORT).show();
                         return true;
                     }else {
-                        click.onClickListener(v,text);
+                        mClick.onClickListener(v,text);
                     }
                 }
                 return false;

@@ -37,6 +37,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * 待付款
+ */
+
 public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoemationEntity> {
 
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
@@ -123,7 +127,6 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
             attFilmAdapter.setHttpClick(new TicketInforAdapter.HttpClick() {
                 @Override
                 public void click(View view, int position) {
-                 //  WeiXinUtil.weiXinPay(ticketFoemationEntity);
                     new OrderSuccessPresenter(new OrderSuccessView<OrderSuccessBean>() {
                         @Override
                         public void onDataSuccess(OrderSuccessBean orderSuccessBean) {

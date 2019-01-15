@@ -15,14 +15,7 @@ import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
 import com.bw.movie.cinema.event.NeighbourEvent;
-import com.bw.movie.cinema.follow.bean.FollowBean;
-import com.bw.movie.cinema.follow.presenter.FollowProsenter;
-import com.bw.movie.cinema.follow.view.FollowView;
-import com.bw.movie.my.ticket.adapter.TicketInforAdapter;
-import com.bw.movie.my.ticket.bean.ResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -30,12 +23,12 @@ import java.util.List;
 * NeightbourAdapder
 * */
 public class NeightbourAdapder extends BaseRecyclerAdapter<RecyclerView.ViewHolder,NeightBourResultBean> {
-    private List<NeightBourResultBean> listBeans;
+    private List<NeightBourResultBean> mListbeans;
     private Context mContext;
 
     public NeightbourAdapder(List<NeightBourResultBean> list, Context context) {
         super(context);
-        this.listBeans = list;
+        this.mListbeans = list;
         this.mContext = context;
     }
 
@@ -48,7 +41,7 @@ public class NeightbourAdapder extends BaseRecyclerAdapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int i) {
-        if (listBeans.get(i).getFollowCinema() == 1) {
+        if (mListbeans.get(i).getFollowCinema() == 1) {
             ((NeightbourViewHolder) holder).checkBox.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
             ((NeightbourViewHolder) holder).checkBox.setChecked(true);
 
@@ -57,14 +50,14 @@ public class NeightbourAdapder extends BaseRecyclerAdapter<RecyclerView.ViewHold
             ((NeightbourViewHolder) holder).checkBox.setChecked(false);
 
         }
-        ((NeightbourViewHolder) holder).textViewname.setText(listBeans.get(i).getName());
-        ((NeightbourViewHolder) holder).textViewaddress.setText(listBeans.get(i).getAddress());
-        ((NeightbourViewHolder) holder).textViewk.setText(listBeans.get(i).getCommentTotal() + "km");
-        ((NeightbourViewHolder) holder).simpleDraweeView.setImageURI(Uri.parse(listBeans.get(i).getLogo()));
+        ((NeightbourViewHolder) holder).textViewname.setText(mListbeans.get(i).getName());
+        ((NeightbourViewHolder) holder).textViewaddress.setText(mListbeans.get(i).getAddress());
+        ((NeightbourViewHolder) holder).textViewk.setText(mListbeans.get(i).getCommentTotal() + "km");
+        ((NeightbourViewHolder) holder).simpleDraweeView.setImageURI(Uri.parse(mListbeans.get(i).getLogo()));
         ((NeightbourViewHolder) holder).checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                BaseEvent.post(new NeighbourEvent(isChecked,((NeightbourViewHolder) holder).checkBox,listBeans.get(i).getId()));
+                BaseEvent.post(new NeighbourEvent(isChecked,((NeightbourViewHolder) holder).checkBox, mListbeans.get(i).getId()));
 
             }
         });
@@ -72,7 +65,7 @@ public class NeightbourAdapder extends BaseRecyclerAdapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return listBeans == null ? 0 : listBeans.size();
+        return mListbeans == null ? 0 : mListbeans.size();
     }
 
     class NeightbourViewHolder extends RecyclerView.ViewHolder {

@@ -10,15 +10,15 @@ import com.bw.movie.net.HttpCallBack;
  * NeightbourPresenter
  * */
 public class NeightbourPresenter extends BasePresenter {
-    private NeightbourModel neightbourModel;
+    private NeightbourModel mNeightbourModel;
 
     public NeightbourPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        neightbourModel = new NeightbourModel();
+        mNeightbourModel = new NeightbourModel();
     }
 
     public void getNeightbour(int page, int count) {
-        neightbourModel.getNeightbour(page, count, new HttpCallBack<NeightbourBean>() {
+        mNeightbourModel.getNeightbour(page, count, new HttpCallBack<NeightbourBean>() {
             @Override
             public void onSuccess(NeightbourBean name) {
                 getiBaseView().onDataSuccess(name);

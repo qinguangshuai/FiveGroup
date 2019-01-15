@@ -13,15 +13,15 @@ import com.bw.movie.net.HttpCallBack;
  */
 public class FindMovieScheduleListProsenter extends BasePresenter {
 
-    private FindMovieScheduleListModel findMovieScheduleListModel;
+    private FindMovieScheduleListModel mFindMovieScheduleListModel;
 
     public FindMovieScheduleListProsenter(IBaseView iBaseView) {
         super(iBaseView);
-        findMovieScheduleListModel = new FindMovieScheduleListModel();
+        mFindMovieScheduleListModel = new FindMovieScheduleListModel();
     }
 
     public void getFindMovieScheduleList(int cinemasId, int movieId) {
-        findMovieScheduleListModel.getFindMovieScheduleList(cinemasId, movieId, new HttpCallBack<FindMovieScheduleListBean>() {
+        mFindMovieScheduleListModel.getFindMovieScheduleList(cinemasId, movieId, new HttpCallBack<FindMovieScheduleListBean>() {
             @Override
             public void onSuccess(FindMovieScheduleListBean name) {
                 getiBaseView().onDataSuccess(name);

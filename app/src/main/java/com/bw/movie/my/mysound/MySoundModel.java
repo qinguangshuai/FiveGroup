@@ -3,6 +3,7 @@ package com.bw.movie.my.mysound;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.net.HttpCallBack;
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:Therefore(Lenovo)
  * fileName:MySoundModel
  */
-public class MySoundModel {
+public class MySoundModel extends BaseModel {
     public void getSound(int page, final HttpCallBack<MySoundUser> httpCallBack) {
         OkHttpUtil.get().createa(MySoundService.class).getSound(page)
                 .observeOn(AndroidSchedulers.mainThread())

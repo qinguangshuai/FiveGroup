@@ -3,7 +3,6 @@ package com.bw.movie.base;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,15 +12,11 @@ import android.view.ViewGroup;
 
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
-
 import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
 
 import com.bw.movie.util.NewThread;
 import com.bw.movie.util.StatusBarUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.AbstractDraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 /*
  *  baseactivity
@@ -29,9 +24,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
     private T mBasePresenter;
-    private StatusView statusView;
+    private StatusView mStatusView;
     private ErrorView mErrorView;
-    private BroadcastReceiver receiver;
+    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,10 +57,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     public abstract int initLayoutId();
 
-
-
-
-
     //初始化变量
     public abstract void initVariable();
 
@@ -78,33 +69,31 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     public void setContentView(View view) {
-
         initStatuView(view);
-        super.setContentView(statusView);
-
+        super.setContentView(mStatusView);
     }
 
     @Override
     public void setContentView(int layoutResID) {
         View inflate = View.inflate(this, layoutResID, null);
-        statusView = initStatuView(inflate);
-        super.setContentView(statusView);
+        mStatusView = initStatuView(inflate);
+        super.setContentView(mStatusView);
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-        statusView = initStatuView(view);
-        super.setContentView(statusView, params);
+        mStatusView = initStatuView(view);
+        super.setContentView(mStatusView, params);
     }
 
     private StatusView initStatuView(View content) {
         StatusView.Builder builder = new StatusView.Builder(this);
-        statusView = builder.contentView(content)
+        mStatusView = builder.contentView(content)
                 .emptyId(R.layout.layout_empity2)
                 .erroryId(R.layout.layout_error)
                 .loadingId(R.layout.layout_loading)
                 .build();
-        return statusView;
+        return mStatusView;
     }
 
     @Override
@@ -133,26 +122,29 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onDestroy() {
         super.onDestroy();
         mErrorView.unRegister();
-        if (receiver != null) {
-            unregisterReceiver(receiver);
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
         }
-
     }
 
     //显示内容
     public void showContent() {
-        statusView.showContent();
+        mStatusView.showContent();
     }
+
     //加载数据
     public void showloading() {
 
-        statusView.showLoading();
 
+
+        mStatusView.showLoading();
     }
     //显示空白布局
     public void showEmpty(){
-        statusView.showEmpty();
 
+
+
+        mStatusView.showEmpty();
 
     }
 
@@ -160,11 +152,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
      * 设置网络监听
      */
     private void setBreoadcast() {
-        receiver = new NetStateBroadReciver();
+        mReceiver = new NetStateBroadReciver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(receiver, filter);
+        registerReceiver(mReceiver, filter);
     }
 }

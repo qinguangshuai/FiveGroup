@@ -1,8 +1,6 @@
 package com.bw.movie.film.show.popular.bean;
 
 import com.bw.movie.base.BaseEntity;
-
-import java.io.Serializable;
 import java.util.List;
 
 /*

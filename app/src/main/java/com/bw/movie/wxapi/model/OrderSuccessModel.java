@@ -15,6 +15,5 @@ public class OrderSuccessModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<OrderSuccessBean>(httpCallBack));
-
     }
 }

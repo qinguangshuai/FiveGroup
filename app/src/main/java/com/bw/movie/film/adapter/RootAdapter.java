@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.custom.ScrollView;
 import com.bw.movie.custom.SearchView;
@@ -25,12 +24,9 @@ import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
@@ -45,9 +41,9 @@ import recycler.coverflow.RecyclerCoverFlow;
 public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder> {
 
     //全局化适配器 是为了 更新ad 方法
-    private final PopularAdapter popularAdapter= new PopularAdapter();
-    private final PlayingAdapter playingAdapter= new PlayingAdapter();
-    private final HotPlayAdapter hotPlayAdapter = new HotPlayAdapter();
+    private final PopularAdapter mPopularAdapter = new PopularAdapter();
+    private final PlayingAdapter mPlayingAdapter = new PlayingAdapter();
+    private final HotPlayAdapter mHotPlayAdapter = new HotPlayAdapter();
 
 
     //非空判断工具类
@@ -82,7 +78,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             ToastUtil.Toast("没有更多了");
         } else {
             this.result.addAll(result);
-            popularAdapter.notifyDataSetChanged();
+            mPopularAdapter.notifyDataSetChanged();
         }
     }
 
@@ -105,7 +101,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             ToastUtil.Toast("没有更多了");
         } else {
             this.hotresult.addAll(hotresult);
-            hotPlayAdapter.notifyDataSetChanged();
+            mHotPlayAdapter.notifyDataSetChanged();
         }
     }
 
@@ -127,7 +123,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             ToastUtil.Toast("没有更多了");
         } else {
             this.playresult.addAll(playresult);
-            playingAdapter.notifyDataSetChanged();
+            mPlayingAdapter.notifyDataSetChanged();
         }
 
     }
@@ -288,12 +284,12 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRecyclerView.setLayoutManager(linearLayoutManager);
-            mRecyclerView.setAdapter(popularAdapter);
+            mRecyclerView.setAdapter(mPopularAdapter);
         }
 
         public void setData(final List<PopularBean.ResultBean> result) {
-            popularAdapter.setResult(result);
-            popularAdapter.notifyDataSetChanged();
+            mPopularAdapter.setResult(result);
+            mPopularAdapter.notifyDataSetChanged();
 
             //自定义 上拉加载
             RecyclerViewScrollUtil.Scroll(mRecyclerView, false, new RecyclerViewScrollUtil.onEvent() {
@@ -301,7 +297,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
                 public void info() {
                     //加载更多功能的代码
                     EventBus.getDefault().post(new PopularEvent(1));
-                    popularAdapter.addResult(result);
+                    mPopularAdapter.addResult(result);
                 }
             });
         }
@@ -320,7 +316,7 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRecyclerView.setLayoutManager(linearLayoutManager);
-            mRecyclerView.setAdapter(hotPlayAdapter);
+            mRecyclerView.setAdapter(mHotPlayAdapter);
 
             //自定义 上拉加载
             RecyclerViewScrollUtil.Scroll(mRecyclerView, false, new RecyclerViewScrollUtil.onEvent() {
@@ -328,14 +324,14 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
                 public void info() {
                     //加载更多功能的代码
                     EventBus.getDefault().post(new PopularEvent(2));
-                    hotPlayAdapter.addHotResult(hotresult);
+                    mHotPlayAdapter.addHotResult(hotresult);
                 }
             });
         }
 
         public void setData(final List<HotPlayBean.ResultBean> hotresult) {
-            hotPlayAdapter.setHotResult(hotresult);
-            hotPlayAdapter.notifyDataSetChanged();
+            mHotPlayAdapter.setHotResult(hotresult);
+            mHotPlayAdapter.notifyDataSetChanged();
         }
     }
 
@@ -352,13 +348,13 @@ public class RootAdapter extends XRecyclerView.Adapter<XRecyclerView.ViewHolder>
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mRecyclerView.setLayoutManager(linearLayoutManager);
-            mRecyclerView.setAdapter(playingAdapter);
+            mRecyclerView.setAdapter(mPlayingAdapter);
 
         }
 
         public void setData(final List<PlayingBean.ResultBean> playresult) {
-            playingAdapter.setPlayResult(playresult);
-            playingAdapter.notifyDataSetChanged();
+            mPlayingAdapter.setPlayResult(playresult);
+            mPlayingAdapter.notifyDataSetChanged();
         }
     }
 }//----------|根布局adapter结束|----------

@@ -1,7 +1,6 @@
 package com.bw.movie.my.attcinema.model;
 
 import android.os.Handler;
-
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
@@ -11,7 +10,6 @@ import com.bw.movie.my.attcinema.service.AttCinemaService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
 import com.bw.movie.util.ToastUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -33,8 +31,6 @@ public class AttCinemaModel extends BaseModel {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    /*MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
-                                    AppManager.getAppManager().finishAllActivity();*/
                                     BaseEvent.post(new ChuanUser());
                                 }
                             },100);

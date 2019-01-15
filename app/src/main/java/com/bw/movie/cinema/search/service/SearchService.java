@@ -2,7 +2,6 @@ package com.bw.movie.cinema.search.service;
 
 import com.bw.movie.cinema.search.bean.SearchBean;
 import com.bw.movie.util.UrlUtil;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

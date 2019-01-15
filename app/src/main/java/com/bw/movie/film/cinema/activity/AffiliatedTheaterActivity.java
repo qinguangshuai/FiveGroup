@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
@@ -13,7 +12,6 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.activity.ParticularsActivity;
 import com.bw.movie.cinema.adapter.NeightbourAdapder;
 import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
-import com.bw.movie.cinema.bean.neightbourbean.NeightNearbyCinemaListBean;
 import com.bw.movie.cinema.bean.neightbourbean.NeightbourBean;
 import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
 import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
@@ -24,16 +22,15 @@ import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
-import com.bw.movie.util.EmptyUtil;
-import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+/**
+ * 影片关注
+ * */
 
 public class AffiliatedTheaterActivity extends BaseActivity implements NeightbourView<NeightbourBean> {
 
@@ -41,15 +38,15 @@ public class AffiliatedTheaterActivity extends BaseActivity implements Neightbou
     TextView mTitleAffiliated;
     @BindView(R.id.recy_affiliated)
     RecyclerView mRecyAffiliated;
-    private int id;
-    private String name;
+    private int mId;
+    private String mName;
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
-        id = getIntent().getIntExtra("id", -1);
-        name = getIntent().getStringExtra("name");
-        mTitleAffiliated.setText(name);
+        mId = getIntent().getIntExtra("mId", -1);
+        mName = getIntent().getStringExtra("mName");
+        mTitleAffiliated.setText(mName);
         NeightbourPresenter neightbourPresenter = new NeightbourPresenter(this);
         neightbourPresenter.getNeightbour(1, 10);
         if (!EventBus.getDefault().isRegistered(this)) {

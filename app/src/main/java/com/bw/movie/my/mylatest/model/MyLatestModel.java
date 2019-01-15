@@ -3,6 +3,7 @@ package com.bw.movie.my.mylatest.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.mylatest.bean.MyLatestUser;
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:Therefore(Lenovo)
  * fileName:MyLatestModel
  */
-public class MyLatestModel {
+public class MyLatestModel extends BaseModel {
     public void getVersion(final HttpCallBack<MyLatestUser> httpCallBack) {
         OkHttpUtil.get().createa(MyLatestService.class).getVersion()
                 .subscribeOn(Schedulers.io())

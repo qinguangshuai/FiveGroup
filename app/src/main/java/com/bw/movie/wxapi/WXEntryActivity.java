@@ -46,6 +46,7 @@ import static com.tencent.mm.opensdk.modelmsg.SendMessageToWX.Req.WXSceneTimelin
  * 微信界面
  * date:2018/12/27
  * author:秦广帅(Lenovo)
+ * 微信登录
  */
 
 public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHandler, WXView<WXUser> {
@@ -56,7 +57,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     private WXPresenter mWxPresenter;
     private WXUser mWxUser1;
     private String mCode;
-    private NotifyUtil currentNotify;
+    private NotifyUtil mCurrentNotify;
     private boolean isoncl = true;
     private int requestCode = (int) SystemClock.uptimeMillis();
     private String APP_ID = "wxb3852e6a6b7d9516";

@@ -2,7 +2,6 @@ package com.bw.movie.film.details.bean;
 
 import com.bw.movie.base.BaseEntity;
 
-import java.io.Serializable;
 
 /*
  *作者:ash

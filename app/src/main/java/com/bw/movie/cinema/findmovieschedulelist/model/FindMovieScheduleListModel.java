@@ -1,11 +1,11 @@
 package com.bw.movie.cinema.findmovieschedulelist.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.cinema.findmovieschedulelist.service.FindMovieScheduleListService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:张文龙(张文龙)
  * fileName:FindMovieScheduleListModel
  */
-public class FindMovieScheduleListModel {
+public class FindMovieScheduleListModel extends BaseModel {
 
     public void getFindMovieScheduleList(int cinemasId, int movieId, final HttpCallBack<FindMovieScheduleListBean> httpCallBack) {
         OkHttpUtil.get().createa(FindMovieScheduleListService.class).getFindMovieScheduleList(cinemasId, movieId)

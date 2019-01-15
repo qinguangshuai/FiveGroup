@@ -13,15 +13,15 @@ import com.bw.movie.net.HttpCallBack;
  */
 public class CannelFollowPresenter extends BasePresenter {
 
-    private CannelFollowModel cannelFollowModel;
+    private CannelFollowModel mCannelFollowModel;
 
     public CannelFollowPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        cannelFollowModel = new CannelFollowModel();
+        mCannelFollowModel = new CannelFollowModel();
     }
 
     public void getCannelFollow(int cinemaId) {
-        cannelFollowModel.getCannelFollow(cinemaId, new HttpCallBack<FollowBean>() {
+        mCannelFollowModel.getCannelFollow(cinemaId, new HttpCallBack<FollowBean>() {
             @Override
             public void onSuccess(FollowBean name) {
                    getiBaseView().onDataSuccess(name);

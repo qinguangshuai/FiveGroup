@@ -12,15 +12,15 @@ import com.bw.movie.net.HttpCallBack;
  * fileName:FollowPresenter
  */
 public class FollowProsenter extends BasePresenter {
-    private FollowModel followModel;
+    private FollowModel mFollowModel;
 
     public FollowProsenter(IBaseView iBaseView) {
         super(iBaseView);
-        followModel = new FollowModel();
+        mFollowModel = new FollowModel();
     }
 
     public void getFollow(int cinemaId) {
-        followModel.getFollow(cinemaId, new HttpCallBack<FollowBean>() {
+        mFollowModel.getFollow(cinemaId, new HttpCallBack<FollowBean>() {
             @Override
             public void onSuccess(FollowBean name) {
                 getiBaseView().onDataSuccess(name);

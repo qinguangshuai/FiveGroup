@@ -10,20 +10,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.greenbean.GreenDaoBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendErrorAdapder extends RecyclerView.Adapter<RecommendErrorAdapder.MyViewHolder> {
+public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAdapder.MyViewHolder,GreenDaoBean> {
     private List<GreenDaoBean> list;
     private Context mContext;
 
-    public RecommendErrorAdapder(List<GreenDaoBean> list, Context mContext) {
+    public RecommendErrorAdapder(List<GreenDaoBean> listData, Context context) {
+        super(listData, context);
         this.list = list;
         this.mContext = mContext;
     }
+
 
     @NonNull
     @Override
@@ -33,12 +36,13 @@ public class RecommendErrorAdapder extends RecyclerView.Adapter<RecommendErrorAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getImage()));
-        myViewHolder.textViewname.setText(list.get(i).getTitle());
-          myViewHolder.textViewaddress.setText(list.get(i).getKile());
-
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
+        ((MyViewHolder) holder).simpleDraweeView.setImageURI(Uri.parse(list.get(i).getImage()));
+        ((MyViewHolder) holder).textViewaddress.setText(list.get(i).getKile());
+        ((MyViewHolder) holder).textViewname.setText(list.get(i).getTitle());
     }
+
+
 
     @Override
     public int getItemCount() {

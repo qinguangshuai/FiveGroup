@@ -1,11 +1,11 @@
 package com.bw.movie.film.details.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.service.CanceFollowService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class CancelFollowModel {
+public class CancelFollowModel extends BaseModel {
 
     //取消关注
     public void getCancelFollowMovieBeanObservable(int can , final HttpCallBack<CancelFollowMovieBean> httpCallBack){
@@ -23,7 +23,7 @@ public class CancelFollowModel {
                 .createa(CanceFollowService.class)
                 .getCancelFollowMovieBeanObservable(can)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())//CancelFollowMovieBean
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<CancelFollowMovieBean>(httpCallBack));
     }
 }

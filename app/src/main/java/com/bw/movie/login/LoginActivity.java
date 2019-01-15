@@ -3,7 +3,6 @@ package com.bw.movie.login;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.Constant;
 import com.bw.movie.MainActivity;
 import com.bw.movie.R;
@@ -31,7 +29,6 @@ import com.bw.movie.login.pwd.EncryptUtil;
 import com.bw.movie.login.view.LoginView;
 import com.bw.movie.login.view.XinView;
 import com.bw.movie.registe.RegisteActivity;
-import com.bw.movie.util.ButtonUtils;
 import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.NotifyUtil;
 import com.bw.movie.util.SpUtil;
@@ -40,20 +37,20 @@ import com.bw.movie.wxapi.event.FinishEvent;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * 登录界面
+ * */
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView<LoginUser> {
 
@@ -79,9 +76,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     TextView loginFan;
     private String mEdit1;
     private String mEdit2;
-    private LoginPresenter presenter;
-    private SharedPreferences sp;
-    private SharedPreferences.Editor edit;
+    private LoginPresenter mPresenter;
+    private SharedPreferences mSp;
+    private SharedPreferences.Editor mEdit;
     private long mBirthday;
     private String mHeadPic;
     private long mLastLoginTime;
@@ -93,7 +90,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private int mUserId;
     private Unbinder mUnbinder;
     private NotifyUtil currentNotify;
-    private int requestCode = (int) SystemClock.uptimeMillis();
+    private int mRequestcode = (int) SystemClock.uptimeMillis();
     private String mMessage;
 
     private boolean isClick=true;
@@ -121,11 +118,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void initListener() {
-        sp = getSharedPreferences("login", MODE_PRIVATE);
-        edit = sp.edit();
-        if (sp.getBoolean("loginbox", false)) {
-            loginedit1.setText(sp.getString("phone", mEdit1));
-            loginedit2.setText(sp.getString("pwd", mEdit2));
+        mSp = getSharedPreferences("login", MODE_PRIVATE);
+        mEdit = mSp.edit();
+        if (mSp.getBoolean("loginbox", false)) {
+            loginedit1.setText(mSp.getString("phone", mEdit1));
+            loginedit2.setText(mSp.getString("pwd", mEdit2));
             loginbox.setChecked(true);
             if (mRemeberbox.isChecked()){
                 mRemeberbox.setChecked(true);
@@ -134,7 +131,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mRemeberbox.setChecked(false);
             }
         }
-        if (sp.getBoolean("mRemeberbox",false)){
+        if (mSp.getBoolean("mRemeberbox",false)){
             startActivity(new Intent(this,ShowActivity.class));
             finish();
             return;
@@ -168,8 +165,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public LoginPresenter initPresenter() {
-        presenter = new LoginPresenter(this);
-        return presenter;
+        mPresenter = new LoginPresenter(this);
+        return mPresenter;
     }
 
     @OnClick({R.id.visible, R.id.loginbox, R.id.loginbtn, R.id.loginimg})
@@ -208,7 +205,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         Toast.makeText(this, "手机号错误", Toast.LENGTH_LONG).show();
                         return;
                     } else {
-                        presenter.getLogin(mEdit1, encrypt);
+                        mPresenter.getLogin(mEdit1, encrypt);
                     }
 
                     XGPushManager.registerPush(this, new XGIOperateCallback() {
@@ -298,7 +295,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             PendingIntent pIntent = PendingIntent.getActivity(this,
-                    requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    mRequestcode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             int smallIcon = R.mipmap.ic_launcher;
             int largeIcon = R.mipmap.ffanhui;
             String ticker = "您有一条新通知";
@@ -324,14 +321,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         SpUtil.put("birthday", mBirthday);
         SpUtil.put(Constant.HEADPIC, mHeadPic);
         SpUtil.put("lastLoginTime", mLastLoginTime);
-        SpUtil.put(Constant.NICKNAME, mNickName);
-        SpUtil.put(Constant.PHONE, mPhone);
+        SpUtil.put("phone", mNickName);
+        SpUtil.put("pwd", mPhone);
         SpUtil.put("id", mId);
         SpUtil.put("sex", mSex);
         SpUtil.put("message",mMessage);
 
         if (loginbox.isChecked()) {
-            SharedPreferences.Editor edit = sp.edit();
+            SharedPreferences.Editor edit = mSp.edit();
             edit.putString("phone", mEdit1);
             edit.putString("pwd", mEdit2);
             edit.putString("nickName", mNickName);
@@ -339,13 +336,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             edit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
             edit.commit();
         } else {
-            edit.putString("phone", "");
-            edit.putString("pwd", "");
-            edit.putString("headPic", mHeadPic);
-            edit.putString("nickName", mNickName);
-            edit.putBoolean("loginbox", loginbox.isChecked());
-            edit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
-            edit.commit();
+            mEdit.putString("phone", "");
+            mEdit.putString("pwd", "");
+            mEdit.putString("headPic", mHeadPic);
+            mEdit.putString("nickName", mNickName);
+            mEdit.putBoolean("loginbox", loginbox.isChecked());
+            mEdit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
+            mEdit.commit();
         }
     }
 

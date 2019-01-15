@@ -9,10 +9,8 @@ package com.bw.movie.film.synopsis.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.dak.weakview.adapter.WeakViewAdapter;
 import com.dak.weakview.adapter.viewholder.WeakCurrencyViewHold;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +21,17 @@ import java.util.List;
 */
 public abstract class WeakCurrencyAdapter<T> extends WeakViewAdapter<WeakCurrencyViewHold> {
     private List<T> mList = new ArrayList<>();
-    private Context context;
-    private int layoutId;
+    private Context mContext;
+    private int mLayoutId;
 
     public WeakCurrencyAdapter(Context context, int layoutId) {
-        this.context = context;
-        this.layoutId = layoutId;
+        this.mContext = context;
+        this.mLayoutId = layoutId;
     }
 
     @Override
     public WeakCurrencyViewHold onCreateViewHolder(ViewGroup parent) {
-        return new WeakCurrencyViewHold(LayoutInflater.from(context).inflate(layoutId, parent, false));
+        return new WeakCurrencyViewHold(LayoutInflater.from(mContext).inflate(mLayoutId, parent, false));
     }
 
 

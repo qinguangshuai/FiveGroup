@@ -17,10 +17,10 @@ import com.bw.movie.R;
  *
  */public class ScrollView extends LinearLayout {
 
-    private CheckBox checkBox;
+    private CheckBox mCheckBox;
 
     public void onChecked(){
-        checkBox.setChecked(!checkBox.isChecked());
+        mCheckBox.setChecked(!mCheckBox.isChecked());
     }
 
     public ScrollView(Context context) {
@@ -34,22 +34,19 @@ import com.bw.movie.R;
     public ScrollView(Context context,  AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customscrollview, this);
-        checkBox = view.findViewById(R.id.customscrollbar);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mCheckBox = view.findViewById(R.id.customscrollbar);
+        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(checkBox, "translationX", -1000f, 1000f, 1000f);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(mCheckBox, "translationX", -1000f, 1000f, 1000f);
                 animator.setDuration(2000);
-                ObjectAnimator animator2 = ObjectAnimator.ofFloat(checkBox, "translationX", -1000f, 0f, 0f);
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(mCheckBox, "translationX", -1000f, 0f, 0f);
                 animator2.setDuration(1000);
                 AnimatorSet set = new AnimatorSet();
                 set.play(animator).before(animator2);
                 set.start();
             }
         });
-
-
-
 
     }
 

@@ -17,9 +17,7 @@ import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -32,7 +30,6 @@ import butterknife.Unbinder;
 public class PopularFragment extends BaseFragment {
     @BindView(R.id.swipe_detailsfragment)
     SwipeRefreshLayout mSwipeDetailsfragment;
-    Unbinder unbinder1;
     //判空工具类
     //吐司工具类
     //适配器
@@ -42,11 +39,11 @@ public class PopularFragment extends BaseFragment {
 
     @BindView(R.id.RecyclerView_detailsfragment)
     RecyclerView mRecyclerViewDetailsfragment;
-    Unbinder unbinder;
+    Unbinder mUnbinder;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
     }
 
@@ -79,7 +76,7 @@ public class PopularFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
 
     //set recyclerview 数据

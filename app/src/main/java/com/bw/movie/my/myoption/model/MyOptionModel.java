@@ -3,6 +3,7 @@ package com.bw.movie.my.myoption.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.myoption.bean.MyOptionEntity;
@@ -17,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 /*
    我的意见反馈model层
 * */
-public class MyOptionModel {
+public class MyOptionModel extends BaseModel {
     public void getOpition(String content, final HttpCallBack<MyOptionEntity> httpCallBack) {
         OkHttpUtil.get().createa(MyOptionService.class).getOption(content)
                 .subscribeOn(Schedulers.io())

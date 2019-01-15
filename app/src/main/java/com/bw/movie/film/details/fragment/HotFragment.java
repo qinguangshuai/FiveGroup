@@ -20,11 +20,8 @@ import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
