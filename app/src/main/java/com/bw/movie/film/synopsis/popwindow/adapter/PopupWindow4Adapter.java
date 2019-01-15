@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.film.synopsis.bean.CommentBean;
 import com.bw.movie.film.event.PraiseEvent;
 import com.bw.movie.film.synopsis.bean.ResultBean;
 import com.bw.movie.util.EmptyUtil;
@@ -34,22 +33,22 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-    private List<ResultBean> result = new ArrayList<>();
+    private List<ResultBean> mResult = new ArrayList<>();
 
 
     public void setResult(List< ResultBean> result) {
-        this.result = result;
+        this.mResult = result;
     }
 
     public List<ResultBean> getResult() {
-        return result;
+        return mResult;
     }
 
     public void addResult(List<ResultBean> result) {
         if (EmptyUtil.isNull(result)) {
             ToastUtil.Toast("没更多了,官人明天来~");
         } else {
-            this.result.addAll(result);
+            this.mResult.addAll(result);
         }
     }
 
@@ -119,7 +118,7 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         final Holder holder = (Holder) viewHolder;
-        final  ResultBean resultBean = result.get(i);
+        final  ResultBean resultBean = mResult.get(i);
         holder.setData(resultBean);
 
         //点击 点赞
@@ -134,8 +133,8 @@ public class PopupWindow4Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if (EmptyUtil.isNull(result) == false) {
-            return result.size();
+        if (EmptyUtil.isNull(mResult) == false) {
+            return mResult.size();
         } else {
             return 0;
         }

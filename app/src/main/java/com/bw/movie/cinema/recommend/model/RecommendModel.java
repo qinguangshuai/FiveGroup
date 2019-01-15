@@ -10,7 +10,7 @@ import com.bw.movie.net.OkHttpUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class recommendModel extends BaseModel {
+public class RecommendModel extends BaseModel {
     public void getRecommned(String longitude, String latitude, int page, int count, final HttpCallBack<RecommendBean> httpCallBack){
         OkHttpUtil.get().createa(RecommendService.class).getRecommned(longitude, latitude, page, count)
                 .observeOn(AndroidSchedulers.mainThread())

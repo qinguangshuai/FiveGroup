@@ -3,7 +3,6 @@ package com.bw.movie.film.synopsis.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -101,17 +100,17 @@ public class SynopsisActivity extends BaseActivity {
     Button mBuySynopsis;
     @BindView(R.id.imagereturnsynopsis)
     ImageView imagereturnsynopsis;
-    private WeakCurrencyAdapter<String> adapter;
+    private WeakCurrencyAdapter<String> mAdapter;
     private View mTrail;
     private View mStills;
     private View mReview;
     private View mDatail;
     private int a = 1;
     private int id;
-    private PopupWindow popupWindow;
-    private PopupWindow popupWindow2;
-    private PopupWindow popupWindow3;
-    private PopupWindow popupWindow4;
+    private PopupWindow mPopupWindow;
+    private PopupWindow mPopupWindow2;
+    private PopupWindow mPopupWindow3;
+    private PopupWindow mPopupWindow4;
     private boolean flag;
     private PopupWindow4Adapter mPopupWindow4Adapter = new PopupWindow4Adapter();
     private ScrollWindow mScrollWindow = new ScrollWindow(this);
@@ -199,7 +198,7 @@ public class SynopsisActivity extends BaseActivity {
 
     //判断并销毁视频 的 播放
     public void isPlay() {
-        if (popupWindow2.isShowing()) {
+        if (mPopupWindow2.isShowing()) {
 
         } else {
             if (JCVideoPlayer.backPress()) {
@@ -219,7 +218,7 @@ public class SynopsisActivity extends BaseActivity {
             }
         });
 
-        adapter = new WeakCurrencyAdapter<String>(this, R.layout.item_diycard) {
+        mAdapter = new WeakCurrencyAdapter<String>(this, R.layout.item_diycard) {
             @Override
             public void notifyItemView(WeakCurrencyViewHold holder, String item, int position) {
                 Uri uri = Uri.parse(item);
@@ -228,7 +227,7 @@ public class SynopsisActivity extends BaseActivity {
                 img.setImageURI(uri);
             }
         };
-        mCardSynopsis.setAdapter(adapter);
+        mCardSynopsis.setAdapter(mAdapter);
     }
 
     //请求评论数据
@@ -274,7 +273,7 @@ public class SynopsisActivity extends BaseActivity {
                 //获取图片集合
                 List<String> posterList = result.getPosterList();
                 //将数据装进适配器
-                adapter.refreshData(posterList);
+                mAdapter.refreshData(posterList);
                 //给tv 赋值
                 mTitleSynopsis.setText(result.getName());
                 //红心
@@ -344,7 +343,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow.dismiss();
+                mPopupWindow.dismiss();
             }
         });
         //查找控件
@@ -381,7 +380,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow2.dismiss();
+                mPopupWindow2.dismiss();
                 isPlay();
 
             }
@@ -403,7 +402,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow3.dismiss();
+                mPopupWindow3.dismiss();
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -429,7 +428,7 @@ public class SynopsisActivity extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow4.dismiss();
+                mPopupWindow4.dismiss();
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -543,24 +542,24 @@ public class SynopsisActivity extends BaseActivity {
         int height = windowManager.getDefaultDisplay().getHeight();
         switch (v.getId()) {
             case R.id.rb_Datail_synopsis:
-                popupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                popupWindow.setAnimationStyle(R.style.popwin_anim_style);
-                popupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                mPopupWindow = new PopupWindow(mDatail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
+                mPopupWindow.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Trail_synopsis:
-                popupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                popupWindow2.setAnimationStyle(R.style.popwin_anim_style);
-                popupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                mPopupWindow2 = new PopupWindow(mTrail, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                mPopupWindow2.setAnimationStyle(R.style.popwin_anim_style);
+                mPopupWindow2.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Stills_synopsis:
-                popupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                popupWindow3.setAnimationStyle(R.style.popwin_anim_style);
-                popupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                mPopupWindow3 = new PopupWindow(mStills, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                mPopupWindow3.setAnimationStyle(R.style.popwin_anim_style);
+                mPopupWindow3.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
             case R.id.rb_Review_synopsis:
-                popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
-                popupWindow4.setAnimationStyle(R.style.popwin_anim_style);
-                popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
+                mPopupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
+                mPopupWindow4.setAnimationStyle(R.style.popwin_anim_style);
+                mPopupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
     }

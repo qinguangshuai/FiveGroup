@@ -13,15 +13,15 @@ import com.bw.movie.net.HttpCallBack;
  */
 public class MovieListByCinemaIdPresenter extends BasePresenter {
 
-    private MovieListByCinemaIdModel movieListByCinemaIdModel;
+    private MovieListByCinemaIdModel mMovieListByCinemaIdModel;
 
     public MovieListByCinemaIdPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        movieListByCinemaIdModel = new MovieListByCinemaIdModel();
+        mMovieListByCinemaIdModel = new MovieListByCinemaIdModel();
     }
 
     public void getMovieByBean(int cinemaId) {
-        movieListByCinemaIdModel.getMovieByBean(cinemaId, new HttpCallBack<MovieListByCinemaIdBean>() {
+        mMovieListByCinemaIdModel.getMovieByBean(cinemaId, new HttpCallBack<MovieListByCinemaIdBean>() {
             @Override
             public void onSuccess(MovieListByCinemaIdBean name) {
                 getiBaseView().onDataSuccess(name);

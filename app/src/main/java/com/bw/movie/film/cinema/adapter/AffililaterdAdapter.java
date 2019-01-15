@@ -29,10 +29,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
-    private CinemaBean cinemaBean = new CinemaBean();
+    private CinemaBean mCinemaBean = new CinemaBean();
 
     public void setCinemaBean(CinemaBean cinemaBean) {
-        this.cinemaBean = cinemaBean;
+        this.mCinemaBean = cinemaBean;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -72,7 +72,7 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
 
 
-        final CinemaResultBean resultBean = cinemaBean.getResult().get(i);
+        final CinemaResultBean resultBean = mCinemaBean.getResult().get(i);
         final Holder holder = (Holder) viewHolder;
 
         if (resultBean.getFollowCinema() == 1) {
@@ -153,8 +153,8 @@ public class AffililaterdAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if (EmptyUtil.isNull(cinemaBean.getResult()) == false) {
-            return cinemaBean.getResult().size();
+        if (EmptyUtil.isNull(mCinemaBean.getResult()) == false) {
+            return mCinemaBean.getResult().size();
         } else {
             return 0;
         }

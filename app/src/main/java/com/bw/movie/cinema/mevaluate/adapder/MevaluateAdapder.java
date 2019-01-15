@@ -10,15 +10,10 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bw.movie.R;
 import com.bw.movie.cinema.event.GoodEvent;
-import com.bw.movie.cinema.good.bean.GoodBean;
-import com.bw.movie.cinema.good.presenter.GoodPresenter;
-import com.bw.movie.cinema.good.view.GoodView;
 import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
-import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,11 +28,11 @@ import java.util.List;
  * fileName:MevaluateAdapder
  */
 public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.MevaulateteViewHolder> {
-    private List<MevaResultBean> list;
+    private List<MevaResultBean> mList;
     private Context mContext;
 
     public MevaluateAdapder(List<MevaResultBean> list, Context mContext) {
-        this.list = list;
+        this.mList = list;
         this.mContext = mContext;
     }
 
@@ -50,23 +45,23 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
 
     @Override
     public void onBindViewHolder(@NonNull final MevaulateteViewHolder mevaulateteViewHolder, final int i) {
-        if (list.get(i).getIsGreat() == 1) {
+        if (mList.get(i).getIsGreat() == 1) {
             mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
             mevaulateteViewHolder.checkBox.setChecked(true);
         } else {
             mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_default_hdpi);
             mevaulateteViewHolder.checkBox.setChecked(false);
         }
-        mevaulateteViewHolder.textViewname.setText(list.get(i).getCommentUserName());
-        mevaulateteViewHolder.textViewconnect.setText(list.get(i).getCommentContent());
-        mevaulateteViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i).getCommentHeadPic()));
-        long commentTime = list.get(i).getCommentTime();
+        mevaulateteViewHolder.textViewname.setText(mList.get(i).getCommentUserName());
+        mevaulateteViewHolder.textViewconnect.setText(mList.get(i).getCommentContent());
+        mevaulateteViewHolder.simpleDraweeView.setImageURI(Uri.parse(mList.get(i).getCommentHeadPic()));
+        long commentTime = mList.get(i).getCommentTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(commentTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         mevaulateteViewHolder.textViewtime.setText(df.format(gc.getTime()));
-        mevaulateteViewHolder.textViewmevalue.setText(list.get(i).getGreatNum() + "");
+        mevaulateteViewHolder.textViewmevalue.setText(mList.get(i).getGreatNum() + "");
 
        mevaulateteViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -84,7 +79,7 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return mList == null ? 0 : mList.size();
     }
 
 

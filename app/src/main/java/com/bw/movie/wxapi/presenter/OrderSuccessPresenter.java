@@ -7,13 +7,13 @@ import com.bw.movie.wxapi.bean.OrderSuccessBean;
 import com.bw.movie.wxapi.model.OrderSuccessModel;
 
 public class OrderSuccessPresenter extends BasePresenter {
- private OrderSuccessModel orderSuccessModel;
+ private OrderSuccessModel mOrderSuccessModel;
     public OrderSuccessPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        orderSuccessModel = new OrderSuccessModel();
+        mOrderSuccessModel = new OrderSuccessModel();
     }
     public void getOeder(int payType ,String orderId){
-       orderSuccessModel.getOrder(payType, orderId, new HttpCallBack<OrderSuccessBean>() {
+       mOrderSuccessModel.getOrder(payType, orderId, new HttpCallBack<OrderSuccessBean>() {
            @Override
            public void onSuccess(OrderSuccessBean name) {
                getiBaseView().onDataSuccess(name);

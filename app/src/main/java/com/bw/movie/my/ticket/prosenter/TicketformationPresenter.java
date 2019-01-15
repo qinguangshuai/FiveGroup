@@ -10,15 +10,16 @@ import com.bw.movie.net.HttpCallBack;
  * 购票记录p层
  * */
 public class TicketformationPresenter extends BasePresenter {
-    private TicketformationModel model;
+
+    private TicketformationModel mModel;
 
     public TicketformationPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        model = new TicketformationModel();
+        mModel = new TicketformationModel();
     }
 
     public void getTicet(int page, int count) {
-        model.getMeassage(page, count, new HttpCallBack<TicketFoemationEntity>() {
+        mModel.getMeassage(page, count, new HttpCallBack<TicketFoemationEntity>() {
             @Override
             public void onSuccess(TicketFoemationEntity name) {
                 getiBaseView().onDataSuccess(name);

@@ -45,11 +45,11 @@ public class HotFragment extends BaseFragment {
     SwipeRefreshLayout mSwipeDetailsfragment;
     @BindView(R.id.RecyclerView_detailsfragment)
     RecyclerView mRecyclerViewDetailsfragment;
-    Unbinder unbinder;
+    Unbinder mUnbinder;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class HotFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
 
     //set recyclerview 数据

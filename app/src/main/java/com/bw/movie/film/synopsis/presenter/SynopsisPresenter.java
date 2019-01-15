@@ -16,17 +16,17 @@ import com.bw.movie.net.HttpCallBack;
 public class SynopsisPresenter extends BasePresenter {
 
 
-    private SynopsisModel synopsisModel;
+    private SynopsisModel mSynopsisModel;
 
     public SynopsisPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        synopsisModel = new SynopsisModel();
+        mSynopsisModel = new SynopsisModel();
     }
 
 
     //评论
     public void getCommentBeanObservable(int id, int page, int count) {
-        synopsisModel.getCommentBeanObservable(id, page, count, new HttpCallBack<CommentBean>() {
+        mSynopsisModel.getCommentBeanObservable(id, page, count, new HttpCallBack<CommentBean>() {
             @Override
             public void onSuccess(CommentBean name) {
                 getiBaseView().onDataSuccess(name);
@@ -41,7 +41,7 @@ public class SynopsisPresenter extends BasePresenter {
 
     //添加用户对评论的回复
     public void getInputcomments(int commentId, String replyContent) {
-        synopsisModel.getInputcomments(commentId, replyContent, new HttpCallBack<InputcommentsBean>() {
+        mSynopsisModel.getInputcomments(commentId, replyContent, new HttpCallBack<InputcommentsBean>() {
             @Override
             public void onSuccess(InputcommentsBean name) {
                 getiBaseView().onDataSuccess(name);
@@ -57,7 +57,7 @@ public class SynopsisPresenter extends BasePresenter {
 
     //点赞
     public void getPraiseBeanObservable(int id) {
-        synopsisModel.getPraiseBeanObservable(id, new HttpCallBack<PraiseBean>() {
+        mSynopsisModel.getPraiseBeanObservable(id, new HttpCallBack<PraiseBean>() {
             @Override
             public void onSuccess(PraiseBean name) {
                 getiBaseView().onDataSuccess(name);

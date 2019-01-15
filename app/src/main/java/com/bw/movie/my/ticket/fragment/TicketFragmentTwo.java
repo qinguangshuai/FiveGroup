@@ -32,16 +32,14 @@ import butterknife.Unbinder;
 
 public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketFoemationEntity> {
 
-
     Unbinder unbinder;
     int page = 1;
     @BindView(R.id.ticket_twoRecycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.ticketSwipeRefreshLayout2)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    Unbinder unbinder1;
     private TicketformationPresenter mTicketformationPresenter;
-    private List<ResultBean> list;
+    private List<ResultBean> mList;
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
 
     @Override
@@ -100,12 +98,12 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
 
     @Override
     public void onDataSuccess(TicketFoemationEntity ticketFoemationEntity) {
-        list = ticketFoemationEntity.getResult();
-        if (list != null && list.size() > 0) {
+        mList = ticketFoemationEntity.getResult();
+        if (mList != null && mList.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mRecyclerView.setLayoutManager(linearLayoutManager);
 
-            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list, getContext());
+            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(mList, getContext());
             mRecyclerView.setAdapter(attFilmAdapter);
             mSwipeRefreshLayout.setRefreshing(false);
             new Handler().postDelayed(new Runnable() {

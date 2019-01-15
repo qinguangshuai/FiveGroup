@@ -17,7 +17,6 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.error.AppManager;
 import com.bw.movie.film.adapter.RootAdapter;
 import com.bw.movie.film.details.activity.DetailsActivity;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
@@ -74,16 +73,16 @@ public class FilmFragment extends BaseFragment  {
     //吐司工具类
     //判空工具类
 
-    Unbinder unbinder;
+    Unbinder mUnbinder;
     @BindView(R.id.RecyclerView_filefragment)
     RecyclerView mRecyclerViewFilefragment;
-    private Intent intent;
+    private Intent mIntent;
     private CityPicker mCityPicker;
 
     //初始化控件
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -92,8 +91,8 @@ public class FilmFragment extends BaseFragment  {
         getPopularBeanObservable(1, 10, false);
         getHotPlayBeanObservable(1, 10, false);
         getPlayingBeanObservable(1, 10, false);
-        //intent 传值 准备
-        intent = new Intent(getActivity(), DetailsActivity.class);
+        //mIntent 传值 准备
+        mIntent = new Intent(getActivity(), DetailsActivity.class);
 
         //滚轮文字的大小
         //滚轮文字的颜色
@@ -242,8 +241,8 @@ public class FilmFragment extends BaseFragment  {
     @Subscribe
     public void Jump(JumpEvent jumpEvent) {
         int a = jumpEvent.getA();
-        intent.putExtra("index", a);
-        getActivity().startActivity(intent);
+        mIntent.putExtra("index", a);
+        getActivity().startActivity(mIntent);
     }
 
     //刷新请求
@@ -418,7 +417,7 @@ public class FilmFragment extends BaseFragment  {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
 

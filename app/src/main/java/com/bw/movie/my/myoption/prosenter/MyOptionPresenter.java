@@ -11,15 +11,15 @@ import com.bw.movie.net.HttpCallBack;
 * */
 public class MyOptionPresenter extends BasePresenter<MyOpitionView> {
 
-    private MyOptionModel myOptionModel;
+    private MyOptionModel mMyOptionModel;
 
     public MyOptionPresenter(MyOpitionView iBaseView) {
         super(iBaseView);
-        myOptionModel = new MyOptionModel();
+        mMyOptionModel = new MyOptionModel();
     }
 
     public void getOption(String context) {
-        myOptionModel.getOpition(context, new HttpCallBack<MyOptionEntity>() {
+        mMyOptionModel.getOpition(context, new HttpCallBack<MyOptionEntity>() {
             @Override
             public void onSuccess(MyOptionEntity name) {
                 getiBaseView().onDataSuccess(name);

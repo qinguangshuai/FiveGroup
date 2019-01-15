@@ -19,19 +19,19 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, TicketFoemationEntity> {
-    private List<ResultBean> list;
-    private Context context;
+    private List<ResultBean> mList;
+    private Context mContext;
 
     public TicketInforAdapter(List<ResultBean> list, Context context) {
         super(context);
-        this.list = list;
-        this.context = context;
+        this.mList = list;
+        this.mContext = context;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_ticket, viewGroup, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_ticket, viewGroup, false);
         MyTicketViewHolder ticketViewHolder = new MyTicketViewHolder(view,mHttpClick);
         return ticketViewHolder;
     }
@@ -39,23 +39,23 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
         if (holder instanceof MyTicketViewHolder) {
-            if (list.get(i).getStatus() != 2){
+            if (mList.get(i).getStatus() != 2){
                 //填充布局
-                ((MyTicketViewHolder) holder).addresstext.setText(list.get(i).getCinemaName());
-                ((MyTicketViewHolder) holder).datetext.setText(list.get(i).getBeginTime() + "");
-                ((MyTicketViewHolder) holder).dingdantext.setText(list.get(i).getOrderId() + "");
-                ((MyTicketViewHolder) holder).moneytext.setText(list.get(i).getPrice() + "");
-                ((MyTicketViewHolder) holder).numtext.setText(list.get(i).getAmount() + "");
-                ((MyTicketViewHolder) holder).nametext.setText(list.get(i).getCinemaName());
+                ((MyTicketViewHolder) holder).addresstext.setText(mList.get(i).getCinemaName());
+                ((MyTicketViewHolder) holder).datetext.setText(mList.get(i).getBeginTime() + "");
+                ((MyTicketViewHolder) holder).dingdantext.setText(mList.get(i).getOrderId() + "");
+                ((MyTicketViewHolder) holder).moneytext.setText(mList.get(i).getPrice() + "");
+                ((MyTicketViewHolder) holder).numtext.setText(mList.get(i).getAmount() + "");
+                ((MyTicketViewHolder) holder).nametext.setText(mList.get(i).getCinemaName());
                 //时间转换
-                String createTime = list.get(i).getCreateTime();
+                String createTime = mList.get(i).getCreateTime();
                 GregorianCalendar gc = new GregorianCalendar();
                 gc.setTimeInMillis(Long.parseLong(createTime));
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 ((MyTicketViewHolder) holder).longText.setText(df.format(gc.getTime()));
-                if (list.get(i).getStatus() == 1){
+                if (mList.get(i).getStatus() == 1){
                     ((MyTicketViewHolder) holder).nopay.setText("待付款");
-                }else  if (list.get(i).getStatus() == 2){
+                }else  if (mList.get(i).getStatus() == 2){
                     ((MyTicketViewHolder) holder).nopay.setText("已付款");
                 }
             }
@@ -64,7 +64,7 @@ public class TicketInforAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return mList == null ? 0 : mList.size();
     }
 
 

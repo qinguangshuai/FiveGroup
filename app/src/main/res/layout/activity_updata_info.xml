@@ -47,9 +47,7 @@
                     android:layout_marginLeft="@dimen/dp_100"
                     android:id="@+id/mtouxiang"
                     fresco:roundAsCircle="true"
-                    android:layout_alignParentRight="true"
-                    />
-
+                    android:layout_alignParentRight="true" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -245,7 +243,5 @@
             android:background="@drawable/cinema_shape_5"
             android:text="修改成功"
             android:id="@+id/update_myinfo" />
-
-
     </LinearLayout>
 </RelativeLayout>

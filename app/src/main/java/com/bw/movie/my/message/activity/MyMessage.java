@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.cinema.fragment.ChuanUser;
@@ -20,6 +21,7 @@ import com.bw.movie.my.message.bean.ResultBean;
 import com.bw.movie.my.message.presenter.MyMessagePresenter;
 import com.bw.movie.my.message.view.MyMessageView;
 import com.bw.movie.my.myinfo.activity.UpdataInfoActivity;
+import com.bw.movie.util.SpUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +33,7 @@ import java.util.GregorianCalendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 /*
   我的信息首页
 * */
@@ -52,29 +55,30 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     SimpleDraweeView mMyHeadimage;
     @BindView(R.id.my_update)
     Button mMyUpdate;
-    private MyMessagePresenter presenter;
-    private int sex1;
-    private String email;
-    private String headPic;
-    private String nickName;
-    private String phone1;
-    private long browseTime;
+    @BindView(R.id.my_myback)
+    Button myMyback;
+    private MyMessagePresenter mPresenter;
+    private int mSex1;
+    private String mEmail;
+    private String mHeadPic;
+    private String mNickName;
+    private String mPhone1;
+    private long mBrowseTime;
     private String s;
-    private ResultBean result;
-
+    private ResultBean mResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new MyMessagePresenter(this);
-        presenter.getMessage();
+        mPresenter = new MyMessagePresenter(this);
+        mPresenter.getMessage();
         ButterKnife.bind(this);
     }
 
     @Subscribe
     public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         AppManager.getAppManager().finishActivity(this);
     }
@@ -109,47 +113,45 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         return null;
     }
 
-
     @Override
     public void onDataSuccess(MyMessageEntity myMessageEntity) {
 
-        result = myMessageEntity.getResult();
-        email = this.result.getEmail();
-        headPic = this.result.getHeadPic();
-        int id = this.result.getId();
-        nickName = this.result.getNickName();
-        phone1 = this.result.getPhone();
-        sex1 = this.result.getSex();
+        mResult = myMessageEntity.getResult();
+        mEmail = this.mResult.getEmail();
+        mHeadPic = this.mResult.getHeadPic();
+        int id = this.mResult.getId();
+        mNickName = this.mResult.getNickName();
+        mPhone1 = this.mResult.getPhone();
+        mSex1 = this.mResult.getSex();
 
-
-
-        if (sex1 == 1) {
+        if (mSex1 == 1) {
             mTxtMyinfoSex.setText("男");
-        } else if (sex1 == 2) {
+        } else if (mSex1 == 2) {
             mTxtMyinfoSex.setText("女");
         } else {
             mTxtMyinfoSex.setText("获取性别失败");
         }
 
-        mTxtMyinfoMail.setText(email);
-        mTxtMyinfoPhone.setText(phone1);
-        mTxtMyinfoNikename.setText(nickName);
+        mTxtMyinfoMail.setText(mEmail);
+        mTxtMyinfoPhone.setText(mPhone1);
+        mTxtMyinfoNikename.setText(mNickName);
 
-
-        browseTime = this.result.getBirthday();
+        mBrowseTime = this.mResult.getBirthday();
         GregorianCalendar gc = new GregorianCalendar();
-        s = String.valueOf(browseTime);
+        s = String.valueOf(mBrowseTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mTxtMyinfoBirthday.setText(df.format(gc.getTime()));
-        Uri uri = Uri.parse(headPic);
+        Uri uri = Uri.parse(mHeadPic);
         mMyHeadimage.setImageURI(uri);
-        EventBus.getDefault().post(new Portrait(headPic));
+        EventBus.getDefault().post(new Portrait(mHeadPic));
     }
+
     @Override
     public void onDataFailer(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onShowLoading() {
 
@@ -183,15 +185,27 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
                 break;
             case R.id.my_update:
                 Intent intent = new Intent(this, UpdataInfoActivity.class);
-                intent.putExtra("sex1",sex1);
-                intent.putExtra("email",email);
-                intent.putExtra("headPic",headPic);
-                intent.putExtra("nickName",nickName);
-                intent.putExtra("phone1",phone1);
-                intent.putExtra("s",s);
+                intent.putExtra(Constant.SEX, mSex1);
+                intent.putExtra("mEmail", mEmail);
+                intent.putExtra(Constant.HEADPIC, mHeadPic);
+                intent.putExtra(Constant.NICKNAME, mNickName);
+                intent.putExtra(Constant.PHONE, mPhone1);
+                intent.putExtra("s", s);
                 startActivity(intent);
                 finish();
                 break;
         }
+    }
+
+    @OnClick(R.id.my_myback)
+    public void onViewClicked() {
+        SpUtil.remove("phone");
+        SpUtil.remove("pwd");
+        SpUtil.remove("loginbox");
+        SpUtil.remove("headPic");
+        SpUtil.remove("nickName");
+
+        startActivity(new Intent(this, LoginActivity.class));
+        AppManager.getAppManager().finishAllActivity();
     }
 }

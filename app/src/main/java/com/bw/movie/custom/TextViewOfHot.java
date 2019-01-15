@@ -19,8 +19,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
  */
 public class TextViewOfHot extends LinearLayout {
 
-    private TextView tv;
-    private SimpleDraweeView img;
+    private TextView mTv;
+    private SimpleDraweeView mImg;
 
     public TextViewOfHot(Context context) {
         this(context, null);
@@ -33,8 +33,8 @@ public class TextViewOfHot extends LinearLayout {
     public TextViewOfHot(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customtextview, this);
-        tv = view.findViewById(R.id.tv_customtv);
-        img = view.findViewById(R.id.img_customimg);
+        mTv = view.findViewById(R.id.tv_customtv);
+        mImg = view.findViewById(R.id.img_customimg);
         //路径
         Uri uri1 = Uri.parse("res://drawable/" + R.drawable.hot);
         //不多解释
@@ -42,7 +42,7 @@ public class TextViewOfHot extends LinearLayout {
                 .setUri(uri1)
                 .setAutoPlayAnimations(true)
                 .build();
-        img.setController(build);
+        mImg.setController(build);
     }
 
     @Override

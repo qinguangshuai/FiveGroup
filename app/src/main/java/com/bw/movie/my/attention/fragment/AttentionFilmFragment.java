@@ -14,7 +14,6 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.error.AppManager;
 import com.bw.movie.film.popwindow.ScrollWindow;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.attention.adapter.AttFilmAdapter;
@@ -36,17 +35,16 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
 
     @BindView(R.id.attenrecycle2)
     RecyclerView mAttenrecycle2;
-    Unbinder unbinder;
+    Unbinder mUnbinder;
     @BindView(R.id.attenSwipeRefreshLayout2)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    Unbinder unbinder1;
     private AttFilmPresenter mAttFilmPresenter;
     int page = 1;
     private List<ResultBean> mList;
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
         showloading();
         BaseEvent.register(this);
     }
@@ -106,7 +104,7 @@ public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyA
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
         BaseEvent.unregister(this);
     }
 

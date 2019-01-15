@@ -12,15 +12,15 @@ import com.bw.movie.net.HttpCallBack;
  * fileName:MevaluatePresenter
  */
 public class MevaluatePresenter extends BasePresenter {
-    private MevaluateModel mevaluateModel;
+    private MevaluateModel mMevaluateModel;
 
     public MevaluatePresenter(IBaseView iBaseView) {
         super(iBaseView);
-        mevaluateModel = new MevaluateModel();
+        mMevaluateModel = new MevaluateModel();
     }
 
     public void getMevaluate(int cinemaId, int page, int count) {
-        mevaluateModel.getMevaluate(cinemaId, page, count, new HttpCallBack<MevaluateBean>() {
+        mMevaluateModel.getMevaluate(cinemaId, page, count, new HttpCallBack<MevaluateBean>() {
             @Override
             public void onSuccess(MevaluateBean name) {
                 getiBaseView().onDataSuccess(name);

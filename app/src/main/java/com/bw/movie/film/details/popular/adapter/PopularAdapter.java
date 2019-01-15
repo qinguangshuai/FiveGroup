@@ -31,19 +31,19 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     //热门电影数据 list
-    private List<PopularBean.ResultBean> result = new ArrayList<>();
+    private List<PopularBean.ResultBean> mResult = new ArrayList<>();
 
     //热门电影 数据 set 方法
     public void setResult(List<PopularBean.ResultBean> result) {
-        if (EmptyUtil.isNull(this.result) == false) {
-            this.result.clear();
+        if (EmptyUtil.isNull(this.mResult) == false) {
+            this.mResult.clear();
         }
-        this.result.addAll(result);
+        this.mResult.addAll(result);
     }
 
     //热门电影 add 方法
     public void addResult(List<PopularBean.ResultBean> result) {
-        this.result.addAll(result);
+        this.mResult.addAll(result);
     }
 
     @NonNull
@@ -61,8 +61,8 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //查找文字控件
         TextView tv = holder.itemView.findViewById(R.id.moviename_item_popular_item);
         //判断是否为空
-        if (EmptyUtil.isNull(result) == false) {
-            PopularBean.ResultBean resultBean = result.get(i);
+        if (EmptyUtil.isNull(mResult) == false) {
+            PopularBean.ResultBean resultBean = mResult.get(i);
             //取出图片
             String imageUrl = resultBean.getImageUrl();
             //赋值
@@ -79,7 +79,7 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(viewHolder.itemView.getContext(),SynopsisActivity.class);
-                intent.putExtra("详情id",result.get(i).getId());
+                intent.putExtra("详情id", mResult.get(i).getId());
                 viewHolder.itemView.getContext().startActivity(intent);
             }
         });
@@ -90,8 +90,8 @@ public class PopularAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         //非空判断
-        if (EmptyUtil.isNull(result) == false) {
-            return result.size();
+        if (EmptyUtil.isNull(mResult) == false) {
+            return mResult.size();
         }
         return 0;
     }

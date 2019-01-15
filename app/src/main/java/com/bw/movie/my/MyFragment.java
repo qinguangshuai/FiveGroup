@@ -56,12 +56,11 @@ public class MyFragment extends BaseFragment {
     @BindView(R.id.my_new)
     LinearLayout mMyNew;
     Unbinder unbinder1;
-    private View view;
-    private Unbinder unbinder;
+    private Unbinder mUnbinder;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
     }
 
     @Override
@@ -109,7 +108,7 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
 
     @OnClick({R.id.my_sound, R.id.my_touxiang, R.id.my_name, R.id.my_info, R.id.my_love, R.id.my_message, R.id.my_opinion, R.id.my_new})

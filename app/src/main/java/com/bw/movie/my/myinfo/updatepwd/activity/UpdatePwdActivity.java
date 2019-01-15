@@ -36,14 +36,14 @@ public class UpdatePwdActivity extends BaseActivity<UpdatePwdPresenter> implemen
     Button mUpdatePwdback;
     @BindView(R.id.miMaBack)
     ImageView mMiMaBack;
-    private UpdatePwdPresenter pwdPresenter;
+    private UpdatePwdPresenter mPwdPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        pwdPresenter = new UpdatePwdPresenter(this);
+        mPwdPresenter = new UpdatePwdPresenter(this);
         String pwd = SpUtil.getString("pwd", "");
         mUpdateOldpwd.setText(pwd);
 
@@ -123,7 +123,7 @@ public class UpdatePwdActivity extends BaseActivity<UpdatePwdPresenter> implemen
                     Toast.makeText(this,"新密码为空",Toast.LENGTH_SHORT).show();
                     return;
                 }else {
-                    pwdPresenter.getPwd(oldPwd1, newPwd1, copyPwd1);
+                    mPwdPresenter.getPwd(oldPwd1, newPwd1, copyPwd1);
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 }

@@ -42,14 +42,14 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     RecyclerView mAttenrecycle1;
     @BindView(R.id.attenSwipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    Unbinder unbinder;
+    Unbinder mUnbinder;
     private AttCinemaPresenter mAttCinemaPresenter;
     int page = 1;
     private List<ResultBean> mList;
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
         showloading();
         BaseEvent.register(this);
     }
@@ -110,7 +110,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
         BaseEvent.unregister(this);
     }
 

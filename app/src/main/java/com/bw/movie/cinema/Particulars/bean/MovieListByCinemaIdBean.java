@@ -11,9 +11,6 @@ import java.util.List;
  */
 public class MovieListByCinemaIdBean  extends BaseEntity {
 
-
-
-
     private String message;
     private String status;
     private List<MovieResultBean> result;

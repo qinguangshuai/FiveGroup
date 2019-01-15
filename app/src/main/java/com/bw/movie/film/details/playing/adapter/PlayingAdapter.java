@@ -28,14 +28,14 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     // 即将上映 || 正在上映 数据 list
-    private List<PlayingBean.ResultBean> playresult = new ArrayList<>();
+    private List<PlayingBean.ResultBean> mResultBeans = new ArrayList<>();
 
     //即将上映 || 正在上映  数据 set 方法
     public void setPlayResult(List<PlayingBean.ResultBean> playresult) {
-        if (EmptyUtil.isNull(this.playresult) == false) {
-            this.playresult.clear();
+        if (EmptyUtil.isNull(this.mResultBeans) == false) {
+            this.mResultBeans.clear();
         }
-        this.playresult.addAll(playresult);
+        this.mResultBeans.addAll(playresult);
     }
 
     //即将上映 || 正在上映 数据 add 方法
@@ -43,7 +43,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (EmptyUtil.isNull(playresult)) {
             ToastUtil.Toast("没有更多了");
         }
-        this.playresult.addAll(playresult);
+        this.mResultBeans.addAll(playresult);
     }
 
 
@@ -62,8 +62,8 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //查找文字控件
         TextView tv = holder.itemView.findViewById(R.id.moviename_item_popular_item);
         //判断是否为空
-        if (EmptyUtil.isNull(playresult) == false) {
-            PlayingBean.ResultBean resultBean = playresult.get(i);
+        if (EmptyUtil.isNull(mResultBeans) == false) {
+            PlayingBean.ResultBean resultBean = mResultBeans.get(i);
             //取出图片
             String imageUrl = resultBean.getImageUrl();
             //赋值
@@ -80,7 +80,7 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(viewHolder.itemView.getContext(),SynopsisActivity.class);
-                intent.putExtra("详情id",playresult.get(i).getId());
+                intent.putExtra("详情id", mResultBeans.get(i).getId());
                 viewHolder.itemView.getContext().startActivity(intent);
             }
         });
@@ -91,8 +91,8 @@ public class PlayingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         //非空判断
-        if (EmptyUtil.isNull(playresult) == false) {
-            return playresult.size();
+        if (EmptyUtil.isNull(mResultBeans) == false) {
+            return mResultBeans.size();
         }
         return 0;
     }

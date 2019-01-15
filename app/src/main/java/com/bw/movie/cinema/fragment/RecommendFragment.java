@@ -59,8 +59,8 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     ImageView neighYing;
     Unbinder unbinder1;
     private RecommendPresenter mRecommendPresenter;
-    private Query<GreenDaoBean> userQuery;
-    private GreenDaoBeanDao greenDaoBeanDao;
+    private Query<GreenDaoBean> mUserQuery;
+    private GreenDaoBeanDao mGreenDaoBeanDao;
     private int page = 1;
 
     //    UserDao userDao;
@@ -79,8 +79,8 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
         }
 
         DaoSession daoSession = ((MyApp) getActivity().getApplication()).getDaoSession();
-        greenDaoBeanDao = daoSession.getGreenDaoBeanDao();
-        userQuery = greenDaoBeanDao.queryBuilder().orderAsc(GreenDaoBeanDao.Properties.MId).build();
+        mGreenDaoBeanDao = daoSession.getGreenDaoBeanDao();
+        mUserQuery = mGreenDaoBeanDao.queryBuilder().orderAsc(GreenDaoBeanDao.Properties.MId).build();
 
 
         showloading();
@@ -105,10 +105,10 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
     /*  private void insertUser(){
           GreenDaoBean user = new GreenDaoBean(1l,"ash", "男","26");
-          greenDaoBeanDao.insert(user);
+          mGreenDaoBeanDao.insert(user);
       }
       private List<GreenDaoBean> queryList(){
-          List<GreenDaoBean> users = userQuery.list();
+          List<GreenDaoBean> users = mUserQuery.list();
           return users;
       }*/
     //点赞
@@ -253,7 +253,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
 //            for (int i = 0; i < nearbyCinemaList.size(); i++) {
 //                GreenDaoBean greenDaoBean = new GreenDaoBean(nearbyCinemaList.get(i).getName(), nearbyCinemaList.get(i).getAddress(), nearbyCinemaList.get(i).getLogo());
-//                greenDaoBeanDao.insert(greenDaoBean);
+//                mGreenDaoBeanDao.insert(greenDaoBean);
 //
 //            }
 
@@ -274,7 +274,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
     }
 
     private List<GreenDaoBean> queryList() {
-        List<GreenDaoBean> users = userQuery.list();
+        List<GreenDaoBean> users = mUserQuery.list();
         return users;
     }
 

@@ -11,21 +11,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
-import com.bw.movie.cinema.bean.neightbourbean.NeightBourResultBean;
-import com.bw.movie.cinema.cannelfollow.presenter.CannelFollowPresenter;
-import com.bw.movie.cinema.cannelfollow.view.CannelFollowView;
-import com.bw.movie.cinema.event.FollowEvent;
 import com.bw.movie.cinema.event.GreatEvent;
-import com.bw.movie.cinema.follow.bean.FollowBean;
-import com.bw.movie.cinema.follow.presenter.FollowProsenter;
-import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.recommend.bean.RecommendBean;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -33,13 +23,13 @@ import java.util.List;
 * NeightbourAdapder
 * */
 public class RecommendAdapder extends RecyclerView.Adapter<RecommendAdapder.NeightbourViewHolder> {
-    List<RecommendBean.ResultBean> listBeans;
+    List<RecommendBean.ResultBean> mListBeans;
     private Context mContext;
 
 
 
     public RecommendAdapder(List< RecommendBean.ResultBean> listBeans, Context mContext) {
-        this.listBeans = listBeans;
+        this.mListBeans = listBeans;
         this.mContext = mContext;
     }
 
@@ -52,7 +42,7 @@ public class RecommendAdapder extends RecyclerView.Adapter<RecommendAdapder.Neig
 
     @Override
     public void onBindViewHolder(@NonNull final NeightbourViewHolder neightbourViewHolder, final int i) {
-        if (listBeans.get(i).getFollowCinema() == 1) {
+        if (mListBeans.get(i).getFollowCinema() == 1) {
             neightbourViewHolder.checkBox.setButtonDrawable(R.mipmap.com_icon_collection_selected_hdpi);
             neightbourViewHolder.checkBox.setChecked(true);
 
@@ -61,22 +51,22 @@ public class RecommendAdapder extends RecyclerView.Adapter<RecommendAdapder.Neig
             neightbourViewHolder.checkBox.setChecked(false);
 
         }
-        neightbourViewHolder.textViewname.setText(listBeans.get(i).getName());
-        neightbourViewHolder.textViewaddress.setText(listBeans.get(i).getAddress());
-        neightbourViewHolder.textViewk.setText(listBeans.get(i).getCommentTotal() + "km");
-        neightbourViewHolder.simpleDraweeView.setImageURI(Uri.parse(listBeans.get(i).getLogo()));
+        neightbourViewHolder.textViewname.setText(mListBeans.get(i).getName());
+        neightbourViewHolder.textViewaddress.setText(mListBeans.get(i).getAddress());
+        neightbourViewHolder.textViewk.setText(mListBeans.get(i).getCommentTotal() + "km");
+        neightbourViewHolder.simpleDraweeView.setImageURI(Uri.parse(mListBeans.get(i).getLogo()));
         neightbourViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    EventBus.getDefault().post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
-                BaseEvent.post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,listBeans.get(i).getId()));
+//                    EventBus.getDefault().post(new GreatEvent(isChecked,neightbourViewHolder.checkBox,mListBeans.get(i).getId()));
+                BaseEvent.post(new GreatEvent(isChecked,neightbourViewHolder.checkBox, mListBeans.get(i).getId()));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listBeans == null ? 0 : listBeans.size();
+        return mListBeans == null ? 0 : mListBeans.size();
     }
 
     class NeightbourViewHolder extends RecyclerView.ViewHolder {

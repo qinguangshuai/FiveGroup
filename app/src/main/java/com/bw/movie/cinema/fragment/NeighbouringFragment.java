@@ -51,13 +51,13 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
     @BindView(R.id.ying)
     ImageView ying;
     Unbinder unbinder1;
-    private NeightbourPresenter neightbourPresenter;
+    private NeightbourPresenter mNeightbourPresenter;
 
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
-        neightbourPresenter = new NeightbourPresenter(this);
-        neightbourPresenter.getNeightbour(1, 10);
+        mNeightbourPresenter = new NeightbourPresenter(this);
+        mNeightbourPresenter.getNeightbour(1, 10);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -79,7 +79,7 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
             public void onRefresh() {
 
                 showloading();
-                neightbourPresenter.getNeightbour(1, 10);
+                mNeightbourPresenter.getNeightbour(1, 10);
 
 
             }

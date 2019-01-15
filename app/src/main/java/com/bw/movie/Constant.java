@@ -1,6 +1,8 @@
 package com.bw.movie;
 
 
+import android.widget.CheckBox;
+
 public interface Constant {
     //推荐影院的logo图
     String LOGO = "logo";

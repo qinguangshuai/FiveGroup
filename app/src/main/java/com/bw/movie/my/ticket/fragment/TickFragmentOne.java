@@ -35,17 +35,16 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
     @BindView(R.id.ticket_oneRecycler)
     RecyclerView ticketOneRecycler;
-    Unbinder unbinder;
+    Unbinder mUnbinder;
     @BindView(R.id.ticketSwipeRefreshLayout)
     SwipeRefreshLayout ticketSwipeRefreshLayout;
-    Unbinder unbinder1;
     private TicketformationPresenter mTicketformationPresenter;
     int page = 1;
-    private List<ResultBean> list;
+    private List<ResultBean> mList;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
         BaseEvent.register(this);
     }
 
@@ -101,18 +100,18 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
         BaseEvent.unregister(this);
     }
 
     @Override
     public void onDataSuccess(TicketFoemationEntity ticketFoemationEntity) {
-        list = ticketFoemationEntity.getResult();
-        if (list != null && list.size() > 0) {
+        mList = ticketFoemationEntity.getResult();
+        if (mList != null && mList.size() > 0) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             ticketOneRecycler.setLayoutManager(linearLayoutManager);
 
-            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(list, getContext());
+            TicketInforAdapter attFilmAdapter = new TicketInforAdapter(mList, getContext());
             ticketOneRecycler.setAdapter(attFilmAdapter);
             new Handler().postDelayed(new Runnable() {
                 @Override
