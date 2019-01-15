@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
@@ -17,12 +16,9 @@ import com.bw.movie.film.details.fragment.PopularFragment;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.synopsis.activity.SynopsisActivity;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,8 +44,8 @@ public class DetailsActivity extends BaseActivity {
     private HotFragment mHotFragment;
     private PlayingFragment mPlayingFragment;
     private PopularFragment mPopularFragment;
-    private Intent intent;
-    private int index;
+    private Intent mIntent;
+    private int mIndex;
 
     @Override
     public void initView() {
@@ -58,8 +54,8 @@ public class DetailsActivity extends BaseActivity {
         }
 
         ButterKnife.bind(this);
-        intent = getIntent();
-        index = intent.getIntExtra("index", -1);
+        mIntent = getIntent();
+        mIndex = mIntent.getIntExtra("index", -1);
         //创建3个 fragment 对象 实例化
         mHotFragment = new HotFragment();
         mPlayingFragment = new PlayingFragment();
@@ -179,7 +175,7 @@ public class DetailsActivity extends BaseActivity {
 
 
         //选中页面
-        mVpDatails.setCurrentItem(index);
+        mVpDatails.setCurrentItem(mIndex);
 
     }
 

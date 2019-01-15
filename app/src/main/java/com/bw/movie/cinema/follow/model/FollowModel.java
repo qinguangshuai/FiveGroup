@@ -34,8 +34,6 @@ public class FollowModel extends BaseModel {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
-                                    //AppManager.getAppManager().finishAllActivity();
                                     BaseEvent.post(new ChuanUser());
                                 }
                             }, 100);

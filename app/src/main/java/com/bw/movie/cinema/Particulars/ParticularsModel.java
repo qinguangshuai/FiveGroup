@@ -4,7 +4,6 @@ import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

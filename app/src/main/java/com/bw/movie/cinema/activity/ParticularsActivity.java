@@ -11,7 +11,6 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
@@ -33,13 +32,10 @@ import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -80,6 +76,7 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setLayoutManager(linearLayoutManager);
         particularsAdapder.setId(id);
         showloading();
+        
     }
 
     @Override
@@ -372,7 +369,6 @@ public class ParticularsActivity extends BaseActivity {
 
         return null;
     }
-
 
     @Override
     protected void onDestroy() {

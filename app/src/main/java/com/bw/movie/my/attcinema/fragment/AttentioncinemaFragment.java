@@ -7,8 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseFragment;
@@ -25,11 +23,8 @@ import com.bw.movie.my.attcinema.presenter.AttCinemaPresenter;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
 import com.bw.movie.wxapi.WXEntryActivity;
-
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -63,7 +58,6 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                showloading();
               mAttCinemaPresenter.getCinema(page);
 
             }
@@ -124,7 +118,7 @@ public class AttentioncinemaFragment extends BaseFragment implements IBaseView<A
         if (mList!=null && mList.size()>0){
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             mAttenrecycle1.setLayoutManager(linearLayoutManager);
-            AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter(getContext(), mList);
+            AttCinemaAdapter attCinemaAdapter = new AttCinemaAdapter( mList,getContext());
             attCinemaAdapter.setHttpClick(new AttCinemaAdapter.HttpClick() {
                 @Override
                 public void getClick(View view, int position) {

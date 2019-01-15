@@ -1,9 +1,7 @@
 package com.bw.movie.my.attention.service;
 
-import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.util.UrlUtil;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

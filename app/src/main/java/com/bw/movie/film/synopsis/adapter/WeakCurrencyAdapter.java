@@ -9,10 +9,8 @@ package com.bw.movie.film.synopsis.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import com.dak.weakview.adapter.WeakViewAdapter;
 import com.dak.weakview.adapter.viewholder.WeakCurrencyViewHold;
-
 import java.util.ArrayList;
 import java.util.List;
 

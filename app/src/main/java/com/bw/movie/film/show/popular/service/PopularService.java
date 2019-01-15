@@ -2,7 +2,6 @@ package com.bw.movie.film.show.popular.service;
 
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.util.UrlUtil;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

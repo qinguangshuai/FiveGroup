@@ -6,7 +6,6 @@ import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.service.LoginService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

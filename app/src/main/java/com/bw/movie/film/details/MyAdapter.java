@@ -3,9 +3,7 @@ package com.bw.movie.film.details;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import com.bw.movie.util.EmptyUtil;
-
 import java.util.ArrayList;
 
 /*-----------

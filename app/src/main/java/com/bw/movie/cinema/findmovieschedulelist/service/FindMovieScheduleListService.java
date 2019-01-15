@@ -2,7 +2,6 @@ package com.bw.movie.cinema.findmovieschedulelist.service;
 
 import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 import com.bw.movie.util.UrlUtil;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

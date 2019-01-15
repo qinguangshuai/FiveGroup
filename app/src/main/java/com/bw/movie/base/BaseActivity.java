@@ -9,12 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.bw.movie.R;
-
 import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
-
 import com.bw.movie.util.StatusBarUtil;
 
 /*

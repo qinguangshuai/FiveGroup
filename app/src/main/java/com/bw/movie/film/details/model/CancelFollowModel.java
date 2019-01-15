@@ -6,7 +6,6 @@ import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.service.CanceFollowService;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -24,7 +23,7 @@ public class CancelFollowModel extends BaseModel {
                 .createa(CanceFollowService.class)
                 .getCancelFollowMovieBeanObservable(can)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())//CancelFollowMovieBean
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<CancelFollowMovieBean>(httpCallBack));
     }
 }

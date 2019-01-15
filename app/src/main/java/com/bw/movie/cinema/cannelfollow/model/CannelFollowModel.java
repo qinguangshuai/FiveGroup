@@ -6,7 +6,6 @@ import com.bw.movie.cinema.cannelfollow.service.CannelFollowService;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.net.OkHttpUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

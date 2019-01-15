@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.cinema.event.GoodEvent;
 import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -27,14 +25,17 @@ import java.util.List;
  * author:张文龙(张文龙)
  * fileName:MevaluateAdapder
  */
-public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.MevaulateteViewHolder> {
+public class MevaluateAdapder extends BaseRecyclerAdapter<MevaluateAdapder.MevaulateteViewHolder,MevaResultBean> {
     private List<MevaResultBean> mList;
     private Context mContext;
 
-    public MevaluateAdapder(List<MevaResultBean> list, Context mContext) {
-        this.mList = list;
-        this.mContext = mContext;
+    public MevaluateAdapder(List listData, Context context) {
+        super(listData, context);
+        this.mList = listData;
+        this.mContext = context;
     }
+
+
 
     @NonNull
     @Override
@@ -44,38 +45,32 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MevaulateteViewHolder mevaulateteViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int i) {
         if (mList.get(i).getIsGreat() == 1) {
-            mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
-            mevaulateteViewHolder.checkBox.setChecked(true);
+            ((MevaulateteViewHolder)holder).checkBox.setButtonDrawable(R.drawable.com_icon_praise_selected_hdpi);
+            ((MevaulateteViewHolder)holder).checkBox.setChecked(true);
         } else {
-            mevaulateteViewHolder.checkBox.setButtonDrawable(R.drawable.com_icon_praise_default_hdpi);
-            mevaulateteViewHolder.checkBox.setChecked(false);
+            ((MevaulateteViewHolder)holder).checkBox.setButtonDrawable(R.drawable.com_icon_praise_default_hdpi);
+            ((MevaulateteViewHolder)holder).checkBox.setChecked(false);
         }
-        mevaulateteViewHolder.textViewname.setText(mList.get(i).getCommentUserName());
-        mevaulateteViewHolder.textViewconnect.setText(mList.get(i).getCommentContent());
-        mevaulateteViewHolder.simpleDraweeView.setImageURI(Uri.parse(mList.get(i).getCommentHeadPic()));
+        ((MevaulateteViewHolder)holder).textViewname.setText(mList.get(i).getCommentUserName());
+        ((MevaulateteViewHolder)holder).textViewconnect.setText(mList.get(i).getCommentContent());
+        ((MevaulateteViewHolder)holder).simpleDraweeView.setImageURI(Uri.parse(mList.get(i).getCommentHeadPic()));
         long commentTime = mList.get(i).getCommentTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(commentTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        mevaulateteViewHolder.textViewtime.setText(df.format(gc.getTime()));
-        mevaulateteViewHolder.textViewmevalue.setText(mList.get(i).getGreatNum() + "");
+        ((MevaulateteViewHolder)holder).textViewtime.setText(df.format(gc.getTime()));
+        ((MevaulateteViewHolder)holder).textViewmevalue.setText(mList.get(i).getGreatNum() + "");
 
-       mevaulateteViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ((MevaulateteViewHolder)holder).checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                EventBus.getDefault().post(new GoodEvent(isChecked,mevaulateteViewHolder.checkBox,i));
+                EventBus.getDefault().post(new GoodEvent(isChecked,((MevaulateteViewHolder)holder).checkBox,i));
             }
         });
     }
-
-    public void good(){
-
-    }
-
-
 
     @Override
     public int getItemCount() {
@@ -101,6 +96,5 @@ public class MevaluateAdapder extends RecyclerView.Adapter<MevaluateAdapder.Meva
             checkBox = itemView.findViewById(R.id.mevalchaeckbox);
         }
     }
-
 
 }

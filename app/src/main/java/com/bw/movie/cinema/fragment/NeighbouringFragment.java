@@ -1,12 +1,10 @@
 package com.bw.movie.cinema.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.bw.movie.Constant;
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
@@ -30,8 +28,6 @@ import com.bw.movie.cinema.view.NeightbourView;
 import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.greenbean.GreenDaoBean;
 import com.bw.movie.greenbean.GreenDaoBeanDao;
-import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.greendao.query.Query;
@@ -86,8 +82,6 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
 
 
                 neightbourPresenter.getNeightbour(1, 10);
-
-
             }
         });
     }

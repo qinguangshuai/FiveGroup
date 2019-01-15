@@ -1,7 +1,6 @@
 package com.bw.movie.cinema.cannelfollow.view;
 
 import com.bw.movie.base.IBaseView;
-import com.bw.movie.cinema.follow.bean.FollowBean;
 
 /**
  * date:2018/12/27    17:59

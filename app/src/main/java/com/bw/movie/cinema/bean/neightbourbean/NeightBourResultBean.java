@@ -1,6 +1,10 @@
 package com.bw.movie.cinema.bean.neightbourbean;
 
-public class NeightBourResultBean {
+import com.bw.movie.base.BaseEntity;
+/*
+*  NeightBourResultBean
+* */
+public class NeightBourResultBean extends BaseEntity {
     private String address;
     private int commentTotal;
     private int distance;

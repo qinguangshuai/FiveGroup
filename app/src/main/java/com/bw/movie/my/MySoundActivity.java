@@ -151,7 +151,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mSoundrecycle.setLayoutManager(linearLayoutManager);
-            mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
+            mMySoundAdapter = new MySoundAdapter( mList,getApplicationContext());
             mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
                 @Override
                 public void getClick(View view, final int position) {

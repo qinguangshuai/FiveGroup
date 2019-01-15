@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
@@ -23,12 +22,9 @@ import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.prosenter.NeightbourPresenter;
 import com.bw.movie.cinema.view.NeightbourView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

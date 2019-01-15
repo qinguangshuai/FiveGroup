@@ -9,16 +9,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.film.show.hot.bean.HotPlayBean;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.util.EmptyUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +36,6 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         this.mHotresult.addAll(hotresult);
     }
-
-
-
-
 
     @NonNull
     @Override

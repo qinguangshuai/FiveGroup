@@ -1,7 +1,6 @@
 package com.bw.movie.cinema.findmovieschedulelist.view;
 
 import com.bw.movie.base.IBaseView;
-import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
 
 /**
  * date:2018/12/27    18:55

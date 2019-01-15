@@ -29,7 +29,8 @@ public interface Constant {
     //点赞
     int MESSAGEID = 0x0000;
     String SEX = "sex";
-    String EMAIL = "email";
+    String EMAIL = "email";//sessionId
+    String SESSIONId = "sessionId";
     String HEADPIC = "headPic";
     String NICKNAME = "nickName";
     String PHONE1 = "phone";

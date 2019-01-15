@@ -1,6 +1,5 @@
 package com.bw.movie.my;
 
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,9 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.bw.movie.MainActivity;
-import com.bw.movie.MyApp;
 import com.bw.movie.R;
 
 /**

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bw.movie.R;
+import com.bw.movie.base.BaseRecyclerAdapter;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attention.bean.MyAttFilmUser;
 import com.bw.movie.my.attention.bean.ResultBean;
@@ -26,15 +27,17 @@ import java.util.List;
  * author:Therefore(Lenovo)
  * fileName:AttCinemaAdapter
  */
-public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHolder> {
+public class AttFilmAdapter extends BaseRecyclerAdapter<AttFilmAdapter.MyViewHolder,ResultBean> {
 
     private Context mContext;
     private List<ResultBean> mList;
 
-    public AttFilmAdapter(Context context, List<ResultBean> list) {
+    public AttFilmAdapter(List listData, Context context) {
+        super(listData, context);
         mContext = context;
-        mList = list;
+        mList = listData;
     }
+
 
     @NonNull
     @Override
@@ -45,26 +48,28 @@ public class AttFilmAdapter extends RecyclerView.Adapter<AttFilmAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-       ResultBean bean = mList.get(i);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
+        ResultBean bean = mList.get(i);
         String imageUrl = bean.getImageUrl();
         if (imageUrl==null){
             int launcher = R.mipmap.ic_launcher;
             String s = String.valueOf(launcher);
-            myViewHolder.simple.setImageURI(s);
+            ((MyViewHolder)holder).simple.setImageURI(s);
         }else {
             Uri uri = Uri.parse(bean.getImageUrl());
-            myViewHolder.simple.setImageURI(uri);
+            ((MyViewHolder)holder).simple.setImageURI(uri);
         }
-        myViewHolder.text1.setText(bean.getName());
-        myViewHolder.text2.setText(bean.getSummary());
+        ((MyViewHolder)holder).text1.setText(bean.getName());
+        ((MyViewHolder)holder).text2.setText(bean.getSummary());
         long browseTime = bean.getReleaseTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(browseTime);
         gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        myViewHolder.text3.setText(df.format(gc.getTime()));
+        ((MyViewHolder)holder).text3.setText(df.format(gc.getTime()));
     }
+
+
 
     @Override
     public int getItemCount() {

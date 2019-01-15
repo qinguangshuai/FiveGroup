@@ -48,9 +48,6 @@ import com.bw.movie.R;
             }
         });
 
-
-
-
     }
 
     @Override
