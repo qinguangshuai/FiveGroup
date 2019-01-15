@@ -8,5 +8,5 @@ import com.bw.movie.cinema.follow.bean.FollowBean;
  * author:张文龙(张文龙)
  * fileName:FollowView
  */
-public interface FollowView<T> extends IBaseView<FollowBean> {
+public interface FollowView<T> extends IBaseView<T> {
 }

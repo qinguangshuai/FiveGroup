@@ -8,5 +8,5 @@ import com.bw.movie.my.attcinema.bean.AttCinemaUser;
  * author:Therefore(Lenovo)
  * fileName:AttCinemaView
  */
-public interface AttCinemaView<T> extends IBaseView<AttCinemaUser> {
+public interface AttCinemaView<T> extends IBaseView<T> {
 }

@@ -5,5 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".my.ShakeActivity">
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@mipmap/shake"
+    android:scaleType="fitXY"/>
 </android.support.constraint.ConstraintLayout>

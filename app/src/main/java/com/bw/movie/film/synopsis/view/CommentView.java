@@ -7,5 +7,5 @@ import com.bw.movie.film.synopsis.bean.CommentBean;
  *作者:ash
  *TODO:
  *
- */public interface CommentView<T> extends IBaseView<CommentBean> {
+ */public interface CommentView<T> extends IBaseView<T> {
 }

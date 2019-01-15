@@ -132,6 +132,7 @@ public class SynopsisActivity extends BaseActivity {
         setmReview();
         getCommentData(id, a, 10);
         mPopupWindow4Adapter.notifyDataSetChanged();
+        showloading();
     }
 
     @Override
@@ -269,6 +270,7 @@ public class SynopsisActivity extends BaseActivity {
         new DetailPresenter(new DetailView<DetailBean>() {
             @Override
             public void onDataSuccess(final DetailBean detailBean) {
+                showContent();
                 //拆装
                 DetailBean.ResultBean result = detailBean.getResult();
                 //获取图片集合
@@ -308,6 +310,8 @@ public class SynopsisActivity extends BaseActivity {
 
             @Override
             public void onDataFailer(String msg) {
+                showContent();
+                showEmpty();
             }
 
             @Override

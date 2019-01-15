@@ -8,5 +8,5 @@ import com.bw.movie.film.details.bean.CancelFollowMovieBean;
  *TODO:
  *
  */
-public interface CancelFollowMovieView<T> extends IBaseView<CancelFollowMovieBean> {
+public interface CancelFollowMovieView<T> extends IBaseView<T> {
 }

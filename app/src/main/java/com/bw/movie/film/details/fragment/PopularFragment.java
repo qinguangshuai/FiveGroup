@@ -142,17 +142,21 @@ public class PopularFragment extends BaseFragment {
 
     //set数据
     public void setData() {
-        EventBus.getDefault().post(new JumpLgoinEvent(true));
+        showContent();
+        EventBus.getDefault().post(new JumpLgoinEvent(0x0002));
         new PopularPresenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
                 mPopularPlayAdapter.setResult(popularBean.getResult());
                 mPopularPlayAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(false));
+                EventBus.getDefault().post(new JumpLgoinEvent(0x0001));
             }
 
             @Override
             public void onDataFailer(String msg) {
+                EventBus.getDefault().post(new JumpLgoinEvent(0x0000));
+                showContent();
+                showEmpty();
                 ToastUtil.Toast(msg + "sorry");
             }
 

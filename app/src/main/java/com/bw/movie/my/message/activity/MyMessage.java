@@ -31,6 +31,7 @@ import java.util.GregorianCalendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 /*
   我的信息首页
 * */
@@ -52,6 +53,8 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     SimpleDraweeView mMyHeadimage;
     @BindView(R.id.my_update)
     Button mMyUpdate;
+
+
     private MyMessagePresenter presenter;
     private int sex1;
     private String email;
@@ -74,7 +77,7 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
     @Subscribe
     public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         AppManager.getAppManager().finishActivity(this);
     }
@@ -122,7 +125,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         sex1 = this.result.getSex();
 
 
-
         if (sex1 == 1) {
             mTxtMyinfoSex.setText("男");
         } else if (sex1 == 2) {
@@ -146,10 +148,12 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
         mMyHeadimage.setImageURI(uri);
         EventBus.getDefault().post(new Portrait(headPic));
     }
+
     @Override
     public void onDataFailer(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onShowLoading() {
 
@@ -183,12 +187,12 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
                 break;
             case R.id.my_update:
                 Intent intent = new Intent(this, UpdataInfoActivity.class);
-                intent.putExtra("sex1",sex1);
-                intent.putExtra("email",email);
-                intent.putExtra("headPic",headPic);
-                intent.putExtra("nickName",nickName);
-                intent.putExtra("phone1",phone1);
-                intent.putExtra("s",s);
+                intent.putExtra("sex1", sex1);
+                intent.putExtra("email", email);
+                intent.putExtra("headPic", headPic);
+                intent.putExtra("nickName", nickName);
+                intent.putExtra("phone1", phone1);
+                intent.putExtra("s", s);
                 startActivity(intent);
                 finish();
                 break;

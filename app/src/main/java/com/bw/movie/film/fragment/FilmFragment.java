@@ -64,7 +64,7 @@ import butterknife.Unbinder;
  * 正在热映 具备加载功能   √
  * 正在上映 具备加载功能   √
  */
-public class FilmFragment extends BaseFragment  {
+public class FilmFragment extends BaseFragment {
     @BindView(R.id.file_carouse)
     ImageView fileCarouse;
     @BindView(R.id.file_text)
@@ -193,13 +193,13 @@ public class FilmFragment extends BaseFragment  {
             @Override
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
-//                EventBus.getDefault().post(new NetEvent(0x0002));
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
-                    }
-                },1000);
+                EventBus.getDefault().post(new NetEvent(0x0002));
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
+//                    }
+//                },1000);
             }
 
             @Override
@@ -281,7 +281,7 @@ public class FilmFragment extends BaseFragment  {
 
     @Subscribe
     public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
         getActivity().startActivity(intent);
         getActivity().finish();
     }

@@ -9,5 +9,5 @@ import com.bw.movie.my.attention.bean.MyAttFilmUser;
  * author:Therefore(Lenovo)
  * fileName:AttCinemaView
  */
-public interface AttFilmView<T> extends IBaseView<MyAttFilmUser> {
+public interface AttFilmView<T> extends IBaseView<T> {
 }

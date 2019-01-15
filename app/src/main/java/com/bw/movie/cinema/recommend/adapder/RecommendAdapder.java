@@ -23,6 +23,7 @@ import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.presenter.FollowProsenter;
 import com.bw.movie.cinema.follow.view.FollowView;
 import com.bw.movie.cinema.recommend.bean.RecommendBean;
+import com.bw.movie.cinema.recommend.bean.ResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,12 +34,12 @@ import java.util.List;
 * NeightbourAdapder
 * */
 public class RecommendAdapder extends RecyclerView.Adapter<RecommendAdapder.NeightbourViewHolder> {
-    List<RecommendBean.ResultBean> listBeans;
+    List<ResultBean> listBeans;
     private Context mContext;
 
 
 
-    public RecommendAdapder(List< RecommendBean.ResultBean> listBeans, Context mContext) {
+    public RecommendAdapder(List<ResultBean> listBeans, Context mContext) {
         this.listBeans = listBeans;
         this.mContext = mContext;
     }

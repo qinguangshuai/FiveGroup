@@ -7,5 +7,5 @@ import com.bw.movie.film.cinema.bean.CinemaBean;
  *作者:ash
  *TODO:
  *
- */public interface CinemaView<T> extends IBaseView<CinemaBean> {
+ */public interface CinemaView<T> extends IBaseView<T> {
 }

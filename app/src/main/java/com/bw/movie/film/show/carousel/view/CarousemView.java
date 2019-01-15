@@ -8,6 +8,6 @@ import com.bw.movie.film.show.carousel.bean.CarouselBean;
  *TODO:
  *   轮播
  */
-public interface CarousemView<T>  extends IBaseView<CarouselBean> {
+public interface CarousemView<T>  extends IBaseView<T> {
 
 }

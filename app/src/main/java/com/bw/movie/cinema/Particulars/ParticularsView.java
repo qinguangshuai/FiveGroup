@@ -6,5 +6,5 @@ import com.bw.movie.base.IBaseView;
  * 影院内容轮播view
  * @param <T>
  */
-public interface ParticularsView<T> extends IBaseView<ParticularsBean> {
+public interface ParticularsView<T> extends IBaseView<T> {
 }

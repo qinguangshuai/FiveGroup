@@ -101,7 +101,7 @@
         <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity" />
         <activity android:name=".base.BaseRecyclerListActivity" />
         <activity android:name=".my.ScaleImageActivity"></activity>
-        <activity android:name=".my.shake.MyShakeActivity"></activity>
+        <activity android:name=".my.ShakeActivity"></activity>
     </application>
 
 </manifest>

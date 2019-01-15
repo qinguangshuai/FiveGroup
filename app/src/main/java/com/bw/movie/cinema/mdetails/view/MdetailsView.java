@@ -8,5 +8,5 @@ import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
  * author:张文龙(张文龙)
  * fileName:MdetailsView
  */
-public interface MdetailsView<T> extends IBaseView<MdetailsBean> {
+public interface MdetailsView<T> extends IBaseView<T> {
 }
