@@ -3,6 +3,7 @@ package com.bw.movie.my.message.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.message.bean.MyMessageEntity;
@@ -14,9 +15,9 @@ import com.bw.movie.util.ToastUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 /*
-MyMessageModel
+*MyMessageModel
 * */
-public class MyMessageModel {
+public class MyMessageModel extends BaseModel {
 
     public void getMessage(final HttpCallBack<MyMessageEntity> httpCallBack){
         OkHttpUtil.get().createa(MyMessageService.class).getMessage()

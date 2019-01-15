@@ -1,5 +1,6 @@
 package com.bw.movie.film.show.popular.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.service.PopularService;
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class PopularModel {
+public class PopularModel extends BaseModel {
 
 
     //热门电影 请求数据回调

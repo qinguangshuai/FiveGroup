@@ -48,7 +48,6 @@ import butterknife.ButterKnife;
  */
 public class ParticularsActivity extends BaseActivity {
 
-
     @BindView(R.id.partname)
     TextView partname;
     @BindView(R.id.partaddress)

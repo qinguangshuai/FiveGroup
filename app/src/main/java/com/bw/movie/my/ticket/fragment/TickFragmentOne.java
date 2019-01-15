@@ -37,6 +37,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * 待付款
+ */
+
 public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoemationEntity> {
 
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());

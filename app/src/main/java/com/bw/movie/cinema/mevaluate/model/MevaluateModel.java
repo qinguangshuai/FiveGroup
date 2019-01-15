@@ -1,5 +1,6 @@
 package com.bw.movie.cinema.mevaluate.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.service.MevaluateService;
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:张文龙(张文龙)
  * fileName:MevaluateModel
  */
-public class MevaluateModel {
+public class MevaluateModel extends BaseModel {
     public void getMevaluate(int cinemaId, int page, int count, final HttpCallBack<MevaluateBean> httpCallBack) {
         OkHttpUtil.get().createa(MevaluateService.class)
                 .getMevaluate(cinemaId, page, count)

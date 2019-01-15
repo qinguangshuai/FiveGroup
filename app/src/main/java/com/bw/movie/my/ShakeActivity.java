@@ -17,6 +17,10 @@ import com.bw.movie.MainActivity;
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 
+/**
+ * 传感器
+ * */
+
 public class ShakeActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private Vibrator vibrator;

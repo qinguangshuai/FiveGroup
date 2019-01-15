@@ -22,6 +22,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 购票activity
+ * */
+
 public class Ticket_nformationActivity extends BaseActivity {
     @BindView(R.id.ticket_rb1)
     RadioButton ticketRb1;

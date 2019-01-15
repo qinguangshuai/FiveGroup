@@ -30,6 +30,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * 版本更新界面
+ * 秦广帅
+ * */
+
 public class MyLatestVersionActivity extends BaseActivity implements MyLatestView<MyLatestUser> {
 
     private MyLatestPresenter mMyLatestPresenter;

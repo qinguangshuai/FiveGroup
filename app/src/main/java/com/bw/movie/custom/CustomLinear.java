@@ -12,14 +12,15 @@ import com.bw.movie.R;
  *作者:ash
  *TODO:
  *
- */public class CustomLinear extends LinearLayout {
+ */
+public class CustomLinear extends LinearLayout {
 
     public CustomLinear(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
-    public CustomLinear(Context context,AttributeSet attrs) {
-        this(context, attrs,-1);
+    public CustomLinear(Context context, AttributeSet attrs) {
+        this(context, attrs, -1);
     }
 
     public CustomLinear(Context context, AttributeSet attrs, int defStyleAttr) {

@@ -32,6 +32,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * 关注影片
+ * */
+
 public class AttentionFilmFragment extends BaseFragment implements IBaseView<MyAttFilmUser> {
 
     @BindView(R.id.attenrecycle2)

@@ -36,6 +36,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * 已付款
+ * */
+
 public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketFoemationEntity> {
 
 

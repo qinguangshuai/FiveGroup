@@ -37,6 +37,10 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 支付下单界面
+ * */
+
 public class SeatSelectionActivity extends BaseActivity {
 
     @BindView(R.id.seatView)

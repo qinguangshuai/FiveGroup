@@ -3,6 +3,7 @@ package com.bw.movie.film.synopsis.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.film.synopsis.bean.CommentBean;
@@ -21,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class SynopsisModel {
+public class SynopsisModel extends BaseModel {
 
     //显示评论
     public void getCommentBeanObservable(int id, int page, int count, final HttpCallBack<CommentBean> httpCallBack) {

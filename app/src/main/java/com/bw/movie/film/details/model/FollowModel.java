@@ -3,6 +3,7 @@ package com.bw.movie.film.details.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.film.details.bean.FollowBean;
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class FollowModel {
+public class FollowModel extends BaseModel {
 
     //关注
     public void getFollowBeanObservable(int follow, final HttpCallBack<FollowBean> httpCallBack){

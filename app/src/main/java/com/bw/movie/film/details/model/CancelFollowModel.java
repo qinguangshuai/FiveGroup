@@ -1,5 +1,6 @@
 package com.bw.movie.film.details.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.service.CanceFollowService;
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class CancelFollowModel {
+public class CancelFollowModel extends BaseModel {
 
     //取消关注
     public void getCancelFollowMovieBeanObservable(int can , final HttpCallBack<CancelFollowMovieBean> httpCallBack){

@@ -3,6 +3,7 @@ package com.bw.movie.cinema.follow.model;
 import android.os.Handler;
 
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.follow.bean.FollowBean;
 import com.bw.movie.cinema.follow.service.FollowService;
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:张文龙(张文龙)
  * fileName:FollowModel
  */
-public class FollowModel {
+public class FollowModel extends BaseModel {
 
     public void getFollow(int cinemaId, final HttpCallBack<FollowBean> httpCallBack) {
         OkHttpUtil.get().createa(FollowService.class).getFollow(cinemaId)

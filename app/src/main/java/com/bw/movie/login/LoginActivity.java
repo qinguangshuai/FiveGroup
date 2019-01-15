@@ -52,6 +52,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * 登录界面
+ * */
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView<LoginUser> {
 

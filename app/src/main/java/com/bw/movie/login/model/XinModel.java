@@ -1,5 +1,6 @@
 package com.bw.movie.login.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.XinUser;
 import com.bw.movie.login.service.XinService;
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:Therefore(Lenovo)
  * fileName:LoginModel
  */
-public class XinModel {
+public class XinModel extends BaseModel {
     public void getXinGe(String token, int os, final HttpCallBack<XinUser> httpCallBack) {
         OkHttpUtil.get().createa(XinService.class).getXinGe(token, os)
                 .subscribeOn(Schedulers.io())

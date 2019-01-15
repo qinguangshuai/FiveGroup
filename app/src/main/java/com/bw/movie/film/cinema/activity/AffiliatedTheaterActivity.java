@@ -32,6 +32,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 影片关注
+ * */
+
 public class AffiliatedTheaterActivity extends BaseActivity implements NeightbourView<NeightbourBean> {
 
     @BindView(R.id.title_affiliated)

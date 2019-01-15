@@ -1,5 +1,6 @@
 package com.bw.movie.login.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.service.LoginService;
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:Therefore(Lenovo)
  * fileName:LoginModel
  */
-public class LoginModel {
+public class LoginModel extends BaseModel {
     public void getLogin(String phone, String pwd, final HttpCallBack<LoginUser> httpCallBack) {
         OkHttpUtil.get().createa(LoginService.class).getLogn(phone, pwd)
                 .subscribeOn(Schedulers.io())
