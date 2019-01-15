@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -141,7 +142,7 @@ public class PlayingFragment extends BaseFragment {
 
     //set数据
     public void setData() {
-        EventBus.getDefault().post(new JumpLgoinEvent(0x0002));
+        EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETFAILER));
         new PlayingPresenter(new PlayingView<PlayingBean>() {
             @Override
             public void onDataSuccess(PlayingBean playingBean) {
@@ -149,12 +150,12 @@ public class PlayingFragment extends BaseFragment {
                 List<PlayingBean.ResultBean> result = playingBean.getResult();
                 mPlayAdapter.setPlayResult(playingBean.getResult());
                 mPlayAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(0x0001));
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETCONNECT));
             }
 
             @Override
             public void onDataFailer(String msg) {
-                EventBus.getDefault().post(new JumpLgoinEvent(0x0000));
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETNET));
                 showContent();
                 showEmpty();
             }

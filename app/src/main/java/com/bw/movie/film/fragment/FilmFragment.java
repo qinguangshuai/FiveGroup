@@ -182,7 +182,7 @@ public class FilmFragment extends BaseFragment {
 
     //请求回调 轮播图 数据
     public void getCarouselBeanObservable(int page, int count) {
-        EventBus.getDefault().post(new NetEvent(0x0001));
+        EventBus.getDefault().post(new NetEvent(Constant.GETCONNECT));
         new CarouserlPresenter(new CarousemView<CarouselBean>() {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
@@ -193,13 +193,7 @@ public class FilmFragment extends BaseFragment {
             @Override
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
-                EventBus.getDefault().post(new NetEvent(0x0002));
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
-//                    }
-//                },1000);
+                EventBus.getDefault().post(new NetEvent(Constant.GETFAILER));
             }
 
             @Override

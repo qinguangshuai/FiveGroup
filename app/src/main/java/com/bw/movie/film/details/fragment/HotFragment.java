@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -129,7 +130,8 @@ public class HotFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-
+                mSwipeDetailsfragment.setRefreshing(false);
+                showEmpty();
             }
 
             @Override
@@ -148,20 +150,20 @@ public class HotFragment extends BaseFragment {
     //set数据
     public void setData() {
         showContent();
-        EventBus.getDefault().post(new JumpLgoinEvent(0x0002));
+        EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETFAILER));
         new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 mHotAdapter.setHotResult(result);
                 mHotAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(0x0001));
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETCONNECT));
 
             }
 
             @Override
             public void onDataFailer(String msg) {
-                EventBus.getDefault().post(new JumpLgoinEvent(0x0000));
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETNET));
                showContent();
                showEmpty();
                 ToastUtil.Toast(msg + "sorry");

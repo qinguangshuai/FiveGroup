@@ -11,11 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
 
 import com.bw.movie.error.AppManager;
 import com.bw.movie.util.NetStateBroadReciver;
 
+import com.bw.movie.util.NewThread;
 import com.bw.movie.util.StatusBarUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
@@ -145,16 +147,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     public void showloading() {
 
         statusView.showLoading();
+
     }
     //显示空白布局
     public void showEmpty(){
         statusView.showEmpty();
-        statusView.findViewById(R.id.textresheh).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statusView.showLoading();
-            }
-        });
+
 
     }
 

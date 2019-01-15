@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
@@ -105,9 +106,9 @@ public class DetailsActivity extends BaseActivity {
     //加载页面
     @Subscribe
     public void login(JumpLgoinEvent jumpLgoinEvent){
-        if(jumpLgoinEvent.getA()==0x0002){
+        if(jumpLgoinEvent.getA()==Constant.GETFAILER){
             showloading();
-        }else if (jumpLgoinEvent.getA()==0x0000){
+        }else if (jumpLgoinEvent.getA()==Constant.GETNET){
             showContent();
             showEmpty();
         }else{
