@@ -23,8 +23,8 @@ public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAda
 
     public RecommendErrorAdapder(List<GreenDaoBean> listData, Context context) {
         super(listData, context);
-        this.list = list;
-        this.mContext = mContext;
+        this.list = listData;
+        this.mContext = context;
     }
 
 
@@ -46,7 +46,7 @@ public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAda
 
     @Override
     public int getItemCount() {
-        return list == null ? 0 : list.size();
+        return list == null ? 0 : 10;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

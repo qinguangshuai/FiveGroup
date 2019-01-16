@@ -245,7 +245,7 @@ public class SynopsisActivity extends BaseActivity {
 
             @Override
             public void onDataFailer(String msg) {
-                Toast.makeText(SynopsisActivity.this, msg, Toast.LENGTH_SHORT).show();
+                ToastUtil.Toast(msg);
             }
 
             @Override
@@ -288,8 +288,8 @@ public class SynopsisActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(SynopsisActivity.this, AffiliatedTheaterActivity.class);
-                        intent.putExtra("id", detailBean.getResult().getId());
-                        intent.putExtra("name", detailBean.getResult().getName());
+                        intent.putExtra("mId", detailBean.getResult().getId());
+                        intent.putExtra("mName", detailBean.getResult().getName());
                         startActivity(intent);
                     }
                 });
