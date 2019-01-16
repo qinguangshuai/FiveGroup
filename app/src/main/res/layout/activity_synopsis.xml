@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bigbackground"
+    tools:context=".film.synopsis.activity.SynopsisActivity"
     >
-    tools:context=".film.synopsis.activity.SynopsisActivity">
+
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/background_synopsis"
@@ -35,7 +36,7 @@
             android:background="@null">
 
             <CheckBox
-                android:layout_width="@dimen/dp_80"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_24"
                 android:button="@mipmap/com_icon_movie_default_xxhdpi"
                 android:paddingLeft="5dp"

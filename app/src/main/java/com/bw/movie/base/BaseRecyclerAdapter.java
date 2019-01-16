@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import java.util.List;
 
 public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, T> extends RecyclerView.Adapter {
@@ -29,8 +30,14 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, T>
     }
 
     public void setListdata(List<T> listdata) {
-        this.mListdata = listdata;
-        notifyDataSetChanged();
+        if (listdata != null) {
+            if (this.mListdata.size() > 0 && this.mListdata != null) {
+                this.mListdata.clear();
+            }
+            this.mListdata.addAll(mListdata);
+            notifyDataSetChanged();
+        }
+
     }
 
     public List<T> getListdata() {
@@ -72,30 +79,69 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, T>
         return mListdata == null ? 0 : mListdata.size();
     }
 
-    //添加集合
-    public void addList(List list) {
-        if (list != null && list.size() > 0) {
-            mListdata.addAll(list);
+
+    //在指定位置增加多条数据*
+    public void AddPositionAppends(int position, List mList) {
+        if (position > -1 && position <= mListdata.size() - 1 && mList.size() > 0 && mList != null) {
+            mList.addAll(position, mList);
+            notifyItemRangeInserted(position, mList.size());
         }
     }
 
-    //指定位置添加item
-    public void addData(int position,T data){
-        mListdata.add(position,data);
-        notifyItemChanged(position);
+    //在指定位置增加一条数据*
+    public void addPosiitonItem(int position, T data) {
+        if (position > -1 && data != null) {
+            mListdata.add(position, data);
+            notifyItemRangeInserted(position, 1);
+        }
     }
 
-    //删除集合
+    //删除集合*
     public void removeList(List list) {
         if (list != null && list.size() > 0) {
             mListdata.removeAll(list);
+            notifyItemRemoved(list.size());
+        }
+
+    }
+
+    //指定位置删除item*
+    public void removeData(int position) {
+        if (position > -1 && position < mListdata.size() - 1) {
+            mListdata.remove(position);
+            notifyItemRemoved(position);
+        }
+
+    }
+
+    //获取条目内容
+    public T getItemContent(int position) {
+        if (position > -1 && position <= mListdata.size() - 1) {
+            return mListdata.get(position);
+        }
+        return null;
+    }
+
+    //在最后增加一条数据*
+    public void AddAppend(T data) {
+        if (data != null) {
+            addPosiitonItem(mListdata.size() - 1, data);
         }
     }
 
-    //指定位置删除item
-    public void removeData(int position){
-        mListdata.remove(position);
-        notifyItemChanged(position);
+    //在头部增加一条数据*
+    public void AddIncertHead(T data) {
+        if (data != null) {
+            addPosiitonItem(0, data);
+        }
+    }
+
+
+    public void clearList() {
+        if (mListdata.size() > 0) {
+            mListdata.clear();
+        }
+        notifyDataSetChanged();
     }
 
     /**
@@ -116,9 +162,6 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder, T>
         this.mLoadMoreListener = moreListerner;
     }
 
-    public void clearList() {
-        mListdata.clear();
-    }
 
     public T getItem(int posito) {
         return mListdata.get(posito);

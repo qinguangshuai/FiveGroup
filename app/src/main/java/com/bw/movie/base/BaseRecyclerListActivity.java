@@ -77,13 +77,7 @@ public abstract class BaseRecyclerListActivity<T extends BaseRecyclerAdapter, E 
     @Override
     public void initVariable() {
     }
-    public void afterData(List list) {
-        adapder.addList(list);
-        mSwiperefresh.setRefreshing(false);
-        if (adapder.getItemCount() == 0) {
-            //展示空布局
-        }
-    }
+
     @Override
     public E initPresenter() {
         return null;

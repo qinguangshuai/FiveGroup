@@ -135,7 +135,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getApplication().getContentResolver(), data2, null, null));
                     String data1 = ImageUtil.getPath(getApplicationContext(), uri);
                     File file = new File(data1);
-                    xj(file);
+                    getCamera(file);
                 }
                 break;
             //相册
@@ -147,9 +147,10 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     LunBanUtil.getImage(UpdataInfoActivity.this, path, new LunBanUtil.OnFile() {
                         @Override
                         public void Success(File file) {
-                            xj(file);
+                            getCamera(file);
                         }
                     });
+
                 }
                 break;
         }
@@ -170,7 +171,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
 
     }
 
-    public void xj(File file) {
+    public void getCamera(File file) {
         new UpdateHeadPresenter(new UpdateHeadView<UpdateHeadEntity>() {
 
             @Override
