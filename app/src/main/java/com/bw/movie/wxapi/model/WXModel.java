@@ -1,6 +1,6 @@
 package com.bw.movie.wxapi.model;
 
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.OkHttpUtil;
 import com.bw.movie.wxapi.bean.WXUser;
 import com.bw.movie.wxapi.service.WXService;
 

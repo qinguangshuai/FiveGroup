@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.model.MovieListByCinemaIdModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /**
  * date:2018/12/27    16:06
@@ -13,15 +13,15 @@ import com.bw.movie.util.HttpCallBack;
  */
 public class MovieListByCinemaIdPresenter extends BasePresenter {
 
-    private MovieListByCinemaIdModel movieListByCinemaIdModel;
+    private MovieListByCinemaIdModel mMovieListByCinemaIdModel;
 
     public MovieListByCinemaIdPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        movieListByCinemaIdModel = new MovieListByCinemaIdModel();
+        mMovieListByCinemaIdModel = new MovieListByCinemaIdModel();
     }
 
     public void getMovieByBean(int cinemaId) {
-        movieListByCinemaIdModel.getMovieByBean(cinemaId, new HttpCallBack<MovieListByCinemaIdBean>() {
+        mMovieListByCinemaIdModel.getMovieByBean(cinemaId, new HttpCallBack<MovieListByCinemaIdBean>() {
             @Override
             public void onSuccess(MovieListByCinemaIdBean name) {
                 getiBaseView().onDataSuccess(name);

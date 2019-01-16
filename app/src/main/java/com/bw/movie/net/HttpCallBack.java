@@ -1,4 +1,4 @@
-package com.bw.movie.util;
+package com.bw.movie.net;
 
 /**
  * date:2019/1/8    13:54

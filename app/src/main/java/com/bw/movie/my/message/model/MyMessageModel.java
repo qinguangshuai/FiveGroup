@@ -1,26 +1,21 @@
 package com.bw.movie.my.message.model;
 
-import android.content.Intent;
 import android.os.Handler;
-
-import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.error.AppManager;
-import com.bw.movie.login.LoginActivity;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.service.MyMessageService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import com.bw.movie.util.ToastUtil;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 /*
-MyMessageModel
+*MyMessageModel
 * */
-public class MyMessageModel {
+public class MyMessageModel extends BaseModel {
 
     public void getMessage(final HttpCallBack<MyMessageEntity> httpCallBack){
         OkHttpUtil.get().createa(MyMessageService.class).getMessage()
@@ -34,8 +29,6 @@ public class MyMessageModel {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    /*MyApp.sContext.startActivity(new Intent(MyApp.sContext, LoginActivity.class));
-                                    AppManager.getAppManager().finishAllActivity();*/
                                     BaseEvent.post(new ChuanUser());
                                 }
                             },100);

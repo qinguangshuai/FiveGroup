@@ -1,7 +1,6 @@
-package com.bw.movie.util;
+package com.bw.movie.net;
 
-import android.util.Log;
-
+import com.bw.movie.util.LogUtil;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;

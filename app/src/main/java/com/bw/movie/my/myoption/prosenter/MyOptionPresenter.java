@@ -4,22 +4,22 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.myoption.bean.MyOptionEntity;
 import com.bw.movie.my.myoption.model.MyOptionModel;
 import com.bw.movie.my.myoption.view.MyOpitionView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
   我的意见presenter层
 * */
 public class MyOptionPresenter extends BasePresenter<MyOpitionView> {
 
-    private MyOptionModel myOptionModel;
+    private MyOptionModel mMyOptionModel;
 
     public MyOptionPresenter(MyOpitionView iBaseView) {
         super(iBaseView);
-        myOptionModel = new MyOptionModel();
+        mMyOptionModel = new MyOptionModel();
     }
 
     public void getOption(String context) {
-        myOptionModel.getOpition(context, new HttpCallBack<MyOptionEntity>() {
+        mMyOptionModel.getOpition(context, new HttpCallBack<MyOptionEntity>() {
             @Override
             public void onSuccess(MyOptionEntity name) {
                 getiBaseView().onDataSuccess(name);

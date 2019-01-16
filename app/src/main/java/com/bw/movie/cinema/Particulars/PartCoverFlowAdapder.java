@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.movie.R;
-import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -24,9 +23,9 @@ import java.util.List;
  * fileName:PartCoverFlowAdapder
  */
 public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdapder.CoverFlowViewHolder> {
-    private List<MovieResultBean> list;
+    private List<MovieResultBean> mList;
     private Context mContext;
-    private  int p;
+    private int p;
 
 
     public int getP() {
@@ -34,7 +33,7 @@ public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdap
     }
 
     public PartCoverFlowAdapder(List<MovieResultBean> list, Context mContext) {
-        this.list = list;
+        this.mList = list;
         this.mContext = mContext;
     }
 
@@ -47,21 +46,21 @@ public class PartCoverFlowAdapder extends RecyclerView.Adapter<PartCoverFlowAdap
 
     @Override
     public void onBindViewHolder(@NonNull CoverFlowViewHolder coverFlowViewHolder, int i) {
-        int i1 = i % list.size();
+        int i1 = i % mList.size();
         p = i1;
-        coverFlowViewHolder.simpleDraweeView.setImageURI(Uri.parse(list.get(i1).getImageUrl()));
-        long releaseTime = list.get(i1).getReleaseTime();
+        coverFlowViewHolder.simpleDraweeView.setImageURI(Uri.parse(mList.get(i1).getImageUrl()));
+        long releaseTime = mList.get(i1).getReleaseTime();
         GregorianCalendar gc = new GregorianCalendar();
         String s = String.valueOf(releaseTime);
          gc.setTimeInMillis(Long.parseLong(s));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        coverFlowViewHolder.moviename_item_coveflow.setText(list.get(i1).getName()+"    "+df.format(gc.getTime()));
+        coverFlowViewHolder.moviename_item_coveflow.setText(mList.get(i1).getName()+"    "+df.format(gc.getTime()));
     }
 
     @Override
     public int getItemCount() {
-        return  list==null?0: Integer.MAX_VALUE;
+        return  mList ==null?0: Integer.MAX_VALUE;
     }
 
     class CoverFlowViewHolder extends RecyclerView.ViewHolder {

@@ -1,14 +1,12 @@
 package com.bw.movie.film.details.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.details.bean.DetailBean;
 import com.bw.movie.film.details.service.DetailService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
-
-import io.reactivex.Observer;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /*
@@ -16,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class DetailModel {
+public class DetailModel extends BaseModel {
 
     //Id 展示电影详情
     public void getDetailBeanObservable(int id , final HttpCallBack<DetailBean> httpCallBack){

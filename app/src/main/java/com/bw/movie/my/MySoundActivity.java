@@ -46,7 +46,6 @@ import butterknife.OnClick;
  * */
 public class MySoundActivity extends BaseActivity implements MySoundView<MySoundUser> {
 
-
     @BindView(R.id.soundtext)
     TextView soundtext;
     @BindView(R.id.soundrecycle)
@@ -75,19 +74,11 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
     public void initListener() {
         mMySoundPresenter.getSound(page);
 
-      /* RecyclerViewScrollUtil.Refresh(mSounSwipeRefreshLayout, 2000, new RecyclerViewScrollUtil.onEvent() {
-           @Override
-           public void info() {
-               showloading();
-               mMySoundPresenter.getSound(page);
 
-
-           }
-       });*/
         mSounSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showloading();
+
                 mMySoundPresenter.getSound(page);
             }
         });
@@ -95,18 +86,12 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
        RecyclerViewScrollUtil.Scroll(mSoundrecycle, true, new RecyclerViewScrollUtil.onEvent() {
            @Override
            public void info() {
-               showloading();
+
                mScrollWindow.showPop(mSoundrecycle);
                mMySoundPresenter.getSound(page++);
            }
        });
-
-
     }
-
-
-
-
 
     @Override
     public void initData() {
@@ -166,7 +151,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mSoundrecycle.setLayoutManager(linearLayoutManager);
-            mMySoundAdapter = new MySoundAdapter(getApplicationContext(), mList);
+            mMySoundAdapter = new MySoundAdapter( mList,getApplicationContext());
             mMySoundAdapter.setHttpClick(new MySoundAdapter.HttpClick() {
                 @Override
                 public void getClick(View view, final int position) {
@@ -195,7 +180,8 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
 
                         @Override
                         public void onDataFailer(String msg) {
-
+                           showContent();
+                           showEmpty();
                         }
 
                         @Override
@@ -213,7 +199,7 @@ public class MySoundActivity extends BaseActivity implements MySoundView<MySound
             mMySoundAdapter.notifyDataSetChanged();
             mSoundrecycle.setAdapter(mMySoundAdapter);
         }else{
-            showEmpty();
+           ToastUtil.Toast("sorry,没有更多数据了");
         }
 
 

@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.cinema.cannelfollow.model.CannelFollowModel;
 import com.bw.movie.cinema.follow.bean.FollowBean;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /**
  * date:2018/12/27    17:59
@@ -13,15 +13,15 @@ import com.bw.movie.util.HttpCallBack;
  */
 public class CannelFollowPresenter extends BasePresenter {
 
-    private CannelFollowModel cannelFollowModel;
+    private CannelFollowModel mCannelFollowModel;
 
     public CannelFollowPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        cannelFollowModel = new CannelFollowModel();
+        mCannelFollowModel = new CannelFollowModel();
     }
 
     public void getCannelFollow(int cinemaId) {
-        cannelFollowModel.getCannelFollow(cinemaId, new HttpCallBack<FollowBean>() {
+        mCannelFollowModel.getCannelFollow(cinemaId, new HttpCallBack<FollowBean>() {
             @Override
             public void onSuccess(FollowBean name) {
                    getiBaseView().onDataSuccess(name);

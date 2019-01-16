@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
@@ -19,8 +18,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
  */
 public class TextViewPlaying2 extends LinearLayout {
 
-    private TextView tv;
-    private SimpleDraweeView img;
+    private TextView mTv;
+    private SimpleDraweeView mImg;
 
     public TextViewPlaying2(Context context) {
         this(context, null);
@@ -33,8 +32,8 @@ public class TextViewPlaying2 extends LinearLayout {
     public TextViewPlaying2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = View.inflate(context, R.layout.customplaying, this);
-        tv = view.findViewById(R.id.tv_customtv2);
-        img = view.findViewById(R.id.img_customimg2);
+        mTv = view.findViewById(R.id.tv_customtv2);
+        mImg = view.findViewById(R.id.img_customimg2);
         //路径
         Uri uri1 = Uri.parse("res://drawable/" + R.drawable.mnew);
         //不多解释
@@ -42,7 +41,7 @@ public class TextViewPlaying2 extends LinearLayout {
                 .setUri(uri1)
                 .setAutoPlayAnimations(true)
                 .build();
-        img.setController(build);
+        mImg.setController(build);
     }
 
     @Override

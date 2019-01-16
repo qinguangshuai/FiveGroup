@@ -1,4 +1,4 @@
-package com.bw.movie.util;
+package com.bw.movie.net;
 
 import android.content.Context;
 

@@ -7,16 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 import com.bw.movie.film.show.carousel.bean.CarouselBean;
 import com.bw.movie.film.event.JumpEvent;
 import com.bw.movie.util.EmptyUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
-
 import recycler.coverflow.RecyclerCoverFlow;
 
 /*-----------

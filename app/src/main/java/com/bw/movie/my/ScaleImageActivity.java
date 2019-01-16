@@ -16,6 +16,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import static com.youth.banner.BannerConfig.DURATION;
 
+/**
+ * 元素转场动画
+ * */
+
 public class ScaleImageActivity extends AppCompatActivity {
 
     private SimpleDraweeView mMyTouxiang;

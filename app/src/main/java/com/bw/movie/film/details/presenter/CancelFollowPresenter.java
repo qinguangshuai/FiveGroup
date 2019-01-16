@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
 import com.bw.movie.film.details.model.CancelFollowModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  *作者:ash
@@ -13,17 +13,17 @@ import com.bw.movie.util.HttpCallBack;
  */
 public class CancelFollowPresenter extends BasePresenter {
 
-    private CancelFollowModel cancelFollowModel;
+    private CancelFollowModel mCancelFollowModel;
 
     public CancelFollowPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        cancelFollowModel = new CancelFollowModel();
+        mCancelFollowModel = new CancelFollowModel();
     }
 
 
     //取消关注
     public void getCancelFollowMovieBeanObservable(int can) {
-        cancelFollowModel.getCancelFollowMovieBeanObservable(can, new HttpCallBack<CancelFollowMovieBean>() {
+        mCancelFollowModel.getCancelFollowMovieBeanObservable(can, new HttpCallBack<CancelFollowMovieBean>() {
             @Override
             public void onSuccess(CancelFollowMovieBean name) {
                 getiBaseView().onDataSuccess(name);

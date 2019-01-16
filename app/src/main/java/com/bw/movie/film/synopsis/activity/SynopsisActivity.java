@@ -3,7 +3,6 @@ package com.bw.movie.film.synopsis.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
@@ -59,13 +57,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.postprocessors.IterativeBoxBlurPostProcessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -132,6 +127,7 @@ public class SynopsisActivity extends BaseActivity {
         setmReview();
         getCommentData(id, a, 10);
         mPopupWindow4Adapter.notifyDataSetChanged();
+        showloading();
     }
 
     @Override
@@ -269,6 +265,7 @@ public class SynopsisActivity extends BaseActivity {
         new DetailPresenter(new DetailView<DetailBean>() {
             @Override
             public void onDataSuccess(final DetailBean detailBean) {
+                showContent();
                 //拆装
                 DetailBean.ResultBean result = detailBean.getResult();
                 //获取图片集合
@@ -308,6 +305,8 @@ public class SynopsisActivity extends BaseActivity {
 
             @Override
             public void onDataFailer(String msg) {
+                showContent();
+                showEmpty();
             }
 
             @Override
@@ -560,6 +559,7 @@ public class SynopsisActivity extends BaseActivity {
             case R.id.rb_Review_synopsis:
                 popupWindow4 = new PopupWindow(mReview, LinearLayout.LayoutParams.MATCH_PARENT, height * 5 / 6);
                 popupWindow4.setAnimationStyle(R.style.popwin_anim_style);
+                popupWindow4.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
                 popupWindow4.showAtLocation(v.getRootView(), Gravity.BOTTOM, 0, 0);
                 break;
         }

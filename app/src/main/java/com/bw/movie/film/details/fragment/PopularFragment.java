@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -16,9 +17,7 @@ import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,7 +30,6 @@ import butterknife.Unbinder;
 public class PopularFragment extends BaseFragment {
     @BindView(R.id.swipe_detailsfragment)
     SwipeRefreshLayout mSwipeDetailsfragment;
-    Unbinder unbinder1;
     //判空工具类
     //吐司工具类
     //适配器
@@ -41,11 +39,11 @@ public class PopularFragment extends BaseFragment {
 
     @BindView(R.id.RecyclerView_detailsfragment)
     RecyclerView mRecyclerViewDetailsfragment;
-    Unbinder unbinder;
+    Unbinder mUnbinder;
 
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
     }
 
@@ -78,7 +76,7 @@ public class PopularFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
     }
 
     //set recyclerview 数据
@@ -123,6 +121,8 @@ public class PopularFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
+                mSwipeDetailsfragment.setRefreshing(false);
+                showEmpty();
                 ToastUtil.Toast(msg + "sorry");
             }
 
@@ -142,17 +142,22 @@ public class PopularFragment extends BaseFragment {
 
     //set数据
     public void setData() {
-        EventBus.getDefault().post(new JumpLgoinEvent(true));
+        showContent();
+        EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETFAILER));
         new PopularPresenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
                 mPopularPlayAdapter.setResult(popularBean.getResult());
                 mPopularPlayAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(false));
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETCONNECT));
             }
 
             @Override
             public void onDataFailer(String msg) {
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETNET));
+
+                showContent();
+                showEmpty();
                 ToastUtil.Toast(msg + "sorry");
             }
 

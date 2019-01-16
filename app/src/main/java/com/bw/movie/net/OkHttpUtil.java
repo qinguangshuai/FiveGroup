@@ -1,4 +1,6 @@
-package com.bw.movie.util;
+package com.bw.movie.net;
+
+import com.bw.movie.util.UrlUtil;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

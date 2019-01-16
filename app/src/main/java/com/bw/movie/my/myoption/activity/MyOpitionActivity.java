@@ -2,7 +2,6 @@ package com.bw.movie.my.myoption.activity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
@@ -42,7 +41,7 @@ public class MyOpitionActivity extends BaseActivity<MyOptionPresenter> implement
     LinearLayout yijianlinear;
     @BindView(R.id.my_back)
     ImageView mMyBack;
-    private MyOptionPresenter presenter;
+    private MyOptionPresenter mPresenter;
     private boolean isSuccess = false;
 
     @Override
@@ -94,8 +93,8 @@ public class MyOpitionActivity extends BaseActivity<MyOptionPresenter> implement
                 if (TextUtils.isEmpty(trim)){
                     Toast.makeText(this,"请输入您要反馈意见",Toast.LENGTH_SHORT).show();
                 }else {
-                    presenter = new MyOptionPresenter(this);
-                    presenter.getOption(info);
+                    mPresenter = new MyOptionPresenter(this);
+                    mPresenter.getOption(info);
                     isSuccess = true;
                 }
                 break;

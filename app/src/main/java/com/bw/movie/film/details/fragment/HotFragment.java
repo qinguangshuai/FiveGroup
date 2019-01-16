@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
@@ -19,11 +20,8 @@ import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -50,6 +48,7 @@ public class HotFragment extends BaseFragment {
     @Override
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
+        showloading();
     }
 
     @Override
@@ -116,6 +115,7 @@ public class HotFragment extends BaseFragment {
         new PopularPresenter(new PopularmView<PopularBean>() {
             @Override
             public void onDataSuccess(PopularBean popularBean) {
+
                 mSwipeDetailsfragment.setRefreshing(false);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -127,7 +127,8 @@ public class HotFragment extends BaseFragment {
 
             @Override
             public void onDataFailer(String msg) {
-                ToastUtil.Toast(msg + "sorry");
+                mSwipeDetailsfragment.setRefreshing(false);
+                showEmpty();
             }
 
             @Override
@@ -145,19 +146,23 @@ public class HotFragment extends BaseFragment {
 
     //set数据
     public void setData() {
-        EventBus.getDefault().post(new JumpLgoinEvent(true));
+        showContent();
+        EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETFAILER));
         new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 mHotAdapter.setHotResult(result);
                 mHotAdapter.notifyDataSetChanged();
-                EventBus.getDefault().post(new JumpLgoinEvent(false));
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETCONNECT));
 
             }
 
             @Override
             public void onDataFailer(String msg) {
+                EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETNET));
+               showContent();
+               showEmpty();
                 ToastUtil.Toast(msg + "sorry");
             }
 

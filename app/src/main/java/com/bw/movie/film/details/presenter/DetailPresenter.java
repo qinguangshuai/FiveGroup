@@ -4,7 +4,7 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.base.IBaseView;
 import com.bw.movie.film.details.bean.DetailBean;
 import com.bw.movie.film.details.model.DetailModel;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  *作者:ash
@@ -13,16 +13,16 @@ import com.bw.movie.util.HttpCallBack;
  */
 public class DetailPresenter extends BasePresenter {
 
-    private DetailModel detailModel;
+    private DetailModel mDetailModel;
 
     public DetailPresenter(IBaseView iBaseView) {
         super(iBaseView);
-        detailModel = new DetailModel();
+        mDetailModel = new DetailModel();
     }
 
     //Id查询详情
     public void getDetailBeanObservable(int id) {
-        detailModel.getDetailBeanObservable(id, new HttpCallBack<DetailBean>() {
+        mDetailModel.getDetailBeanObservable(id, new HttpCallBack<DetailBean>() {
             @Override
             public void onSuccess(DetailBean name) {
                 getiBaseView().onDataSuccess(name);

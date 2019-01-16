@@ -2,16 +2,13 @@ package com.bw.movie;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Environment;
-import android.util.DisplayMetrics;
 
 import com.bw.movie.error.UnCatchExceptionHandler;
 import com.bw.movie.greenbean.DaoMaster;
 import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.util.LogUtil;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.OkHttpUtil;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;

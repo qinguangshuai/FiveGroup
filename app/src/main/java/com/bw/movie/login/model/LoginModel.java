@@ -1,18 +1,12 @@
 package com.bw.movie.login.model;
 
-import com.bw.movie.Constant;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.login.bean.LoginUser;
 import com.bw.movie.login.service.LoginService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
-import com.bw.movie.util.SpUtil;
-
-import java.lang.reflect.Method;
-
-import io.reactivex.Observer;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -20,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  * author:Therefore(Lenovo)
  * fileName:LoginModel
  */
-public class LoginModel {
+public class LoginModel extends BaseModel {
     public void getLogin(String phone, String pwd, final HttpCallBack<LoginUser> httpCallBack) {
         OkHttpUtil.get().createa(LoginService.class).getLogn(phone, pwd)
                 .subscribeOn(Schedulers.io())
@@ -29,16 +23,7 @@ public class LoginModel {
                     @Override
                     public void onNext(LoginUser loginUser) {
                         super.onNext(loginUser);
-                        SpUtil.put("sessionId", loginUser.getResult().getSessionId());
-                        SpUtil.put("userId", loginUser.getResult().getUserId());
-                        SpUtil.put("birthday", loginUser.getResult().getUserInfo().getBirthday());
-                        SpUtil.put(Constant.HEADPIC, loginUser.getResult().getUserInfo().getHeadPic());
-                        SpUtil.put("lastLoginTime", loginUser.getResult().getUserInfo().getLastLoginTime());
-                        SpUtil.put(Constant.NICKNAME, loginUser.getResult().getUserInfo().getNickName());
-                        SpUtil.put(Constant.PHONE, loginUser.getResult().getUserInfo().getPhone());
-                        SpUtil.put("id", loginUser.getResult().getUserInfo().getId());
-                        SpUtil.put("sex", loginUser.getResult().getUserInfo().getSex());
-                        SpUtil.put("message",loginUser.getMessage());
+
                     }
                 });
     }

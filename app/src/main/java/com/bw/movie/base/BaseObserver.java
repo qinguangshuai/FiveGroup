@@ -2,21 +2,16 @@ package com.bw.movie.base;
 
 import android.os.NetworkOnMainThreadException;
 import android.view.InflateException;
-
 import com.bw.movie.MyApp;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 import com.bw.movie.util.NewThread;
 import com.bw.movie.util.ToastUtil;
-import com.google.gson.JsonIOException;
-
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
-
 import javax.net.ssl.SSLHandshakeException;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;

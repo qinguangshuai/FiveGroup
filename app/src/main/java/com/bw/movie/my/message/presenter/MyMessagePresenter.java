@@ -4,22 +4,22 @@ import com.bw.movie.base.BasePresenter;
 import com.bw.movie.my.message.bean.MyMessageEntity;
 import com.bw.movie.my.message.model.MyMessageModel;
 import com.bw.movie.my.message.view.MyMessageView;
-import com.bw.movie.util.HttpCallBack;
+import com.bw.movie.net.HttpCallBack;
 
 /*
  * MyMessagePresenter
  * */
 public class MyMessagePresenter extends BasePresenter<MyMessageView> {
 
-    private MyMessageModel myMessageModel;
+    private MyMessageModel mMyMessageModel;
 
     public MyMessagePresenter(MyMessageView iBaseView) {
         super(iBaseView);
-        myMessageModel = new MyMessageModel();
+        mMyMessageModel = new MyMessageModel();
     }
 
     public void getMessage() {
-        myMessageModel.getMessage(new HttpCallBack<MyMessageEntity>() {
+        mMyMessageModel.getMessage(new HttpCallBack<MyMessageEntity>() {
             @Override
             public void onSuccess(MyMessageEntity name) {
                 getiBaseView().onDataSuccess(name);

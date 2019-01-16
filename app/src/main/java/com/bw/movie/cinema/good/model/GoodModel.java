@@ -1,30 +1,24 @@
 package com.bw.movie.cinema.good.model;
 
-import android.content.Intent;
 import android.os.Handler;
 
-import com.bw.movie.MyApp;
 import com.bw.movie.base.BaseEvent;
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.cinema.good.bean.GoodBean;
 import com.bw.movie.cinema.good.service.GoodService;
-import com.bw.movie.error.AppManager;
-import com.bw.movie.login.LoginActivity;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.LogUtil;
-import com.bw.movie.util.OkHttpUtil;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import com.bw.movie.util.ToastUtil;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * 评论点赞(model)
  */
-public class GoodModel {
+public class GoodModel extends BaseModel {
     public void getGood(int commentId, final HttpCallBack<GoodBean> httpCallBack){
         OkHttpUtil.get().createa(GoodService.class).getGoods(commentId)
                 .subscribeOn(Schedulers.io())

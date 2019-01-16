@@ -2,14 +2,12 @@ package com.bw.movie.film.fragment;
 
 
 import android.content.Intent;
-import android.os.Handler;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
@@ -17,7 +15,6 @@ import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.bean.AddressUser;
 import com.bw.movie.cinema.fragment.ChuanUser;
-import com.bw.movie.error.AppManager;
 import com.bw.movie.film.adapter.RootAdapter;
 import com.bw.movie.film.details.activity.DetailsActivity;
 import com.bw.movie.film.details.bean.CancelFollowMovieBean;
@@ -45,12 +42,9 @@ import com.bw.movie.film.show.popular.view.PopularmView;
 import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.ToastUtil;
 import com.lljjcoder.citypickerview.widget.CityPicker;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -64,7 +58,7 @@ import butterknife.Unbinder;
  * 正在热映 具备加载功能   √
  * 正在上映 具备加载功能   √
  */
-public class FilmFragment extends BaseFragment  {
+public class FilmFragment extends BaseFragment {
     @BindView(R.id.file_carouse)
     ImageView fileCarouse;
     @BindView(R.id.file_text)
@@ -74,16 +68,16 @@ public class FilmFragment extends BaseFragment  {
     //吐司工具类
     //判空工具类
 
-    Unbinder unbinder;
+    Unbinder mUnbinder;
     @BindView(R.id.RecyclerView_filefragment)
     RecyclerView mRecyclerViewFilefragment;
-    private Intent intent;
+    private Intent mIntent;
     private CityPicker mCityPicker;
 
     //初始化控件
     @Override
     public void initView() {
-        unbinder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -92,8 +86,8 @@ public class FilmFragment extends BaseFragment  {
         getPopularBeanObservable(1, 10, false);
         getHotPlayBeanObservable(1, 10, false);
         getPlayingBeanObservable(1, 10, false);
-        //intent 传值 准备
-        intent = new Intent(getActivity(), DetailsActivity.class);
+        //mIntent 传值 准备
+        mIntent = new Intent(getActivity(), DetailsActivity.class);
 
         //滚轮文字的大小
         //滚轮文字的颜色
@@ -182,7 +176,7 @@ public class FilmFragment extends BaseFragment  {
 
     //请求回调 轮播图 数据
     public void getCarouselBeanObservable(int page, int count) {
-        EventBus.getDefault().post(new NetEvent(0x0001));
+        EventBus.getDefault().post(new NetEvent(Constant.GETCONNECT));
         new CarouserlPresenter(new CarousemView<CarouselBean>() {
             @Override
             public void onDataSuccess(CarouselBean carouselBean) {
@@ -193,12 +187,7 @@ public class FilmFragment extends BaseFragment  {
             @Override
             public void onDataFailer(String msg) {
                 ToastUtil.Toast(msg + "sorry");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        EventBus.getDefault().post(new NetEvent(Constant.GETNET));
-                    }
-                },1000);
+                EventBus.getDefault().post(new NetEvent(Constant.GETFAILER));
             }
 
             @Override
@@ -242,8 +231,8 @@ public class FilmFragment extends BaseFragment  {
     @Subscribe
     public void Jump(JumpEvent jumpEvent) {
         int a = jumpEvent.getA();
-        intent.putExtra("index", a);
-        getActivity().startActivity(intent);
+        mIntent.putExtra("index", a);
+        getActivity().startActivity(mIntent);
     }
 
     //刷新请求
@@ -280,7 +269,7 @@ public class FilmFragment extends BaseFragment  {
 
     @Subscribe
     public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
         getActivity().startActivity(intent);
         getActivity().finish();
     }
@@ -418,7 +407,7 @@ public class FilmFragment extends BaseFragment  {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        mUnbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
 

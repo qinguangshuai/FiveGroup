@@ -2,7 +2,6 @@ package com.bw.movie.error;
 
 import android.app.Activity;
 import android.content.Context;
-
 import java.util.Stack;
 
 /**
@@ -12,9 +11,9 @@ import java.util.Stack;
  */
 public class AppManager {
     // Activity栈
-    private static Stack<Activity> activityStack;
+    private static Stack<Activity> sActivityStack;
     // 单例模式
-    private static AppManager instance;
+    private static AppManager sInstance;
 
     private AppManager() {
     }
@@ -23,27 +22,27 @@ public class AppManager {
      * 单一实例
      **/
     public static AppManager getAppManager() {
-        if (instance == null) {
-            instance = new AppManager();
+        if (sInstance == null) {
+            sInstance = new AppManager();
         }
-        return instance;
+        return sInstance;
     }
 
     /**
      * 添加Activity到堆栈
      */
     public void addActivity(Activity activity) {
-        if (activityStack == null) {
-            activityStack = new Stack<Activity>();
+        if (sActivityStack == null) {
+            sActivityStack = new Stack<Activity>();
         }
-        activityStack.add(activity);
+        sActivityStack.add(activity);
     }
 
     /**
      * 获取当前Activity（堆栈中最后一个压入的）
      */
     public Activity currentActivity() {
-        Activity activity = activityStack.lastElement();
+        Activity activity = sActivityStack.lastElement();
         return activity;
     }
 
@@ -51,7 +50,7 @@ public class AppManager {
      * 结束当前Activity（堆栈中最后一个压入的）
      */
     public void finishActivity() {
-        Activity activity = activityStack.lastElement();
+        Activity activity = sActivityStack.lastElement();
         finishActivity(activity);
     }
 
@@ -60,7 +59,7 @@ public class AppManager {
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
-            activityStack.remove(activity);
+            sActivityStack.remove(activity);
             activity.finish();
             activity = null;
         }
@@ -70,7 +69,7 @@ public class AppManager {
      * 结束指定类名的Activity
      */
     public void finishActivity(Class<?> cls) {
-        for (Activity activity : activityStack) {
+        for (Activity activity : sActivityStack) {
             if (activity.getClass().equals(cls)) {
                 finishActivity(activity);
 
@@ -83,12 +82,12 @@ public class AppManager {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        for (int i = 0; i < activityStack.size(); i++) {
-            if (null != activityStack.get(i)) {
-                activityStack.get(i).finish();
+        for (int i = 0; i < sActivityStack.size(); i++) {
+            if (null != sActivityStack.get(i)) {
+                sActivityStack.get(i).finish();
             }
         }
-        activityStack.clear();
+        sActivityStack.clear();
     }
 
     /**

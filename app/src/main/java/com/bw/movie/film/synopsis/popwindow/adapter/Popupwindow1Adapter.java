@@ -12,14 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.bw.movie.R;
 
 public class Popupwindow1Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private String[] split;
+    private String[] mSplit;
     public void setData(String[] split) {
-        this.split = split;
+        this.mSplit = split;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -41,12 +40,12 @@ public class Popupwindow1Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         Holder holder = (Holder) viewHolder;
-        holder.tv.setText(split[i]);
+        holder.tv.setText(mSplit[i]);
     }
 
     @Override
     public int getItemCount() {
-        return split.length;
+        return mSplit.length;
     }
 
 }

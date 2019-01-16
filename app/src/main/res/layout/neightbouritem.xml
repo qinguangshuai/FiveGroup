@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp_8"
     android:background="@drawable/neightbour_shape_5"
-
     android:orientation="horizontal">
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -51,7 +50,7 @@
                 android:id="@+id/kneighthour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="111"
+                android:text="0.5km"
                 android:textSize="@dimen/dp_14" />
 
             <Space

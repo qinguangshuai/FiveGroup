@@ -11,7 +11,6 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
@@ -21,11 +20,7 @@ import com.bw.movie.cinema.Particulars.bean.MovieListByCinemaIdBean;
 import com.bw.movie.cinema.Particulars.bean.MovieResultBean;
 import com.bw.movie.cinema.Particulars.presenter.MovieListByCinemaIdPresenter;
 import com.bw.movie.cinema.Particulars.view.MovieListByCinemaIdView;
-import com.bw.movie.cinema.findmovieschedulelist.bean.FindMovieScheduleListBean;
-import com.bw.movie.cinema.findmovieschedulelist.presenter.FindMovieScheduleListProsenter;
-import com.bw.movie.cinema.findmovieschedulelist.view.FindMovieScheduleListView;
 import com.bw.movie.cinema.good.bean.GoodBean;
-import com.bw.movie.cinema.good.event.GoodEvent;
 import com.bw.movie.cinema.good.presenter.GoodPresenter;
 import com.bw.movie.cinema.good.view.GoodView;
 import com.bw.movie.cinema.mdetails.bean.MdetailsBean;
@@ -37,13 +32,10 @@ import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,14 +44,12 @@ import butterknife.ButterKnife;
  */
 public class ParticularsActivity extends BaseActivity {
 
-
     @BindView(R.id.partname)
     TextView partname;
     @BindView(R.id.partaddress)
     TextView partaddress;
     @BindView(R.id.partimage)
     SimpleDraweeView partimage;
-
     @BindView(R.id.recylerview_part)
     RecyclerView recylerviewPart;
     @BindView(R.id.finnishback)
@@ -68,7 +58,7 @@ public class ParticularsActivity extends BaseActivity {
     LinearLayout detailedinformation;
     private ParticularsAdapder particularsAdapder;
     private int id;
-    private List<MevaResultBean> result;
+    private List<MevaResultBean> mResult;
 
 
 
@@ -86,6 +76,7 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setLayoutManager(linearLayoutManager);
         particularsAdapder.setId(id);
         showloading();
+        
     }
 
     @Override
@@ -183,7 +174,7 @@ public class ParticularsActivity extends BaseActivity {
                 public void onHideLoading() {
 
                 }
-            }).getGodos(result.get(goodEvent.getIndex()).getCommentId());
+            }).getGodos(mResult.get(goodEvent.getIndex()).getCommentId());
         } else {
             new GoodPresenter(new GoodView<GoodBean>() {
 
@@ -209,7 +200,7 @@ public class ParticularsActivity extends BaseActivity {
                 public void onHideLoading() {
 
                 }
-            }).getGodos(result.get(goodEvent.getIndex()).getCommentId());
+            }).getGodos(mResult.get(goodEvent.getIndex()).getCommentId());
         }
     }
 
@@ -219,10 +210,10 @@ public class ParticularsActivity extends BaseActivity {
             @Override
             public void onDataSuccess(final MevaluateBean mevaluateBean) {
                 if (mevaluateBean.getMessage().contains("成功")) {
-                    result = mevaluateBean.getResult();
+                    mResult = mevaluateBean.getResult();
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ParticularsActivity.this);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(result, ParticularsActivity.this);
+                    MevaluateAdapder mevaluateAdapder = new MevaluateAdapder(mResult, ParticularsActivity.this);
                     recyclerView.setAdapter(mevaluateAdapder);
                 }
             }
@@ -278,6 +269,8 @@ public class ParticularsActivity extends BaseActivity {
 
                 @Override
                 public void onDataFailer(String msg) {
+                    showContent();
+                    showEmpty();
                 }
 
                 @Override
@@ -301,6 +294,8 @@ public class ParticularsActivity extends BaseActivity {
 
                 @Override
                 public void onDataFailer(String msg) {
+                    showContent();
+                    showEmpty();
                 }
 
                 @Override
@@ -378,7 +373,6 @@ public class ParticularsActivity extends BaseActivity {
 
         return null;
     }
-
 
     @Override
     protected void onDestroy() {

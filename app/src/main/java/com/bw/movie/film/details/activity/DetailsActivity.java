@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.bw.movie.Constant;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
@@ -17,12 +18,9 @@ import com.bw.movie.film.details.fragment.PopularFragment;
 import com.bw.movie.film.event.JumpForThreeActivityBean;
 import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.synopsis.activity.SynopsisActivity;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,12 +42,12 @@ public class DetailsActivity extends BaseActivity {
     CustomViewpager mVpDatails;
 
     //viewpager 适配器
-    private MyAdapter myAdapter = new MyAdapter(getSupportFragmentManager());
-    private HotFragment hotFragment;
-    private PlayingFragment playingFragment;
-    private PopularFragment popularFragment;
-    private Intent intent;
-    private int index;
+    private MyAdapter mMyAdapter = new MyAdapter(getSupportFragmentManager());
+    private HotFragment mHotFragment;
+    private PlayingFragment mPlayingFragment;
+    private PopularFragment mPopularFragment;
+    private Intent mIntent;
+    private int mIndex;
 
     @Override
     public void initView() {
@@ -58,12 +56,12 @@ public class DetailsActivity extends BaseActivity {
         }
 
         ButterKnife.bind(this);
-        intent = getIntent();
-        index = intent.getIntExtra("index", -1);
+        mIntent = getIntent();
+        mIndex = mIntent.getIntExtra("index", -1);
         //创建3个 fragment 对象 实例化
-        hotFragment = new HotFragment();
-        playingFragment = new PlayingFragment();
-        popularFragment = new PopularFragment();
+        mHotFragment = new HotFragment();
+        mPlayingFragment = new PlayingFragment();
+        mPopularFragment = new PopularFragment();
         setViewPagerData();
     }
 
@@ -105,9 +103,12 @@ public class DetailsActivity extends BaseActivity {
     //加载页面
     @Subscribe
     public void login(JumpLgoinEvent jumpLgoinEvent){
-        if(jumpLgoinEvent.isB()){
+        if(jumpLgoinEvent.getA()==Constant.GETFAILER){
             showloading();
-        }else {
+        }else if (jumpLgoinEvent.getA()==Constant.GETNET){
+            showContent();
+            showEmpty();
+        }else{
             showContent();
         }
     }
@@ -118,13 +119,13 @@ public class DetailsActivity extends BaseActivity {
     public void setViewPagerData() {
         ArrayList<Fragment> list = new ArrayList<Fragment>();
         //三次 add 方法
-        list.add(hotFragment);
-        list.add(popularFragment);
-        list.add(playingFragment);
+        list.add(mHotFragment);
+        list.add(mPopularFragment);
+        list.add(mPlayingFragment);
         //加入适配器
-        myAdapter.setList(list);
+        mMyAdapter.setList(list);
         //加入数据
-        mVpDatails.setAdapter(myAdapter);
+        mVpDatails.setAdapter(mMyAdapter);
         //拖住数据
         mVpDatails.setOffscreenPageLimit(2);
         //默认选中第一个
@@ -176,7 +177,7 @@ public class DetailsActivity extends BaseActivity {
 
 
         //选中页面
-        mVpDatails.setCurrentItem(index);
+        mVpDatails.setCurrentItem(mIndex);
 
     }
 

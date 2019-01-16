@@ -7,5 +7,5 @@ import com.bw.movie.base.IBaseView;
  * author:Therefore(Lenovo)
  * fileName:MySoundView
  */
-public interface XiSoundView<T> extends IBaseView<XiSoundUser> {
+public interface XiSoundView<T> extends IBaseView<T> {
 }

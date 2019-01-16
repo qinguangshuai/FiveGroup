@@ -1,11 +1,13 @@
 package com.bw.movie.login.bean;
 
+import com.bw.movie.base.BaseEntity;
+
 /**
  * date:2019/1/7    20:21
  * author:Therefore(Lenovo)
  * fileName:LoginResultBean
  */
-public class LoginResultBean {
+public class LoginResultBean extends BaseEntity {
     private String sessionId;
     private int userId;
     private LoginUserInfoBean userInfo;

@@ -1,18 +1,16 @@
 package com.bw.movie.my.attcinema.model;
 
+import android.os.Handler;
 import com.bw.movie.base.BaseEvent;
 import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.my.attcinema.bean.AttCinemaUser;
 import com.bw.movie.my.attcinema.service.AttCinemaService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.LogUtil;
-import com.bw.movie.util.OkHttpUtil;
-
-import io.reactivex.Observer;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
+import com.bw.movie.util.ToastUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -28,10 +26,18 @@ public class AttCinemaModel extends BaseModel {
                 .subscribe(new BaseObserver<AttCinemaUser>(httpCallBack){
                     @Override
                     public void onNext(AttCinemaUser attCinemaUser) {
-                        super.onNext(attCinemaUser);
-                        BaseEvent.post(new ChuanUser());
+                        if (attCinemaUser.getStatus().equals("9999")) {
+                            ToastUtil.Toast("要想使用,请先登录");
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    BaseEvent.post(new ChuanUser());
+                                }
+                            },100);
+                        } else {
+                            super.onNext(attCinemaUser);
+                        }
                     }
                 });
     }
-
 }

@@ -1,7 +1,6 @@
 package com.bw.movie.film.details.bean;
 
 import com.bw.movie.film.synopsis.popwindow.adapter.StillsItem;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  *TODO:
  *      通过Id 查找电影详情的 bean 类
  */
-public class DetailBean extends StillsItem implements Serializable  {
+public class DetailBean extends StillsItem implements Serializable   {
 
     private ResultBean result;
     private String message;

@@ -1,13 +1,12 @@
 package com.bw.movie.film.show.carousel.model;
 
+import com.bw.movie.base.BaseModel;
 import com.bw.movie.base.BaseObserver;
 import com.bw.movie.film.show.carousel.bean.CarouselBean;
 import com.bw.movie.film.show.carousel.service.CarouserlService;
-import com.bw.movie.util.HttpCallBack;
-import com.bw.movie.util.OkHttpUtil;
-import io.reactivex.Observer;
+import com.bw.movie.net.HttpCallBack;
+import com.bw.movie.net.OkHttpUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /*
@@ -15,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
  *TODO:
  *   model 层
  */
-public class CarouselModel {
+public class CarouselModel extends BaseModel {
 
     //轮播图请求数据回调
     public void getCarouselBeanObservable(int page, int count, final HttpCallBack<CarouselBean> httpCallBack) {
