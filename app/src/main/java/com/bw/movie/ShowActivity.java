@@ -223,7 +223,7 @@ public class ShowActivity extends BaseActivity {
                     showContent();
                 }
             }, 1000);
-        } else if (netEvent.getId()==0x0001){
+        } else if (netEvent.getId()==Constant.GETCONNECT){
             showloading();
         }else{
             showContent();

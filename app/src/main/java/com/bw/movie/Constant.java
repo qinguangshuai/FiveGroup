@@ -1,5 +1,8 @@
 package com.bw.movie;
 
+
+import android.widget.CheckBox;
+
 public interface Constant {
     //推荐影院的logo图
     String LOGO = "logo";
@@ -33,7 +36,10 @@ public interface Constant {
     String PHONE1 = "phone";
     //登录销毁
     int LOGINFNISH = 0x0000;
-    int GETNET = 0x0000;
     String IMAGE = "image_url_extra";
     String VIEW = "VIEW_INFO_EXTRA";
+    //刷新
+    int GETNET = 0x0000;
+    int GETFAILER = 0x0002;
+    int GETCONNECT = 0x0001;
 }

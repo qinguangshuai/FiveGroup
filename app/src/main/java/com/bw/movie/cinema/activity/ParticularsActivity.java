@@ -269,6 +269,8 @@ public class ParticularsActivity extends BaseActivity {
 
                 @Override
                 public void onDataFailer(String msg) {
+                    showContent();
+                    showEmpty();
                 }
 
                 @Override
@@ -292,6 +294,8 @@ public class ParticularsActivity extends BaseActivity {
 
                 @Override
                 public void onDataFailer(String msg) {
+                    showContent();
+                    showEmpty();
                 }
 
                 @Override

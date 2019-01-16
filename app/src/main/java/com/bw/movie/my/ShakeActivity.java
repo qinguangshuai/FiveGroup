@@ -12,25 +12,47 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import com.bw.movie.R;
+import com.bw.movie.base.BaseActivity;
+import com.bw.movie.base.BasePresenter;
 
-/**
- * 传感器
- * */
-
-public class ShakeActivity extends AppCompatActivity {
+public class ShakeActivity extends BaseActivity {
     private SensorManager sensorManager;
     private Vibrator vibrator;
 
     private static final String TAG = "TestSensorActivity";
     private static final int SENSOR_SHAKE = 10;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shake);
+    public void initView() {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
     }
 
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int initLayoutId() {
+        return R.layout.activity_shake;
+    }
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
 
 
     @Override
@@ -56,7 +78,7 @@ public class ShakeActivity extends AppCompatActivity {
             float z = values[2]; // z轴方向的重力加速度，向上为正
             Log.i(TAG, "x轴方向的重力加速度" + x + "；y轴方向的重力加速度" + y + "；z轴方向的重力加速度" + z);
             // 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
-            int medumValue = 19;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
+            int medumValue = 15;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
 
             if (Math.abs(x) > medumValue || Math.abs(y) > medumValue || Math.abs(z) > medumValue) {
                 vibrator.vibrate(200);
