@@ -130,6 +130,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
             case 0:
                 if (data.getParcelableExtra("data") == null) {
                     ToastUtil.Toast("请选择图片");
+                    throw new NullPointerException();
                 } else {
                     Bitmap data2 = data.getParcelableExtra("data");
                     Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getApplication().getContentResolver(), data2, null, null));
@@ -140,9 +141,7 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 break;
             //相册
             case 1:
-                if (data.getData() == null) {
-                    ToastUtil.Toast("请选择图片");
-                } else {
+                if (data.getData() != null) {
                     String path = ImageUtil.getPath(getApplicationContext(), data.getData());
                     LunBanUtil.getImage(UpdataInfoActivity.this, path, new LunBanUtil.OnFile() {
                         @Override
@@ -150,7 +149,10 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                             getCamera(file);
                         }
                     });
+                } else {
 
+                    ToastUtil.Toast("请选择图片");
+                    throw new NullPointerException();
                 }
                 break;
         }
@@ -277,7 +279,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                     mPresenter = new UpDateUserInfoPresenter(this);
                     mPresenter.getUserInfo(nickname, q, email);
                     startActivity(new Intent(this, MyMessage.class));
-
                     finish();
                 }
 

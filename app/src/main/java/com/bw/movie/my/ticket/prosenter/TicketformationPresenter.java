@@ -18,8 +18,8 @@ public class TicketformationPresenter extends BasePresenter {
         mModel = new TicketformationModel();
     }
 
-    public void getTicet(int page, int count) {
-        mModel.getMeassage(page, count, new HttpCallBack<TicketFoemationEntity>() {
+    public void getTicet(int page, int count,int status) {
+        mModel.getMeassage(page, count,status, new HttpCallBack<TicketFoemationEntity>() {
             @Override
             public void onSuccess(TicketFoemationEntity name) {
                 getiBaseView().onDataSuccess(name);

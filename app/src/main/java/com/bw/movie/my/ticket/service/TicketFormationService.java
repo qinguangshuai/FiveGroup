@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 * */
 public interface TicketFormationService {
     @GET(UrlUtil.BUYRECORD)
-    Observable<TicketFoemationEntity> getTicket(@Query("page") int page, @Query("count") int count);
+    Observable<TicketFoemationEntity> getTicket(@Query("page") int page, @Query("count") int count,@Query("status") int status);
 
 }

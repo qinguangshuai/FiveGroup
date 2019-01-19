@@ -37,7 +37,7 @@ import butterknife.OnClick;
  * 高德地图
  */
 
-public class MainActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
+public class MapActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
     @BindView(R.id.mainImage)
     ImageView mainImage;

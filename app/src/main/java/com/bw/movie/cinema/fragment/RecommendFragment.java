@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.bw.movie.Constant;
-import com.bw.movie.MainActivity;
+import com.bw.movie.MapActivity;
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseEvent;
@@ -78,7 +78,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
             public void onRefresh() {
 
 
-                mRecommendPresenter.getRecommend(MainActivity.latitude + "", MainActivity.longitude1 + "", 1, 10);
+                mRecommendPresenter.getRecommend(MapActivity.latitude + "", MapActivity.longitude1 + "", 1, 10);
 
 
             }
@@ -157,7 +157,7 @@ public class RecommendFragment extends BaseFragment implements RecommentView<Rec
 
     @Override
     public void initData() {
-        mRecommendPresenter.getRecommend(MainActivity.latitude + "", MainActivity.longitude1 + "", page++, 10);
+        mRecommendPresenter.getRecommend(MapActivity.latitude + "", MapActivity.longitude1 + "", page++, 10);
 
     }
 

@@ -49,7 +49,6 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
     Unbinder unbinder;
     @BindView(R.id.ticketSwipeRefreshLayout)
     SwipeRefreshLayout ticketSwipeRefreshLayout;
-    Unbinder unbinder1;
     private TicketformationPresenter mTicketformationPresenter;
     int page = 1;
     private List<ResultBean> list;
@@ -66,7 +65,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
         ticketSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mTicketformationPresenter.getTicet(page++,5);
+                mTicketformationPresenter.getTicet(page++,5,1);
             }
         });
 
@@ -74,7 +73,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
             @Override
             public void info() {
                 mScrollWindow.showPop(ticketOneRecycler);
-                mTicketformationPresenter.getTicet(page++,5);
+                mTicketformationPresenter.getTicet(page++,5,1);
             }
         });
     }
@@ -89,7 +88,7 @@ public class TickFragmentOne extends BaseFragment implements IBaseView<TicketFoe
 
     @Override
     public void initData() {
-        mTicketformationPresenter.getTicet(page, 5);
+        mTicketformationPresenter.getTicet(page, 5,1);
     }
 
     @Override

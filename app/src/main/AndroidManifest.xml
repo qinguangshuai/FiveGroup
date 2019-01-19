@@ -21,8 +21,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-   <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"
-       tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.WRITE_APN_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <!-- 【必须】 信鸽SDK所需权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -44,7 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MapActivity" />
         <activity
             android:name=".login.LoginActivity"
             android:launchMode="singleTop"
@@ -54,8 +55,9 @@
         <activity android:name=".my.MySoundActivity" />
         <activity android:name=".my.MyHeadportraitActivity" />
         <activity android:name=".my.message.activity.MyMessage" />
-        <activity android:name=".my.attention.activity.MyattentionActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".my.attention.activity.MyattentionActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".my.myoption.activity.MyOpitionActivity" />
         <activity android:name=".my.mylatest.activity.MyLatestVersionActivity" />
         <activity android:name=".my.myinfo.activity.UpdataInfoActivity" />
@@ -100,8 +102,9 @@
             android:windowSoftInputMode="adjustPan|adjustResize|stateHidden" />
         <activity android:name=".film.cinema.activity.AffiliatedTheaterActivity" />
         <activity android:name=".base.BaseRecyclerListActivity" />
-        <activity android:name=".my.ScaleImageActivity"></activity>
-        <activity android:name=".my.ShakeActivity"></activity>
+        <activity android:name=".my.ScaleImageActivity" />
+        <activity android:name=".my.ShakeActivity" />
+        <activity android:name=".RouteSearchActivity"></activity>
     </application>
 
 </manifest>

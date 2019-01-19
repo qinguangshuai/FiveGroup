@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bw.movie.Constant;
-import com.bw.movie.MainActivity;
+import com.bw.movie.MapActivity;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
@@ -118,7 +118,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void initListener() {
-        mSp = getSharedPreferences("login", MODE_PRIVATE);
+        mSp = getSharedPreferences(Constant.LOGIN, MODE_PRIVATE);
         mEdit = mSp.edit();
         if (mSp.getBoolean("loginbox", false)) {
             loginedit1.setText(mSp.getString("phone", mEdit1));
@@ -244,6 +244,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                         }
                     });
 
+                }else {
+                    isClick = true;
                 }
 
                 break;
@@ -292,8 +294,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             LogUtil.d(mUserId + "");
             getSp();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
+            isClick=true;
             PendingIntent pIntent = PendingIntent.getActivity(this,
                     mRequestcode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             int smallIcon = R.mipmap.ic_launcher;
@@ -316,30 +319,30 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     public void getSp() {
 
-        SpUtil.put("sessionId", mSessionId);
+        SpUtil.put(Constant.SESSIONId, mSessionId);
         SpUtil.put("userId", mUserId);
         SpUtil.put("birthday", mBirthday);
         SpUtil.put(Constant.HEADPIC, mHeadPic);
         SpUtil.put("lastLoginTime", mLastLoginTime);
-        SpUtil.put("phone", mNickName);
-        SpUtil.put("pwd", mPhone);
+        SpUtil.put(Constant.NICKNAME, mNickName);
+        SpUtil.put(Constant.PHONE, mPhone);
         SpUtil.put("id", mId);
         SpUtil.put("sex", mSex);
-        SpUtil.put("message",mMessage);
+        SpUtil.put(Constant.MESSAGE,mMessage);
 
         if (loginbox.isChecked()) {
             SharedPreferences.Editor edit = mSp.edit();
-            edit.putString("phone", mEdit1);
+            edit.putString(Constant.PHONE, mEdit1);
             edit.putString("pwd", mEdit2);
-            edit.putString("nickName", mNickName);
+            edit.putString(Constant.NICKNAME, mNickName);
             edit.putBoolean("loginbox", loginbox.isChecked());
             edit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
             edit.commit();
         } else {
-            mEdit.putString("phone", "");
+            mEdit.putString(Constant.PHONE, "");
             mEdit.putString("pwd", "");
-            mEdit.putString("headPic", mHeadPic);
-            mEdit.putString("nickName", mNickName);
+            mEdit.putString(Constant.HEADPIC, mHeadPic);
+            mEdit.putString(Constant.NICKNAME, mNickName);
             mEdit.putBoolean("loginbox", loginbox.isChecked());
             mEdit.putBoolean("mRemeberbox",mRemeberbox.isChecked());
             mEdit.commit();

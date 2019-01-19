@@ -1,12 +1,14 @@
 package com.bw.movie.wxapi;
 
+import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,10 +16,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bw.movie.Constant;
-import com.bw.movie.MainActivity;
+import com.bw.movie.MapActivity;
 import com.bw.movie.R;
-import com.bw.movie.ShowActivity;
-import com.bw.movie.login.LoginActivity;
 import com.bw.movie.util.NotifyUtil;
 import com.bw.movie.util.SpUtil;
 import com.bw.movie.util.WeiXinUtil;
@@ -129,7 +129,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
             switch (msg.what) {
                 case 1:
                     Toast.makeText(WXEntryActivity.this, mWxUser1.getMessage(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WXEntryActivity.this, MainActivity.class));
+                    startActivity(new Intent(WXEntryActivity.this, MapActivity.class));
 //                    LoginActivity().finish();
                     EventBus.getDefault().post(new FinishEvent(Constant.LOGINFNISH));
                     break;
@@ -178,6 +178,13 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
     }
 
     private void share(SHARE_TYPE type) {
+
+        //6.0以上主动请求权限
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
+            ActivityCompat.requestPermissions(this, mPermissionList, 123);
+        }
+
         WXWebpageObject webpageObject = new WXWebpageObject();
         webpageObject.webpageUrl = "http://www.dangdang.com/?_utm_sem_id=16202047&_ddclickunion=422-kw-1-%C6%B7%C5%C6%B4%CA_%C6%B7%C5%C6%B4%CA-%BA%CB%D0%C4_%B5%B1%B5%B1%CD%F8|ad_type=0|sys_id=1";
         WXMediaMessage msg = new WXMediaMessage(webpageObject);

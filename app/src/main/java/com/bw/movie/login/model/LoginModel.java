@@ -19,12 +19,6 @@ public class LoginModel extends BaseModel {
         OkHttpUtil.get().createa(LoginService.class).getLogn(phone, pwd)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<LoginUser>(httpCallBack){
-                    @Override
-                    public void onNext(LoginUser loginUser) {
-                        super.onNext(loginUser);
-
-                    }
-                });
+                .subscribe(new BaseObserver<LoginUser>(httpCallBack));
     }
 }

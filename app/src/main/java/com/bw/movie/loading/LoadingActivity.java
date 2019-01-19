@@ -8,7 +8,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bw.movie.MainActivity;
+import com.bw.movie.MapActivity;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
@@ -107,7 +107,7 @@ public class LoadingActivity extends BaseActivity {
             finish();
         } else {
             //第二次或更多进入
-            Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoadingActivity.this, MapActivity.class);
             startActivity(intent);
             finish();
         }

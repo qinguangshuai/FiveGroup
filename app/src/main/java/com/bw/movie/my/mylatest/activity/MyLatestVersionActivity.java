@@ -32,7 +32,7 @@ import java.net.URL;
 /**
  * 版本更新界面
  * 秦广帅
- * */
+ */
 
 public class MyLatestVersionActivity extends BaseActivity implements MyLatestView<MyLatestUser> {
 
@@ -78,10 +78,10 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
         Toast.makeText(this, message + flag, Toast.LENGTH_SHORT).show();
         mDownloadUrl = myLatestUser.getDownloadUrl();
 
-        if (mDownloadUrl == null){
+        if (mDownloadUrl == null) {
             ImageView imageView = new ImageView(this);
             imageView.setImageResource(R.mipmap.ic_launcher);
-        }else {
+        } else {
             showUpdataDialog();
         }
     }
@@ -93,7 +93,7 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
 
     @Subscribe
     public void getChuan(ChuanUser chuanUser) {
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         AppManager.getAppManager().finishActivity(this);
     }
@@ -147,9 +147,9 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
         }.start();
     }
 
-    public static File getFileFromServer(String path, ProgressDialog pd) throws Exception{
+    public static File getFileFromServer(String path, ProgressDialog pd) throws Exception {
         //如果相等的话表示当前的sdcard挂载在手机上并且是可用的
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             URL url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
@@ -160,11 +160,11 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
             FileOutputStream fos = new FileOutputStream(file);
             BufferedInputStream bis = new BufferedInputStream(is);
             byte[] buffer = new byte[1024];
-            int len ;
-            int total=0;
-            while((len =bis.read(buffer))!=-1){
+            int len;
+            int total = 0;
+            while ((len = bis.read(buffer)) != -1) {
                 fos.write(buffer, 0, len);
-                total+= len;
+                total += len;
                 //获取当前下载量
                 pd.setProgress(total);
             }
@@ -172,8 +172,7 @@ public class MyLatestVersionActivity extends BaseActivity implements MyLatestVie
             bis.close();
             is.close();
             return file;
-        }
-        else{
+        } else {
             return null;
         }
     }
