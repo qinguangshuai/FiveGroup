@@ -37,6 +37,9 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mHotresult.addAll(hotresult);
     }
 
+
+
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -69,12 +72,12 @@ public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return 0;
     }
 
-    private class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder {
 
         private final SimpleDraweeView mSimpleDraweeView;
-        private final TextView mName;
-        private final TextView mIntroduction;
-        private final CheckBox mHart;
+        public final TextView mName;
+        public final TextView mIntroduction;
+        public final CheckBox mHart;
 
         public Holder(View view) {
             super(view);

@@ -61,6 +61,7 @@ public class PlayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         });
     }
 
+
     @Override
     public int getItemCount() {
         if (EmptyUtil.isNull(playresult) == false) {
