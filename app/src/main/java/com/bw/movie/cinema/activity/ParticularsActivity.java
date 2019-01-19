@@ -1,6 +1,8 @@
 package com.bw.movie.cinema.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,8 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.amap.api.maps.model.LatLng;
 import com.bw.movie.Constant;
 import com.bw.movie.MapActivity;
 import com.bw.movie.R;
@@ -34,12 +38,16 @@ import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
+import com.bw.movie.util.LogUtil;
 import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -63,6 +71,7 @@ public class ParticularsActivity extends BaseActivity {
     private ParticularsAdapder particularsAdapder;
     private int id;
     private List<MevaResultBean> mResult;
+    private String mString;
 
     @Override
     public void initView() {
@@ -78,7 +87,7 @@ public class ParticularsActivity extends BaseActivity {
         recylerviewPart.setLayoutManager(linearLayoutManager);
         particularsAdapder.setId(id);
         showloading();
-        
+
     }
 
     @Override
@@ -120,16 +129,23 @@ public class ParticularsActivity extends BaseActivity {
         TextView address = view.findViewById(R.id.address);
         RecyclerView recyclerView = view.findViewById(R.id.MecaluateRecy);
         ImageView map_image = view.findViewById(R.id.map_image);
-        isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou);
-        ImageView phone =view.findViewById(R.id.callphone);
-        isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou,phone);
+        ImageView phone = view.findViewById(R.id.callphone);
+        isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou, phone);
         getMevaluate(recyclerView);
         map_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(
+                /*Intent intent = new Intent(
                         ParticularsActivity.this,RouteSearchActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
+                Intent intent = new Intent("android.intent.action.VIEW",
+                        android.net.Uri.parse("androidamap://navi?sourceApplication=一毛共享&lat=" +"" + "&lng=" + ""+ "&dev=0"));
+                intent.setPackage("com.autonavi.minimap");
+                intent.setData(Uri.parse("androidamap://poi?sourceApplication=softname&keywords=" + mString));
+                if (isInstallByread("com.autonavi.minimap")) {
+                    startActivity(intent);
+                    LogUtil.d("GasStation", "高德地图客户端已经安装");
+                }
             }
         });
         mdetails_detaildin.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +173,20 @@ public class ParticularsActivity extends BaseActivity {
         });
     }
 
+    private boolean isInstallByread(String packageName) {
+        PackageInfo paginfo;
+        try {
+            paginfo = getPackageManager().getPackageInfo("com.bw.movie", 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            paginfo = null;
+            e.printStackTrace();
+        }
+        if (paginfo == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     //点赞
     @Subscribe
@@ -261,6 +291,7 @@ public class ParticularsActivity extends BaseActivity {
         partimage.setImageURI(Uri.parse(paricularstlogo));
         partname.setText(paricularstname);
         partaddress.setText(paricularstaddress);
+        mString = partaddress.getText().toString();
         getData();
         particularsAdapder.setCinema(id);
 
@@ -274,7 +305,7 @@ public class ParticularsActivity extends BaseActivity {
             new MovieListByCinemaIdPresenter(new MovieListByCinemaIdView<MovieListByCinemaIdBean>() {
                 @Override
                 public void onDataSuccess(MovieListByCinemaIdBean movieListByCinemaIdBean) {
-                  showContent();
+                    showContent();
                     List<MovieResultBean> result = movieListByCinemaIdBean.getResult();
                     particularsAdapder.Lunbo(result);
                     particularsAdapder.notifyDataSetChanged();
@@ -331,7 +362,7 @@ public class ParticularsActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intenteqta = new Intent(Intent.ACTION_CALL);
-                        Uri data = Uri.parse("tel:"+mdetailsBean.getResult().getPhone());
+                        Uri data = Uri.parse("tel:" + mdetailsBean.getResult().getPhone());
                         intenteqta.setData(data);
                         startActivity(intenteqta);
                     }
@@ -372,8 +403,6 @@ public class ParticularsActivity extends BaseActivity {
 
             }
         }).getMdetails(id);
-
-
 
 
     }
