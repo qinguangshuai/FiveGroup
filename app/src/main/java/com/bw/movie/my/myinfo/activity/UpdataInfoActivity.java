@@ -76,8 +76,12 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         String email = intent.getStringExtra("mEmail");
         mMyouxiang.setText(email);
         String headPic = intent.getStringExtra(Constant.HEADPIC);
-        Uri uri = Uri.parse(headPic);
-        mMtouxiang.setImageURI(uri);
+        if (headPic == null) {
+            return;
+        } else {
+            Uri uri = Uri.parse(headPic);
+            mMtouxiang.setImageURI(uri);
+        }
         String nickName = intent.getStringExtra(Constant.NICKNAME);
         mMnicheng.setText(nickName);
         String phone1 = intent.getStringExtra(Constant.PHONE);
@@ -128,11 +132,11 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
         switch (requestCode) {
             //相机
             case 0:
-                if (data.getParcelableExtra("data") == null) {
-                    ToastUtil.Toast("请选择图片");
-                    throw new NullPointerException();
+                if (data == null) {
+                    return;
                 } else {
                     Bitmap data2 = data.getParcelableExtra("data");
+
                     Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getApplication().getContentResolver(), data2, null, null));
                     String data1 = ImageUtil.getPath(getApplicationContext(), uri);
                     File file = new File(data1);
@@ -141,7 +145,9 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                 break;
             //相册
             case 1:
-                if (data.getData() != null) {
+                if (data == null) {
+                    return;
+                } else {
                     String path = ImageUtil.getPath(getApplicationContext(), data.getData());
                     LunBanUtil.getImage(UpdataInfoActivity.this, path, new LunBanUtil.OnFile() {
                         @Override
@@ -149,10 +155,6 @@ public class UpdataInfoActivity extends BaseActivity implements UpDateUserInfoVi
                             getCamera(file);
                         }
                     });
-                } else {
-
-                    ToastUtil.Toast("请选择图片");
-                    throw new NullPointerException();
                 }
                 break;
         }
