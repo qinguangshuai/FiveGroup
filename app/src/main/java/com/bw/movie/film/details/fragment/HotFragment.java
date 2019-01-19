@@ -6,9 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.bw.movie.Constant;
+import com.bw.movie.MyApp;
 import com.bw.movie.R;
 import com.bw.movie.base.BaseFragment;
 import com.bw.movie.base.BasePresenter;
+import com.bw.movie.film.details.bean.CacheBean;
+import com.bw.movie.film.details.bean.CacheBeanDao;
 import com.bw.movie.film.details.hot.adapter.HotAdapter;
 import com.bw.movie.film.event.JumpLgoinEvent;
 import com.bw.movie.film.popwindow.ScrollWindow;
@@ -18,10 +21,15 @@ import com.bw.movie.film.show.hot.view.HotPlayView;
 import com.bw.movie.film.show.popular.bean.PopularBean;
 import com.bw.movie.film.show.popular.presenter.PopularPresenter;
 import com.bw.movie.film.show.popular.view.PopularmView;
+import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.util.RecyclerViewScrollUtil;
 import com.bw.movie.util.ToastUtil;
+
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.greendao.query.Query;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -39,6 +47,11 @@ public class HotFragment extends BaseFragment {
 
     private ScrollWindow mScrollWindow = new ScrollWindow(getActivity());
 
+
+    private Query<CacheBean> cacheQuery;
+    CacheBeanDao cacheBeanDao;
+
+
     @BindView(R.id.swipe_detailsfragment)
     SwipeRefreshLayout mSwipeDetailsfragment;
     @BindView(R.id.RecyclerView_detailsfragment)
@@ -49,6 +62,7 @@ public class HotFragment extends BaseFragment {
     public void initView() {
         unbinder = ButterKnife.bind(this, rootView);
         showloading();
+        greenDao();
     }
 
     @Override
@@ -144,6 +158,15 @@ public class HotFragment extends BaseFragment {
     }
 
 
+    //greendao
+    public void greenDao() {
+        DaoSession daoSession = ((MyApp) getActivity().getApplication()).getCache();
+        cacheBeanDao = daoSession.getCacheBeanDao();
+        cacheQuery = cacheBeanDao.queryBuilder().orderAsc(CacheBeanDao.Properties.Id).build();
+
+    }
+
+
     //set数据
     public void setData() {
         showContent();
@@ -151,19 +174,45 @@ public class HotFragment extends BaseFragment {
         new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
+
+
+
                 List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 mHotAdapter.setHotResult(result);
                 mHotAdapter.notifyDataSetChanged();
                 EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETCONNECT));
+
+                for (int i = 0; i < result.size(); i++) {
+                    CacheBean cacheBean = new CacheBean(0l,
+                           result.get(i).getFollowMovie(),
+                           result.get(i).getName(),
+                           result.get(i).getSummary());
+                    cacheBeanDao.insert(cacheBean);
+
+                }
 
             }
 
             @Override
             public void onDataFailer(String msg) {
                 EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETNET));
-               showContent();
-               showEmpty();
-                ToastUtil.Toast(msg + "sorry");
+                showContent();
+                showEmpty();
+
+//                HotPlayBean hotPlayBean = new HotPlayBean();
+//                List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
+                List<CacheBean> list = cacheQuery.list();
+//                for (int i = 0; i <list.size() ; i++) {
+//                    HotPlayBean.ResultBean resultBean = result.get(i);
+//                    resultBean.setName(list.get(i).getName());
+//                    resultBean.setFollowMovie(list.get(i).getFollowMovie());
+//                    resultBean.setSummary(list.get(i).getSummary());
+//                    result.add(resultBean);
+//                }
+
+//                mHotAdapter.setHotResult(result);
+                ToastUtil.Toast(list.get(0).getName());
+
             }
 
             @Override

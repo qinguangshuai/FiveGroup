@@ -64,10 +64,9 @@
 
             </LinearLayout>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+
                 <TextView
+                    android:maxLines="5"
                     android:id="@+id/Introduction_detaitem"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -75,7 +74,6 @@
                     android:text="铁血战士"
                     android:textColor="#fff"
                     android:textStyle="bold" />
-            </ScrollView>
 
 
         </LinearLayout>

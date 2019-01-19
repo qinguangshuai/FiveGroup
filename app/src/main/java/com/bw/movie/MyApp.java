@@ -30,6 +30,10 @@ import org.greenrobot.greendao.database.Database;
 
     private DaoSession daoSession;
 
+    private DaoSession cache;
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -53,15 +57,28 @@ import org.greenrobot.greendao.database.Database;
         LogUtil.init();
         initXG();
         initWX();
+
         //第一个String 是 数据库名字 //第二个String 是 数据库名-db 文件类型
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "GreenBean" : "GreenBean-db");
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
+
+
+        DaoMaster.DevOpenHelper helper2 = new DaoMaster.DevOpenHelper(this, "Cache");
+        Database db2 = helper.getWritableDb();
+        cache = new DaoMaster(db).newSession();
+
+
     }
 
     public DaoSession getDaoSession() {
         return daoSession;
     }
+
+    public DaoSession getCache() {
+        return cache;
+    }
+
 
     private void initXG() {
         XGPushConfig.enableDebug(this, true);

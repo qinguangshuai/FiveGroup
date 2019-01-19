@@ -18,31 +18,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.bw.movie.R;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.fragment.ChuanUser;
 import com.bw.movie.error.AppManager;
 import com.bw.movie.film.cinema.activity.AffiliatedTheaterActivity;
+import com.bw.movie.film.details.bean.DetailBean;
 import com.bw.movie.film.details.presenter.DetailPresenter;
+import com.bw.movie.film.details.view.DetailView;
+import com.bw.movie.film.event.PraiseEvent;
+import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.popwindow.ScrollWindow;
+import com.bw.movie.film.synopsis.adapter.WeakCurrencyAdapter;
+import com.bw.movie.film.synopsis.bean.CommentBean;
+import com.bw.movie.film.synopsis.bean.InputcommentsBean;
+import com.bw.movie.film.synopsis.bean.PraiseBean;
 import com.bw.movie.film.synopsis.bean.ResultBean;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow2Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.PopupWindow4Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.Popupwindow1Adapter;
 import com.bw.movie.film.synopsis.popwindow.adapter.StillsAdapder;
 import com.bw.movie.film.synopsis.popwindow.adapter.StillsItem;
-import com.bw.movie.film.synopsis.adapter.WeakCurrencyAdapter;
-import com.bw.movie.film.synopsis.bean.CommentBean;
-import com.bw.movie.film.details.bean.DetailBean;
-import com.bw.movie.film.synopsis.bean.PraiseBean;
-import com.bw.movie.film.event.PraiseEvent;
-import com.bw.movie.film.synopsis.bean.InputcommentsBean;
-import com.bw.movie.film.event.RefreshEvent;
 import com.bw.movie.film.synopsis.presenter.SynopsisPresenter;
 import com.bw.movie.film.synopsis.view.CommentView;
-import com.bw.movie.film.details.view.DetailView;
 import com.bw.movie.film.synopsis.view.InputcommentsView;
 import com.bw.movie.film.synopsis.view.PraiseView;
 import com.bw.movie.login.LoginActivity;
@@ -57,10 +57,13 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.postprocessors.IterativeBoxBlurPostProcessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -283,6 +286,7 @@ public class SynopsisActivity extends BaseActivity {
                         EventBus.getDefault().post(new RefreshEvent(isChecked == true ? true : false, detailBean.getResult().getId()));
                     }
                 });
+
                 //跳转
                 mBuySynopsis.setOnClickListener(new View.OnClickListener() {
                     @Override
