@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.bw.movie.R;
 import com.bw.movie.ShowActivity;
 import com.bw.movie.base.BaseActivity;
@@ -17,6 +18,8 @@ import com.bw.movie.registe.bean.RegisteUser;
 import com.bw.movie.registe.presenter.RegistePresenter;
 import com.bw.movie.registe.view.RegisteView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -59,8 +62,31 @@ public class RegisteActivity extends BaseActivity<RegistePresenter> implements R
 
     @Override
     public void initListener() {
-
+        etRegsiterDate.setFocusable(false);
+        etRegsiterDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerView timePickerView = new TimePickerView.Builder(RegisteActivity.this, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        etRegsiterDate.setText(getTime(date));
+                    }
+                }).setType(new boolean[]{true,true,true,false,false,false})
+                        .setCancelText("取消")
+                        .setSubmitText("确定")
+                        .isCenterLabel(false)
+                        .build();
+                timePickerView.show();
+            }
+        });
     }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        //"YYYY-MM-DD HH:MM:SS"        "yyyy-MM-dd"
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
+
 
     @Override
     public void initData() {

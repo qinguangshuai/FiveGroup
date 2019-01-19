@@ -32,7 +32,7 @@ public class LoadingView extends LinearLayout {
         View view = View.inflate(context, R.layout.customlaoding, this);
         mImg = view.findViewById(R.id.img_loading);
         //路径
-        Uri uri1 = Uri.parse("res://drawable/" + R.drawable.woman);
+        Uri uri1 = Uri.parse("res://drawable/" + R.drawable.fly);
         //不多解释
         AbstractDraweeController build = Fresco.newDraweeControllerBuilder()
                 .setUri(uri1)

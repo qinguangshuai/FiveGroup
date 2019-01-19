@@ -37,7 +37,7 @@ import butterknife.OnClick;
  * 高德地图
  */
 
-public class MainActivity extends AppCompatActivity implements LocationSource,AMapLocationListener {
+public class MapActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
 
     @BindView(R.id.mainImage)
     ImageView mainImage;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
         if (aMap == null) {
             aMap = mapView.getMap();
         }
-        startActivity(new Intent(this,ShowActivity.class));
+        startActivity(new Intent(this, ShowActivity.class));
         finish();
         initLocation();
 
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 String street = aMapLocation.getStreet();//街道信息
                 String num = aMapLocation.getStreetNum();//街道门牌号信息
 
-                BaseEvent.post(new AddressUser(mCity,mDis));
+                BaseEvent.post(new AddressUser(mCity, mDis));
 
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 //获取纬度
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,AM
                 aMapLocation.getAdCode();//地区编码
                 SpUtil.put("longitude1", longitude1);
                 SpUtil.put("latitude", latitude);
-                BaseEvent.post(new RecommendEvent(longitude1 +"", latitude +""));
+                BaseEvent.post(new RecommendEvent(longitude1 + "", latitude + ""));
                 Log.e("==1111", mCity + mDis);
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();

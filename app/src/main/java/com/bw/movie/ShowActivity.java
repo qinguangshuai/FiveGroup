@@ -50,6 +50,8 @@ public class ShowActivity extends BaseActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION,     //GPS定位
             Manifest.permission.READ_EXTERNAL_STORAGE,     //读取
             Manifest.permission.WRITE_EXTERNAL_STORAGE,     //写入
+            Manifest.permission.CALL_PHONE,     //写入
+
     };
 
 
@@ -270,6 +272,14 @@ public class ShowActivity extends BaseActivity {
             if (i4 != PackageManager.PERMISSION_GRANTED) {
                 //如果没有授予该权限，就去提示用户请求
                 ActivityCompat.requestPermissions(this, permissions, 103);
+            }
+
+            //检查写入
+            int i5 = ContextCompat.checkSelfPermission(ShowActivity.this, permissions[4]);
+            //权限是否已经 授权 GRANTED—授权 DINIED—拒绝
+            if (i5 != PackageManager.PERMISSION_GRANTED) {
+                //如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, permissions, 104);
 
             }
 

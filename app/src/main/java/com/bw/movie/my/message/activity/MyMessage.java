@@ -67,15 +67,6 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
     private String s;
     private ResultBean mResult;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mPresenter = new MyMessagePresenter(this);
-        mPresenter.getMessage();
-        ButterKnife.bind(this);
-    }
-
     @Subscribe
     public void getChuan(ChuanUser chuanUser) {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -85,12 +76,13 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
     @Override
     public void initView() {
-
+        ButterKnife.bind(this);
     }
 
     @Override
     public void initListener() {
-
+        mPresenter = new MyMessagePresenter(this);
+        mPresenter.getMessage();
     }
 
     @Override
@@ -199,12 +191,12 @@ public class MyMessage extends BaseActivity<MyMessagePresenter> implements MyMes
 
     @OnClick(R.id.my_myback)
     public void onViewClicked() {
-        SpUtil.remove("phone");
+        SpUtil.remove(Constant.PHONE);
         SpUtil.remove("pwd");
         SpUtil.remove("loginbox");
-        SpUtil.remove("headPic");
-        SpUtil.remove("nickName");
-        SpUtil.remove("sessionId");
+        SpUtil.remove(Constant.HEADPIC);
+        SpUtil.remove(Constant.NICKNAME);
+        SpUtil.remove(Constant.SESSIONId);
         SpUtil.remove("userId");
 
         startActivity(new Intent(this, LoginActivity.class));

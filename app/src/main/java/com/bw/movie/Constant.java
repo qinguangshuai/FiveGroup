@@ -26,6 +26,8 @@ public interface Constant {
     String PASSWORD = "pwd";
     //电影院Id
     String CINEMAID = "cinemaid";
+    String MESSAGE = "message";
+    String LOGIN = "login";
     //点赞
     int MESSAGEID = 0x0000;
     String SEX = "sex";

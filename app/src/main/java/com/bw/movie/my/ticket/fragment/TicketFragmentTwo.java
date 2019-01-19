@@ -65,7 +65,7 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mTicketformationPresenter.getTicet(page, 5);
+                mTicketformationPresenter.getTicet(page, 5,2);
             }
         });
 
@@ -73,7 +73,7 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
             @Override
             public void info() {
                 mScrollWindow.showPop(mRecyclerView);
-                mTicketformationPresenter.getTicet(page++, 5);
+                mTicketformationPresenter.getTicet(page++, 5,2);
             }
         });
 
@@ -89,7 +89,7 @@ public class TicketFragmentTwo extends BaseFragment implements IBaseView<TicketF
 
     @Override
     public void initData() {
-        mTicketformationPresenter.getTicet(page, 5);
+        mTicketformationPresenter.getTicet(page, 5,2);
     }
 
     @Override

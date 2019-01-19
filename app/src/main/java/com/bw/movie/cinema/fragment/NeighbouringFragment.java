@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.bw.movie.Constant;
 import com.bw.movie.MyApp;
 import com.bw.movie.R;
@@ -28,6 +29,8 @@ import com.bw.movie.cinema.view.NeightbourView;
 import com.bw.movie.greenbean.DaoSession;
 import com.bw.movie.greenbean.GreenDaoBean;
 import com.bw.movie.greenbean.GreenDaoBeanDao;
+import com.bw.movie.util.ToastUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.greendao.query.Query;
@@ -198,10 +201,20 @@ public class NeighbouringFragment extends BaseFragment implements NeightbourView
         showContent();
         swipeRefreshLayout.setRefreshing(false);
         List<GreenDaoBean> users = queryList();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyNeightbor.setLayoutManager(linearLayoutManager);
-        RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
-        recyNeightbor.setAdapter(recommendErrorAdapder);
+        if (users.size() > 0 && users != null) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            recyNeightbor.setLayoutManager(linearLayoutManager);
+            RecommendErrorAdapder recommendErrorAdapder = new RecommendErrorAdapder(users, getActivity());
+            recyNeightbor.setAdapter(recommendErrorAdapder);
+            recommendErrorAdapder.setiErrorList(new RecommendErrorAdapder.IErrorList() {
+                @Override
+                public void getIErrorList(View view, int position) {
+                    ToastUtil.Toast("请检查网络");
+                }
+            });
+        } else {
+            showEmpty();
+        }
 
     }
 

@@ -20,9 +20,9 @@ import io.reactivex.schedulers.Schedulers;
  * */
 public class TicketformationModel extends BaseModel {
 
-    public void getMeassage(int page, int count, final HttpCallBack<TicketFoemationEntity> httpCallBack) {
+    public void getMeassage(int page, int count,int status, final HttpCallBack<TicketFoemationEntity> httpCallBack) {
         OkHttpUtil.get().createa(TicketFormationService.class)
-                .getTicket(page, count)
+                .getTicket(page, count,status)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<TicketFoemationEntity>(httpCallBack){

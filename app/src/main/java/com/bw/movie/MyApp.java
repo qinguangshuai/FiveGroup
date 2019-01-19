@@ -21,13 +21,12 @@ import org.greenrobot.greendao.database.Database;
 /*
  *作者:ash
  *TODO:
- *
- */public class MyApp extends Application {
+ */
+public class MyApp extends Application {
 
     public static Context sContext;
     private IWXAPI wxApi;
     public static final boolean ENCRYPTED = true;
-
     private DaoSession daoSession;
 
     private DaoSession cache;

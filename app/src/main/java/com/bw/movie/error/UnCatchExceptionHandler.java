@@ -54,10 +54,8 @@ public class UnCatchExceptionHandler implements Thread.UncaughtExceptionHandler 
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        if (!handlerException(e)) {
-            if (mHandler != null) {
-                mHandler.uncaughtException(t, e);
-            }
+        if (mHandler != null) {
+            mHandler.uncaughtException(t, e);
         } else {
             try {
                 Thread.sleep(3000);

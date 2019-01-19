@@ -12,7 +12,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bw.movie.Constant;
+import com.bw.movie.MapActivity;
 import com.bw.movie.R;
+import com.bw.movie.RouteSearchActivity;
+import com.bw.movie.RouteSearchActivity;
 import com.bw.movie.base.BaseActivity;
 import com.bw.movie.base.BasePresenter;
 import com.bw.movie.cinema.Particulars.ParticularsAdapder;
@@ -31,6 +34,7 @@ import com.bw.movie.cinema.mevaluate.bean.MevaResultBean;
 import com.bw.movie.cinema.mevaluate.bean.MevaluateBean;
 import com.bw.movie.cinema.mevaluate.presenter.MevaluatePresenter;
 import com.bw.movie.cinema.mevaluate.view.MevaluateView;
+import com.bw.movie.util.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -59,8 +63,6 @@ public class ParticularsActivity extends BaseActivity {
     private ParticularsAdapder particularsAdapder;
     private int id;
     private List<MevaResultBean> mResult;
-
-
 
     @Override
     public void initView() {
@@ -117,8 +119,19 @@ public class ParticularsActivity extends BaseActivity {
         TextView textViewTelephone = view.findViewById(R.id.telephone);
         TextView address = view.findViewById(R.id.address);
         RecyclerView recyclerView = view.findViewById(R.id.MecaluateRecy);
+        ImageView map_image = view.findViewById(R.id.map_image);
         isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou);
+        ImageView phone =view.findViewById(R.id.callphone);
+        isModetails(textViewTool, textViewMetro, textViewBus, textViewTelephone, address, textViewTooltou, textViewMetrotou, textViewBustou,phone);
         getMevaluate(recyclerView);
+        map_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(
+                        ParticularsActivity.this,RouteSearchActivity.class);
+                startActivity(intent);
+            }
+        });
         mdetails_detaildin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,12 +323,19 @@ public class ParticularsActivity extends BaseActivity {
 
     }
 
-    public void isModetails(final TextView textViewTool, final TextView textViewMetro, final TextView textViewBus, final TextView telephone, final TextView address, final TextView viewTool, final TextView viewMetro, TextView viewBus) {
+    public void isModetails(final TextView textViewTool, final TextView textViewMetro, final TextView textViewBus, final TextView telephone, final TextView address, final TextView viewTool, final TextView viewMetro, TextView viewBus, final ImageView phone) {
         new MdetailsPresenter(new MdetailsView<MdetailsBean>() {
-
             @Override
-            public void onDataSuccess(MdetailsBean mdetailsBean) {
-
+            public void onDataSuccess(final MdetailsBean mdetailsBean) {
+                phone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intenteqta = new Intent(Intent.ACTION_CALL);
+                        Uri data = Uri.parse("tel:"+mdetailsBean.getResult().getPhone());
+                        intenteqta.setData(data);
+                        startActivity(intenteqta);
+                    }
+                });
                 String vehicleRoute = mdetailsBean.getResult().getVehicleRoute();
                 String[] split = vehicleRoute.split("。");
                 if (split.length == 0) {

@@ -17,7 +17,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAdapder.MyViewHolder,GreenDaoBean> {
+public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAdapder.MyViewHolder, GreenDaoBean> {
     private List<GreenDaoBean> list;
     private Context mContext;
 
@@ -43,7 +43,6 @@ public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAda
     }
 
 
-
     @Override
     public int getItemCount() {
         return list == null ? 0 : 10;
@@ -59,6 +58,22 @@ public class RecommendErrorAdapder extends BaseRecyclerAdapter<RecommendErrorAda
             simpleDraweeView = itemView.findViewById(R.id.simpview);
             textViewname = itemView.findViewById(R.id.nameneighthour);
             textViewaddress = itemView.findViewById(R.id.addressneighthour);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                     iErrorList.getIErrorList(v,getAdapterPosition());
+                }
+            });
         }
+    }
+
+    private IErrorList iErrorList;
+
+    public void setiErrorList(IErrorList iErrorList) {
+        this.iErrorList = iErrorList;
+    }
+
+    public interface IErrorList {
+        void getIErrorList(View view, int position);
     }
 }
