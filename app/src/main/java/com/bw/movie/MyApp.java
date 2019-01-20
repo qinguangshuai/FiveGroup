@@ -62,12 +62,9 @@ public class MyApp extends Application {
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
 
-
-        DaoMaster.DevOpenHelper helper2 = new DaoMaster.DevOpenHelper(this, "Cache");
-        Database db2 = helper.getWritableDb();
-        cache = new DaoMaster(db).newSession();
-
-
+        DaoMaster.DevOpenHelper helper2 = new DaoMaster.DevOpenHelper(this, "Cache.db");
+        Database db2 = helper2.getWritableDb();
+        cache = new DaoMaster(db2).newSession();
     }
 
     public DaoSession getDaoSession() {

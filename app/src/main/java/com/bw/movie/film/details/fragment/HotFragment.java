@@ -174,22 +174,29 @@ public class HotFragment extends BaseFragment {
         new HotPresenter(new HotPlayView<HotPlayBean>() {
             @Override
             public void onDataSuccess(HotPlayBean hotPlayBean) {
+                final List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
+
+                //耗时操作需要在 子线程中
+                new Thread(){
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < result.size(); i++) {
+                            CacheBean cacheBean = new CacheBean(Long.valueOf(result.get(i).getId()),
+                                    result.get(i).getFollowMovie(),
+                                    result.get(i).getName(),
+                                    result.get(i).getSummary());
+                            cacheBeanDao.insert(cacheBean);
+                        }
+                    }
+                };
 
 
 
-                List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 mHotAdapter.setHotResult(result);
                 mHotAdapter.notifyDataSetChanged();
                 EventBus.getDefault().post(new JumpLgoinEvent(Constant.GETCONNECT));
 
-                for (int i = 0; i < result.size(); i++) {
-                    CacheBean cacheBean = new CacheBean(0l,
-                           result.get(i).getFollowMovie(),
-                           result.get(i).getName(),
-                           result.get(i).getSummary());
-                    cacheBeanDao.insert(cacheBean);
 
-                }
 
             }
 
@@ -199,19 +206,19 @@ public class HotFragment extends BaseFragment {
                 showContent();
                 showEmpty();
 
-//                HotPlayBean hotPlayBean = new HotPlayBean();
-//                List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
+                HotPlayBean hotPlayBean = new HotPlayBean();
+                List<HotPlayBean.ResultBean> result = hotPlayBean.getResult();
                 List<CacheBean> list = cacheQuery.list();
-//                for (int i = 0; i <list.size() ; i++) {
-//                    HotPlayBean.ResultBean resultBean = result.get(i);
-//                    resultBean.setName(list.get(i).getName());
-//                    resultBean.setFollowMovie(list.get(i).getFollowMovie());
-//                    resultBean.setSummary(list.get(i).getSummary());
-//                    result.add(resultBean);
-//                }
+                for (int i = 0; i <list.size() ; i++) {
+                    HotPlayBean.ResultBean resultBean = result.get(i);
+                    resultBean.setName(list.get(i).getName());
+                    resultBean.setFollowMovie(list.get(i).getFollowMovie());
+                    resultBean.setSummary(list.get(i).getSummary());
+                    result.add(resultBean);
+                }
 
-//                mHotAdapter.setHotResult(result);
-                ToastUtil.Toast(list.get(0).getName());
+                mHotAdapter.setHotResult(result);
+//                ToastUtil.Toast(list.get(0).getName());
 
             }
 

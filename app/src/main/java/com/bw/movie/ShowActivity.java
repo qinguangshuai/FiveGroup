@@ -229,7 +229,6 @@ public class ShowActivity extends BaseActivity {
             showloading();
         }else{
             showContent();
-            showEmpty();
         }
 
     }

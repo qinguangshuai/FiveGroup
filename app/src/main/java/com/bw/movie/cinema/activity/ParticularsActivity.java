@@ -136,9 +136,6 @@ public class ParticularsActivity extends BaseActivity {
         map_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(
-                        ParticularsActivity.this,RouteSearchActivity.class);
-                startActivity(intent);*/
                 Intent intent = new Intent("android.intent.action.VIEW",
                         android.net.Uri.parse("androidamap://navi?sourceApplication=一毛共享&lat=" +"" + "&lng=" + ""+ "&dev=0"));
                 intent.setPackage("com.autonavi.minimap");
